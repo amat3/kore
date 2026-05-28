@@ -42,7 +42,7 @@ export interface IconProps {
 const Icon = ({
   name,
   size      = 'md',
-  color     = 'inherit',
+  color     = 'default',
   className,
   strokeWidth = 1.5,
   ...ariaProps

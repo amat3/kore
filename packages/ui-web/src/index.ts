@@ -43,3 +43,7 @@ export type { TagVariant, TagSize }     from './atoms/Tag/Tag.styles'
 export { default as Avatar, AvatarGroup }     from './atoms/Avatar/Avatar'
 export type { AvatarProps, AvatarGroupProps } from './atoms/Avatar/Avatar'
 export type { AvatarSize, DotStatus }         from './atoms/Avatar/Avatar.styles'
+
+// ── Atoms: Card ───────────────────────────────────────────────────────────
+export { default as Card }   from './atoms/Card/Card'
+export type { CardProps }    from './atoms/Card/Card'
