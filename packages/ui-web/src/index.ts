@@ -28,3 +28,18 @@ export type { BadgeProps } from './atoms/Badge/Badge'
 export { default as Icon }          from './atoms/Icon/Icon'
 export type { IconProps, IconName } from './atoms/Icon/Icon'
 export type { IconSize, IconColor } from './atoms/Icon/Icon.styles'
+
+// ── Atoms: Input ──────────────────────────────────────────────────────────
+export { default as Input }           from './atoms/Input/Input'
+export type { InputProps } from './atoms/Input/Input'
+export type { InputState, InputSize }          from './atoms/Input/Input.styles'
+
+// ── Atoms: Tag ────────────────────────────────────────────────────────────
+export { default as Tag, TagGroup }     from './atoms/Tag/Tag'
+export type { TagProps, TagGroupProps } from './atoms/Tag/Tag'
+export type { TagVariant, TagSize }     from './atoms/Tag/Tag.styles'
+
+// ── Atoms: Avatar ─────────────────────────────────────────────────────────
+export { default as Avatar, AvatarGroup }     from './atoms/Avatar/Avatar'
+export type { AvatarProps, AvatarGroupProps } from './atoms/Avatar/Avatar'
+export type { AvatarSize, DotStatus }         from './atoms/Avatar/Avatar.styles'
