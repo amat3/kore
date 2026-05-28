@@ -1,0 +1,66 @@
+[11:20:00.476] [INFO] [36mInitializing Storybook[39m
+[11:20:00.682] [DEBUG] Getting package.json info for /Users/juanantonioamate/workspace/kore/packages/ui-web/package.json...
+[11:20:00.682] [INFO] Package manager: npm
+[11:20:00.683] [DEBUG] Getting CLI versions from NPM for storybook...
+[11:20:00.683] [DEBUG] Executing command: npm info storybook version
+[11:20:01.373] [INFO] Adding Storybook version 10.4.1 to your project
+[11:20:01.374] [DEBUG] Executing command: npm config get min-release-age --workspaces=false --include-workspace-root
+[11:20:01.478] [INFO] Installing Storybook for user specified project type: react
+[11:20:01.478] [DEBUG] Using cached package.json for /Users/juanantonioamate/workspace/kore/packages/ui-web/package.json...
+[11:20:01.480] [DEBUG] Using cached package.json for /Users/juanantonioamate/workspace/kore/packages/ui-web/package.json...
+[11:20:01.480] [DEBUG] Using cached package.json for /Users/juanantonioamate/workspace/kore/package.json...
+[11:20:20.516] [PROMPT] We were not able to detect the right builder for your project. Please select one: {"choice":"vite"}
+[11:20:20.516] [INFO] Framework detected: react-vite
+[11:20:20.518] [DEBUG] Getting installed version for vitest...
+[11:20:20.520] [DEBUG] Executing command: npm ls --json --depth=99 2>/dev/null
+[11:20:21.204] [DEBUG] Executing command: npm ls --json --depth=0 2>/dev/null
+[11:20:21.685] [DEBUG] Error finding installations for vitest: ExecaError: Command failed with exit code 1: npm ls --json '--depth=0' '2>/dev/null'
+
+{
+  "name": "kore"
+}
+[11:20:21.685] [DEBUG] No installations found for vitest
+[11:20:21.685] [DEBUG] Getting installed version for msw...
+[11:20:21.685] [DEBUG] Executing command: npm ls --json --depth=99 2>/dev/null
+[11:20:22.202] [DEBUG] Executing command: npm ls --json --depth=0 2>/dev/null
+[11:20:22.676] [DEBUG] Error finding installations for msw: ExecaError: Command failed with exit code 1: npm ls --json '--depth=0' '2>/dev/null'
+
+{
+  "name": "kore"
+}
+[11:20:22.676] [DEBUG] No installations found for msw
+[11:20:42.669] [PROMPT] What configuration should we install? {"choice":"recommended"}
+[11:20:42.673] [INFO] Storybook collects completely anonymous usage telemetry. We use it to shape Storybook's roadmap and prioritize features. You can learn more, including how to opt out, at https://storybook.js.org/telemetry
+[11:21:04.547] [PROMPT] Would you like to install AI features (MCP addon and prompt suggestions)? {"choice":false}
+[11:21:04.553] [INFO] base-generator-task-start: Generating Storybook configuration
+[11:21:04.554] [DEBUG] Using cached package.json for /Users/juanantonioamate/workspace/kore/packages/ui-web/package.json...
+[11:21:04.554] [DEBUG] Using cached package.json for /Users/juanantonioamate/workspace/kore/packages/ui-web/package.json...
+[11:21:04.554] [DEBUG] Using cached package.json for /Users/juanantonioamate/workspace/kore/package.json...
+[11:21:04.554] [DEBUG] Using cached package.json for /Users/juanantonioamate/workspace/kore/packages/ui-web/package.json...
+[11:21:04.555] [DEBUG] Getting CLI versions from NPM for @chromatic-com/storybook...
+[11:21:04.555] [DEBUG] Executing command: npm info @chromatic-com/storybook version
+[11:21:04.562] [DEBUG] Getting CLI versions from NPM for @storybook/addon-vitest...
+[11:21:04.562] [DEBUG] Executing command: npm info @storybook/addon-vitest version
+[11:21:04.566] [DEBUG] Getting CLI versions from NPM for @storybook/addon-a11y...
+[11:21:04.566] [DEBUG] Executing command: npm info @storybook/addon-a11y version
+[11:21:04.571] [DEBUG] Getting CLI versions from NPM for @storybook/addon-docs...
+[11:21:04.571] [DEBUG] Executing command: npm info @storybook/addon-docs version
+[11:21:05.587] [INFO] base-generator-task: - Configuring main.ts
+[11:21:05.588] [INFO] base-generator-task: - Configuring preview.ts
+[11:21:05.589] [INFO] base-generator-task: - Adding Storybook command to package.json
+[11:21:05.589] [DEBUG] Getting package.json info for /Users/juanantonioamate/workspace/kore/packages/ui-web/package.json...
+[11:21:05.589] [DEBUG] Using cached package.json for /Users/juanantonioamate/workspace/kore/packages/ui-web/package.json...
+[11:21:05.589] [DEBUG] Using cached package.json for /Users/juanantonioamate/workspace/kore/packages/ui-web/package.json...
+[11:21:05.589] [INFO] base-generator-task: - Copying framework templates
+[11:21:05.618] [ERROR] [38;2;241;97;97mError: Unsupported renderer: react-vite (/Users/juanantonioamate/workspace/kore/node_modules/@storybook/react-vite)[39m
+    at templatePath (file:///Users/juanantonioamate/.npm/_npx/ecccd379458fbd6a/node_modules/storybook/dist/_node-chunks/chunk-4ISTEHCM.js:5496:11)
+    at async copyTemplateFiles (file:///Users/juanantonioamate/.npm/_npx/ecccd379458fbd6a/node_modules/storybook/dist/_node-chunks/chunk-4ISTEHCM.js:5499:17)
+    at async baseGenerator (file:///Users/juanantonioamate/.npm/_npx/ecccd379458fbd6a/node_modules/create-storybook/dist/_node-chunks/chunk-UR7I3RA2.js:1468:152)
+    at async GeneratorExecutionCommand.executeProjectGenerator (file:///Users/juanantonioamate/.npm/_npx/ecccd379458fbd6a/node_modules/create-storybook/dist/_node-chunks/chunk-UR7I3RA2.js:1541:101)
+    at async GeneratorExecutionCommand.execute (file:///Users/juanantonioamate/.npm/_npx/ecccd379458fbd6a/node_modules/create-storybook/dist/_node-chunks/chunk-UR7I3RA2.js:1564:61)
+    at async doInitiate (file:///Users/juanantonioamate/.npm/_npx/ecccd379458fbd6a/node_modules/create-storybook/dist/_node-chunks/chunk-UR7I3RA2.js:3527:95)
+    at async file:///Users/juanantonioamate/.npm/_npx/ecccd379458fbd6a/node_modules/create-storybook/dist/_node-chunks/chunk-UR7I3RA2.js:3590:20
+    at async withTelemetry (file:///Users/juanantonioamate/.npm/_npx/ecccd379458fbd6a/node_modules/storybook/dist/_node-chunks/chunk-CUZMMOHY.js:655:12)
+    at async initiate (file:///Users/juanantonioamate/.npm/_npx/ecccd379458fbd6a/node_modules/create-storybook/dist/_node-chunks/chunk-UR7I3RA2.js:3581:24)
+    at async _Command.<anonymous> (file:///Users/juanantonioamate/.npm/_npx/ecccd379458fbd6a/node_modules/create-storybook/dist/_node-chunks/run-LEEJO2AR.js:2717:3)
+[11:21:14.549] [PROMPT] Would you like to send anonymous crash reports to improve Storybook and fix bugs faster? {"choice":false}
