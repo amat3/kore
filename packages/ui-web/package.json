@@ -13,13 +13,13 @@
       "require": "./dist/index.js"
     }
   },
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "type-check": "tsc --noEmit"
-  },
+ "scripts": {
+  "build":      "tsup",
+  "dev":        "storybook dev -p 6006",
+  "storybook":  "storybook dev -p 6006",
+  "build-storybook": "storybook build",
+  "type-check": "tsc --noEmit"
+},
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"

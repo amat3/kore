@@ -1,3 +1,4 @@
+'use client'
 /**
  * @kore/ui-web — Text
  *

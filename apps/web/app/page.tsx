@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { Text } from '@kore/ui-web'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
           priority
         />
         <div className={styles.intro}>
+          <Text>Prueba del componente Text</Text>
           <h1>To get started, edit the page.tsx file.</h1>
           <p>
             Looking for a starting point or more instructions? Head over to{" "}
