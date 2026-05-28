@@ -13,13 +13,13 @@
       "require": "./dist/index.js"
     }
   },
- "scripts": {
-  "build":      "tsup",
-  "dev":        "storybook dev -p 6006",
-  "storybook":  "storybook dev -p 6006",
-  "build-storybook": "storybook build",
-  "type-check": "tsc --noEmit"
-},
+  "scripts": {
+    "build": "tsup",
+    "dev": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "type-check": "tsc --noEmit"
+  },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
@@ -27,7 +27,8 @@
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
-    "@kore/tokens": "*"
+    "@kore/tokens": "*",
+    "lucide-react": "^1.17.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.0.0",

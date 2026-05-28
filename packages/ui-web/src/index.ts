@@ -19,3 +19,12 @@ export type { ButtonProps } from './atoms/Button/Button'
 
 // ── Atoms: Spinner ────────────────────────────────────────────────────────
 export { Spinner }          from './atoms/Spinner/Spinner'
+
+// ── Atoms: Badge ──────────────────────────────────────────────────────────
+export { default as Badge }          from './atoms/Badge/Badge'
+export type { BadgeProps } from './atoms/Badge/Badge'
+
+// ── Atoms: Icon ───────────────────────────────────────────────────────────
+export { default as Icon }          from './atoms/Icon/Icon'
+export type { IconProps, IconName } from './atoms/Icon/Icon'
+export type { IconSize, IconColor } from './atoms/Icon/Icon.styles'
