@@ -1,0 +1,32 @@
+cat > .gitignore << 'EOF'
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+.next/
+out/
+build/
+
+# Turbo
+.turbo/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+
+# Expo
+.expo/
+apps/mobile/android/
+apps/mobile/ios/
+EOF

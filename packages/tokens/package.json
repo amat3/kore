@@ -1,0 +1,33 @@
+{
+  "name": "@kore/tokens",
+  "version": "1.0.0",
+  "private": true,
+  "description": "KORE design tokens — single source of truth for web and native",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./css": "./dist/kore.css",
+    "./themes": {
+      "types": "./dist/themes/index.d.ts",
+      "import": "./dist/themes/index.mjs",
+      "require": "./dist/themes/index.js"
+    }
+  },
+  "scripts": {
+   "build": "tsx src/scripts/build-tokens.ts && tsup",
+    "dev": "tsx watch src/scripts/build-tokens.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.5.1",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  }
+}
