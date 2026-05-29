@@ -59,3 +59,11 @@ export type { WorkoutCardProps, WorkoutLevel }   from './molecules/WorkoutCard/W
 // ── Molecules: FilterBar ──────────────────────────────────────────────────
 export { default as FilterBar }                  from './molecules/FilterBar/FilterBar'
 export type { FilterBarProps, FilterItem }       from './molecules/FilterBar/FilterBar'
+
+// ── Molecules: StreakBadge ────────────────────────────────────────────────
+export { default as StreakBadge }              from './molecules/StreakBadge/StreakBadge'
+export type { StreakBadgeProps, StreakVariant } from './molecules/StreakBadge/StreakBadge'
+
+// ── Molecules: NavBar ─────────────────────────────────────────────────────
+export { default as NavBar }         from './molecules/NavBar/NavBar'
+export type { NavBarProps, NavItem } from './molecules/NavBar/NavBar'
