@@ -1,28 +1,8 @@
 'use client'
 
-/**
- * @kore/ui-web — Input
- *
- * Campo de texto completo con label, helper, error, iconos y estado de limpieza.
- *
- * @example
- * <Input
- *   label="Email"
- *   placeholder="tu@email.com"
- *   type="email"
- *   leftIcon={<Icon name="Mail" size="sm" />}
- * />
- *
- * <Input
- *   label="Contraseña"
- *   state="error"
- *   errorText="Contraseña incorrecta"
- *   type="password"
- * />
- */
-
-import { useRef, useState, useId }          from 'react'
-import styled                                from '@emotion/styled'
+import { useId }   from 'react'
+import styled      from '@emotion/styled'
+import Icon        from '../Icon/Icon'
 import {
   baseWrapperStyles,
   baseFieldStyles,
@@ -36,58 +16,21 @@ import {
   InputSize,
 } from './Input.styles'
 
-// ── Tipos ─────────────────────────────────────────────────────────────────
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  /** Estado visual del input */
   state?:        InputState
-  /** Tamaño del input */
   size?:         InputSize
-  /** Label accesible sobre el campo */
   label?:        string
-  /** Texto de ayuda bajo el campo */
   helperText?:   string
-  /** Mensaje de error (activa state="error" automáticamente) */
   errorText?:    string
-  /** Mensaje de éxito (activa state="success" automáticamente) */
   successText?:  string
-  /** Icono a la izquierda del texto */
   leftIcon?:     React.ReactNode
-  /** Icono a la derecha del texto */
   rightIcon?:    React.ReactNode
-  /** Botón para limpiar el campo */
   clearable?:    boolean
-  /** Callback al limpiar */
   onClear?:      () => void
-  /** Ocupa el ancho disponible */
   fullWidth?:    boolean
 }
 
-// ── Icono de limpiar ──────────────────────────────────────────────────────
-const ClearIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <line x1="18" y1="6" x2="6" y2="18" />
-    <line x1="6" y1="6" x2="18" y2="18" />
-  </svg>
-)
-
-// ── Icono de error ────────────────────────────────────────────────────────
-const ErrorIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-    <circle cx="12" cy="12" r="10" />
-    <line x1="12" y1="8" x2="12" y2="12" />
-    <line x1="12" y1="16" x2="12.01" y2="16" />
-  </svg>
-)
-
-// ── Icono de éxito ────────────────────────────────────────────────────────
-const SuccessIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-    <path d="M20 6L9 17l-5-5" />
-  </svg>
-)
-
-// ── Componente ────────────────────────────────────────────────────────────
 const Input = ({
   state,
   size       = 'md',
@@ -107,11 +50,9 @@ const Input = ({
   onChange,
   ...props
 }: InputProps) => {
-  const autoId       = useId()
-  const inputId      = id ?? autoId
-  const inputRef     = useRef<HTMLInputElement>(null)
+  const autoId      = useId()
+  const inputId     = id ?? autoId
 
-  // Estado derivado — errorText y successText sobrescriben state
   const resolvedState: InputState =
     errorText   ? 'error'   :
     successText ? 'success' :
@@ -119,13 +60,14 @@ const Input = ({
     state       ?? 'default'
 
   const handleClear = () => {
-    if (inputRef.current) {
+    const input = document.getElementById(inputId) as HTMLInputElement
+    if (input) {
       const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
         window.HTMLInputElement.prototype, 'value'
       )?.set
-      nativeInputValueSetter?.call(inputRef.current, '')
-      inputRef.current.dispatchEvent(new Event('input', { bubbles: true }))
-      inputRef.current.focus()
+      nativeInputValueSetter?.call(input, '')
+      input.dispatchEvent(new Event('input', { bubbles: true }))
+      input.focus()
     }
     onClear?.()
   }
@@ -133,7 +75,6 @@ const Input = ({
   return (
     <WrapperStyled $fullWidth={fullWidth}>
 
-      {/* Label ─────────────────────────────────────────────────────── */}
       {label && (
         <LabelStyled
           htmlFor={inputId}
@@ -145,19 +86,15 @@ const Input = ({
         </LabelStyled>
       )}
 
-      {/* Field ─────────────────────────────────────────────────────── */}
       <FieldStyled $state={resolvedState} $size={size}>
 
-        {/* Icono izquierdo */}
         {leftIcon && (
           <span className="kore-input-icon" aria-hidden="true">
             {leftIcon}
           </span>
         )}
 
-        {/* Input nativo */}
         <input
-          ref={inputRef}
           id={inputId}
           disabled={disabled}
           value={value}
@@ -173,7 +110,6 @@ const Input = ({
           {...props}
         />
 
-        {/* Botón limpiar */}
         {clearable && (
           <button
             type="button"
@@ -182,40 +118,42 @@ const Input = ({
             aria-label="Limpiar campo"
             tabIndex={-1}
           >
-            <ClearIcon />
+            <Icon name="X" size="xs" color="inherit" />
           </button>
         )}
 
-        {/* Icono derecho — oculto si hay clearable y hay contenido */}
         {rightIcon && !clearable && (
           <span className="kore-input-icon" aria-hidden="true">
             {rightIcon}
           </span>
         )}
 
-        {/* Icono de estado inline (error/success en el campo) */}
         {resolvedState === 'error' && !rightIcon && !clearable && (
-          <span className="kore-input-icon" aria-hidden="true" style={{ color: 'var(--foreground-error-on-surface)' }}>
-            <ErrorIcon />
+          <span className="kore-input-icon" aria-hidden="true"
+            style={{ color: 'var(--foreground-error-on-surface)' }}>
+            <Icon name="CircleAlert" size="sm" color="inherit" />
           </span>
         )}
+
         {resolvedState === 'success' && !rightIcon && !clearable && (
-          <span className="kore-input-icon" aria-hidden="true" style={{ color: 'var(--foreground-success-on-surface)' }}>
-            <SuccessIcon />
+          <span className="kore-input-icon" aria-hidden="true"
+            style={{ color: 'var(--foreground-success-on-surface)' }}>
+            <Icon name="CircleCheck" size="sm" color="inherit" />
           </span>
         )}
 
       </FieldStyled>
 
-      {/* Textos de feedback ─────────────────────────────────────────── */}
       {errorText && (
         <ErrorTextStyled id={`${inputId}-error`} role="alert">
-          <ErrorIcon /> {errorText}
+          <Icon name="CircleAlert" size="xs" color="inherit" />
+          {errorText}
         </ErrorTextStyled>
       )}
       {successText && !errorText && (
         <SuccessTextStyled id={`${inputId}-success`}>
-          <SuccessIcon /> {successText}
+          <Icon name="CircleCheck" size="xs" color="inherit" />
+          {successText}
         </SuccessTextStyled>
       )}
       {helperText && !errorText && !successText && (
@@ -228,7 +166,6 @@ const Input = ({
   )
 }
 
-// ── Styled components ─────────────────────────────────────────────────────
 const WrapperStyled = styled.div<{ $fullWidth: boolean }>`
   ${baseWrapperStyles}
   width: ${({ $fullWidth }) => $fullWidth ? '100%' : 'auto'};

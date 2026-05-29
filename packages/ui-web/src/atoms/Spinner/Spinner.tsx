@@ -1,7 +1,8 @@
 'use client'
 
-import styled    from '@emotion/styled'
+import styled        from '@emotion/styled'
 import { keyframes } from '@emotion/react'
+import Icon          from '../Icon/Icon'
 
 const spin = keyframes`
   from { transform: rotate(0deg);   }
@@ -11,16 +12,18 @@ const spin = keyframes`
 const sizes = { sm: 14, md: 18 } as const
 
 export const Spinner = ({ size = 'md' }: { size?: 'sm' | 'md' }) => (
-  <SpinnerStyled $size={sizes[size]} aria-hidden="true" />
+  <SpinnerWrapper $size={sizes[size]} aria-hidden="true">
+    <Icon name="Loader" size={size === 'sm' ? 'xs' : 'sm'} color="inherit" />
+  </SpinnerWrapper>
 )
 
-const SpinnerStyled = styled.span<{ $size: number }>`
-  display:       inline-block;
-  width:         ${({ $size }) => $size}px;
-  height:        ${({ $size }) => $size}px;
-  border:        2px solid currentColor;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation:     ${spin} 600ms linear infinite;
-  flex-shrink:   0;
+const SpinnerWrapper = styled.span<{ $size: number }>`
+  display:    inline-flex;
+  align-items: center;
+  justify-content: center;
+  width:      ${({ $size }) => $size}px;
+  height:     ${({ $size }) => $size}px;
+  animation:  ${spin} 600ms linear infinite;
+  flex-shrink: 0;
+  color:      currentColor;
 `

@@ -1,5 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import Icon from '../Icon/Icon'
 import Input from './Input'
+
+const iconOptions = {
+  'Ninguno': undefined,
+  'Mail': <Icon name="Mail" size="sm" color="inherit" />,
+  'Lock': <Icon name="Lock" size="sm" color="inherit" />,
+  'User': <Icon name="User" size="sm" color="inherit" />,
+  'Phone': <Icon name="Phone" size="sm" color="inherit" />,
+  'Eye': <Icon name="Eye" size="sm" color="inherit" />,
+  'EyeOff': <Icon name="EyeOff" size="sm" color="inherit" />,
+  'Calendar': <Icon name="Calendar" size="sm" color="inherit" />,
+  'Globe': <Icon name="Globe" size="sm" color="inherit" />,
+  'Link': <Icon name="Link" size="sm" color="inherit" />,
+}
 
 const meta: Meta<typeof Input> = {
   title:     'KORE/Atoms/Input',
@@ -18,6 +32,16 @@ const meta: Meta<typeof Input> = {
     type: {
       control: 'select',
       options: ['text', 'email', 'password', 'number', 'search', 'tel', 'url'],
+    },
+    leftIcon: {
+      control:  { type: 'select' },
+      options:  Object.keys(iconOptions),
+      mapping:  iconOptions,
+    },
+    rightIcon: {
+      control:  { type: 'select' },
+      options:  Object.keys(iconOptions),
+      mapping:  iconOptions,
     },
   },
   args: {

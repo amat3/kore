@@ -1,22 +1,9 @@
 'use client'
 
-/**
- * @kore/ui-web — WorkoutCard
- * Consume el átomo Card como contenedor base.
- */
+import styled  from '@emotion/styled'
+import Card    from '../../atoms/Card/Card'
+import Icon    from '../../atoms/Icon/Icon'
 
-import styled         from '@emotion/styled'
-import Card           from '../../atoms/Card/Card'
-
-// ── Icono placeholder ─────────────────────────────────────────────────────
-const DumbbellIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-    <path d="M6 5v14M18 5v14M8 8H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h4M16 8h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-4M8 12h8"/>
-  </svg>
-)
-
-// ── Tipos ─────────────────────────────────────────────────────────────────
 export type WorkoutLevel = 'beginner' | 'intermediate' | 'advanced'
 
 const levelLabel: Record<WorkoutLevel, string> = {
@@ -38,7 +25,6 @@ export interface WorkoutCardProps {
   className?: string
 }
 
-// ── Componente ────────────────────────────────────────────────────────────
 const WorkoutCard = ({
   title,
   category,
@@ -59,34 +45,28 @@ const WorkoutCard = ({
     role="article"
   >
 
-    {/* ── Imagen ─────────────────────────────────────────────── */}
     <ImageWrapper className="kore-card-image">
       {imageSrc ? (
         <img src={imageSrc} alt={imageAlt ?? title} loading="lazy" />
       ) : (
-        <Placeholder><DumbbellIcon /></Placeholder>
+        <Placeholder>
+          <Icon name="Dumbbell" size="lg" color="muted" />
+        </Placeholder>
       )}
 
       {completed && (
         <CompletedBadge aria-label="Completado">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-            <path d="M20 6L9 17l-5-5" />
-          </svg>
+          <Icon name="Check" size="xs" color="inherit" />
         </CompletedBadge>
       )}
 
       {favorited && (
         <FavoriteBadge aria-label="Favorito">
-          <svg width="12" height="12" viewBox="0 0 24 24"
-            fill="currentColor" stroke="none" aria-hidden="true">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-          </svg>
+          <Icon name="Heart" size="sm" color="inherit" />
         </FavoriteBadge>
       )}
     </ImageWrapper>
 
-    {/* ── Body ───────────────────────────────────────────────── */}
     <Body>
       <Overline>{category}</Overline>
       <Title>{title}</Title>
@@ -133,7 +113,6 @@ const Placeholder = styled.div`
   display:         flex;
   align-items:     center;
   justify-content: center;
-  color:           var(--foreground-tertiary-on-surface);
 `
 
 const Body = styled.div`
@@ -205,7 +184,7 @@ const FavoriteBadge = styled.div`
   position: absolute;
   top:      var(--spacing-xs);
   left:     var(--spacing-xs);
-  color:    #B05E3A;
+  color:    var(--foreground-accent-on-surface);
   filter:   drop-shadow(0 1px 2px rgba(0,0,0,0.2));
 `
 

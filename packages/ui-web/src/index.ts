@@ -34,6 +34,10 @@ export { default as Input }           from './atoms/Input/Input'
 export type { InputProps } from './atoms/Input/Input'
 export type { InputState, InputSize }          from './atoms/Input/Input.styles'
 
+// ── Atoms: SearchInput ────────────────────────────────────────────────────
+export { default as SearchInput }        from './atoms/SearchInput/SearchInput'
+export type { SearchInputProps }         from './atoms/SearchInput/SearchInput'
+
 // ── Atoms: Tag ────────────────────────────────────────────────────────────
 export { default as Tag, TagGroup }     from './atoms/Tag/Tag'
 export type { TagProps, TagGroupProps } from './atoms/Tag/Tag'
@@ -47,3 +51,11 @@ export type { AvatarSize, DotStatus }         from './atoms/Avatar/Avatar.styles
 // ── Atoms: Card ───────────────────────────────────────────────────────────
 export { default as Card }   from './atoms/Card/Card'
 export type { CardProps }    from './atoms/Card/Card'
+
+// ── Molecules: WorkoutCard ────────────────────────────────────────────────
+export { default as WorkoutCard }                from './molecules/WorkoutCard/WorkoutCard'
+export type { WorkoutCardProps, WorkoutLevel }   from './molecules/WorkoutCard/WorkoutCard'
+
+// ── Molecules: FilterBar ──────────────────────────────────────────────────
+export { default as FilterBar }                  from './molecules/FilterBar/FilterBar'
+export type { FilterBarProps, FilterItem }       from './molecules/FilterBar/FilterBar'
