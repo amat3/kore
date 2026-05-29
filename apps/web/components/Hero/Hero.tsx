@@ -6,16 +6,17 @@
  * Animaciones GSAP:
  * 1. Overline entra desde arriba (stagger)
  * 2. Wordmark "KORE" — cada letra cae con spring
- * 3. Claim y CTAs slide up en secuencia
+ * 3. Claim, CTAs y Link slide up en secuencia
  * 4. Scroll indicator pulsa en loop
  * 5. Parallax suave en scroll
  */
 
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled                 from '@emotion/styled'
 import { keyframes }          from '@emotion/react'
 import gsap                   from 'gsap'
 import { ScrollTrigger }      from 'gsap/ScrollTrigger'
+import Link from 'next/link'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -32,6 +33,7 @@ const Hero = () => {
   const lettersRef   = useRef<HTMLDivElement>(null)
   const claimRef     = useRef<HTMLParagraphElement>(null)
   const ctasRef      = useRef<HTMLDivElement>(null)
+  const recruiterRef = useRef<HTMLAnchorElement>(null)
   const scrollRef    = useRef<HTMLDivElement>(null)
   const bgRef        = useRef<HTMLDivElement>(null)
 
@@ -47,12 +49,13 @@ const Hero = () => {
         ctasRef.current,
         scrollRef.current,
       ], { autoAlpha: 0 })
-
+      
       gsap.set(overlineRef.current, { y: -20 })
       gsap.set(lettersRef.current?.children ?? [], { y: -80 })
       gsap.set(claimRef.current,  { y: 30 })
       gsap.set(ctasRef.current,   { y: 30 })
-
+      gsap.set(recruiterRef.current, { autoAlpha: 0, y: 20 })
+      
       // 1. Overline
       tl.to(overlineRef.current, {
         autoAlpha: 1,
@@ -83,13 +86,20 @@ const Hero = () => {
         duration:  0.6,
       }, 1.2)
 
-      // 5. Scroll indicator
+      // 5. Link
+      tl.to(recruiterRef.current, {
+  autoAlpha: 1,
+  y:         0,
+  duration:  0.5,
+}, 1.5)
+
+      // 6. Scroll indicator
       tl.to(scrollRef.current, {
         autoAlpha: 1,
         duration:  0.5,
       }, 1.6)
 
-      // 6. Parallax en scroll — fondo se mueve más lento
+      // 7. Parallax en scroll — fondo se mueve más lento
       gsap.to(bgRef.current, {
         yPercent:      20,
         ease:          'none',
@@ -143,6 +153,11 @@ const Hero = () => {
             Ver entrenamientos →
           </CTASecondary>
         </CTAs>
+
+        {/* Puente reclutador */}
+      <RecruiterLink href="/portfolio" ref={recruiterRef}>
+        ¿Eres reclutador? Ver portfolio técnico →
+      </RecruiterLink>
 
       </Content>
 
@@ -321,6 +336,26 @@ const ScrollLabel = styled.span`
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
   color:          rgba(247, 244, 241, 0.3);
+`
+
+const RecruiterLinkBase = React.forwardRef<HTMLAnchorElement, React.ComponentProps<typeof Link>>(
+  (props, ref) => <Link {...props} ref={ref} />
+)
+RecruiterLinkBase.displayName = 'RecruiterLink'
+
+const RecruiterLink = styled(RecruiterLinkBase)`
+  display:        inline-flex;
+  margin-top:     var(--spacing-xl);
+  font-family:    var(--font-family-ui);
+  font-size:      var(--scale-s);
+  font-weight:    var(--font-weight-regular);
+  color:          rgba(247, 244, 241, 0.4);
+  text-decoration: none;
+  letter-spacing: var(--letter-spacing-moderate);
+  transition:     color 200ms;
+  visibility:     hidden;
+
+  &:hover { color: rgba(247, 244, 241, 0.8); }
 `
 
 export default Hero
