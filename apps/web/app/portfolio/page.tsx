@@ -2,6 +2,8 @@ import PortfolioHero          from '@/components/Portfolio/PortfolioHero'
 import DesignSystemShowcase   from '@/components/DesignSystemShowcase/DesignSystemShowcase'
 import StackSection from '@/components/StackSection/StackSection'
 import Dashboard from '@/components/Dashboard/Dashboard'
+import CrossPlatform from '@/components/CrossPlatform/CrossPlatform'
+import Contact from '@/components/Contact/Contact'
 
 export const metadata = {
   title:       'Portfolio técnico — Juan Antonio Amate · Frontend Developer',
@@ -15,6 +17,8 @@ export default function PortfolioPage() {
       <DesignSystemShowcase />
       <StackSection />
       <Dashboard />
+       <CrossPlatform />
+      <Contact />
     </main>
   )
 }
