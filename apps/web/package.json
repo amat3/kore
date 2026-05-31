@@ -13,10 +13,13 @@
     "@kore/ui-web": "*",
     "dotenv": "^17.4.2",
     "firebase": "^12.14.0",
+    "framer-motion": "^12.40.0",
     "gsap": "^3.15.0",
+    "i18next": "^26.3.0",
     "next": "16.2.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-i18next": "^17.0.8"
   },
   "devDependencies": {
     "@types/node": "^20",
