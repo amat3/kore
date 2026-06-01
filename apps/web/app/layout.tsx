@@ -1,9 +1,7 @@
 import '@kore/tokens/css'
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
-import { cookies } from 'next/headers'
 import { ThemeProvider } from '@/providers/ThemeProvider'
-import Header from '@/components/Header/Header'
 import { AuthProvider } from '@/providers/AuthProvider'
 
 // ── Fuentes KORE ──────────────────────────────────────────────────────────
@@ -27,23 +25,16 @@ export const metadata: Metadata = {
 }
 
 // ── Layout ────────────────────────────────────────────────────────────────
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies()
-  const theme = (cookieStore.get('kore-theme')?.value ?? 'light') as 'light' | 'dark'
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="es"
-      data-theme={theme}
       className={`${cormorant.variable} ${dmSans.variable}`}
       suppressHydrationWarning
     >
       <body>
         <ThemeProvider>
-          <AuthProvider>
-            <Header />
-            {children}
-          </AuthProvider>
+          <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
       </body>
     </html>
