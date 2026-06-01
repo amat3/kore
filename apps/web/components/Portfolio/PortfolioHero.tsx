@@ -77,12 +77,13 @@ const PortfolioHero = () => (
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
   background-color: var(--background-surface-low);
-  padding-block:    clamp(4rem, 10vw, 8rem);
+  padding-top:      calc(56px + clamp(4rem, 10vw, 8rem));
+  padding-bottom:    clamp(4rem, 10vw, 8rem);
   border-bottom:    0.5px solid var(--stroke-secondary-on-surface);
 `
 
 const Container = styled.div`
-  max-width:      900px;
+  max-width:      1200px;
   margin:         0 auto;
   padding-inline: var(--spacing-l);
   @media (min-width: 600px)  { padding-inline: var(--spacing-2xl); }
