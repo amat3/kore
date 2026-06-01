@@ -52,6 +52,10 @@ export type { AvatarSize, DotStatus }         from './atoms/Avatar/Avatar.styles
 export { default as Card }   from './atoms/Card/Card'
 export type { CardProps }    from './atoms/Card/Card'
 
+// ── Atoms: StatCard ───────────────────────────────────────────────────────
+export { default as StatCard }          from './atoms/StatCard/StatCard'
+export type { StatCardProps, StatTrend } from './atoms/StatCard/StatCard'
+
 // ── Molecules: WorkoutCard ────────────────────────────────────────────────
 export { default as WorkoutCard }                from './molecules/WorkoutCard/WorkoutCard'
 export type { WorkoutCardProps, WorkoutLevel }   from './molecules/WorkoutCard/WorkoutCard'
