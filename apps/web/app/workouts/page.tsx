@@ -8,7 +8,7 @@ import  Catalog     from '@/components/Catalog/Catalog'
 import { Icon }        from '@kore/ui-web'
 
 export default function WorkoutsPage() {
-  const { user, loading, logout } = useAuth()
+  const { user, loading } = useAuth()
   const router                    = useRouter()
 
   useEffect(() => {
@@ -19,16 +19,6 @@ export default function WorkoutsPage() {
 
   return (
     <Page>
-      <UserBar>
-        <UserInfo>
-          <Icon name="User" size="sm" color="accent" />
-          <span>{user.displayName ?? user.email}</span>
-        </UserInfo>
-        <LogoutButton onClick={logout} type="button">
-          <Icon name="LogOut" size="sm" color="inherit" />
-          Salir
-        </LogoutButton>
-      </UserBar>
       <Catalog />
     </Page>
   )

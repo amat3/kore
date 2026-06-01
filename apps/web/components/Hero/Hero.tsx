@@ -146,10 +146,13 @@ const Hero = () => {
 
         {/* CTAs */}
         <CTAs ref={ctasRef}>
-          <CTAPrimary>
+         <CTAPrimary href="/register">
             Empezar ahora
           </CTAPrimary>
-          <CTASecondary>
+          <CTASecondary
+    onClick={() => document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' })}
+    type="button"
+  >
             Ver entrenamientos →
           </CTASecondary>
         </CTAs>
@@ -274,7 +277,7 @@ const CTAs = styled.div`
   visibility:  hidden;
 `
 
-const CTAPrimary = styled.button`
+const CTAPrimary = styled(Link)`
   background:     #B05E3A;
   color:          #F7F4F1;
   border:         none;
@@ -286,11 +289,14 @@ const CTAPrimary = styled.button`
   letter-spacing: var(--letter-spacing-spacious);
   text-transform: uppercase;
   cursor:         pointer;
+  text-decoration: none;
+  display:        inline-flex;
+  align-items:    center;
   transition:     background 200ms ease, transform 200ms ease;
 
   &:hover {
-    background:  color-mix(in srgb, #B05E3A, black 15%);
-    transform:   translateY(-1px);
+    background: color-mix(in srgb, #B05E3A, black 15%);
+    transform:  translateY(-1px);
   }
   &:active { transform: scale(0.98); }
 `

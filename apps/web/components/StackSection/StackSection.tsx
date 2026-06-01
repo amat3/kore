@@ -9,7 +9,7 @@
 
 import '@/i18n'
 import styled                from '@emotion/styled'
-import { motion }            from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { useTranslation }    from 'react-i18next'
 
 // ── Data ──────────────────────────────────────────────────────────────────
@@ -49,7 +49,7 @@ const containerVariants = {
   visible: { transition: { staggerChildren: 0.06 } },
 }
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden:  { opacity: 0, y: 20, scale: 0.95 },
   visible: { opacity: 1, y: 0,  scale: 1,
     transition: { type: 'spring', stiffness: 300, damping: 24 }

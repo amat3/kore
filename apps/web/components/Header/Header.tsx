@@ -1,27 +1,53 @@
 'use client'
 
-/**
- * Header global — aparece en todas las páginas.
- * Logo KORE + ThemeToggle.
- * Transparente sobre el Hero, sólido en el resto de páginas.
- */
+import Link            from 'next/link'
+import { useRouter }  from 'next/navigation'
+import styled          from '@emotion/styled'
+import ThemeToggle     from '@/components/ThemeToggle/ThemeToggle'
+import { useAuth }     from '@/providers/AuthProvider'
+import { Avatar, Icon } from '@kore/ui-web'
 
-import Link          from 'next/link'
-import styled         from '@emotion/styled'
-import ThemeToggle   from '@/components/ThemeToggle/ThemeToggle'
+const Header = () => {
+  const { user, logout } = useAuth()
+  const router           = useRouter()
 
-const Header = () => (
-  <HeaderStyled>
-    <Container>
-      <LogoLink href="/">
-        KORE
-      </LogoLink>
-      <Actions>
-        <ThemeToggle />
-      </Actions>
-    </Container>
-  </HeaderStyled>
-)
+  const handleLogout = async () => {
+    await logout()
+    router.push('/')
+  }
+
+  return (
+    <HeaderStyled>
+      <Container>
+        <LogoLink href="/">KORE</LogoLink>
+
+        <Actions>
+          {user && (
+            <>
+              <Avatar
+                name={user.displayName ?? user.email ?? 'Usuario'}
+                src={user.photoURL ?? undefined}
+                size="sm"
+              />
+              <UserName>
+                {user.displayName ?? user.email}
+              </UserName>
+              <LogoutButton
+                onClick={handleLogout}
+                type="button"
+                aria-label="Cerrar sesión"
+                title="Cerrar sesión"
+              >
+                <Icon name="LogOut" size="sm" color="inherit" />
+              </LogoutButton>
+            </>
+          )}
+          <ThemeToggle />
+        </Actions>
+      </Container>
+    </HeaderStyled>
+  )
+}
 
 const HeaderStyled = styled.header`
   position:         fixed;
@@ -46,7 +72,6 @@ const Container = styled.div`
   display:         flex;
   align-items:     center;
   justify-content: space-between;
-
   @media (min-width: 600px)  { padding-inline: var(--spacing-2xl); }
   @media (min-width: 1200px) { padding-inline: var(--spacing-3xl); }
 `
@@ -65,6 +90,38 @@ const Actions = styled.div`
   display:     flex;
   align-items: center;
   gap:         var(--spacing-s);
+`
+
+const UserName = styled.span`
+  font-family: var(--font-family-ui);
+  font-size:   var(--scale-s);
+  font-weight: var(--font-weight-semibold);
+  color:       var(--foreground-secondary-on-surface);
+  max-width:   160px;
+  overflow:    hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media (max-width: 600px) { display: none; }
+`
+
+const LogoutButton = styled.button`
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           36px;
+  height:          36px;
+  border-radius:   50%;
+  border:          0.5px solid var(--stroke-secondary-on-surface);
+  background:      transparent;
+  color:           var(--foreground-secondary-on-surface);
+  cursor:          pointer;
+  transition:      border-color 150ms, color 150ms;
+
+  &:hover {
+    border-color: var(--stroke-error);
+    color:        var(--foreground-error-on-surface);
+  }
 `
 
 export default Header

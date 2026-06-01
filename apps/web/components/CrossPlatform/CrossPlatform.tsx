@@ -9,7 +9,7 @@
 
 import styled           from '@emotion/styled'
 import { keyframes }    from '@emotion/react'
-import { motion }       from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 
 // ── Animaciones ───────────────────────────────────────────────────────────
 const pulse = keyframes`
@@ -23,17 +23,17 @@ const shimmer = keyframes`
 `
 
 // ── Variantes Framer ──────────────────────────────────────────────────────
-const fadeUp = {
+const fadeUp: Variants = {
   hidden:  { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0,  transition: { duration: 0.7, ease: 'easeOut' } },
 }
 
-const slideLeft = {
+const slideLeft: Variants = {
   hidden:  { opacity: 0, x: -40 },
   visible: { opacity: 1, x: 0,   transition: { duration: 0.7, ease: 'easeOut', delay: 0.1 } },
 }
 
-const slideRight = {
+const slideRight: Variants = {
   hidden:  { opacity: 0, x: 40  },
   visible: { opacity: 1, x: 0,   transition: { duration: 0.7, ease: 'easeOut', delay: 0.2 } },
 }

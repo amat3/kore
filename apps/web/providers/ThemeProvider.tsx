@@ -27,6 +27,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const initial = saved ?? system
     setTheme(initial)
     document.documentElement.setAttribute('data-theme', initial)
+    document.cookie = `kore-theme=${initial}; path=/; max-age=31536000; SameSite=Lax`
   }, [])
 
   const toggleTheme = () => {
@@ -34,6 +35,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     setTheme(next)
     document.documentElement.setAttribute('data-theme', next)
     localStorage.setItem('kore-theme', next)
+    document.cookie = `kore-theme=${next}; path=/; max-age=31536000; SameSite=Lax`
   }
 
   return (

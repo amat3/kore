@@ -20,18 +20,22 @@ export interface SearchInputProps {
 const SearchInput = ({
   onSearch,
   onClear,
+  onChange,
   size      = 'md',
   fullWidth = true,
   ...props
 }: SearchInputProps) => {
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onSearch?.(e.target.value)
+    onChange?.(e)
+  }
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter')  onSearch?.(e.currentTarget.value)
     if (e.key === 'Escape') {
-      e.currentTarget.value = ''
-      e.currentTarget.blur()
       onSearch?.('')
       onClear?.()
+      e.currentTarget.blur()
     }
   }
 
@@ -44,6 +48,7 @@ const SearchInput = ({
       fullWidth={fullWidth}
       clearable
       leftIcon={<Icon name="Search" size="sm" color="inherit" />}
+      onChange={handleChange}
       onKeyDown={handleKeyDown}
       onClear={() => { onSearch?.(''); onClear?.() }}
       {...props}

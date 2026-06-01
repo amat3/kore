@@ -5,7 +5,7 @@ import { useForm }      from 'react-hook-form'
 import { useRouter }    from 'next/navigation'
 import Link             from 'next/link'
 import styled           from '@emotion/styled'
-import { motion }       from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { useAuth }      from '@/providers/AuthProvider'
 import { Icon }         from '@kore/ui-web'
 
@@ -16,7 +16,7 @@ interface LoginFormData {
 }
 
 // ── Variantes ─────────────────────────────────────────────────────────────
-const fadeUp = {
+const fadeUp: Variants = {
   hidden:  { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 }
