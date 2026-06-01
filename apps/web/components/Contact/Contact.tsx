@@ -10,9 +10,10 @@
 import { useState }           from 'react'
 import { useForm }            from 'react-hook-form'
 import styled                 from '@emotion/styled'
-import { motion }             from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { collection, addDoc } from 'firebase/firestore'
 import { db }                 from '@/lib/firebase'
+import emailjs from '@emailjs/browser'
 import { Icon }               from '@kore/ui-web'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
@@ -24,7 +25,7 @@ interface ContactForm {
 }
 
 // ── Variantes Framer ──────────────────────────────────────────────────────
-const fadeUp = {
+const fadeUp: Variants = {
   hidden:  { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
 }
@@ -45,19 +46,34 @@ const Contact = () => {
     formState: { errors },
   } = useForm<ContactForm>()
 
-  const onSubmit = async (data: ContactForm) => {
-    setStatus('loading')
-    try {
-      await addDoc(collection(db, 'contacts'), {
-        ...data,
-        createdAt: new Date().toISOString(),
-      })
-      setStatus('success')
-      reset()
-    } catch {
-      setStatus('error')
-    }
-  }
+ const onSubmit = async (data: ContactForm) => {
+  setStatus('loading')
+  try {
+    // 1. Guardar en Firestore
+    await addDoc(collection(db, 'contacts'), {
+      ...data,
+      createdAt: new Date().toISOString(),
+    })
+
+    await emailjs.send(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+      {
+        from_name:  data.name,
+        from_email: data.email,
+        company:    data.company ?? 'No especificada',
+        message:    data.message,
+        reply_to:   data.email,
+      },
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+    )
+
+    setStatus('success')
+    reset()
+ } catch  {
+  setStatus('error')
+}
+}
 
   return (
     <Section>
@@ -86,7 +102,7 @@ const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Icon name="Linkedin"   size="sm" color="inherit" />
+                <Icon name="Link2"      size="sm" color="inherit" />
                 juanan-amate-react
               </ContactLink>
               <ContactLink
@@ -94,7 +110,7 @@ const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Icon name="Github"     size="sm" color="inherit" />
+                <Icon name="Code"       size="sm" color="inherit" />
                 github.com/amat3
               </ContactLink>
               <ContactLink href="mailto:juanantamate@gmail.com">
@@ -206,7 +222,7 @@ const Contact = () => {
                     </>
                   ) : status === 'success' ? (
                     <>
-                      <Icon name="CheckCircle" size="sm" color="inherit" />
+                      <Icon name="CircleCheck" size="sm" color="inherit" />
                       ¡Mensaje enviado!
                     </>
                   ) : (

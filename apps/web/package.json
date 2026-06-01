@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@kore/tokens": "*",
     "@kore/ui-web": "*",
     "dotenv": "^17.4.2",
