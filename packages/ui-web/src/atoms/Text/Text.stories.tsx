@@ -18,7 +18,7 @@ const meta: Meta<typeof Text> = {
   argTypes: {
     variant: {
       control:  { type: 'select' },
-      options:  ['display', 'h1', 'h2', 'h3', 'overline', 'body', 'body-sm', 'caption', 'button'],
+      options:  ['display', 'h1', 'h2', 'h3', 'overline', 'body', 'body-light', 'body-sm', 'caption', 'button'],
     },
     as: {
       control:  { type: 'select' },
@@ -70,6 +70,14 @@ export const BodyStory: Story = {
   },
 }
 
+export const BodyLightStory: Story = {
+  name: 'Body Light',
+  args: {
+    variant:  'body-light',
+    children: 'Disponible para nuevos proyectos y oportunidades. Escríbeme.',
+  },
+}
+
 export const BodySmStory: Story = {
   name: 'Body Small',
   args: {
@@ -101,6 +109,7 @@ export const FullScale: Story = {
       <Text variant="h3">Heading 3 — Full body con peso libre</Text>
       <Text variant="overline">Overline — Fuerza · 45 min · Intermedio</Text>
       <Text variant="body">Body — Una sesión completa para activar todo el cuerpo. Sin excusas, sin límites.</Text>
+      <Text variant="body-light">Body Light — Disponible para nuevos proyectos y oportunidades.</Text>
       <Text variant="body-sm">Body Small — Diseñado para mujeres que entrenan con intención.</Text>
       <Text variant="caption">Caption — Última sesión hace 2 días</Text>
       <Text variant="button">Button — Empezar sesión</Text>
