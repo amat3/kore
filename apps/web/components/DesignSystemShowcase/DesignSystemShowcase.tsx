@@ -89,7 +89,7 @@ const DesignSystemShowcase = () => {
             </ThemeToggle>
 
             <StorybookLink
-              href="https://kore-web-taupe.vercel.app"
+              href="https://kore-juanan-amate.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
             >
