@@ -4,10 +4,17 @@ node_modules/
 .pnp.js
 
 # Build outputs
-dist/
 .next/
 out/
 build/
+
+# Dist — packages se commitean para que Vercel los tenga sin necesitar rebuild
+# Solo ignorar dist/ en apps (no en packages/)
+apps/web/.next/
+apps/mobile/.expo/dist/
+
+# Ignorar dist de apps pero NO de packages
+apps/*/dist/
 
 # Turbo
 .turbo/
