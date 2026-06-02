@@ -7,7 +7,7 @@ import Link             from 'next/link'
 import styled           from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
 import { useAuth }      from '@/providers/AuthProvider'
-import { Icon }         from '@kore/ui-web'
+import { Icon, Text }   from '@kore/ui-web'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
 interface LoginFormData {
@@ -78,8 +78,8 @@ const LoginForm = () => {
         {/* Header */}
         <motion.div variants={fadeUp}>
           <LogoLink href="/">KORE</LogoLink>
-          <Title>Bienvenida de nuevo</Title>
-          <Subtitle>Accede a tus entrenamientos y continúa donde lo dejaste.</Subtitle>
+          <Title variant="h1">Bienvenida de nuevo</Title>
+          <Subtitle variant="body-light">Accede a tus entrenamientos y continúa donde lo dejaste.</Subtitle>
         </motion.div>
 
         {/* Google */}
@@ -99,7 +99,7 @@ const LoginForm = () => {
         </motion.div>
 
         <motion.div variants={fadeUp}>
-          <Divider><DividerText>o con email</DividerText></Divider>
+          <Divider><DividerText variant="caption" as="span">o con email</DividerText></Divider>
         </motion.div>
 
         {/* Form */}
@@ -122,7 +122,7 @@ const LoginForm = () => {
                   },
                 })}
               />
-              {errors.email && <FieldError>{errors.email.message}</FieldError>}
+              {errors.email && <FieldError variant="caption" as="span">{errors.email.message}</FieldError>}
             </FieldGroup>
           </motion.div>
 
@@ -140,7 +140,7 @@ const LoginForm = () => {
                   minLength: { value: 6, message: 'Mínimo 6 caracteres' },
                 })}
               />
-              {errors.password && <FieldError>{errors.password.message}</FieldError>}
+              {errors.password && <FieldError variant="caption" as="span">{errors.password.message}</FieldError>}
             </FieldGroup>
           </motion.div>
 
@@ -169,7 +169,7 @@ const LoginForm = () => {
         </Form>
 
         <motion.div variants={fadeUp}>
-          <Footer>
+          <Footer variant="body-sm">
             ¿No tienes cuenta?{' '}
             <FooterLink href="/register">Regístrate gratis</FooterLink>
           </Footer>
@@ -209,22 +209,15 @@ const LogoLink = styled(Link)`
   margin-bottom:   var(--spacing-2xl);
 `
 
-const Title = styled.h1`
-  font-family: var(--font-family-display);
+const Title = styled(Text)`
   font-size:   clamp(1.8rem, 4vw, 2.5rem);
-  font-weight: var(--font-weight-light);
-  color:       var(--foreground-primary-on-surface);
-  margin:      0 0 var(--spacing-s);
   line-height: 1.1;
+  margin:      0 0 var(--spacing-s);
 `
 
-const Subtitle = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-m);
-  font-weight: var(--font-weight-light);
-  color:       var(--foreground-secondary-on-surface);
-  margin:      0 0 var(--spacing-2xl);
-  line-height: var(--line-height-spacious);
+const Subtitle = styled(Text)`
+  color:  var(--foreground-secondary-on-surface);
+  margin: 0 0 var(--spacing-2xl);
 `
 
 const GoogleButton = styled.button`
@@ -266,9 +259,7 @@ const Divider = styled.div`
   }
 `
 
-const DividerText = styled.span`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
+const DividerText = styled(Text)`
   color:          var(--foreground-tertiary-on-surface);
   letter-spacing: var(--letter-spacing-spacious);
   text-transform: uppercase;
@@ -318,10 +309,8 @@ const InputField = styled.input<{ $hasError: boolean }>`
   }
 `
 
-const FieldError = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-xs);
-  color:       var(--foreground-error-on-surface);
+const FieldError = styled(Text)`
+  color: var(--foreground-error-on-surface);
 `
 
 const ErrorBanner = styled.div`
@@ -362,12 +351,9 @@ const SubmitButton = styled(motion.button)`
   }
 `
 
-const Footer = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-s);
-  color:       var(--foreground-secondary-on-surface);
-  text-align:  center;
-  margin:      0;
+const Footer = styled(Text)`
+  color:      var(--foreground-secondary-on-surface);
+  text-align: center;
 `
 
 const FooterLink = styled(Link)`
