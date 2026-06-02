@@ -15,6 +15,7 @@ import React, { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/react'
 import gsap from 'gsap'
+import { Text } from '@kore/ui-web'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
@@ -157,17 +158,17 @@ const Hero = () => {
       {/* Contenido */}
       <Content>
         {/* Overline */}
-        <Overline ref={overlineRef}>Fuerza · Origen</Overline>
+        <Overline variant="overline" as="div" ref={overlineRef}>Fuerza · Origen</Overline>
 
         {/* Wordmark KORE — letras individuales */}
         <WordmarkWrapper ref={lettersRef}>
           {'KORE'.split('').map((letter, i) => (
-            <Letter key={i}>{letter}</Letter>
+            <Letter key={i} variant="display" as="span">{letter}</Letter>
           ))}
         </WordmarkWrapper>
 
         {/* Claim */}
-        <Claim ref={claimRef}>Entrena sin límites.</Claim>
+        <Claim variant="h1" as="p" ref={claimRef}>Entrena sin límites.</Claim>
 
         {/* CTAs */}
         <CTAs ref={ctasRef}>
@@ -254,15 +255,10 @@ const Content = styled.div`
   }
 `
 
-const Overline = styled.div`
-  font-family: var(--font-family-ui);
-  font-size: var(--scale-xs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color: #b05e3a;
+const Overline = styled(Text)`
+  color:         #B05E3A;
   margin-bottom: var(--spacing-l);
-  visibility: hidden;
+  visibility:    hidden;
 `
 
 const WordmarkWrapper = styled.div`
@@ -272,26 +268,21 @@ const WordmarkWrapper = styled.div`
   overflow: visible;
 `
 
-const Letter = styled.span`
-  font-family: var(--font-family-display);
-  font-weight: var(--font-weight-light);
-  font-size: clamp(5rem, 18vw, 16rem);
-  letter-spacing: var(--letter-spacing-wide);
-  color: #f7f4f1;
-  display: inline-block;
-  visibility: hidden;
+const Letter = styled(Text)`
+  font-size:   clamp(5rem, 18vw, 16rem);
+  color:       #F7F4F1;
+  display:     inline-block;
+  visibility:  hidden;
   line-height: 1;
 `
 
-const Claim = styled.p`
-  font-family: var(--font-family-display);
-  font-size: clamp(1.5rem, 4vw, 3.5rem);
-  font-weight: var(--font-weight-light);
+const Claim = styled(Text)`
+  font-size:      clamp(1.5rem, 4vw, 3.5rem);
   letter-spacing: var(--letter-spacing-dense);
-  color: rgba(247, 244, 241, 0.7);
-  margin: 0 0 var(--spacing-2xl);
-  visibility: hidden;
-  max-width: 600px;
+  color:          rgba(247, 244, 241, 0.7);
+  margin:         0 0 var(--spacing-2xl);
+  visibility:     hidden;
+  max-width:      600px;
 `
 
 const CTAs = styled.div`
