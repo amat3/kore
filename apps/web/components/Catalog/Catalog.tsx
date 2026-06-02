@@ -10,7 +10,7 @@
 
 import { useState }  from 'react'
 import styled         from '@emotion/styled'
-import { keyframes }  from '@emotion/react'
+import { css, keyframes } from '@emotion/react'
 import { WorkoutCard, FilterBar } from '@kore/ui-web'
 import { useWorkouts }            from '@/hooks/useWorkouts'
 
@@ -200,7 +200,7 @@ const Grid = styled.div`
 `
 
 // ── Skeleton ──────────────────────────────────────────────────────────────
-const skeletonBase = `
+const skeletonBase = css`
   background: linear-gradient(
     90deg,
     var(--background-surface-solid) 0px,
