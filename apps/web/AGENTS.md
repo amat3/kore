@@ -14,7 +14,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 1. Ejecutar `npx tsc --noEmit` desde `apps/web/` — resolver **todos** los errores antes de continuar
 2. Si modificaste cualquier archivo en `packages/ui-web/src/`, ejecutar `cd packages/ui-web && npx tsup`
-3. Hacer commit: `<gitmoji> <type>: <header corto>\n\n<descripción del porqué>`
+3. Si añadiste o cambiaste un componente en `packages/ui-web/src/`:
+   - Actualizar su story en `*.stories.tsx` (nueva variante → nueva Story + añadir al `argTypes.options` + incluir en `FullScale`)
+   - Revisar `DesignSystemShowcase` en `/portfolio` y actualizar:
+     - El **bloque del componente** si ya está, o añadir uno nuevo si no existe
+     - Las **stats** al final (`{ num: '15', label: 'Componentes' }`, `{ num: '164', label: 'CSS vars' }`)
+4. Hacer commit: `<gitmoji> <type>: <header corto>\n\n<descripción del porqué>`
 
 ---
 
