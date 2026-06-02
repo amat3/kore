@@ -67,11 +67,11 @@ const DesignSystemShowcase = () => {
         {/* Heading */}
         <HeadingRow ref={headingRef}>
           <div>
-            <SectionOverline>Design System</SectionOverline>
-            <SectionTitle>
+            <SectionOverline variant="overline" as="span">Design System</SectionOverline>
+            <SectionTitle variant="h1" as="h2">
               Componentes que <em>escalan</em>
             </SectionTitle>
-            <SectionSubtitle>
+            <SectionSubtitle variant="body-light">
               <code>@kore/ui-web</code> — 15+ componentes con Emotion, TypeScript y Storybook.
               Dark mode nativo, tokens semánticos, accesibilidad WCAG.
             </SectionSubtitle>
@@ -104,7 +104,7 @@ const DesignSystemShowcase = () => {
 
           {/* § Buttons */}
           <DSBlock className="ds-block">
-            <BlockLabel>Button</BlockLabel>
+            <BlockLabel variant="overline" as="span">Button</BlockLabel>
             <BlockContent>
               <Button variant="solid"    size="md">Empezar sesión</Button>
               <Button variant="outlined" size="md">Ver catálogo</Button>
@@ -116,7 +116,7 @@ const DesignSystemShowcase = () => {
 
           {/* § Sizes */}
           <DSBlock className="ds-block">
-            <BlockLabel>Button sizes</BlockLabel>
+            <BlockLabel variant="overline" as="span">Button sizes</BlockLabel>
             <BlockContent $align="center">
               <Button variant="solid" size="sm">Small</Button>
               <Button variant="solid" size="md">Medium</Button>
@@ -126,7 +126,7 @@ const DesignSystemShowcase = () => {
 
           {/* § Badges */}
           <DSBlock className="ds-block">
-            <BlockLabel>Badge</BlockLabel>
+            <BlockLabel variant="overline" as="span">Badge</BlockLabel>
             <BlockContent>
               <Badge variant="default">Default</Badge>
               <Badge variant="accent">Fuerza</Badge>
@@ -139,7 +139,7 @@ const DesignSystemShowcase = () => {
 
           {/* § Tags */}
           <DSBlock className="ds-block">
-            <BlockLabel>Tag — interactivos</BlockLabel>
+            <BlockLabel variant="overline" as="span">Tag — interactivos</BlockLabel>
             <BlockContent>
               {['fuerza', 'cardio', 'yoga', 'pilates', 'hiit'].map(t => (
                 <Tag
@@ -155,7 +155,7 @@ const DesignSystemShowcase = () => {
 
           {/* § Avatars */}
           <DSBlock className="ds-block">
-            <BlockLabel>Avatar + AvatarGroup</BlockLabel>
+            <BlockLabel variant="overline" as="span">Avatar + AvatarGroup</BlockLabel>
             <BlockContent $align="center" $gap="l">
               <Avatar name="Juan Antonio Amate" size="xs" />
               <Avatar name="María García"       size="sm" status="online" />
@@ -168,7 +168,7 @@ const DesignSystemShowcase = () => {
 
           {/* § Input */}
           <DSBlock className="ds-block" $wide>
-            <BlockLabel>Input</BlockLabel>
+            <BlockLabel variant="overline" as="span">Input</BlockLabel>
             <InputGrid>
               <Input
                 label="Email"
@@ -206,7 +206,7 @@ const DesignSystemShowcase = () => {
 
           {/* § Typography */}
           <DSBlock className="ds-block" $wide>
-            <BlockLabel>Text — variantes tipográficas</BlockLabel>
+            <BlockLabel variant="overline" as="span">Text — variantes tipográficas</BlockLabel>
             <TypoList>
               <Text variant="display">Display · KORE</Text>
               <Text variant="h1">Heading 1 · Entrenamiento funcional</Text>
@@ -222,7 +222,7 @@ const DesignSystemShowcase = () => {
 
           {/* § Tokens */}
           <DSBlock className="ds-block" $wide>
-            <BlockLabel>Color tokens — {isDark ? 'dark' : 'light'} theme</BlockLabel>
+            <BlockLabel variant="overline" as="span">Color tokens — {isDark ? 'dark' : 'light'} theme</BlockLabel>
             <TokenGrid>
               {[
                 { label: 'background-surface-low',    var: '--background-surface-low'    },
@@ -253,8 +253,8 @@ const DesignSystemShowcase = () => {
             { num: '100%', label: 'TypeScript'  },
           ].map(stat => (
             <StatItem key={stat.label}>
-              <StatNum>{stat.num}</StatNum>
-              <StatLabel>{stat.label}</StatLabel>
+              <StatNum variant="display" as="span">{stat.num}</StatNum>
+              <StatLabel variant="overline" as="span">{stat.label}</StatLabel>
             </StatItem>
           ))}
         </StatsRow>
@@ -288,24 +288,15 @@ const HeadingRow = styled.div`
   margin-bottom:   clamp(2rem, 5vw, 4rem);
 `
 
-const SectionOverline = styled.span`
-  display:        block;
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          var(--foreground-accent-on-surface);
-  margin-bottom:  var(--spacing-m);
+const SectionOverline = styled(Text)`
+  display:       block;
+  margin-bottom: var(--spacing-m);
 `
 
-const SectionTitle = styled.h2`
-  font-family:  var(--font-family-display);
-  font-size:    clamp(2rem, 4vw, 3.5rem);
-  font-weight:  var(--font-weight-light);
-  color:        var(--foreground-primary-on-surface);
-  margin:       0 0 var(--spacing-m);
-  line-height:  1.1;
+const SectionTitle = styled(Text)`
+  font-size:   clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  margin:      0 0 var(--spacing-m);
   em {
     font-style:  italic;
     font-weight: var(--font-weight-semibold);
@@ -313,21 +304,16 @@ const SectionTitle = styled.h2`
   }
 `
 
-const SectionSubtitle = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-m);
-  font-weight: var(--font-weight-light);
-  color:       var(--foreground-secondary-on-surface);
-  line-height: var(--line-height-spacious);
-  margin:      0;
+const SectionSubtitle = styled(Text)`
+  color: var(--foreground-secondary-on-surface);
   code {
-    font-size:        0.9em;
-    padding:          2px 6px;
-    border-radius:    4px;
-    background:       var(--background-surface-solid);
-    color:            var(--foreground-accent-on-surface);
-    border:           0.5px solid var(--stroke-secondary-on-surface);
-    font-family:      monospace;
+    font-size:     0.9em;
+    padding:       2px 6px;
+    border-radius: 4px;
+    background:    var(--background-surface-solid);
+    color:         var(--foreground-accent-on-surface);
+    border:        0.5px solid var(--stroke-secondary-on-surface);
+    font-family:   monospace;
   }
 `
 
@@ -400,13 +386,8 @@ const DSBlock = styled.div<{ $wide?: boolean }>`
   `}
 `
 
-const BlockLabel = styled.span`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          var(--foreground-tertiary-on-surface);
+const BlockLabel = styled(Text)`
+  color: var(--foreground-tertiary-on-surface);
 `
 
 const BlockContent = styled.div<{ $align?: string; $gap?: string }>`
@@ -482,21 +463,14 @@ const StatItem = styled.div`
   border:         0.5px solid var(--stroke-secondary-on-surface);
 `
 
-const StatNum = styled.span`
-  font-family:    var(--font-family-display);
-  font-size:      clamp(2rem, 4vw, 3rem);
-  font-weight:    var(--font-weight-light);
-  color:          var(--foreground-accent-on-surface);
-  line-height:    1;
+const StatNum = styled(Text)`
+  font-size:   clamp(2rem, 4vw, 3rem);
+  color:       var(--foreground-accent-on-surface);
+  line-height: 1;
 `
 
-const StatLabel = styled.span`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-spacious);
-  text-transform: uppercase;
-  color:          var(--foreground-secondary-on-surface);
+const StatLabel = styled(Text)`
+  color: var(--foreground-secondary-on-surface);
 `
 
 export default DesignSystemShowcase
