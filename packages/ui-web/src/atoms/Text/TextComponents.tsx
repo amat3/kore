@@ -11,6 +11,7 @@ export const Heading1 = (props: TextBaseProps) => <Text variant="h1"       {...p
 export const Heading2 = (props: TextBaseProps) => <Text variant="h2"       {...props} />
 export const Heading3 = (props: TextBaseProps) => <Text variant="h3"       {...props} />
 export const Overline = (props: TextBaseProps) => <Text variant="overline" {...props} />
-export const Body     = (props: TextBaseProps) => <Text variant="body"     {...props} />
-export const BodySm   = (props: TextBaseProps) => <Text variant="body-sm"  {...props} />
+export const Body      = (props: TextBaseProps) => <Text variant="body"       {...props} />
+export const BodyLight = (props: TextBaseProps) => <Text variant="body-light" {...props} />
+export const BodySm    = (props: TextBaseProps) => <Text variant="body-sm"    {...props} />
 export const Caption  = (props: TextBaseProps) => <Text variant="caption"  {...props} />

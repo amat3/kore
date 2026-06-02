@@ -67,6 +67,14 @@ export const variantStyles = {
     letter-spacing:  var(--letter-spacing-moderate);
   `,
 
+  'body-light': css`
+    font-family:     var(--font-family-ui);
+    font-weight:     var(--font-weight-light);
+    font-size:       var(--scale-m);
+    line-height:     var(--line-height-spacious);
+    letter-spacing:  var(--letter-spacing-moderate);
+  `,
+
   'body-sm': css`
     font-family:     var(--font-family-ui);
     font-weight:     var(--font-weight-regular);

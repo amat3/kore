@@ -9,6 +9,7 @@ export {
   Heading3,
   Overline,
   Body,
+  BodyLight,
   BodySm,
   Caption,
 } from './atoms/Text/TextComponents'

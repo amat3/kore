@@ -38,8 +38,9 @@ const defaultTag: Record<TextVariant, TextTag> = {
   h2:        'h2',
   h3:        'h3',
   overline:  'span',
-  body:      'p',
-  'body-sm': 'p',
+  body:          'p',
+  'body-light':  'p',
+  'body-sm':     'p',
   caption:   'span',
   button:    'span',
 }

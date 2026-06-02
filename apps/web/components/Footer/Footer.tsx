@@ -1,8 +1,8 @@
 'use client'
 
-import styled  from '@emotion/styled'
-import Link    from 'next/link'
-import { Icon } from '@kore/ui-web'
+import styled        from '@emotion/styled'
+import Link          from 'next/link'
+import { Icon, Text } from '@kore/ui-web'
 
 // ── Componente ────────────────────────────────────────────────────────────
 const Footer = () => (
@@ -14,12 +14,12 @@ const Footer = () => (
         {/* Brand */}
         <BrandCol>
           <Logo href="/">KORE</Logo>
-          <Tagline>Entrena sin límites.</Tagline>
+          <Tagline variant="body-light">Entrena sin límites.</Tagline>
         </BrandCol>
 
         {/* Producto */}
         <NavCol>
-          <ColTitle>Producto</ColTitle>
+          <ColTitle variant="overline" as="span">Producto</ColTitle>
           <NavList>
             <li><NavLink href="/workouts">Entrenamientos</NavLink></li>
             <li><NavLink href="/register">Empezar gratis</NavLink></li>
@@ -29,7 +29,7 @@ const Footer = () => (
 
         {/* Portfolio */}
         <NavCol>
-          <ColTitle>Portfolio</ColTitle>
+          <ColTitle variant="overline" as="span">Portfolio</ColTitle>
           <NavList>
             <li><NavLink href="/portfolio">Ver portfolio</NavLink></li>
             <li><NavLink href="/portfolio#catalog">Stack técnico</NavLink></li>
@@ -38,7 +38,7 @@ const Footer = () => (
 
         {/* Contacto */}
         <NavCol>
-          <ColTitle>Contacto</ColTitle>
+          <ColTitle variant="overline" as="span">Contacto</ColTitle>
           <SocialList>
             <li>
               <SocialLink
@@ -72,15 +72,15 @@ const Footer = () => (
       </Grid>
 
       <Bottom>
-        <Copyright>© 2025 Juan Antonio Amate · Diseño y desarrollo propio</Copyright>
-        <LegalNote>Construido con Next.js, React y mucho café.</LegalNote>
+        <Copyright variant="caption">© 2025 Juan Antonio Amate · Diseño y desarrollo propio</Copyright>
+        <LegalNote variant="caption">Construido con Next.js, React y mucho café.</LegalNote>
       </Bottom>
 
     </Container>
   </FooterEl>
 )
 
-// ── Styled ────────────────────────────────────────────────────────────────
+// ── Layout ────────────────────────────────────────────────────────────────
 const FooterEl = styled.footer`
   background-color: var(--background-surface-low);
   border-top:       0.5px solid var(--stroke-secondary-on-surface);
@@ -117,6 +117,9 @@ const BrandCol = styled.div`
   gap:            var(--spacing-s);
 `
 
+// ── Tipografía via Text — solo override lo que difiere del variant ────────
+
+// Logo: elemento de navegación — no es tipografía pura, se queda como Link
 const Logo = styled(Link)`
   font-family:     var(--font-family-display);
   font-size:       var(--scale-3xl);
@@ -127,27 +130,32 @@ const Logo = styled(Link)`
   line-height:     1;
 `
 
-const Tagline = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-s);
-  font-weight: var(--font-weight-light);
-  color:       var(--foreground-tertiary-on-surface);
-  margin:      0;
+// Tagline: body-light + color terciario
+const Tagline = styled(Text)`
+  color: var(--foreground-tertiary-on-surface);
 `
+
+// ColTitle: overline + color secundario (no el acento/terracota del variant)
+const ColTitle = styled(Text)`
+  color: var(--foreground-secondary-on-surface);
+`
+
+// Copyright / LegalNote: caption + color terciario
+const Copyright = styled(Text)`
+  color: var(--foreground-tertiary-on-surface);
+`
+
+const LegalNote = styled(Text)`
+  color:   var(--foreground-tertiary-on-surface);
+  opacity: 0.6;
+`
+
+// ── Navegación — styled links, no tipografía pura ─────────────────────────
 
 const NavCol = styled.div`
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-m);
-`
-
-const ColTitle = styled.span`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          var(--foreground-secondary-on-surface);
 `
 
 const NavList = styled.ul`
@@ -206,19 +214,6 @@ const Bottom = styled.div`
   margin-top:      clamp(2rem, 4vw, 3rem);
   padding-top:     var(--spacing-xl);
   border-top:      0.5px solid var(--stroke-secondary-on-surface);
-`
-
-const Copyright = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-xs);
-  color:       var(--foreground-tertiary-on-surface);
-`
-
-const LegalNote = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-xs);
-  color:       var(--foreground-tertiary-on-surface);
-  opacity:     0.6;
 `
 
 export default Footer
