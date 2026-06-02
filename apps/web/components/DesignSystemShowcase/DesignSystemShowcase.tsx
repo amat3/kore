@@ -89,7 +89,7 @@ const DesignSystemShowcase = () => {
             </ThemeToggle>
 
             <StorybookLink
-              href="https://kore-juanan-amate.vercel.app"
+              href="https://6a1f429ec79df80605844468-jlgixgzjns.chromatic.com"
               target="_blank"
               rel="noopener noreferrer"
             >
