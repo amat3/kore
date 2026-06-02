@@ -17,16 +17,16 @@ import { useTranslation }    from 'react-i18next'
 const STACK = [
   // Frontend
   { name: 'TypeScript',      category: 'frontend',  color: '#3178C6', level: 5 },
-  { name: 'React 18/19',     category: 'frontend',  color: '#61DAFB', level: 5 },
-  { name: 'Next.js',         category: 'frontend',  color: '#000000', level: 4 },
+  { name: 'React 19',        category: 'frontend',  color: '#61DAFB', level: 5 },
+  { name: 'Next.js 16',      category: 'frontend',  color: '#000000', level: 4 },
   { name: 'Emotion',         category: 'frontend',  color: '#C43BAD', level: 5 },
   { name: 'Redux Toolkit',   category: 'frontend',  color: '#764ABC', level: 4 },
   { name: 'react-hook-form', category: 'frontend',  color: '#EC5990', level: 4 },
   // Mobile
   { name: 'React Native',    category: 'mobile',    color: '#61DAFB', level: 5 },
-  { name: 'Expo',            category: 'mobile',    color: '#000020', level: 4 },
-  { name: 'Expo Router',     category: 'mobile',    color: '#000020', level: 4 },
-  { name: 'Reanimated',      category: 'mobile',    color: '#6B4FBB', level: 4 },
+  { name: 'Expo SDK 56',     category: 'mobile',    color: '#000020', level: 4 },
+  { name: 'Expo Router v4',  category: 'mobile',    color: '#000020', level: 4 },
+  { name: 'Reanimated 4',    category: 'mobile',    color: '#6B4FBB', level: 4 },
   // Animación
   { name: 'GSAP',            category: 'animation', color: '#88CE02', level: 4 },
   { name: 'Framer Motion',   category: 'animation', color: '#FF0055', level: 4 },

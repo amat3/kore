@@ -30,9 +30,10 @@ const PortfolioHero = () => (
       <Role variant="overline" as="p">Mid Frontend Developer · React / React Native</Role>
 
       <Description variant="body-light">
-        Especialista en UI y maquetación avanzada, design systems y animaciones. Todo lo que ves en
-        esta página — componentes, tokens, animaciones — está construido desde cero como parte del
-        proyecto <strong>KORE</strong>.
+        Especialista en UI, design systems y animaciones avanzadas. Lo que ves aquí — tokens
+        semánticos, monorrepo Turborepo, componentes documentados con Storybook y animaciones GSAP —
+        está construido desde cero con React 19 y Next.js 16 como parte del proyecto{' '}
+        <strong>KORE</strong>.
       </Description>
 
       {/* Links */}
@@ -53,10 +54,10 @@ const PortfolioHero = () => (
       {/* Stats rápidos del proyecto */}
       <StatsRow>
         {[
-          { num: '2', label: 'Packages npm' },
-          { num: '15',  label: 'Componentes' },
-          { num: '100%', label: 'TypeScript' },
-          { num: '8', label: 'Skills demostradas' },
+          { num: '2',    label: 'Packages npm'    },
+          { num: '15',   label: 'Componentes'      },
+          { num: '164',  label: 'Design tokens'    },
+          { num: '100%', label: 'TypeScript'        },
         ].map((s) => (
           <StatItem key={s.label}>
             <StatNum variant="display" as="span">{s.num}</StatNum>
