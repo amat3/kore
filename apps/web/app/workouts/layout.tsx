@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import styled from '@emotion/styled'
 import { useAuth } from '@/providers/AuthProvider'
-import { Avatar, Icon } from '@kore/ui-web'
+import { Avatar, Icon, Text } from '@kore/ui-web'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
 
 export default function WorkoutsLayout({ children }: { children: React.ReactNode }) {
@@ -40,7 +40,7 @@ export default function WorkoutsLayout({ children }: { children: React.ReactNode
                 src={user.photoURL ?? undefined}
                 size="sm"
               />
-              <UserName>{user.displayName ?? user.email}</UserName>
+              <UserName variant="body-sm">{user.displayName ?? user.email}</UserName>
             </UserInfo>
             <LogoutButton onClick={handleLogout} type="button" aria-label="Cerrar sesión">
               <Icon name="LogOut" size="sm" color="inherit" />
@@ -107,18 +107,14 @@ const UserInfo = styled.div`
   gap: var(--spacing-s);
 `
 
-const UserName = styled.span`
-  font-family: var(--font-family-ui);
-  font-size: var(--scale-s);
+const UserName = styled(Text)`
   font-weight: var(--font-weight-semibold);
-  color: var(--foreground-secondary-on-surface);
-  max-width: 160px;
-  overflow: hidden;
+  color:       var(--foreground-secondary-on-surface);
+  max-width:   160px;
+  overflow:    hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  @media (max-width: 600px) {
-    display: none;
-  }
+  @media (max-width: 600px) { display: none; }
 `
 
 const LogoutButton = styled.button`
