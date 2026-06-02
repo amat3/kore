@@ -13,6 +13,7 @@ import styled                 from '@emotion/styled'
 import { keyframes }          from '@emotion/react'
 import gsap                   from 'gsap'
 import { ScrollTrigger }      from 'gsap/ScrollTrigger'
+import { Text }               from '@kore/ui-web'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -110,12 +111,12 @@ const Features = () => {
 
         {/* Heading */}
         <HeadingWrapper ref={headingRef}>
-          <SectionOverline>Por qué KORE</SectionOverline>
-          <SectionTitle>
+          <SectionOverline variant="overline" as="span">Por qué KORE</SectionOverline>
+          <SectionTitle variant="h1" as="h2">
             Todo lo que necesitas,<br />
             <em>en un solo lugar</em>
           </SectionTitle>
-          <SectionSubtitle>
+          <SectionSubtitle variant="body-light">
             Diseñado para mujeres que entrenan con intención y viven con propósito.
           </SectionSubtitle>
         </HeadingWrapper>
@@ -133,11 +134,11 @@ const Features = () => {
               </EmojiWrapper>
 
               <CardContent>
-                <CardOverline $accent={feature.accent}>
+                <CardOverline variant="overline" as="span" $color={feature.accent}>
                   {feature.overline}
                 </CardOverline>
-                <CardTitle>{feature.title}</CardTitle>
-                <CardBody>{feature.body}</CardBody>
+                <CardTitle variant="h3">{feature.title}</CardTitle>
+                <CardBody variant="body-sm">{feature.body}</CardBody>
               </CardContent>
 
               <AccentLine $accent={feature.accent} />
@@ -173,26 +174,14 @@ const HeadingWrapper = styled.div`
   visibility:    visible;
 `
 
-const SectionOverline = styled.span`
-  display:        block;
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          var(--foreground-accent-on-surface);
-  margin-bottom:  var(--spacing-m);
+const SectionOverline = styled(Text)`
+  display:       block;
+  margin-bottom: var(--spacing-m);
 `
 
-const SectionTitle = styled.h2`
-  font-family:    var(--font-family-display);
-  font-size:      clamp(2rem, 5vw, 4rem);
-  font-weight:    var(--font-weight-light);
-  letter-spacing: var(--letter-spacing-dense);
-  color:          var(--foreground-primary-on-surface);
-  line-height:    1.1;
-  margin:         0 0 var(--spacing-l);
-
+const SectionTitle = styled(Text)`
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin:    0 0 var(--spacing-l);
   em {
     font-style:  italic;
     font-weight: var(--font-weight-semibold);
@@ -200,13 +189,8 @@ const SectionTitle = styled.h2`
   }
 `
 
-const SectionSubtitle = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-m);
-  font-weight: var(--font-weight-light);
-  color:       var(--foreground-secondary-on-surface);
-  line-height: var(--line-height-spacious);
-  margin:      0;
+const SectionSubtitle = styled(Text)`
+  color: var(--foreground-secondary-on-surface);
 `
 
 const CardsGrid = styled.div`
@@ -269,33 +253,18 @@ const CardContent = styled.div`
   flex:           1;
 `
 
-const CardOverline = styled.span<{ $accent: string }>`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          ${({ $accent }) => $accent};
-  line-height:    1;
+const CardOverline = styled(Text)<{ $color: string }>`
+  color: ${({ $color }) => $color};
 `
 
-const CardTitle = styled.h3`
-  font-family:    var(--font-family-display);
-  font-size:      var(--scale-2xl);
-  font-weight:    var(--font-weight-semibold);
+const CardTitle = styled(Text)`
   letter-spacing: var(--letter-spacing-dense);
-  color:          var(--foreground-primary-on-surface);
   line-height:    var(--line-height-dense);
   margin:         0;
 `
 
-const CardBody = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-s);
-  font-weight: var(--font-weight-light);
-  color:       var(--foreground-secondary-on-surface);
-  line-height: var(--line-height-spacious);
-  margin:      0;
+const CardBody = styled(Text)`
+  color: var(--foreground-secondary-on-surface);
 `
 
 const AccentLine = styled.div<{ $accent: string }>`
