@@ -391,5 +391,5 @@ Turborepo usa remote cache en Vercel pero **no restaura los archivos a disco** e
 
 | Error | Causa | Solución |
 |-------|-------|----------|
-| `Can't resolve '@kore/tokens/css'` | dist no commiteado | `git add packages/tokens/dist && git push` |
+| `Can't resolve '@kore/tokens/css'` | Turbopack resuelve módulos antes de que el build genere el CSS | El import ya usa `./kore.css` (archivo local en `apps/web/app/`) — si cambias tokens, ejecuta `cp packages/tokens/dist/kore.css apps/web/app/kore.css` y commitea |
 | `Can't resolve '@kore/ui-web'` | dist no commiteado | `git add packages/ui-web/dist && git push` |
