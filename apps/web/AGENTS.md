@@ -1,7 +1,9 @@
 <!-- BEGIN:nextjs-agent-rules -->
+
 # This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+
 <!-- END:nextjs-agent-rules -->
 
 ---
@@ -12,48 +14,89 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 1. Ejecutar `npx tsc --noEmit` desde `apps/web/` — resolver **todos** los errores antes de continuar
 2. Si modificaste cualquier archivo en `packages/ui-web/src/`, ejecutar `cd packages/ui-web && npx tsup`
-3. Hacer commit con el formato: `<gitmoji> <type>: <header corto>\n\n<descripción del porqué>`
+3. Hacer commit: `<gitmoji> <type>: <header corto>\n\n<descripción del porqué>`
 
 ---
 
 ## Errores conocidos que NO son bugs de código
 
-| Error | Causa | Acción |
-|-------|-------|--------|
-| Hydration mismatch en `MetadataWrapper` (`hidden={null}` vs `hidden={true}`) | Bug interno de Next.js 16.2.6 / React 19.2 con Turbopack | Ignorar — no tiene fix de aplicación |
-| `Encountered a script tag while rendering React component` | React 19 advierte sobre `<script>` inline en JSX, incluyendo los de `next/script` | Ignorar — es informativo, el script funciona correctamente |
+| Error                                                                        | Causa                                                       | Acción                                                      |
+| ---------------------------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| Hydration mismatch en `MetadataWrapper` (`hidden={null}` vs `hidden={true}`) | Bug interno de Next.js 16.2.6 / React 19.2 con Turbopack    | Ignorar                                                     |
+| `Encountered a script tag while rendering React component`                   | React 19 advierte sobre `<script>` inline                   | Ignorar — funciona correctamente                            |
+| `createContext only works in Client Components`                              | Emotion / Context importado en Server Component             | Añadir `'use client'` en línea 1 del componente             |
+| `Export X doesn't exist in target module`                                    | Componente usa `export default` pero se importa con `{ X }` | Cambiar a `import X from '...'` o `export { default as X }` |
 
 ---
 
 ## Patrones obligatorios
 
-### Framer Motion — Variants
-Siempre tipar explícitamente con `Variants`. Sin la anotación, TypeScript infiere `ease` como `string` y falla:
+### 'use client' — primera línea absoluta
+
+Debe ir ANTES de cualquier comentario, JSDoc o import. Next.js App Router lo ignora si hay algo antes:
+
+```typescript
+// ✅ Correcto
+'use client'
+/**
+ * @description Mi componente
+ */
+import styled from '@emotion/styled'
+
+// ❌ Next.js ignora el directive
+/**
+ * @description Mi componente
+ */
+;('use client')
+import styled from '@emotion/styled'
+```
+
+### Server Components + Emotion
+
+No mezclar `export const metadata` con imports de `@emotion/styled` en el mismo archivo. Separarlos:
+
+```typescript
+// ✅ page.tsx — Server Component puro
+import MyComponent from '@/components/MyComponent'
+
+export const metadata = { title: 'KORE' }
+
+export default function Page() {
+  return (
+    <main style={{ minHeight: '100svh' }}>  {/* inline styles OK */}
+      <MyComponent />
+    </main>
+  )
+}
+
+// ✅ MyComponent.tsx — Client Component con Emotion
+'use client'
+import styled from '@emotion/styled'
+```
+
+### Framer Motion — Variants tipados
+
+Siempre tipar explícitamente con `Variants`. Sin la anotación TypeScript infiere `ease` como `string` y falla:
 
 ```typescript
 // ✅ Correcto
 import { motion, type Variants } from 'framer-motion'
 
 const fadeUp: Variants = {
-  hidden:  { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-}
-
-// ❌ Falla — TypeScript no puede inferir el tipo de ease
-const fadeUp = {
-  visible: { transition: { ease: 'easeOut' } },
 }
 ```
 
-### Emotion — keyframes
-`keyframes` interpolado en un string plano da error en desarrollo. Siempre envolver con `css`:
+### Emotion — keyframes siempre con css``
+
+`keyframes` interpolado en string plano da error en desarrollo:
 
 ```typescript
 // ✅ Correcto
 import { css, keyframes } from '@emotion/react'
 
 const shimmer = keyframes`...`
-
 const skeletonBase = css`
   animation: ${shimmer} 1.4s ease infinite;
 `
@@ -65,16 +108,32 @@ const skeletonBase = `
 ```
 
 ### Emotion — CSS compartido entre styled components
-Cuando un bloque CSS se reutiliza en múltiples `styled.x`, definirlo como `css\`\``:
 
 ```typescript
 const baseStyles = css`
-  padding:       var(--spacing-m);
+  padding: var(--spacing-m);
   border-radius: var(--corners-default-card);
 `
 
-const CardA = styled.div`${baseStyles} background: red;`
-const CardB = styled.div`${baseStyles} background: blue;`
+const CardA = styled.div`
+  ${baseStyles} background: red;
+`
+const CardB = styled.div`
+  ${baseStyles} background: blue;
+`
+```
+
+### Emotion — forwardRef en Link de Next.js
+
+Para pasar `ref` a un `styled(Link)` y usarlo con GSAP:
+
+```typescript
+const LinkBase = React.forwardRef<HTMLAnchorElement, React.ComponentProps<typeof Link>>(
+  (props, ref) => <Link {...props} ref={ref} />
+)
+LinkBase.displayName = 'LinkBase'
+
+const StyledLink = styled(LinkBase)`...`
 ```
 
 ---
@@ -83,77 +142,147 @@ const CardB = styled.div`${baseStyles} background: blue;`
 
 Lucide **no tiene iconos de marcas**. Sustituciones confirmadas:
 
-| ❌ No existe | ✅ Usar |
-|-------------|---------|
-| `Linkedin`  | `Link2` |
-| `Github`    | `Code`  |
+| ❌ No existe  | ✅ Usar       |
+| ------------- | ------------- |
+| `Linkedin`    | `Link2`       |
+| `Github`      | `Code`        |
 | `CheckCircle` | `CircleCheck` |
+| `AlertCircle` | `CircleAlert` |
 
-Verificar nombres con: `node -e "const {icons}=require('./node_modules/lucide-react'); console.log(Object.keys(icons).filter(n => /pattern/i.test(n)))"`
+Verificar nombres:
+
+```bash
+node -e "const {icons}=require('./node_modules/lucide-react'); console.log(Object.keys(icons).filter(n => /pattern/i.test(n)))"
+```
 
 ---
 
 ## Layout y providers
 
 ### Root layout — debe ser SÍNCRONO
-Hacer el root layout `async` (con `await cookies()`) causa hydration mismatch en `MetadataWrapper` con React 19.2. Mantener siempre síncrono:
 
 ```typescript
 // ✅ Correcto
 export default function RootLayout({ children }) { ... }
 
 // ❌ Causa hydration mismatch en MetadataWrapper
-export default async function RootLayout({ children }) {
-  const cookieStore = await cookies()
-  ...
-}
+export default async function RootLayout({ children }) { ... }
 ```
 
-### globals.css — debe estar importado en layout.tsx
-Sin este import el reset CSS no se aplica y el navegador añade 8px de margen:
+### Orden de providers en layout.tsx
 
 ```typescript
-// apps/web/app/layout.tsx
-import '@kore/tokens/css'
-import './globals.css'   // ← obligatorio
+<ThemeProvider>
+  <AuthProvider>
+    <Header />        {/* Header minimal — solo logo + ThemeToggle */}
+    {children}
+  </AuthProvider>
+</ThemeProvider>
 ```
 
-### Dark mode — ThemeProvider
-- Lee `localStorage` + `prefers-color-scheme` en `useEffect`
-- Persiste en cookie `kore-theme` (para uso futuro server-side)
-- `suppressHydrationWarning` en `<html>` absorbe el cambio de `data-theme`
+### globals.css — obligatorio en layout.tsx
+
+```typescript
+import '@kore/tokens/css'
+import './globals.css' // ← sin esto el browser añade 8px de margen en body
+```
+
+### Dark mode
+
+- `ThemeProvider` lee `localStorage` + `prefers-color-scheme` en `useEffect`
+- Script anti-flash en `<head>` antes de hidratación
+- `suppressHydrationWarning` en `<html>`
+- `data-theme="dark"` en `document.documentElement`
 
 ---
 
-## Scroll anchors
+## Arquitectura de rutas
 
-Para CTAs que hacen scroll a una sección, poner el `id` en el `HeadingWrapper` (no en el `Section` o `Container` exterior). Así el scroll lleva al contenido visible, no al padding superior de la sección:
+| Ruta         | Layout                | Header                                           |
+| ------------ | --------------------- | ------------------------------------------------ |
+| `/`          | root layout           | minimal (logo + ThemeToggle flotante en Hero)    |
+| `/portfolio` | root layout           | minimal (ThemeToggle en PortfolioHero)           |
+| `/login`     | root layout           | minimal                                          |
+| `/register`  | root layout           | minimal                                          |
+| `/workouts`  | `workouts/layout.tsx` | AppHeader (logo + Avatar + logout + ThemeToggle) |
+
+### Protección de rutas
+
+La lógica de auth va en el **layout**, no en la página:
+
+```typescript
+// ✅ workouts/layout.tsx
+useEffect(() => {
+  if (!loading && !user) router.replace('/login')
+}, [user, loading, router])
+```
+
+---
+
+## Scroll
+
+### Anti-scroll-restore
+
+```typescript
+// layout.tsx — produce el warning "Encountered a script tag" de React 19, ignorar
+<script dangerouslySetInnerHTML={{ __html: 'history.scrollRestoration = "manual"' }} />
+```
+
+### Scroll anchors
+
+Poner el `id` en el `HeadingWrapper`, no en el `Section` exterior:
 
 ```tsx
-// ✅ El anchor lleva directamente al título
+// ✅ El anchor lleva directamente al contenido visible
 <HeadingWrapper id="catalog">
   <SectionTitle>Entrenamientos</SectionTitle>
 </HeadingWrapper>
 
-// ❌ Añade todo el padding-block de la sección encima
+// ❌ Añade todo el padding-block encima
 <div id="catalog">
-  <Section>
-    <HeadingWrapper>...</HeadingWrapper>
-  </Section>
+  <Section>...</Section>
 </div>
+```
+
+---
+
+## Firebase
+
+### Reglas Firestore actuales
+
+| Colección      | Permisos                       |
+|----------------|--------------------------------|
+| `workouts`     | read: true · write: false      |
+| `contacts`     | read: false · create: true     |
+| `users/{uid}`  | read/create: auth.uid === uid  |
+
+### Auth disponible
+
+```typescript
+import { useAuth } from '@/providers/AuthProvider'
+const { user, loading, login, register, loginGoogle, logout } = useAuth()
+```
+
+### Códigos de error de Firebase Auth
+
+```typescript
+catch (err: unknown) {  // ← siempre unknown, nunca any
+  const code = (err as { code?: string })?.code
+  // 'auth/invalid-credential'   → credenciales incorrectas
+  // 'auth/email-already-in-use' → email duplicado
+}
 ```
 
 ---
 
 ## Controlled inputs en @kore/ui-web
 
-`SearchInput` con `value` controlado requiere `onChange`. Usar `onSearch` que dispara en cada tecla:
+`SearchInput` con `value` controlado requiere `onSearch` que dispara en cada tecla:
 
 ```tsx
-// ✅ onSearch actúa como onChange — búsqueda en vivo
 <SearchInput
   value={search}
-  onSearch={setSearch}    // dispara en cada tecla + Escape
+  onSearch={setSearch} // dispara en cada tecla + Escape
 />
 ```
 
@@ -167,4 +296,32 @@ Cambios en `packages/ui-web/src/` NO se reflejan en `apps/web` hasta rebuildar:
 cd packages/ui-web && npx tsup   # rebuild dist/ (~3s)
 ```
 
-El dist compilado está en `packages/ui-web/dist/`. El web app importa desde ahí, no desde `src/`.
+Tras rebuild, Next.js detecta el cambio y recarga automáticamente.
+
+---
+
+## GSAP en Next.js App Router
+
+```typescript
+'use client'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger) // fuera del componente
+
+const MyComponent = () => {
+  const containerRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // animaciones aquí
+    }, containerRef)
+
+    return () => ctx.revert() // cleanup obligatorio
+  }, [])
+}
+```
+
+- Siempre `gsap.context()` para scope y cleanup
+- `ctx.revert()` en el return del useEffect
+- `autoAlpha` en lugar de `opacity` + `visibility` combinados
