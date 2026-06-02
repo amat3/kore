@@ -7,9 +7,7 @@ export default function HomePage() {
     <main>
       <Hero />
       <Features />
-      <div id="catalog">
-        <Catalog />
-      </div>
+      <Catalog />
     </main>
   )
 }

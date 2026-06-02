@@ -61,7 +61,7 @@ const Catalog = () => {
       <Container>
 
         {/* Heading */}
-        <HeadingWrapper>
+        <HeadingWrapper id="catalog">
           <SectionOverline>Entrenamientos</SectionOverline>
           <SectionTitle>
             Entrena con <em>propósito</em>
