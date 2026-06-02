@@ -159,6 +159,27 @@ node -e "const {icons}=require('./node_modules/lucide-react'); console.log(Objec
 
 ## Layout y providers
 
+### Root layout — nunca añadir `<head>` manual
+
+Next.js gestiona el `<head>` internamente a través de su sistema de metadata y el `MetadataWrapper`. Añadir `<head>` en JSX causa hydration mismatch en todas las páginas:
+
+```tsx
+// ❌ Rompe MetadataWrapper en Next.js 16 App Router
+<html>
+  <head>
+    <link rel="preconnect" href="..." />
+  </head>
+  <body>...</body>
+</html>
+
+// ✅ Correcto — sin <head> manual
+<html>
+  <body>...</body>
+</html>
+```
+
+Para añadir `<link>` al head usar el export `metadata` de Next.js. Para preconnect no hay soporte directo en la API de metadata — aceptar la limitación.
+
 ### Root layout — debe ser SÍNCRONO
 
 ```typescript
