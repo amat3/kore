@@ -7,7 +7,7 @@ import Link             from 'next/link'
 import styled           from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
 import { useAuth }      from '@/providers/AuthProvider'
-import { Icon }         from '@kore/ui-web'
+import { Icon, Text }   from '@kore/ui-web'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
 interface RegisterFormData {
@@ -82,8 +82,8 @@ const RegisterForm = () => {
 
         <motion.div variants={fadeUp}>
           <LogoLink href="/">KORE</LogoLink>
-          <Title>Empieza hoy</Title>
-          <Subtitle>Crea tu cuenta y accede a todos los entrenamientos KORE.</Subtitle>
+          <Title variant="h1">Empieza hoy</Title>
+          <Subtitle variant="body-light">Crea tu cuenta y accede a todos los entrenamientos KORE.</Subtitle>
         </motion.div>
 
         <motion.div variants={fadeUp}>
@@ -101,7 +101,7 @@ const RegisterForm = () => {
         </motion.div>
 
         <motion.div variants={fadeUp}>
-          <Divider><DividerText>o con email</DividerText></Divider>
+          <Divider><DividerText variant="caption" as="span">o con email</DividerText></Divider>
         </motion.div>
 
         <Form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -120,7 +120,7 @@ const RegisterForm = () => {
                   minLength: { value: 2, message: 'Mínimo 2 caracteres' },
                 })}
               />
-              {errors.name && <FieldError>{errors.name.message}</FieldError>}
+              {errors.name && <FieldError variant="caption" as="span">{errors.name.message}</FieldError>}
             </FieldGroup>
           </motion.div>
 
@@ -141,7 +141,7 @@ const RegisterForm = () => {
                   },
                 })}
               />
-              {errors.email && <FieldError>{errors.email.message}</FieldError>}
+              {errors.email && <FieldError variant="caption" as="span">{errors.email.message}</FieldError>}
             </FieldGroup>
           </motion.div>
 
@@ -163,7 +163,7 @@ const RegisterForm = () => {
                   },
                 })}
               />
-              {errors.password && <FieldError>{errors.password.message}</FieldError>}
+              {errors.password && <FieldError variant="caption" as="span">{errors.password.message}</FieldError>}
             </FieldGroup>
           </motion.div>
 
@@ -183,7 +183,7 @@ const RegisterForm = () => {
                 })}
               />
               {errors.confirmPassword && (
-                <FieldError>{errors.confirmPassword.message}</FieldError>
+                <FieldError variant="caption" as="span">{errors.confirmPassword.message}</FieldError>
               )}
             </FieldGroup>
           </motion.div>
@@ -214,7 +214,7 @@ const RegisterForm = () => {
         </Form>
 
         <motion.div variants={fadeUp}>
-          <Footer>
+          <Footer variant="body-sm">
             ¿Ya tienes cuenta?{' '}
             <FooterLink href="/login">Inicia sesión</FooterLink>
           </Footer>
@@ -238,19 +238,19 @@ const GoogleIcon = () => (
 // ── Styled — igual que LoginForm ──────────────────────────────────────────
 const Wrapper        = styled.div`width: 100%; max-width: 420px; margin: 0 auto; padding: var(--spacing-2xl) var(--spacing-l);`
 const LogoLink       = styled(Link)`display: block; font-family: var(--font-family-display); font-size: var(--scale-2xl); font-weight: var(--font-weight-light); color: var(--foreground-accent-on-surface); text-decoration: none; letter-spacing: var(--letter-spacing-wide); margin-bottom: var(--spacing-2xl);`
-const Title          = styled.h1`font-family: var(--font-family-display); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: var(--font-weight-light); color: var(--foreground-primary-on-surface); margin: 0 0 var(--spacing-s); line-height: 1.1;`
-const Subtitle       = styled.p`font-family: var(--font-family-ui); font-size: var(--scale-m); font-weight: var(--font-weight-light); color: var(--foreground-secondary-on-surface); margin: 0 0 var(--spacing-2xl); line-height: var(--line-height-spacious);`
+const Title          = styled(Text)`font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.1; margin: 0 0 var(--spacing-s);`
+const Subtitle       = styled(Text)`color: var(--foreground-secondary-on-surface); margin: 0 0 var(--spacing-2xl);`
 const GoogleButton   = styled.button`display: flex; align-items: center; justify-content: center; gap: var(--spacing-s); width: 100%; padding: var(--spacing-m); border-radius: var(--radius-full); border: 1.5px solid var(--stroke-secondary-on-surface); background: var(--background-surface-solid); color: var(--foreground-primary-on-surface); font-family: var(--font-family-ui); font-size: var(--scale-s); font-weight: var(--font-weight-semibold); cursor: pointer; transition: border-color 150ms, background 150ms; margin-bottom: var(--spacing-l); &:hover:not(:disabled) { border-color: var(--stroke-accent); background: var(--background-action-hover); } &:disabled { opacity: 0.5; cursor: not-allowed; }`
 const Divider        = styled.div`display: flex; align-items: center; gap: var(--spacing-m); margin-bottom: var(--spacing-l); &::before, &::after { content: ''; flex: 1; height: 1px; background: var(--stroke-secondary-on-surface); }`
-const DividerText    = styled.span`font-family: var(--font-family-ui); font-size: var(--scale-xs); color: var(--foreground-tertiary-on-surface); letter-spacing: var(--letter-spacing-spacious); text-transform: uppercase; white-space: nowrap;`
+const DividerText    = styled(Text)`color: var(--foreground-tertiary-on-surface); letter-spacing: var(--letter-spacing-spacious); text-transform: uppercase; white-space: nowrap;`
 const Form           = styled.form`display: flex; flex-direction: column; gap: var(--spacing-l); margin-bottom: var(--spacing-l);`
 const FieldGroup     = styled.div`display: flex; flex-direction: column; gap: var(--spacing-xs);`
 const Label          = styled.label`font-family: var(--font-family-ui); font-size: var(--scale-s); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-spacious); text-transform: uppercase; color: var(--foreground-secondary-on-surface);`
 const InputField     = styled.input<{ $hasError: boolean }>`width: 100%; background: var(--background-surface-low); border: 1.5px solid ${({ $hasError }) => $hasError ? 'var(--stroke-error)' : 'var(--stroke-secondary-on-surface)'}; border-radius: var(--radius-s); padding: var(--spacing-m); font-family: var(--font-family-ui); font-size: var(--scale-m); color: var(--foreground-primary-on-surface); outline: none; transition: border-color 150ms, box-shadow 150ms; box-sizing: border-box; &::placeholder { color: var(--foreground-tertiary-on-surface); } &:focus { border-color: var(--stroke-accent); box-shadow: 0 0 0 3px var(--background-accent-dim); }`
-const FieldError     = styled.span`font-family: var(--font-family-ui); font-size: var(--scale-xs); color: var(--foreground-error-on-surface);`
+const FieldError     = styled(Text)`color: var(--foreground-error-on-surface);`
 const ErrorBanner    = styled.div`display: flex; align-items: center; gap: var(--spacing-s); padding: var(--spacing-m); border-radius: var(--radius-s); background: var(--background-error-dim); color: var(--foreground-error-on-surface); font-family: var(--font-family-ui); font-size: var(--scale-s); font-weight: var(--font-weight-semibold);`
 const SubmitButton   = styled(motion.button)`display: flex; align-items: center; justify-content: center; gap: var(--spacing-s); width: 100%; padding: var(--spacing-m); border-radius: var(--radius-full); border: none; background: var(--background-accent-solid); color: var(--foreground-primary-on-accent); font-family: var(--font-family-ui); font-size: var(--scale-s); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-spacious); text-transform: uppercase; cursor: pointer; transition: background 150ms; &:disabled { opacity: 0.5; cursor: not-allowed; } &:hover:not(:disabled) { background: color-mix(in srgb, var(--background-accent-solid), black 12%); }`
-const Footer         = styled.p`font-family: var(--font-family-ui); font-size: var(--scale-s); color: var(--foreground-secondary-on-surface); text-align: center; margin: 0;`
+const Footer         = styled(Text)`color: var(--foreground-secondary-on-surface); text-align: center;`
 const FooterLink     = styled(Link)`color: var(--foreground-accent-on-surface); font-weight: var(--font-weight-semibold); text-decoration: none; &:hover { text-decoration: underline; }`
 
 export default RegisterForm
