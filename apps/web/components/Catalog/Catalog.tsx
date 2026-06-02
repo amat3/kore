@@ -8,11 +8,11 @@
  * Skeleton loading mientras carga.
  */
 
-import { useState }  from 'react'
-import styled         from '@emotion/styled'
+import { useState } from 'react'
+import styled from '@emotion/styled'
 import { css, keyframes } from '@emotion/react'
 import { WorkoutCard, FilterBar } from '@kore/ui-web'
-import { useWorkouts }            from '@/hooks/useWorkouts'
+import { useWorkouts } from '@/hooks/useWorkouts'
 
 // ── Skeleton animation ────────────────────────────────────────────────────
 const shimmer = keyframes`
@@ -34,41 +34,42 @@ const SkeletonCard = () => (
 
 // ── Componente principal ──────────────────────────────────────────────────
 const Catalog = () => {
-  const [search,     setSearch]     = useState('')
+  const [search, setSearch] = useState('')
   const [categories, setCategories] = useState<string[]>([])
 
-  const { workouts, loading, error, categories: allCategories } = useWorkouts({
+  const {
+    workouts,
+    loading,
+    error,
+    categories: allCategories,
+  } = useWorkouts({
     search,
     categories,
   })
 
-  const filters = allCategories.map(cat => ({
-    id:       cat.toLowerCase(),
-    label:    cat,
+  const filters = allCategories.map((cat) => ({
+    id: cat.toLowerCase(),
+    label: cat,
     selected: categories.includes(cat),
   }))
 
   const handleFilterToggle = (id: string) => {
-    const cat = allCategories.find(c => c.toLowerCase() === id)
+    const cat = allCategories.find((c) => c.toLowerCase() === id)
     if (!cat) return
-    setCategories(prev =>
-      prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
-    )
+    setCategories((prev) => (prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]))
   }
 
   return (
     <Section>
-      <Container>
-
+      <Container id="catalog">
         {/* Heading */}
-        <HeadingWrapper id="catalog">
+        <HeadingWrapper>
           <SectionOverline>Entrenamientos</SectionOverline>
           <SectionTitle>
             Entrena con <em>propósito</em>
           </SectionTitle>
           <SectionSubtitle>
-            Sesiones diseñadas para cada nivel. Filtra por categoría o busca
-            lo que necesitas hoy.
+            Sesiones diseñadas para cada nivel. Filtra por categoría o busca lo que necesitas hoy.
           </SectionSubtitle>
         </HeadingWrapper>
 
@@ -85,9 +86,7 @@ const Catalog = () => {
 
         {/* Resultados */}
         {error ? (
-          <ErrorState>
-            No se pudieron cargar los entrenamientos. Inténtalo de nuevo.
-          </ErrorState>
+          <ErrorState>No se pudieron cargar los entrenamientos. Inténtalo de nuevo.</ErrorState>
         ) : loading ? (
           <Grid>
             {Array.from({ length: 6 }).map((_, i) => (
@@ -98,9 +97,7 @@ const Catalog = () => {
           <EmptyState>
             <EmptyIcon>🔍</EmptyIcon>
             <EmptyTitle>Sin resultados</EmptyTitle>
-            <EmptyText>
-              Prueba con otros filtros o busca otra cosa.
-            </EmptyText>
+            <EmptyText>Prueba con otros filtros o busca otra cosa.</EmptyText>
           </EmptyState>
         ) : (
           <>
@@ -108,7 +105,7 @@ const Catalog = () => {
               {workouts.length} entrenamiento{workouts.length !== 1 ? 's' : ''}
             </ResultsCount>
             <Grid>
-              {workouts.map(workout => (
+              {workouts.map((workout) => (
                 <WorkoutCard
                   key={workout.id}
                   title={workout.title}
@@ -122,7 +119,6 @@ const Catalog = () => {
             </Grid>
           </>
         )}
-
       </Container>
     </Section>
   )
@@ -131,55 +127,58 @@ const Catalog = () => {
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
   background-color: var(--background-surface-low);
-  padding-block:    clamp(4rem, 10vw, 8rem);
-  border-top:       0.5px solid var(--stroke-secondary-on-surface);
+  padding-block: clamp(4rem, 10vw, 8rem);
+  border-top: 0.5px solid var(--stroke-secondary-on-surface);
 `
 
 const Container = styled.div`
-  max-width:      1200px;
-  margin:         0 auto;
+  max-width: 1200px;
+  margin: 0 auto;
   padding-inline: var(--spacing-l);
-  @media (min-width: 600px)  { padding-inline: var(--spacing-2xl); }
-  @media (min-width: 1200px) { padding-inline: var(--spacing-3xl); }
+  @media (min-width: 600px) {
+    padding-inline: var(--spacing-2xl);
+  }
+  @media (min-width: 1200px) {
+    padding-inline: var(--spacing-3xl);
+  }
 `
 
 const HeadingWrapper = styled.div`
-  max-width:     600px;
   margin-bottom: clamp(2rem, 4vw, 3rem);
 `
 
 const SectionOverline = styled.span`
-  display:        block;
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
+  display: block;
+  font-family: var(--font-family-ui);
+  font-size: var(--scale-xs);
+  font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
-  color:          var(--foreground-accent-on-surface);
-  margin-bottom:  var(--spacing-m);
+  color: var(--foreground-accent-on-surface);
+  margin-bottom: var(--spacing-m);
 `
 
 const SectionTitle = styled.h2`
-  font-family:  var(--font-family-display);
-  font-size:    clamp(2rem, 5vw, 4rem);
-  font-weight:  var(--font-weight-light);
-  color:        var(--foreground-primary-on-surface);
-  margin:       0 0 var(--spacing-m);
-  line-height:  1.1;
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: var(--font-weight-light);
+  color: var(--foreground-primary-on-surface);
+  margin: 0 0 var(--spacing-m);
+  line-height: 1.1;
   em {
-    font-style:  italic;
+    font-style: italic;
     font-weight: var(--font-weight-semibold);
-    color:       var(--foreground-accent-on-surface);
+    color: var(--foreground-accent-on-surface);
   }
 `
 
 const SectionSubtitle = styled.p`
   font-family: var(--font-family-ui);
-  font-size:   var(--scale-m);
+  font-size: var(--scale-m);
   font-weight: var(--font-weight-light);
-  color:       var(--foreground-secondary-on-surface);
+  color: var(--foreground-secondary-on-surface);
   line-height: var(--line-height-spacious);
-  margin:      0;
+  margin: 0;
 `
 
 const FilterBarWrapper = styled.div`
@@ -187,16 +186,16 @@ const FilterBarWrapper = styled.div`
 `
 
 const ResultsCount = styled.p`
-  font-family:  var(--font-family-ui);
-  font-size:    var(--scale-s);
-  color:        var(--foreground-tertiary-on-surface);
-  margin:       0 0 var(--spacing-m);
+  font-family: var(--font-family-ui);
+  font-size: var(--scale-s);
+  color: var(--foreground-tertiary-on-surface);
+  margin: 0 0 var(--spacing-m);
 `
 
 const Grid = styled.div`
-  display:               grid;
+  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap:                   var(--spacing-m);
+  gap: var(--spacing-m);
 `
 
 // ── Skeleton ──────────────────────────────────────────────────────────────
@@ -213,9 +212,9 @@ const skeletonBase = css`
 
 const SkeletonWrapper = styled.div`
   border-radius: var(--corners-default-card);
-  border:        0.5px solid var(--stroke-secondary-on-surface);
-  overflow:      hidden;
-  background:    var(--background-surface-solid);
+  border: 0.5px solid var(--stroke-secondary-on-surface);
+  overflow: hidden;
+  background: var(--background-surface-solid);
 `
 
 const SkeletonImage = styled.div`
@@ -231,44 +230,46 @@ const SkeletonBody = styled.div`
 `
 
 const SkeletonLine = styled.div<{ $width: string; $height: string }>`
-  height:        ${({ $height }) => $height};
-  width:         ${({ $width })  => $width};
+  height: ${({ $height }) => $height};
+  width: ${({ $width }) => $width};
   border-radius: var(--radius-xs);
   ${skeletonBase}
 `
 
 // ── Empty / Error ─────────────────────────────────────────────────────────
 const EmptyState = styled.div`
-  display:        flex;
+  display: flex;
   flex-direction: column;
-  align-items:    center;
-  padding:        clamp(3rem, 8vw, 6rem);
-  text-align:     center;
-  gap:            var(--spacing-m);
+  align-items: center;
+  padding: clamp(3rem, 8vw, 6rem);
+  text-align: center;
+  gap: var(--spacing-m);
 `
 
-const EmptyIcon = styled.span`font-size: 2.5rem;`
+const EmptyIcon = styled.span`
+  font-size: 2.5rem;
+`
 
 const EmptyTitle = styled.p`
   font-family: var(--font-family-display);
-  font-size:   var(--scale-2xl);
+  font-size: var(--scale-2xl);
   font-weight: var(--font-weight-semibold);
-  color:       var(--foreground-primary-on-surface);
-  margin:      0;
+  color: var(--foreground-primary-on-surface);
+  margin: 0;
 `
 
 const EmptyText = styled.p`
   font-family: var(--font-family-ui);
-  font-size:   var(--scale-m);
-  color:       var(--foreground-secondary-on-surface);
-  margin:      0;
+  font-size: var(--scale-m);
+  color: var(--foreground-secondary-on-surface);
+  margin: 0;
 `
 
 const ErrorState = styled.p`
-  text-align:  center;
-  padding:     var(--spacing-2xl);
+  text-align: center;
+  padding: var(--spacing-2xl);
   font-family: var(--font-family-ui);
-  color:       var(--foreground-error-on-surface);
+  color: var(--foreground-error-on-surface);
 `
 
 export default Catalog
