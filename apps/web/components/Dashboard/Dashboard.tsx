@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect }                from 'react'
 import styled                    from '@emotion/styled'
 import { motion, useInView, type Variants } from 'framer-motion'
+import { Text }                             from '@kore/ui-web'
 import {
   BarChart, Bar,
   LineChart, Line,
@@ -55,9 +56,9 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (!active || !payload?.length) return null
   return (
     <TooltipBox>
-      <TooltipLabel>{label}</TooltipLabel>
+      <TooltipLabel variant="overline" as="p">{label}</TooltipLabel>
       {payload.map((p, i) => (
-        <TooltipValue key={i} style={{ color: '#B05E3A' }}>
+        <TooltipValue key={i} variant="h3" as="p" style={{ color: '#B05E3A' }}>
           {p.value} {p.name === 'minutes' ? 'min' : p.name === 'days' ? 'días' : ''}
         </TooltipValue>
       ))}
@@ -120,9 +121,9 @@ const Dashboard = () => {
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
         >
-          <SectionOverline>Dashboard</SectionOverline>
-          <SectionTitle>Datos que <em>motivan</em></SectionTitle>
-          <SectionSubtitle>
+          <SectionOverline variant="overline" as="span">Dashboard</SectionOverline>
+          <SectionTitle variant="h1" as="h2">Datos que <em>motivan</em></SectionTitle>
+          <SectionSubtitle variant="body-light">
             Visualización de actividad semanal, racha mensual y desglose por categoría.
             Recharts con animación al entrar en viewport y tooltips custom.
           </SectionSubtitle>
@@ -138,11 +139,11 @@ const Dashboard = () => {
             {QUICK_STATS.map(stat => (
               <motion.div key={stat.label} variants={fadeUp}>
                 <StatCard>
-<StatValue>
+<StatValue variant="display" as="span">
   <AnimatedCounter value={stat.value} />
 </StatValue>
-                  <StatUnit>{stat.unit}</StatUnit>
-                  <StatLabel>{stat.label}</StatLabel>
+                  <StatUnit variant="overline" as="span">{stat.unit}</StatUnit>
+                  <StatLabel variant="caption" as="span">{stat.label}</StatLabel>
                 </StatCard>
               </motion.div>
             ))}
@@ -158,8 +159,8 @@ const Dashboard = () => {
             viewport={{ once: true, margin: '-40px' }}
           >
             <ChartCard ref={barChartRef}>
-              <ChartTitle>Actividad semanal</ChartTitle>
-              <ChartSubtitle>Minutos entrenados por día</ChartSubtitle>
+              <ChartTitle variant="h3" as="h3">Actividad semanal</ChartTitle>
+              <ChartSubtitle variant="body-sm">Minutos entrenados por día</ChartSubtitle>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={WEEKLY_ACTIVITY} barSize={20}>
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--stroke-secondary-on-surface)" vertical={false} />
@@ -190,8 +191,8 @@ const Dashboard = () => {
             viewport={{ once: true, margin: '-40px' }}
           >
             <ChartCard ref={lineChartRef}>
-              <ChartTitle>Racha mensual</ChartTitle>
-              <ChartSubtitle>Días activos por semana</ChartSubtitle>
+              <ChartTitle variant="h3" as="h3">Racha mensual</ChartTitle>
+              <ChartSubtitle variant="body-sm">Días activos por semana</ChartSubtitle>
               <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={MONTHLY_STREAK}>
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--stroke-secondary-on-surface)" vertical={false} />
@@ -223,12 +224,12 @@ const Dashboard = () => {
             style={{ gridColumn: '1 / -1' }}
           >
             <ChartCard ref={catChartRef}>
-              <ChartTitle>Sesiones por categoría</ChartTitle>
-              <ChartSubtitle>Distribución del último mes</ChartSubtitle>
+              <ChartTitle variant="h3" as="h3">Sesiones por categoría</ChartTitle>
+              <ChartSubtitle variant="body-sm">Distribución del último mes</ChartSubtitle>
               <CategoriesGrid>
                 {CATEGORY_BREAKDOWN.map((cat, i) => (
                   <CategoryRow key={cat.category}>
-                    <CategoryName>{cat.category}</CategoryName>
+                    <CategoryName variant="body-sm" as="span">{cat.category}</CategoryName>
                     <BarWrapper>
                       <BarFill
                         $color={cat.color}
@@ -238,7 +239,7 @@ const Dashboard = () => {
                         transition={{ duration: 0.8, ease: 'easeOut', delay: i * 0.08 }}
                       />
                     </BarWrapper>
-                    <CategoryCount>{cat.sessions}</CategoryCount>
+                    <CategoryCount variant="body-sm" as="span">{cat.sessions}</CategoryCount>
                   </CategoryRow>
                 ))}
               </CategoriesGrid>
@@ -269,24 +270,15 @@ const Container = styled.div`
   @media (min-width: 1200px) { padding-inline: var(--spacing-3xl); }
 `
 
-const SectionOverline = styled.span`
-  display:        block;
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          var(--foreground-accent-on-surface);
-  margin-bottom:  var(--spacing-m);
+const SectionOverline = styled(Text)`
+  display:       block;
+  margin-bottom: var(--spacing-m);
 `
 
-const SectionTitle = styled.h2`
-  font-family:  var(--font-family-display);
-  font-size:    clamp(2rem, 4vw, 3.5rem);
-  font-weight:  var(--font-weight-light);
-  color:        var(--foreground-primary-on-surface);
-  margin:       0 0 var(--spacing-m);
-  line-height:  1.1;
+const SectionTitle = styled(Text)`
+  font-size:   clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  margin:      0 0 var(--spacing-m);
   em {
     font-style:  italic;
     font-weight: var(--font-weight-semibold);
@@ -294,14 +286,9 @@ const SectionTitle = styled.h2`
   }
 `
 
-const SectionSubtitle = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-m);
-  font-weight: var(--font-weight-light);
-  color:       var(--foreground-secondary-on-surface);
-  line-height: var(--line-height-spacious);
-  margin:      0;
-  max-width:   600px;
+const SectionSubtitle = styled(Text)`
+  color:     var(--foreground-secondary-on-surface);
+  max-width: 600px;
 `
 
 const StatsGrid = styled.div`
@@ -321,29 +308,20 @@ const StatCard = styled.div`
   gap:            2px;
 `
 
-const StatValue = styled.span`
-  font-family: var(--font-family-display);
+const StatValue = styled(Text)`
   font-size:   clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: var(--font-weight-light);
   color:       var(--foreground-accent-on-surface);
   line-height: 1;
 `
 
-const StatUnit = styled.span`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
+const StatUnit = styled(Text)`
   letter-spacing: var(--letter-spacing-spacious);
-  text-transform: uppercase;
-  color:          var(--foreground-accent-on-surface);
   opacity:        0.7;
 `
 
-const StatLabel = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-xs);
-  color:       var(--foreground-secondary-on-surface);
-  margin-top:  var(--spacing-2xs);
+const StatLabel = styled(Text)`
+  color:      var(--foreground-secondary-on-surface);
+  margin-top: var(--spacing-2xs);
 `
 
 const ChartsGrid = styled.div`
@@ -360,19 +338,14 @@ const ChartCard = styled.div`
   background:    var(--background-surface-solid);
 `
 
-const ChartTitle = styled.h3`
-  font-family: var(--font-family-display);
-  font-size:   var(--scale-xl);
-  font-weight: var(--font-weight-semibold);
-  color:       var(--foreground-primary-on-surface);
-  margin:      0 0 var(--spacing-2xs);
+const ChartTitle = styled(Text)`
+  font-size: var(--scale-xl);
+  margin:    0 0 var(--spacing-2xs);
 `
 
-const ChartSubtitle = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-s);
-  color:       var(--foreground-tertiary-on-surface);
-  margin:      0 0 var(--spacing-l);
+const ChartSubtitle = styled(Text)`
+  color:  var(--foreground-tertiary-on-surface);
+  margin: 0 0 var(--spacing-l);
 `
 
 const TooltipBox = styled.div`
@@ -383,21 +356,15 @@ const TooltipBox = styled.div`
   box-shadow:    0 4px 16px rgba(0,0,0,0.1);
 `
 
-const TooltipLabel = styled.p`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
+const TooltipLabel = styled(Text)`
   color:          var(--foreground-secondary-on-surface);
-  margin:         0 0 2px;
-  text-transform: uppercase;
   letter-spacing: var(--letter-spacing-spacious);
+  margin:         0 0 2px;
 `
 
-const TooltipValue = styled.p`
-  font-family: var(--font-family-display);
-  font-size:   var(--scale-xl);
-  font-weight: var(--font-weight-semibold);
-  margin:      0;
+const TooltipValue = styled(Text)`
+  font-size: var(--scale-xl);
+  margin:    0;
 `
 
 const CategoriesGrid = styled.div`
@@ -413,9 +380,7 @@ const CategoryRow = styled.div`
   gap:         var(--spacing-m);
 `
 
-const CategoryName = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-s);
+const CategoryName = styled(Text)`
   font-weight: var(--font-weight-semibold);
   color:       var(--foreground-secondary-on-surface);
   width:       80px;
@@ -438,9 +403,7 @@ const BarFill = styled(motion.div)<{ $color: string; $pct: number }>`
   transform-origin: left;
 `
 
-const CategoryCount = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-s);
+const CategoryCount = styled(Text)`
   font-weight: var(--font-weight-semibold);
   color:       var(--foreground-tertiary-on-surface);
   width:       24px;
