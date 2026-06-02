@@ -14,7 +14,7 @@ import { motion, type Variants } from 'framer-motion'
 import { collection, addDoc } from 'firebase/firestore'
 import { db }                 from '@/lib/firebase'
 import emailjs from '@emailjs/browser'
-import { Icon }               from '@kore/ui-web'
+import { Icon, Text }         from '@kore/ui-web'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
 interface ContactForm {
@@ -88,9 +88,9 @@ const Contact = () => {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
           >
-            <SectionOverline>Contacto</SectionOverline>
-            <SectionTitle>Hablemos</SectionTitle>
-            <SectionSubtitle>
+            <SectionOverline variant="overline" as="span">Contacto</SectionOverline>
+            <SectionTitle variant="h1" as="h2">Hablemos</SectionTitle>
+            <SectionSubtitle variant="body-light">
               Disponible para nuevos proyectos y oportunidades.
               Si buscas un developer que combine criterio visual
               con solidez técnica, escríbeme.
@@ -123,7 +123,7 @@ const Contact = () => {
               </ContactLink>
             </ContactLinks>
 
-            <LocationNote>
+            <LocationNote variant="body-sm" as="p">
               <Icon name="MapPin" size="xs" color="muted" />
               Jaén, España · Disponible para viajes nacionales e internacionales
             </LocationNote>
@@ -151,7 +151,7 @@ const Contact = () => {
                       minLength: { value: 2, message: 'Mínimo 2 caracteres' },
                     })}
                   />
-                  {errors.name && <FieldError>{errors.name.message}</FieldError>}
+                  {errors.name && <FieldError variant="caption" as="span">{errors.name.message}</FieldError>}
                 </FieldGroup>
               </motion.div>
 
@@ -171,7 +171,7 @@ const Contact = () => {
                       },
                     })}
                   />
-                  {errors.email && <FieldError>{errors.email.message}</FieldError>}
+                  {errors.email && <FieldError variant="caption" as="span">{errors.email.message}</FieldError>}
                 </FieldGroup>
               </motion.div>
 
@@ -203,7 +203,7 @@ const Contact = () => {
                       minLength: { value: 20, message: 'Mínimo 20 caracteres' },
                     })}
                   />
-                  {errors.message && <FieldError>{errors.message.message}</FieldError>}
+                  {errors.message && <FieldError variant="caption" as="span">{errors.message.message}</FieldError>}
                 </FieldGroup>
               </motion.div>
 
@@ -284,33 +284,20 @@ const Grid = styled.div`
   }
 `
 
-const SectionOverline = styled.span`
-  display:        block;
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          var(--foreground-accent-on-surface);
-  margin-bottom:  var(--spacing-m);
+const SectionOverline = styled(Text)`
+  display:       block;
+  margin-bottom: var(--spacing-m);
 `
 
-const SectionTitle = styled.h2`
-  font-family:  var(--font-family-display);
-  font-size:    clamp(2.5rem, 5vw, 4.5rem);
-  font-weight:  var(--font-weight-light);
-  color:        var(--foreground-primary-on-surface);
-  margin:       0 0 var(--spacing-l);
-  line-height:  1.05;
+const SectionTitle = styled(Text)`
+  font-size:   clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  margin:      0 0 var(--spacing-l);
 `
 
-const SectionSubtitle = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-m);
-  font-weight: var(--font-weight-light);
-  color:       var(--foreground-secondary-on-surface);
-  line-height: var(--line-height-spacious);
-  margin:      0 0 var(--spacing-2xl);
+const SectionSubtitle = styled(Text)`
+  color:  var(--foreground-secondary-on-surface);
+  margin: 0 0 var(--spacing-2xl);
 `
 
 const ContactLinks = styled.div`
@@ -334,14 +321,11 @@ const ContactLink = styled.a`
   &:hover { color: var(--foreground-accent-on-surface); }
 `
 
-const LocationNote = styled.p`
+const LocationNote = styled(Text)`
   display:     flex;
   align-items: flex-start;
   gap:         var(--spacing-xs);
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-s);
   color:       var(--foreground-tertiary-on-surface);
-  line-height: var(--line-height-spacious);
   margin:      0;
 `
 
@@ -412,13 +396,11 @@ const TextareaField = styled.textarea<{ $hasError: boolean }>`
     $hasError ? 'var(--stroke-error)' : 'var(--stroke-secondary-on-surface)'};
 `
 
-const FieldError = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-xs);
-  color:       var(--foreground-error-on-surface);
+const FieldError = styled(Text)`
   display:     flex;
   align-items: center;
   gap:         var(--spacing-2xs);
+  color:       var(--foreground-error-on-surface);
 `
 
 const SubmitButton = styled(motion.button)<{
