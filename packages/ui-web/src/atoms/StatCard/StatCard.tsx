@@ -2,6 +2,7 @@
 
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+import Text   from '../Text/Text'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
 
@@ -33,11 +34,11 @@ const StatCard = ({
 }: StatCardProps) => (
   <Wrapper className={className}>
     <TopRow>
-      <Label>{label}</Label>
+      <Label variant="overline" as="span">{label}</Label>
       {icon && <IconSlot aria-hidden="true">{icon}</IconSlot>}
     </TopRow>
 
-    <Value>{value}</Value>
+    <Value variant="h1" as="p">{value}</Value>
 
     {trendValue && (
       <TrendRow>
@@ -76,13 +77,8 @@ const TopRow = styled.div`
   justify-content: space-between;
 `
 
-const Label = styled.span`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          var(--foreground-tertiary-on-surface);
+const Label = styled(Text)`
+  color: var(--foreground-tertiary-on-surface);
 `
 
 const IconSlot = styled.span`
@@ -90,14 +86,9 @@ const IconSlot = styled.span`
   flex-shrink: 0;
 `
 
-const Value = styled.p`
-  font-family:    var(--font-family-display);
-  font-size:      var(--scale-4xl);
-  font-weight:    var(--font-weight-light);
-  letter-spacing: var(--letter-spacing-dense);
-  color:          var(--foreground-primary-on-surface);
-  line-height:    1;
-  margin:         0;
+const Value = styled(Text)`
+  line-height: 1;
+  margin:      0;
 `
 
 const trendColor = ($trend: StatTrend) => css`

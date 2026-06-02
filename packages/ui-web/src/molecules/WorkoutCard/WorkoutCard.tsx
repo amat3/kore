@@ -3,6 +3,7 @@
 import styled  from '@emotion/styled'
 import Card    from '../../atoms/Card/Card'
 import Icon    from '../../atoms/Icon/Icon'
+import Text    from '../../atoms/Text/Text'
 
 export type WorkoutLevel = 'beginner' | 'intermediate' | 'advanced'
 
@@ -68,14 +69,14 @@ const WorkoutCard = ({
     </ImageWrapper>
 
     <Body>
-      <Overline>{category}</Overline>
-      <Title>{title}</Title>
+      <Overline variant="overline" as="span">{category}</Overline>
+      <Title variant="h3">{title}</Title>
       <MetaRow>
-        <MetaText>{duration} min</MetaText>
+        <MetaText variant="body-sm" as="span">{duration} min</MetaText>
         {level && (
           <>
-            <MetaDot aria-hidden="true">·</MetaDot>
-            <MetaText>{levelLabel[level]}</MetaText>
+            <MetaDot variant="body-sm" as="span" aria-hidden="true">·</MetaDot>
+            <MetaText variant="body-sm" as="span">{levelLabel[level]}</MetaText>
           </>
         )}
       </MetaRow>
@@ -128,22 +129,12 @@ const MetaRow = styled.div`
   gap:         var(--spacing-xs);
 `
 
-const Overline = styled.span`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          var(--foreground-accent-on-surface);
-  line-height:    1;
+const Overline = styled(Text)`
+  line-height: 1;
 `
 
-const Title = styled.h3`
-  font-family:        var(--font-family-display);
-  font-size:          var(--scale-2xl);
-  font-weight:        var(--font-weight-semibold);
+const Title = styled(Text)`
   letter-spacing:     var(--letter-spacing-dense);
-  color:              var(--foreground-primary-on-surface);
   line-height:        var(--line-height-dense);
   margin:             0;
   display:            -webkit-box;
@@ -152,17 +143,14 @@ const Title = styled.h3`
   overflow:           hidden;
 `
 
-const MetaText = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-s);
+const MetaText = styled(Text)`
   font-weight: var(--font-weight-light);
   color:       var(--foreground-secondary-on-surface);
   line-height: 1;
 `
 
-const MetaDot = styled.span`
+const MetaDot = styled(Text)`
   color:       var(--foreground-tertiary-on-surface);
-  font-size:   var(--scale-s);
   line-height: 1;
 `
 
