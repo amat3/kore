@@ -29,7 +29,3 @@ npm-debug.log*
 apps/mobile/android/
 apps/mobile/ios/
 
-# Context / reglas de agente (locales, no versionadas)
-WEB_RULES.md
-APP_RULES.md
-CLAUDE.md
