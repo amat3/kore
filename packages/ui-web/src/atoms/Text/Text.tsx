@@ -11,7 +11,8 @@
  * <Text variant="body" as="p">Descripción del entrenamiento</Text>
  */
 
-import styled from '@emotion/styled'
+import React    from 'react'
+import styled   from '@emotion/styled'
 import { baseTextStyles, variantStyles, TextVariant } from './Text.styles'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
@@ -33,30 +34,31 @@ export interface TextProps {
 
 // ── Defaults de tag por variant ───────────────────────────────────────────
 const defaultTag: Record<TextVariant, TextTag> = {
-  display:   'h1',
-  h1:        'h1',
-  h2:        'h2',
-  h3:        'h3',
-  overline:  'span',
+  display:       'h1',
+  h1:            'h1',
+  h2:            'h2',
+  h3:            'h3',
+  overline:      'span',
   body:          'p',
   'body-light':  'p',
   'body-sm':     'p',
-  caption:   'span',
-  button:    'span',
+  caption:       'span',
+  button:        'span',
 }
 
 // ── Componente ────────────────────────────────────────────────────────────
-const Text = ({
+const Text = React.forwardRef<HTMLElement, TextProps>(({
   variant = 'body',
   as,
   children,
   className,
   inheritColor = false,
-}: TextProps) => {
+}, ref) => {
   const tag = as ?? defaultTag[variant]
 
   return (
     <TextStyled
+      ref={ref as React.Ref<HTMLParagraphElement>}
       as={tag}
       $variant={variant}
       $inheritColor={inheritColor}
@@ -65,12 +67,14 @@ const Text = ({
       {children}
     </TextStyled>
   )
-}
+})
+
+Text.displayName = 'Text'
 
 // ── Styled component ──────────────────────────────────────────────────────
 const TextStyled = styled.p<{
-  $variant:       TextVariant
-  $inheritColor:  boolean
+  $variant:      TextVariant
+  $inheritColor: boolean
 }>`
   ${baseTextStyles}
   ${({ $variant }) => variantStyles[$variant]}
