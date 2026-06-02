@@ -13,7 +13,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ## Antes de dar una tarea por terminada
 
 1. Ejecutar `npx tsc --noEmit` desde `apps/web/` — resolver **todos** los errores antes de continuar
-2. Si modificaste cualquier archivo en `packages/ui-web/src/`, ejecutar `cd packages/ui-web && npx tsup`
+2. Si modificaste cualquier archivo en `packages/ui-web/src/` o `packages/tokens/src/`:
+   - Ejecutar `cd packages/ui-web && npx tsup` (o el package correspondiente)
+   - **Commitear el `dist/` resultante** — Vercel necesita los dist en el repo porque el Turborepo remote cache no restaura archivos a disco en producción
 3. Si añadiste o cambiaste un componente en `packages/ui-web/src/`:
    - Actualizar su story en `*.stories.tsx` (nueva variante → nueva Story + añadir al `argTypes.options` + incluir en `FullScale`)
    - Revisar `DesignSystemShowcase` en `/portfolio` y actualizar:
@@ -351,3 +353,43 @@ const MyComponent = () => {
 - Siempre `gsap.context()` para scope y cleanup
 - `ctx.revert()` en el return del useEffect
 - `autoAlpha` en lugar de `opacity` + `visibility` combinados
+
+---
+
+## Deploy en Vercel
+
+### Flujo correcto
+
+```bash
+# 1. Tras cambios en packages, rebuildar y commitear el dist
+cd packages/ui-web && npx tsup
+# o
+cd packages/tokens && npm run build
+
+# 2. Commitear TODO — código fuente + dist
+git add packages/ui-web/dist packages/tokens/dist
+git commit -m "..."
+
+# 3. Push a main → Vercel hace auto-deploy
+git push origin main
+```
+
+### Por qué hay que commitear el dist
+
+Turborepo usa remote cache en Vercel pero **no restaura los archivos a disco** en el entorno de build — solo reproduce los logs del build anterior. Por tanto, `packages/tokens/dist/kore.css` y `packages/ui-web/dist/` deben estar en el repo para que el build de `apps/web` pueda importarlos.
+
+### Qué está en `.gitignore` y qué no
+
+| Path | En git | Por qué |
+|------|--------|---------|
+| `packages/tokens/dist/` | ✅ sí | Vercel lo necesita disponible desde el clone |
+| `packages/ui-web/dist/` | ✅ sí | Ídem |
+| `apps/web/.next/` | ❌ no | Output de Next.js, Vercel lo genera |
+| `apps/*/dist/` | ❌ no | Apps no son packages npm |
+
+### Errores conocidos del deploy
+
+| Error | Causa | Solución |
+|-------|-------|----------|
+| `Can't resolve '@kore/tokens/css'` | dist no commiteado | `git add packages/tokens/dist && git push` |
+| `Can't resolve '@kore/ui-web'` | dist no commiteado | `git add packages/ui-web/dist && git push` |
