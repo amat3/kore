@@ -21,9 +21,20 @@ const dmSans = DM_Sans({
 
 // ── Metadata ──────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: 'KORE — Entrena sin límites',
-  description:
-    'App de fitness para mujeres que entrenan con intención. Fuerza, hábitos, nutrición y comunidad.',
+  metadataBase: new URL('https://kore-juanan-amate.vercel.app'),
+  title: {
+    default: 'KORE — Entrena sin límites',
+    template: '%s · KORE',
+  },
+  description: 'App de fitness para mujeres que entrenan con intención. Fuerza, hábitos, nutrición y comunidad.',
+  openGraph: {
+    siteName: 'KORE',
+    locale:   'es_ES',
+    type:     'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 // ── Layout ────────────────────────────────────────────────────────────────
