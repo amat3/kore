@@ -13,12 +13,7 @@ import styled                           from '@emotion/styled'
 import gsap                             from 'gsap'
 import { ScrollTrigger }                from 'gsap/ScrollTrigger'
 
-import { Button }   from '@kore/ui-web'
-import { Badge }    from '@kore/ui-web'
-import { Tag }      from '@kore/ui-web'
-import { Avatar, AvatarGroup } from '@kore/ui-web'
-import { Input }    from '@kore/ui-web'
-import { Icon }     from '@kore/ui-web'
+import { Text, Button, Badge, Tag, Avatar, AvatarGroup, Input, Icon } from '@kore/ui-web'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -209,6 +204,22 @@ const DesignSystemShowcase = () => {
             </InputGrid>
           </DSBlock>
 
+          {/* § Typography */}
+          <DSBlock className="ds-block" $wide>
+            <BlockLabel>Text — variantes tipográficas</BlockLabel>
+            <TypoList>
+              <Text variant="display">Display · KORE</Text>
+              <Text variant="h1">Heading 1 · Entrenamiento funcional</Text>
+              <Text variant="h2">Heading 2 · Sesiones de fuerza</Text>
+              <Text variant="h3">Heading 3 · Full body con peso libre</Text>
+              <Text variant="overline">Overline · Fuerza · 45 min · Intermedio</Text>
+              <Text variant="body">Body · Una sesión para activar todo el cuerpo. Sin excusas, sin límites.</Text>
+              <Text variant="body-light">Body Light · Disponible para nuevos proyectos y oportunidades.</Text>
+              <Text variant="body-sm">Body Small · Diseñado para mujeres que entrenan con intención.</Text>
+              <Text variant="caption">Caption · Última sesión hace 2 días</Text>
+            </TypoList>
+          </DSBlock>
+
           {/* § Tokens */}
           <DSBlock className="ds-block" $wide>
             <BlockLabel>Color tokens — {isDark ? 'dark' : 'light'} theme</BlockLabel>
@@ -236,9 +247,9 @@ const DesignSystemShowcase = () => {
         {/* Footer stats */}
         <StatsRow>
           {[
-            { num: '15+', label: 'Componentes'  },
-            { num: '2',   label: 'Packages'     },
-            { num: '43',  label: 'CSS vars'     },
+            { num: '15',   label: 'Componentes' },
+            { num: '2',    label: 'Packages'    },
+            { num: '164',  label: 'CSS vars'    },
             { num: '100%', label: 'TypeScript'  },
           ].map(stat => (
             <StatItem key={stat.label}>
@@ -409,6 +420,12 @@ const Divider = styled.div`
   width:  1px;
   height: 40px;
   background: var(--stroke-secondary-on-surface);
+`
+
+const TypoList = styled.div`
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-m);
 `
 
 const InputGrid = styled.div`
