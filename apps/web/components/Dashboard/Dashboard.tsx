@@ -59,7 +59,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
     <TooltipBox>
       <TooltipLabel variant="overline" as="p">{label}</TooltipLabel>
       {payload.map((p, i) => (
-        <TooltipValue key={i} variant="h3" as="p" style={{ color: 'var(--foreground-accent-on-surface)' }}>
+        <TooltipValue key={i} variant="h3" as="p">
           {p.value} {p.name === 'minutes' ? 'min' : p.name === 'days' ? 'días' : ''}
         </TooltipValue>
       ))}
@@ -365,6 +365,7 @@ const TooltipLabel = styled(Text)`
 
 const TooltipValue = styled(Text)`
   font-size: var(--scale-xl);
+  color:     var(--foreground-accent-on-surface);
   margin:    0;
 `
 
