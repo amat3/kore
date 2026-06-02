@@ -1,11 +1,10 @@
 import type { NextConfig } from 'next'
-import path from 'path'
 
 const nextConfig: NextConfig = {
   turbopack: {
     resolveAlias: {
-      // Turbopack production no resuelve CSS exports de packages en monorepo — bypass explícito
-      '@kore/tokens/css': path.resolve(__dirname, '../../packages/tokens/dist/kore.css'),
+      // Turbopack production no resuelve CSS exports de packages en monorepo — ruta relativa
+      '@kore/tokens/css': '../../packages/tokens/dist/kore.css',
     },
   },
 }
