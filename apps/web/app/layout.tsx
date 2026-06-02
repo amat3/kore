@@ -3,7 +3,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import { ThemeProvider } from '@/providers/ThemeProvider'
-import { AuthProvider } from '@/providers/AuthProvider'
+import { AuthProvider }  from '@/providers/AuthProvider'
+import Footer            from '@/components/Footer/Footer'
 
 // ── Fuentes KORE ──────────────────────────────────────────────────────────
 const cormorant = Cormorant_Garamond({
@@ -35,7 +36,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body>
         <ThemeProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            {children}
+            <Footer />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
