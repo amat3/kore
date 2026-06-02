@@ -309,7 +309,7 @@ const SectionSubtitle = styled(Text)`
   code {
     font-size:     0.9em;
     padding:       2px 6px;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     background:    var(--background-surface-solid);
     color:         var(--foreground-accent-on-surface);
     border:        0.5px solid var(--stroke-secondary-on-surface);
@@ -428,8 +428,8 @@ const TokenChip = styled.div`
 `
 
 const TokenSwatch = styled.div`
-  width:        24px;
-  height:       24px;
+  width:        var(--spacing-l);
+  height:       var(--spacing-l);
   border-radius: var(--radius-xs);
   border:        0.5px solid var(--stroke-secondary-on-surface);
   flex-shrink:   0;

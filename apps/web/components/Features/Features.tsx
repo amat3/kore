@@ -230,8 +230,8 @@ const FeatureCard = styled.div<{ $accent: string }>`
 `
 
 const EmojiWrapper = styled.div<{ $accent: string }>`
-  width:            48px;
-  height:           48px;
+  width:            var(--sizing-3xl);
+  height:           var(--sizing-3xl);
   border-radius:    var(--radius-m);
   background-color: ${({ $accent }) => $accent}15;
   display:          flex;
@@ -272,7 +272,7 @@ const AccentLine = styled.div<{ $accent: string }>`
   bottom:           0;
   left:             0;
   right:            0;
-  height:           2px;
+  height:           var(--borders-thick);
   background:       linear-gradient(
     to right,
     ${({ $accent }) => $accent},

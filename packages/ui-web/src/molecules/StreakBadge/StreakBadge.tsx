@@ -185,7 +185,7 @@ const CountWrapper = styled.div`
   flex-direction: column;
   align-items:    center;
   line-height:    1;
-  gap:            2px;
+  gap:            var(--spacing-3xs);
 `
 
 const Count = styled.span<{ $size: number; $color: string }>`

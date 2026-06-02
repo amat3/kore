@@ -351,8 +351,8 @@ const ScrollIndicator = styled.div`
 `
 
 const ScrollLine = styled.div`
-  width: 1px;
-  height: 40px;
+  width:  var(--borders-thin);
+  height: var(--spacing-2xl);
   background: linear-gradient(to bottom, #b05e3a, transparent);
   animation: ${bounce} 2s ease-in-out infinite;
 `

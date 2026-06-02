@@ -220,8 +220,8 @@ const TechChip = styled(motion.div)<{ $color: string }>`
 `
 
 const TechDot = styled.span<{ $color: string }>`
-  width:         8px;
-  height:        8px;
+  width:         var(--spacing-xs);
+  height:        var(--spacing-xs);
   border-radius: 50%;
   background:    ${({ $color }) => $color};
   flex-shrink:   0;
@@ -230,13 +230,13 @@ const TechDot = styled.span<{ $color: string }>`
 const TechLevel = styled.span`
   display:     flex;
   align-items: center;
-  gap:         2px;
+  gap:         var(--spacing-3xs);
   margin-left: var(--spacing-2xs);
 `
 
 const LevelDot = styled.span<{ $active: boolean }>`
-  width:         4px;
-  height:        4px;
+  width:         var(--spacing-2xs);
+  height:        var(--spacing-2xs);
   border-radius: 50%;
   background:    ${({ $active }) =>
     $active ? 'var(--foreground-accent-on-surface)' : 'var(--stroke-secondary-on-surface)'};

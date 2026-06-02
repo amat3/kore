@@ -305,7 +305,7 @@ const StatCard = styled.div`
   background:     var(--background-surface-solid);
   display:        flex;
   flex-direction: column;
-  gap:            2px;
+  gap:            var(--spacing-3xs);
 `
 
 const StatValue = styled(Text)`
@@ -359,7 +359,7 @@ const TooltipBox = styled.div`
 const TooltipLabel = styled(Text)`
   color:          var(--foreground-secondary-on-surface);
   letter-spacing: var(--letter-spacing-spacious);
-  margin:         0 0 2px;
+  margin:         0 0 var(--spacing-3xs);
 `
 
 const TooltipValue = styled(Text)`
