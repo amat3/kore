@@ -256,7 +256,7 @@ const Content = styled.div`
 `
 
 const Overline = styled(Text)`
-  color:         #B05E3A;
+  color:         var(--foreground-accent-on-surface);
   margin-bottom: var(--spacing-l);
   visibility:    hidden;
 `
@@ -270,7 +270,7 @@ const WordmarkWrapper = styled.div`
 
 const Letter = styled(Text)`
   font-size:   clamp(5rem, 18vw, 16rem);
-  color:       #F7F4F1;
+  color:       var(--foreground-primary-on-inverse);
   display:     inline-block;
   visibility:  hidden;
   line-height: 1;
@@ -294,8 +294,8 @@ const CTAs = styled.div`
 `
 
 const CTAPrimary = styled(Link)`
-  background: #b05e3a;
-  color: #f7f4f1;
+  background: var(--background-accent-solid);
+  color:      var(--foreground-primary-on-accent);
   border: none;
   border-radius: var(--radius-full);
   padding: var(--spacing-m) var(--spacing-2xl);
@@ -313,7 +313,7 @@ const CTAPrimary = styled(Link)`
     transform 200ms ease;
 
   &:hover {
-    background: color-mix(in srgb, #b05e3a, black 15%);
+    background: color-mix(in srgb, var(--background-accent-solid), black 15%);
     transform: translateY(-1px);
   }
   &:active {
@@ -334,7 +334,7 @@ const CTASecondary = styled.button`
   transition: color 200ms ease;
 
   &:hover {
-    color: #f7f4f1;
+    color: var(--foreground-primary-on-inverse);
   }
 `
 
