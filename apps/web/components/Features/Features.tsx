@@ -14,6 +14,7 @@ import { keyframes }          from '@emotion/react'
 import gsap                   from 'gsap'
 import { ScrollTrigger }      from 'gsap/ScrollTrigger'
 import { Text }               from '@kore/ui-web'
+import { colorPrimitives }    from '@kore/tokens'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -31,7 +32,7 @@ const FEATURES = [
     overline: 'Entrenamientos',
     title:    'Fuerza desde el primer día',
     body:     'Sesiones de fuerza y cardio con vídeo guiado. Cada entrenamiento, adaptado a tu nivel y tiempo disponible.',
-    accent:   '#B05E3A',
+    accent:   colorPrimitives.terracota[500],
     delay:    0,
   },
   {

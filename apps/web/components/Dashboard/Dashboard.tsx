@@ -4,6 +4,7 @@ import { useRef, useState, useEffect }                from 'react'
 import styled                    from '@emotion/styled'
 import { motion, useInView, type Variants } from 'framer-motion'
 import { Text }                             from '@kore/ui-web'
+import { colorPrimitives }                 from '@kore/tokens'
 import {
   BarChart, Bar,
   LineChart, Line,
@@ -36,7 +37,7 @@ const MONTHLY_STREAK = [
 ]
 
 const CATEGORY_BREAKDOWN = [
-  { category: 'Fuerza',    sessions: 12, color: '#B05E3A' },
+  { category: 'Fuerza',    sessions: 12, color: colorPrimitives.terracota[500] },
   { category: 'Cardio',    sessions: 8,  color: '#E25C1A' },
   { category: 'Yoga',      sessions: 6,  color: '#4D7C0F' },
   { category: 'Pilates',   sessions: 4,  color: '#6D28D9' },
@@ -58,7 +59,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
     <TooltipBox>
       <TooltipLabel variant="overline" as="p">{label}</TooltipLabel>
       {payload.map((p, i) => (
-        <TooltipValue key={i} variant="h3" as="p" style={{ color: '#B05E3A' }}>
+        <TooltipValue key={i} variant="h3" as="p" style={{ color: 'var(--foreground-accent-on-surface)' }}>
           {p.value} {p.name === 'minutes' ? 'min' : p.name === 'days' ? 'días' : ''}
         </TooltipValue>
       ))}
@@ -202,10 +203,10 @@ const Dashboard = () => {
                   <Line
                     type="monotone"
                     dataKey="days"
-                    stroke="#B05E3A"
+                    stroke={colorPrimitives.terracota[500]}
                     strokeWidth={2.5}
-                    dot={{ fill: '#B05E3A', r: 4, strokeWidth: 0 }}
-                    activeDot={{ r: 6, fill: '#B05E3A' }}
+                    dot={{ fill: colorPrimitives.terracota[500], r: 4, strokeWidth: 0 }}
+                    activeDot={{ r: 6, fill: colorPrimitives.terracota[500] }}
                     isAnimationActive={lineInView}
                     animationBegin={0}
                     animationDuration={1200}
