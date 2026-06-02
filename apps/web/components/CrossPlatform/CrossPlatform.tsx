@@ -10,6 +10,7 @@
 import styled           from '@emotion/styled'
 import { keyframes }    from '@emotion/react'
 import { motion, type Variants } from 'framer-motion'
+import { Text }                  from '@kore/ui-web'
 
 // ── Animaciones ───────────────────────────────────────────────────────────
 const pulse = keyframes`
@@ -192,11 +193,11 @@ const CrossPlatform = () => (
         viewport={{ once: true, margin: '-60px' }}
       >
         <HeadingWrapper>
-          <SectionOverline>Cross-platform</SectionOverline>
-          <SectionTitle>
+          <SectionOverline variant="overline" as="span">Cross-platform</SectionOverline>
+          <SectionTitle variant="h1" as="h2">
             Un sistema, <em>dos plataformas</em>
           </SectionTitle>
-          <SectionSubtitle>
+          <SectionSubtitle variant="body-light">
             El mismo <code>@kore/tokens</code> alimenta la web y la app mobile.
             Mismos colores, misma tipografía, misma API de componentes.
             Web con React + Next.js · Mobile con React Native + Expo.
@@ -234,24 +235,24 @@ const CrossPlatform = () => (
       >
         <TokensBridge>
           <BridgeItem>
-            <BridgeLabel>Web</BridgeLabel>
+            <BridgeLabel variant="overline" as="span">Web</BridgeLabel>
             <BridgeCode>{'import { colors } from "@kore/tokens"'}</BridgeCode>
-            <BridgeNote>CSS vars → var(--background-accent-solid)</BridgeNote>
+            <BridgeNote variant="caption" as="span">CSS vars → var(--background-accent-solid)</BridgeNote>
           </BridgeItem>
 
           <BridgeCenter>
             <BridgePackage>@kore/tokens</BridgePackage>
             <BridgeArrows>
               <span>←</span>
-              <BridgePulse>Fuente única de verdad</BridgePulse>
+              <BridgePulse variant="caption" as="span">Fuente única de verdad</BridgePulse>
               <span>→</span>
             </BridgeArrows>
           </BridgeCenter>
 
           <BridgeItem $right>
-            <BridgeLabel>Mobile</BridgeLabel>
+            <BridgeLabel variant="overline" as="span">Mobile</BridgeLabel>
             <BridgeCode>{'import { colors } from "@kore/tokens"'}</BridgeCode>
-            <BridgeNote>JS objects → StyleSheet.create()</BridgeNote>
+            <BridgeNote variant="caption" as="span">JS objects → StyleSheet.create()</BridgeNote>
           </BridgeItem>
         </TokensBridge>
       </motion.div>
@@ -271,8 +272,8 @@ const CrossPlatform = () => (
             { num: '0',    label: 'Duplicación de valores'       },
           ].map(s => (
             <StatItem key={s.label}>
-              <StatNum>{s.num}</StatNum>
-              <StatLabel>{s.label}</StatLabel>
+              <StatNum variant="display" as="span">{s.num}</StatNum>
+              <StatLabel variant="caption" as="span">{s.label}</StatLabel>
             </StatItem>
           ))}
         </StatsRow>
@@ -304,24 +305,15 @@ const HeadingWrapper = styled.div`
   max-width: 700px;
 `
 
-const SectionOverline = styled.span`
-  display:        block;
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          var(--foreground-accent-on-surface);
-  margin-bottom:  var(--spacing-m);
+const SectionOverline = styled(Text)`
+  display:       block;
+  margin-bottom: var(--spacing-m);
 `
 
-const SectionTitle = styled.h2`
-  font-family:  var(--font-family-display);
-  font-size:    clamp(2rem, 4vw, 3.5rem);
-  font-weight:  var(--font-weight-light);
-  color:        var(--foreground-primary-on-surface);
-  margin:       0 0 var(--spacing-m);
-  line-height:  1.1;
+const SectionTitle = styled(Text)`
+  font-size:   clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  margin:      0 0 var(--spacing-m);
   em {
     font-style:  italic;
     font-weight: var(--font-weight-semibold);
@@ -329,13 +321,8 @@ const SectionTitle = styled.h2`
   }
 `
 
-const SectionSubtitle = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-m);
-  font-weight: var(--font-weight-light);
-  color:       var(--foreground-secondary-on-surface);
-  line-height: var(--line-height-spacious);
-  margin:      0;
+const SectionSubtitle = styled(Text)`
+  color: var(--foreground-secondary-on-surface);
   code {
     font-size:     0.9em;
     padding:       2px 6px;
@@ -822,13 +809,8 @@ const BridgeItem = styled.div<{ $right?: boolean }>`
   }
 `
 
-const BridgeLabel = styled.span`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
+const BridgeLabel = styled(Text)`
   letter-spacing: var(--letter-spacing-spacious);
-  text-transform: uppercase;
-  color:          var(--foreground-accent-on-surface);
 `
 
 const BridgeCode = styled.code`
@@ -844,10 +826,8 @@ const BridgeCode = styled.code`
   text-overflow: ellipsis;
 `
 
-const BridgeNote = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-xs);
-  color:       var(--foreground-tertiary-on-surface);
+const BridgeNote = styled(Text)`
+  color: var(--foreground-tertiary-on-surface);
 `
 
 const BridgeCenter = styled.div`
@@ -877,12 +857,10 @@ const BridgeArrows = styled.div`
   font-size:   var(--scale-m);
 `
 
-const BridgePulse = styled.span`
-  font-family:  var(--font-family-ui);
-  font-size:    var(--scale-xs);
-  color:        var(--foreground-tertiary-on-surface);
-  white-space:  nowrap;
-  animation:    ${pulse} 2s ease-in-out infinite;
+const BridgePulse = styled(Text)`
+  color:       var(--foreground-tertiary-on-surface);
+  white-space: nowrap;
+  animation:   ${pulse} 2s ease-in-out infinite;
 `
 
 const StatsRow = styled.div`
@@ -903,19 +881,14 @@ const StatItem = styled.div`
   text-align:     center;
 `
 
-const StatNum = styled.span`
-  font-family: var(--font-family-display);
+const StatNum = styled(Text)`
   font-size:   clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: var(--font-weight-light);
   color:       var(--foreground-accent-on-surface);
   line-height: 1;
 `
 
-const StatLabel = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-xs);
-  color:       var(--foreground-secondary-on-surface);
-  line-height: var(--line-height-spacious);
+const StatLabel = styled(Text)`
+  color: var(--foreground-secondary-on-surface);
 `
 
 export default CrossPlatform
