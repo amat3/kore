@@ -11,7 +11,7 @@
 import { useState } from 'react'
 import styled from '@emotion/styled'
 import { css, keyframes } from '@emotion/react'
-import { WorkoutCard, FilterBar } from '@kore/ui-web'
+import { WorkoutCard, FilterBar, Text } from '@kore/ui-web'
 import { useWorkouts } from '@/hooks/useWorkouts'
 
 // ── Skeleton animation ────────────────────────────────────────────────────
@@ -64,11 +64,11 @@ const Catalog = () => {
       <Container id="catalog">
         {/* Heading */}
         <HeadingWrapper>
-          <SectionOverline>Entrenamientos</SectionOverline>
-          <SectionTitle>
+          <SectionOverline variant="overline" as="span">Entrenamientos</SectionOverline>
+          <SectionTitle variant="h1" as="h2">
             Entrena con <em>propósito</em>
           </SectionTitle>
-          <SectionSubtitle>
+          <SectionSubtitle variant="body-light">
             Sesiones diseñadas para cada nivel. Filtra por categoría o busca lo que necesitas hoy.
           </SectionSubtitle>
         </HeadingWrapper>
@@ -86,7 +86,7 @@ const Catalog = () => {
 
         {/* Resultados */}
         {error ? (
-          <ErrorState>No se pudieron cargar los entrenamientos. Inténtalo de nuevo.</ErrorState>
+          <ErrorState variant="body">No se pudieron cargar los entrenamientos. Inténtalo de nuevo.</ErrorState>
         ) : loading ? (
           <Grid>
             {Array.from({ length: 6 }).map((_, i) => (
@@ -96,12 +96,12 @@ const Catalog = () => {
         ) : workouts.length === 0 ? (
           <EmptyState>
             <EmptyIcon>🔍</EmptyIcon>
-            <EmptyTitle>Sin resultados</EmptyTitle>
-            <EmptyText>Prueba con otros filtros o busca otra cosa.</EmptyText>
+            <EmptyTitle variant="h3">Sin resultados</EmptyTitle>
+            <EmptyText variant="body">Prueba con otros filtros o busca otra cosa.</EmptyText>
           </EmptyState>
         ) : (
           <>
-            <ResultsCount>
+            <ResultsCount variant="body-sm">
               {workouts.length} entrenamiento{workouts.length !== 1 ? 's' : ''}
             </ResultsCount>
             <Grid>
@@ -147,48 +147,32 @@ const HeadingWrapper = styled.div`
   margin-bottom: clamp(2rem, 4vw, 3rem);
 `
 
-const SectionOverline = styled.span`
-  display: block;
-  font-family: var(--font-family-ui);
-  font-size: var(--scale-xs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color: var(--foreground-accent-on-surface);
+const SectionOverline = styled(Text)`
+  display:       block;
   margin-bottom: var(--spacing-m);
 `
 
-const SectionTitle = styled.h2`
-  font-family: var(--font-family-display);
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: var(--font-weight-light);
-  color: var(--foreground-primary-on-surface);
-  margin: 0 0 var(--spacing-m);
+const SectionTitle = styled(Text)`
+  font-size:   clamp(2rem, 5vw, 4rem);
   line-height: 1.1;
+  margin:      0 0 var(--spacing-m);
   em {
-    font-style: italic;
+    font-style:  italic;
     font-weight: var(--font-weight-semibold);
-    color: var(--foreground-accent-on-surface);
+    color:       var(--foreground-accent-on-surface);
   }
 `
 
-const SectionSubtitle = styled.p`
-  font-family: var(--font-family-ui);
-  font-size: var(--scale-m);
-  font-weight: var(--font-weight-light);
+const SectionSubtitle = styled(Text)`
   color: var(--foreground-secondary-on-surface);
-  line-height: var(--line-height-spacious);
-  margin: 0;
 `
 
 const FilterBarWrapper = styled.div`
   margin-bottom: var(--spacing-xl);
 `
 
-const ResultsCount = styled.p`
-  font-family: var(--font-family-ui);
-  font-size: var(--scale-s);
-  color: var(--foreground-tertiary-on-surface);
+const ResultsCount = styled(Text)`
+  color:  var(--foreground-tertiary-on-surface);
   margin: 0 0 var(--spacing-m);
 `
 
@@ -250,26 +234,18 @@ const EmptyIcon = styled.span`
   font-size: 2.5rem;
 `
 
-const EmptyTitle = styled.p`
-  font-family: var(--font-family-display);
-  font-size: var(--scale-2xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--foreground-primary-on-surface);
+const EmptyTitle = styled(Text)`
   margin: 0;
 `
 
-const EmptyText = styled.p`
-  font-family: var(--font-family-ui);
-  font-size: var(--scale-m);
+const EmptyText = styled(Text)`
   color: var(--foreground-secondary-on-surface);
-  margin: 0;
 `
 
-const ErrorState = styled.p`
+const ErrorState = styled(Text)`
+  color:      var(--foreground-error-on-surface);
   text-align: center;
-  padding: var(--spacing-2xl);
-  font-family: var(--font-family-ui);
-  color: var(--foreground-error-on-surface);
+  padding:    var(--spacing-2xl);
 `
 
 export default Catalog
