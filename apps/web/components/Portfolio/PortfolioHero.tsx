@@ -9,6 +9,7 @@
 
 import Link from 'next/link'
 import styled from '@emotion/styled'
+import { Text } from '@kore/ui-web'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
 
 const PortfolioHero = () => (
@@ -22,13 +23,13 @@ const PortfolioHero = () => (
       </FloatingToggle>
 
       {/* Identidad */}
-      <Overline>Portfolio técnico</Overline>
+      <Overline variant="overline" as="span">Portfolio técnico</Overline>
 
-      <Title>Juan Antonio Amate</Title>
+      <Title variant="h1">Juan Antonio Amate</Title>
 
-      <Role>Mid Frontend Developer · React / React Native</Role>
+      <Role variant="overline" as="p">Mid Frontend Developer · React / React Native</Role>
 
-      <Description>
+      <Description variant="body-light">
         Especialista en UI y maquetación avanzada, design systems y animaciones. Todo lo que ves en
         esta página — componentes, tokens, animaciones — está construido desde cero como parte del
         proyecto <strong>KORE</strong>.
@@ -53,13 +54,13 @@ const PortfolioHero = () => (
       <StatsRow>
         {[
           { num: '2', label: 'Packages npm' },
-          { num: '15+', label: 'Componentes' },
+          { num: '15',  label: 'Componentes' },
           { num: '100%', label: 'TypeScript' },
           { num: '8', label: 'Skills demostradas' },
         ].map((s) => (
           <StatItem key={s.label}>
-            <StatNum>{s.num}</StatNum>
-            <StatLabel>{s.label}</StatLabel>
+            <StatNum variant="display" as="span">{s.num}</StatNum>
+            <StatLabel variant="overline" as="span">{s.label}</StatLabel>
           </StatItem>
         ))}
       </StatsRow>
@@ -115,48 +116,29 @@ const FloatingToggle = styled.div`
   }
 `
 
-const Overline = styled.span`
-  display: block;
-  font-family: var(--font-family-ui);
-  font-size: var(--scale-xs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color: var(--foreground-accent-on-surface);
+const Overline = styled(Text)`
+  display:       block;
   margin-bottom: var(--spacing-m);
 `
 
-const Title = styled.h1`
-  font-family: var(--font-family-display);
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: var(--font-weight-light);
-  letter-spacing: var(--letter-spacing-dense);
-  color: var(--foreground-primary-on-surface);
+const Title = styled(Text)`
+  font-size:   clamp(2.5rem, 6vw, 5rem);
   line-height: 1.05;
-  margin: 0 0 var(--spacing-s);
+  margin:      0 0 var(--spacing-s);
 `
 
-const Role = styled.p`
-  font-family: var(--font-family-ui);
+const Role = styled(Text)`
   font-size: var(--scale-m);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-spacious);
-  text-transform: uppercase;
-  color: var(--foreground-accent-on-surface);
-  margin: 0 0 var(--spacing-xl);
+  margin:    0 0 var(--spacing-xl);
 `
 
-const Description = styled.p`
-  font-family: var(--font-family-ui);
+const Description = styled(Text)`
   font-size: var(--scale-l);
-  font-weight: var(--font-weight-light);
-  color: var(--foreground-secondary-on-surface);
-  line-height: var(--line-height-spacious);
-  margin: 0 0 var(--spacing-2xl);
+  color:     var(--foreground-secondary-on-surface);
+  margin:    0 0 var(--spacing-2xl);
   max-width: 680px;
-
   strong {
-    color: var(--foreground-primary-on-surface);
+    color:       var(--foreground-primary-on-surface);
     font-weight: var(--font-weight-semibold);
   }
 `
@@ -229,20 +211,13 @@ const StatItem = styled.div`
   background: var(--background-surface-solid);
 `
 
-const StatNum = styled.span`
-  font-family: var(--font-family-display);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: var(--font-weight-light);
-  color: var(--foreground-accent-on-surface);
+const StatNum = styled(Text)`
+  font-size:   clamp(1.5rem, 3vw, 2.5rem);
+  color:       var(--foreground-accent-on-surface);
   line-height: 1;
 `
 
-const StatLabel = styled.span`
-  font-family: var(--font-family-ui);
-  font-size: var(--scale-xs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-spacious);
-  text-transform: uppercase;
+const StatLabel = styled(Text)`
   color: var(--foreground-secondary-on-surface);
 `
 
