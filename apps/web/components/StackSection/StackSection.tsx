@@ -10,6 +10,7 @@
 import '@/i18n'
 import styled                from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
+import { Text }                  from '@kore/ui-web'
 import { useTranslation }    from 'react-i18next'
 
 // ── Data ──────────────────────────────────────────────────────────────────
@@ -73,11 +74,11 @@ const StackSection = () => {
         {/* Heading + lang toggle */}
         <HeadingRow>
           <div>
-            <SectionOverline>{t('stack.overline')}</SectionOverline>
-            <SectionTitle>
+            <SectionOverline variant="overline" as="span">{t('stack.overline')}</SectionOverline>
+            <SectionTitle variant="h1" as="h2">
               {t('stack.title')} <em>{t('stack.title.em')}</em>
             </SectionTitle>
-            <SectionSubtitle>{t('stack.subtitle')}</SectionSubtitle>
+            <SectionSubtitle variant="body-light">{t('stack.subtitle')}</SectionSubtitle>
           </div>
 
           <LangToggle
@@ -95,7 +96,7 @@ const StackSection = () => {
           const items = STACK.filter(s => s.category === cat)
           return (
             <CategoryBlock key={cat}>
-              <CategoryLabel>{t(catKey(cat))}</CategoryLabel>
+              <CategoryLabel variant="overline" as="p">{t(catKey(cat))}</CategoryLabel>
               <motion.div
                 style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}
                 variants={containerVariants}
@@ -153,24 +154,15 @@ const HeadingRow = styled.div`
   margin-bottom:   clamp(2.5rem, 5vw, 4rem);
 `
 
-const SectionOverline = styled.span`
-  display:        block;
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color:          var(--foreground-accent-on-surface);
-  margin-bottom:  var(--spacing-m);
+const SectionOverline = styled(Text)`
+  display:       block;
+  margin-bottom: var(--spacing-m);
 `
 
-const SectionTitle = styled.h2`
-  font-family:  var(--font-family-display);
-  font-size:    clamp(2rem, 4vw, 3.5rem);
-  font-weight:  var(--font-weight-light);
-  color:        var(--foreground-primary-on-surface);
-  margin:       0 0 var(--spacing-m);
-  line-height:  1.1;
+const SectionTitle = styled(Text)`
+  font-size:   clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  margin:      0 0 var(--spacing-m);
   em {
     font-style:  italic;
     font-weight: var(--font-weight-semibold);
@@ -178,13 +170,8 @@ const SectionTitle = styled.h2`
   }
 `
 
-const SectionSubtitle = styled.p`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-m);
-  font-weight: var(--font-weight-light);
-  color:       var(--foreground-secondary-on-surface);
-  line-height: var(--line-height-spacious);
-  margin:      0;
+const SectionSubtitle = styled(Text)`
+  color: var(--foreground-secondary-on-surface);
 `
 
 const LangToggle = styled(motion.button)`
@@ -207,14 +194,9 @@ const CategoryBlock = styled.div`
   margin-bottom: var(--spacing-xl);
 `
 
-const CategoryLabel = styled.p`
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-xs);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-spacious);
-  text-transform: uppercase;
-  color:          var(--foreground-tertiary-on-surface);
-  margin:         0 0 var(--spacing-m);
+const CategoryLabel = styled(Text)`
+  color:  var(--foreground-tertiary-on-surface);
+  margin: 0 0 var(--spacing-m);
 `
 
 const TechChip = styled(motion.div)<{ $color: string }>`
