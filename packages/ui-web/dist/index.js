@@ -1407,8 +1407,9 @@ var Card_default = Card;
 
 // src/atoms/LottieIcon/LottieIcon.tsx
 var import_react12 = require("react");
+var import_lottie_react = __toESM(require("lottie-react"));
 var import_jsx_runtime12 = require("react/jsx-runtime");
-var Lottie = require("lottie-react").default;
+var Lottie = import_lottie_react.default;
 var LottieIcon = ({
   src,
   size = 48,
@@ -1427,7 +1428,7 @@ var LottieIcon = ({
       return r.json();
     }).then(setData).catch(() => setError(true));
   }, [src]);
-  if (error || !animationData && !error) {
+  if (error || !animationData) {
     return fallback ? /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { style: { display: "inline-flex", width: size, height: size, alignItems: "center", justifyContent: "center" }, children: fallback }) : null;
   }
   return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(

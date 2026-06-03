@@ -1,10 +1,4 @@
 "use client";
-var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
-}) : x)(function(x) {
-  if (typeof require !== "undefined") return require.apply(this, arguments);
-  throw Error('Dynamic require of "' + x + '" is not supported');
-});
 
 // src/atoms/Text/Text.tsx
 import React from "react";
@@ -1352,8 +1346,9 @@ var Card_default = Card;
 
 // src/atoms/LottieIcon/LottieIcon.tsx
 import { useEffect, useRef, useState as useState2 } from "react";
+import LottiePlayer from "lottie-react";
 import { jsx as jsx12 } from "react/jsx-runtime";
-var Lottie = __require("lottie-react").default;
+var Lottie = LottiePlayer;
 var LottieIcon = ({
   src,
   size = 48,
@@ -1372,7 +1367,7 @@ var LottieIcon = ({
       return r.json();
     }).then(setData).catch(() => setError(true));
   }, [src]);
-  if (error || !animationData && !error) {
+  if (error || !animationData) {
     return fallback ? /* @__PURE__ */ jsx12("span", { style: { display: "inline-flex", width: size, height: size, alignItems: "center", justifyContent: "center" }, children: fallback }) : null;
   }
   return /* @__PURE__ */ jsx12(
