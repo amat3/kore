@@ -1,3 +1,4 @@
+// @kore/ui-web — v1.1.0
 // ── Atoms: Text ───────────────────────────────────────────────────────────
 export { Text }                          from './atoms/Text'
 export type { TextProps, TextVariant }   from './atoms/Text'
