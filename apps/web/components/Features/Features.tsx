@@ -94,8 +94,8 @@ const Features = () => {
       const cards = cardsRef.current?.querySelectorAll('.kore-feature-card')
       if (cards) {
         gsap.from(cards, {
-          y:          60,
-          autoAlpha:  0,
+          y:       60,
+          opacity: 0,
           duration:   0.7,
           stagger:    0.12,
           ease:       'power3.out',
