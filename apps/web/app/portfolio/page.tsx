@@ -33,9 +33,9 @@ export default function PortfolioPage() {
       <PortfolioHero />
       <DesignSystemShowcase />
       <TokensShowcase />
+      <CrossPlatform />
       <StackSection />
       <Dashboard />
-       <CrossPlatform />
       <Contact />
     </main>
   )
