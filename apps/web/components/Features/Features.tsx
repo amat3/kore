@@ -140,7 +140,6 @@ const Features = () => {
                   src={feature.lottie}
                   size={32}
                   loop
-                  playOnHover
                   fallback={<Emoji>{feature.emoji}</Emoji>}
                 />
               </EmojiWrapper>
