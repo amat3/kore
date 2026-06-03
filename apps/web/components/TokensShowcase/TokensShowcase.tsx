@@ -473,6 +473,7 @@ const SpacingGrid = styled.div`
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-s);
+  margin-bottom:  clamp(2.5rem, 5vw, 4rem);
 `
 
 const SpacingItem = styled.div`
