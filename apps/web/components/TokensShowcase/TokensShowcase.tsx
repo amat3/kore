@@ -1,9 +1,10 @@
 'use client'
 
+import { useState }              from 'react'
 import styled                    from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
-import { Text }                  from '@kore/ui-web'
-import { typeScale, spacing, radius, colorPrimitives } from '@kore/tokens'
+import { Text, Icon }            from '@kore/ui-web'
+import { typeScale, spacing }    from '@kore/tokens'
 
 // ── Variantes ─────────────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -29,34 +30,46 @@ const BREAKPOINTS = [
 
 const COLOR_GROUPS = [
   {
-    label: 'Brand',
+    label: 'Backgrounds',
     tokens: [
-      { name: 'Terracota 500', value: colorPrimitives.terracota[500] },
-      { name: 'Terracota 300', value: colorPrimitives.terracota[300] },
-      { name: 'Terracota 100', value: colorPrimitives.terracota[100] },
+      '--background-surface-low',
+      '--background-surface-solid',
+      '--background-accent-solid',
+      '--background-accent-dim',
+      '--background-error-dim',
+      '--background-success-dim',
     ],
   },
   {
-    label: 'Neutros',
+    label: 'Foregrounds',
     tokens: [
-      { name: 'Obsidiana',  value: colorPrimitives.neutral[900] },
-      { name: 'Gris cálido', value: colorPrimitives.neutral[500] },
-      { name: 'Marfil',     value: colorPrimitives.neutral[50]  },
+      '--foreground-primary-on-surface',
+      '--foreground-secondary-on-surface',
+      '--foreground-tertiary-on-surface',
+      '--foreground-accent-on-surface',
+      '--foreground-error-on-surface',
+      '--foreground-success-on-surface',
     ],
   },
   {
-    label: 'Estado',
+    label: 'Strokes',
     tokens: [
-      { name: 'Error',    value: colorPrimitives.error.main    },
-      { name: 'Success',  value: colorPrimitives.success.main  },
+      '--stroke-secondary-on-surface',
+      '--stroke-accent',
+      '--stroke-accent-dim',
+      '--stroke-error',
+      '--stroke-success',
     ],
   },
-] as const
+]
 
 const SPACING_KEYS = ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'] as const
 
 // ── Componente ────────────────────────────────────────────────────────────
-const TokensShowcase = () => (
+const TokensShowcase = () => {
+  const [isDark, setIsDark] = useState(false)
+
+  return (
   <Section>
     <Container>
       <motion.div
@@ -124,28 +137,42 @@ const TokensShowcase = () => (
           </TableWrapper>
         </motion.div>
 
-        {/* ── Paleta de color ── */}
+        {/* ── Tokens de color ── */}
         <motion.div variants={fadeUp}>
-          <BlockTitle variant="overline" as="h3">Paleta de color — primitivos</BlockTitle>
-          <BlockSubtitle variant="body-sm">
-            Valores raw usados para construir los tokens semánticos de cada tema.
-          </BlockSubtitle>
-          <ColorGrid>
+          <ColorHeader>
+            <div>
+              <BlockTitle variant="overline" as="h3">
+                Tokens semánticos — {isDark ? 'dark' : 'light'} theme
+              </BlockTitle>
+              <BlockSubtitle variant="body-sm">
+                Los mismos nombres en ambos temas. El valor cambia, el contrato no.
+              </BlockSubtitle>
+            </div>
+            <ThemeToggleBtn
+              type="button"
+              onClick={() => setIsDark(d => !d)}
+              aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+            >
+              <Icon name={isDark ? 'Sun' : 'Moon'} size="sm" color="inherit" />
+              {isDark ? 'Light' : 'Dark'}
+            </ThemeToggleBtn>
+          </ColorHeader>
+
+          <TokenCanvas $isDark={isDark}>
             {COLOR_GROUPS.map(group => (
-              <ColorGroup key={group.label}>
-                <GroupLabel variant="caption" as="span">{group.label}</GroupLabel>
-                <ColorSwatches>
+              <TokenGroup key={group.label}>
+                <TokenGroupLabel>{group.label}</TokenGroupLabel>
+                <TokenChipGrid>
                   {group.tokens.map(token => (
-                    <SwatchItem key={token.name}>
-                      <Swatch style={{ background: token.value }} />
-                      <SwatchName>{token.name}</SwatchName>
-                      <SwatchValue>{token.value}</SwatchValue>
-                    </SwatchItem>
+                    <TokenChip key={token}>
+                      <ChipSwatch style={{ background: `var(${token})` }} />
+                      <ChipName>{token.replace('--', '')}</ChipName>
+                    </TokenChip>
                   ))}
-                </ColorSwatches>
-              </ColorGroup>
+                </TokenChipGrid>
+              </TokenGroup>
             ))}
-          </ColorGrid>
+          </TokenCanvas>
         </motion.div>
 
         {/* ── Espaciado ── */}
@@ -173,7 +200,8 @@ const TokensShowcase = () => (
       </motion.div>
     </Container>
   </Section>
-)
+  )
+}
 
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
@@ -307,58 +335,89 @@ const SizeValue = styled.span`
   color:       var(--foreground-secondary-on-surface);
 `
 
-// ── Paleta de color ────────────────────────────────────────────────────────
-const ColorGrid = styled.div`
-  display:               grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap:                   var(--spacing-xl);
-  margin-bottom:         clamp(2.5rem, 5vw, 4rem);
+// ── Tokens de color ────────────────────────────────────────────────────────
+const ColorHeader = styled.div`
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  gap:             var(--spacing-l);
+  flex-wrap:       wrap;
+  margin-bottom:   var(--spacing-l);
 `
 
-const ColorGroup = styled.div`
+const ThemeToggleBtn = styled.button`
+  display:        flex;
+  align-items:    center;
+  gap:            var(--spacing-xs);
+  padding:        var(--spacing-xs) var(--spacing-m);
+  border-radius:  var(--radius-full);
+  border:         0.5px solid var(--stroke-secondary-on-surface);
+  background:     var(--background-surface-solid);
+  color:          var(--foreground-secondary-on-surface);
+  font-family:    var(--font-family-ui);
+  font-size:      var(--scale-s);
+  font-weight:    var(--font-weight-semibold);
+  cursor:         pointer;
+  transition:     border-color 150ms, color 150ms;
+  flex-shrink:    0;
+  &:hover {
+    border-color: var(--stroke-accent);
+    color:        var(--foreground-accent-on-surface);
+  }
+`
+
+const TokenCanvas = styled.div<{ $isDark: boolean }>`
+  background:    ${({ $isDark }) => $isDark ? '#1A1A1A' : 'var(--background-surface-solid)'};
+  border-radius: var(--corners-default-card);
+  border:        0.5px solid var(--stroke-secondary-on-surface);
+  padding:       var(--spacing-xl);
+  display:       flex;
+  flex-direction: column;
+  gap:           var(--spacing-xl);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  transition:    background 300ms ease;
+`
+
+const TokenGroup = styled.div`
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-m);
 `
 
-const GroupLabel = styled(Text)`
-  color:          var(--foreground-tertiary-on-surface);
+const TokenGroupLabel = styled.span`
+  font-family:    var(--font-family-ui);
+  font-size:      var(--scale-xs);
+  font-weight:    var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
+  color:          var(--foreground-tertiary-on-surface);
 `
 
-const ColorSwatches = styled.div`
-  display:        flex;
-  flex-direction: column;
-  gap:            var(--spacing-s);
+const TokenChipGrid = styled.div`
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap:                   var(--spacing-s);
 `
 
-const SwatchItem = styled.div`
+const TokenChip = styled.div`
   display:     flex;
   align-items: center;
-  gap:         var(--spacing-m);
+  gap:         var(--spacing-s);
 `
 
-const Swatch = styled.div`
-  width:         var(--spacing-2xl);
-  height:        var(--spacing-2xl);
-  border-radius: var(--radius-s);
+const ChipSwatch = styled.div`
+  width:         var(--spacing-l);
+  height:        var(--spacing-l);
+  border-radius: var(--radius-xs);
   border:        0.5px solid var(--stroke-secondary-on-surface);
   flex-shrink:   0;
 `
 
-const SwatchName = styled.span`
-  font-family: var(--font-family-ui);
-  font-size:   var(--scale-s);
-  font-weight: var(--font-weight-semibold);
-  color:       var(--foreground-primary-on-surface);
-  flex:        1;
-`
-
-const SwatchValue = styled.span`
+const ChipName = styled.span`
   font-family: monospace;
-  font-size:   var(--scale-xs);
-  color:       var(--foreground-tertiary-on-surface);
+  font-size:   10px;
+  color:       var(--foreground-secondary-on-surface);
+  line-height: 1.3;
 `
 
 // ── Espaciado ──────────────────────────────────────────────────────────────
