@@ -112,20 +112,16 @@ const TokensShowcase = () => {
                 </tr>
               </thead>
               <tbody>
-                {SCALE_KEYS.map((key, i) => (
+                {SCALE_KEYS.map((key) => (
                   <tr key={key}>
                     <Td>
                       <TokenName>--scale-{key}</TokenName>
                     </Td>
                     {BREAKPOINTS.map(bp => {
                       const val = typeScale[bp.key][key as ScaleKey]
-                      const isM = bp.key === 'mobile'
                       return (
                         <TdCenter key={bp.key}>
-                          <SizeBar
-                            $size={val}
-                            $active={bp.key === 'desktop'}
-                          />
+                          <SizeBar $size={val} $active={bp.key === 'desktop'} />
                           <SizeValue>{val}px</SizeValue>
                         </TdCenter>
                       )
