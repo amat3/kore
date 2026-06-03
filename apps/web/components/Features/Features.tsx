@@ -13,7 +13,8 @@ import styled                 from '@emotion/styled'
 import { keyframes }          from '@emotion/react'
 import gsap                   from 'gsap'
 import { ScrollTrigger }      from 'gsap/ScrollTrigger'
-import { Text, LottieIcon }   from '@kore/ui-web'
+import { Text }               from '@kore/ui-web'
+import LottieIcon             from '@/components/LottieIcon/LottieIcon'
 import { colorPrimitives }    from '@kore/tokens'
 
 gsap.registerPlugin(ScrollTrigger)

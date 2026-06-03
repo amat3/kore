@@ -47,7 +47,6 @@ __export(index_exports, {
   Heading3: () => Heading3,
   Icon: () => Icon_default,
   Input: () => Input_default,
-  LottieIcon: () => LottieIcon_default,
   NavBar: () => NavBar_default,
   Overline: () => Overline,
   SearchInput: () => SearchInput_default,
@@ -1405,55 +1404,10 @@ var CardStyled = import_styled8.default.article`
 `;
 var Card_default = Card;
 
-// src/atoms/LottieIcon/LottieIcon.tsx
-var import_react12 = require("react");
-var import_jsx_runtime12 = require("react/jsx-runtime");
-var LottieIcon = ({
-  src,
-  size = 48,
-  loop = true,
-  autoplay = true,
-  playOnHover = false,
-  fallback,
-  className
-}) => {
-  const [Player, setPlayer] = (0, import_react12.useState)(null);
-  const [animationData, setData] = (0, import_react12.useState)(null);
-  const [error, setError] = (0, import_react12.useState)(false);
-  const lottieRef = (0, import_react12.useRef)(null);
-  (0, import_react12.useEffect)(() => {
-    import("lottie-react").then((mod) => setPlayer(() => mod.default)).catch(() => setError(true));
-  }, []);
-  (0, import_react12.useEffect)(() => {
-    if (!Player) return;
-    fetch(src).then((r) => {
-      if (!r.ok) throw new Error("not found");
-      return r.json();
-    }).then(setData).catch(() => setError(true));
-  }, [src, Player]);
-  if (error || !Player || !animationData) {
-    return fallback ? /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { style: { display: "inline-flex", width: size, height: size, alignItems: "center", justifyContent: "center" }, children: fallback }) : null;
-  }
-  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-    Player,
-    {
-      lottieRef,
-      animationData,
-      loop,
-      autoplay: autoplay && !playOnHover,
-      style: { width: size, height: size },
-      className,
-      onMouseEnter: () => playOnHover && lottieRef.current?.play(),
-      onMouseLeave: () => playOnHover && lottieRef.current?.stop()
-    }
-  );
-};
-var LottieIcon_default = LottieIcon;
-
 // src/atoms/StatCard/StatCard.tsx
 var import_styled9 = __toESM(require("@emotion/styled"));
-var import_react13 = require("@emotion/react");
-var import_jsx_runtime13 = require("react/jsx-runtime");
+var import_react12 = require("@emotion/react");
+var import_jsx_runtime12 = require("react/jsx-runtime");
 var StatCard = ({
   value,
   label,
@@ -1461,15 +1415,15 @@ var StatCard = ({
   trend = "neutral",
   trendValue,
   className
-}) => /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(Wrapper, { className, children: [
-  /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(TopRow, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Label, { variant: "overline", as: "span", children: label }),
-    icon && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(IconSlot, { "aria-hidden": "true", children: icon })
+}) => /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(Wrapper, { className, children: [
+  /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(TopRow, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(Label, { variant: "overline", as: "span", children: label }),
+    icon && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(IconSlot, { "aria-hidden": "true", children: icon })
   ] }),
-  /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Value, { variant: "h1", as: "p", children: value }),
-  trendValue && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(TrendRow, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(TrendIndicator, { $trend: trend, "aria-label": `Tendencia: ${trendValue}`, children: trend === "up" ? "\u2191" : trend === "down" ? "\u2193" : "\u2013" }),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(TrendText, { $trend: trend, children: trendValue })
+  /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(Value, { variant: "h1", as: "p", children: value }),
+  trendValue && /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(TrendRow, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(TrendIndicator, { $trend: trend, "aria-label": `Tendencia: ${trendValue}`, children: trend === "up" ? "\u2191" : trend === "down" ? "\u2193" : "\u2013" }),
+    /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(TrendText, { $trend: trend, children: trendValue })
   ] })
 ] });
 var Wrapper = import_styled9.default.div`
@@ -1505,7 +1459,7 @@ var Value = (0, import_styled9.default)(Text_default)`
   line-height: 1;
   margin:      0;
 `;
-var trendColor = ($trend) => import_react13.css`
+var trendColor = ($trend) => import_react12.css`
   color: ${$trend === "up" ? "var(--foreground-success-on-surface)" : $trend === "down" ? "var(--foreground-error-on-surface)" : "var(--foreground-tertiary-on-surface)"};
 `;
 var TrendRow = import_styled9.default.div`
@@ -1530,7 +1484,7 @@ var StatCard_default = StatCard;
 
 // src/molecules/WorkoutCard/WorkoutCard.tsx
 var import_styled10 = __toESM(require("@emotion/styled"));
-var import_jsx_runtime14 = require("react/jsx-runtime");
+var import_jsx_runtime13 = require("react/jsx-runtime");
 var levelLabel = {
   beginner: "Principiante",
   intermediate: "Intermedio",
@@ -1547,7 +1501,7 @@ var WorkoutCard = ({
   completed = false,
   favorited = false,
   className
-}) => /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
+}) => /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
   Card_default,
   {
     interactive: !!onClick,
@@ -1556,22 +1510,22 @@ var WorkoutCard = ({
     "aria-label": `${title} \u2014 ${category}, ${duration} minutos`,
     role: "article",
     children: [
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(ImageWrapper, { className: "kore-card-image", children: [
-        imageSrc ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("img", { src: imageSrc, alt: imageAlt ?? title, loading: "lazy" }) : /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Placeholder, { children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Icon_default, { name: "Dumbbell", size: "lg", color: "muted" }) }),
-        completed && /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(CompletedBadge, { "aria-label": "Completado", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Icon_default, { name: "Check", size: "xs", color: "inherit" }) }),
-        favorited && /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(FavoriteBadge, { "aria-label": "Favorito", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Icon_default, { name: "Heart", size: "sm", color: "inherit" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(ImageWrapper, { className: "kore-card-image", children: [
+        imageSrc ? /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("img", { src: imageSrc, alt: imageAlt ?? title, loading: "lazy" }) : /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Placeholder, { children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: "Dumbbell", size: "lg", color: "muted" }) }),
+        completed && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(CompletedBadge, { "aria-label": "Completado", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: "Check", size: "xs", color: "inherit" }) }),
+        favorited && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(FavoriteBadge, { "aria-label": "Favorito", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: "Heart", size: "sm", color: "inherit" }) })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(Body2, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Overline2, { variant: "overline", as: "span", children: category }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Title, { variant: "h3", children: title }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(MetaRow, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(MetaText, { variant: "body-sm", as: "span", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(Body2, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Overline2, { variant: "overline", as: "span", children: category }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Title, { variant: "h3", children: title }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(MetaRow, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(MetaText, { variant: "body-sm", as: "span", children: [
             duration,
             " min"
           ] }),
-          level && /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(import_jsx_runtime14.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(MetaDot, { variant: "body-sm", as: "span", "aria-hidden": "true", children: "\xB7" }),
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(MetaText, { variant: "body-sm", as: "span", children: levelLabel[level] })
+          level && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(import_jsx_runtime13.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(MetaDot, { variant: "body-sm", as: "span", "aria-hidden": "true", children: "\xB7" }),
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(MetaText, { variant: "body-sm", as: "span", children: levelLabel[level] })
           ] })
         ] })
       ] })
@@ -1664,14 +1618,14 @@ var WorkoutCard_default = WorkoutCard;
 var import_styled11 = __toESM(require("@emotion/styled"));
 
 // src/molecules/FilterBar/FilterBar.styles.ts
-var import_react14 = require("@emotion/react");
-var baseWrapperStyles2 = import_react14.css`
+var import_react13 = require("@emotion/react");
+var baseWrapperStyles2 = import_react13.css`
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-s);
   width:          100%;
 `;
-var tagsRowStyles = import_react14.css`
+var tagsRowStyles = import_react13.css`
   display:    flex;
   gap:        var(--spacing-xs);
   overflow-x: auto;
@@ -1689,7 +1643,7 @@ var tagsRowStyles = import_react14.css`
     overflow-x: visible;
   }
 `;
-var inlineWrapperStyles = import_react14.css`
+var inlineWrapperStyles = import_react13.css`
   display:     flex;
   align-items: center;
   gap:         var(--spacing-m);
@@ -1707,7 +1661,7 @@ var inlineWrapperStyles = import_react14.css`
 `;
 
 // src/molecules/FilterBar/FilterBar.tsx
-var import_jsx_runtime15 = require("react/jsx-runtime");
+var import_jsx_runtime14 = require("react/jsx-runtime");
 var FilterBar = ({
   filters,
   onFilterToggle,
@@ -1719,7 +1673,7 @@ var FilterBar = ({
   layout = "stacked",
   className
 }) => {
-  const tagsSection = !hideTags && filters.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(TagsRow, { className: "kore-filterbar-tags", children: filters.map((filter) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+  const tagsSection = !hideTags && filters.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(TagsRow, { className: "kore-filterbar-tags", children: filters.map((filter) => /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
     Tag_default,
     {
       variant: filter.selected ? "selected" : "default",
@@ -1731,7 +1685,7 @@ var FilterBar = ({
     },
     filter.id
   )) });
-  const searchSection = !hideSearch && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+  const searchSection = !hideSearch && /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
     SearchInput_default,
     {
       value: searchValue,
@@ -1741,12 +1695,12 @@ var FilterBar = ({
     }
   );
   if (layout === "inline") {
-    return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(InlineWrapper, { className, children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(InlineWrapper, { className, children: [
       searchSection,
       tagsSection
     ] });
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(StackedWrapper, { className, children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(StackedWrapper, { className, children: [
     searchSection,
     tagsSection
   ] });
@@ -1763,15 +1717,15 @@ var TagsRow = import_styled11.default.div`
 var FilterBar_default = FilterBar;
 
 // src/molecules/StreakBadge/StreakBadge.tsx
-var import_react15 = require("react");
+var import_react14 = require("react");
 var import_styled12 = __toESM(require("@emotion/styled"));
-var import_react16 = require("@emotion/react");
-var import_jsx_runtime16 = require("react/jsx-runtime");
-var pulse = import_react16.keyframes`
+var import_react15 = require("@emotion/react");
+var import_jsx_runtime15 = require("react/jsx-runtime");
+var pulse = import_react15.keyframes`
   0%, 100% { transform: scale(1);    }
   50%       { transform: scale(1.15); }
 `;
-var countUp = import_react16.keyframes`
+var countUp = import_react15.keyframes`
   from { transform: translateY(6px); opacity: 0; }
   to   { transform: translateY(0);   opacity: 1; }
 `;
@@ -1804,9 +1758,9 @@ var sizeConfig = {
   lg: { wrapper: 88, icon: "lg", countSize: 36, labelSize: 11 }
 };
 var useAnimatedCount = (target, active) => {
-  const [display, setDisplay] = (0, import_react15.useState)(target);
-  const prevRef = (0, import_react15.useRef)(target);
-  (0, import_react15.useEffect)(() => {
+  const [display, setDisplay] = (0, import_react14.useState)(target);
+  const prevRef = (0, import_react14.useRef)(target);
+  (0, import_react14.useEffect)(() => {
     if (!active || prevRef.current === target) {
       setDisplay(target);
       return;
@@ -1837,7 +1791,7 @@ var StreakBadge = ({
   const config = variantConfig[variant];
   const sizeConf = sizeConfig[size];
   const displayCount = useAnimatedCount(count, config.animated);
-  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
     Wrapper2,
     {
       $size: sizeConf.wrapper,
@@ -1847,9 +1801,9 @@ var StreakBadge = ({
       "aria-label": `Racha de ${count} ${label}`,
       role: "status",
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(IconWrapper, { $animated: config.animated, $color: config.iconColor, children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Icon_default, { name: config.iconName, size: sizeConf.icon, color: "inherit" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(CountWrapper, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(IconWrapper, { $animated: config.animated, $color: config.iconColor, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Icon_default, { name: config.iconName, size: sizeConf.icon, color: "inherit" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(CountWrapper, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
             Count,
             {
               $size: sizeConf.countSize,
@@ -1858,7 +1812,7 @@ var StreakBadge = ({
             },
             displayCount
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Label2, { $size: sizeConf.labelSize, $color: config.textColor, children: label })
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Label2, { $size: sizeConf.labelSize, $color: config.textColor, children: label })
         ] })
       ]
     }
@@ -1911,8 +1865,8 @@ var StreakBadge_default = StreakBadge;
 var import_styled13 = __toESM(require("@emotion/styled"));
 
 // src/molecules/NavBar/NavBar.styles.ts
-var import_react17 = require("@emotion/react");
-var mobileNavStyles = import_react17.css`
+var import_react16 = require("@emotion/react");
+var mobileNavStyles = import_react16.css`
   position:                 fixed;
   bottom:                   12px;
   left:                     12px;
@@ -1933,7 +1887,7 @@ var mobileNavStyles = import_react17.css`
     display: none;
   }
 `;
-var desktopNavStyles = import_react17.css`
+var desktopNavStyles = import_react16.css`
   display:          none;
   align-items:      center;
   justify-content:  space-between;
@@ -1951,7 +1905,7 @@ var desktopNavStyles = import_react17.css`
     display: flex;
   }
 `;
-var mobileItemStyles = import_react17.css`
+var mobileItemStyles = import_react16.css`
   flex:              1;
   display:           flex;
   flex-direction:    column;
@@ -1972,7 +1926,7 @@ var mobileItemStyles = import_react17.css`
     border-radius:  var(--radius-s);
   }
 `;
-var desktopItemStyles = import_react17.css`
+var desktopItemStyles = import_react16.css`
   display:        flex;
   align-items:    center;
   gap:            var(--spacing-xs);
@@ -2006,7 +1960,7 @@ var desktopItemStyles = import_react17.css`
     outline-offset: 2px;
   }
 `;
-var mobileLabelStyles = import_react17.css`
+var mobileLabelStyles = import_react16.css`
   font-family:    var(--font-family-ui);
   font-size:      var(--scale-2xs);
   font-weight:    var(--font-weight-semibold);
@@ -2014,12 +1968,12 @@ var mobileLabelStyles = import_react17.css`
   text-transform: uppercase;
   line-height:    1;
 `;
-var desktopItemsStyles = import_react17.css`
+var desktopItemsStyles = import_react16.css`
   display:     flex;
   align-items: center;
   gap:         var(--spacing-2xs);
 `;
-var activePillStyles = import_react17.css`
+var activePillStyles = import_react16.css`
   display:          flex;
   flex-direction:   column;
   align-items:      center;
@@ -2032,7 +1986,7 @@ var activePillStyles = import_react17.css`
 `;
 
 // src/molecules/NavBar/NavBar.tsx
-var import_jsx_runtime17 = require("react/jsx-runtime");
+var import_jsx_runtime16 = require("react/jsx-runtime");
 var DEFAULT_ITEMS = [
   { id: "home", label: "Inicio", icon: "House", iconActive: "House" },
   { id: "workouts", label: "Entrenamientos", icon: "Dumbbell", iconActive: "Dumbbell" },
@@ -2047,39 +2001,39 @@ var NavBar = ({
   className
 }) => {
   const handleNav = (id) => onNavigate?.(id);
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(import_jsx_runtime17.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(MobileNav, { className, role: "navigation", "aria-label": "Navegaci\xF3n principal", children: items.map((item) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(import_jsx_runtime16.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(MobileNav, { className, role: "navigation", "aria-label": "Navegaci\xF3n principal", children: items.map((item) => {
       const isActive = item.id === activeId;
-      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
         MobileItem,
         {
           type: "button",
           onClick: () => handleNav(item.id),
           "aria-current": isActive ? "page" : void 0,
           "aria-label": item.label,
-          children: isActive ? /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(ActivePill, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(Icon_default, { name: item.iconActive ?? item.icon, size: "sm", color: "inherit", strokeWidth: 2 }),
-            /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(MobileLabel, { children: item.label })
-          ] }) : /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(import_jsx_runtime17.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(Icon_default, { name: item.icon, size: "sm", color: "inherit", strokeWidth: 1.5 }),
-            /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(MobileLabel, { children: item.label })
+          children: isActive ? /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(ActivePill, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Icon_default, { name: item.iconActive ?? item.icon, size: "sm", color: "inherit", strokeWidth: 2 }),
+            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(MobileLabel, { children: item.label })
+          ] }) : /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(import_jsx_runtime16.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Icon_default, { name: item.icon, size: "sm", color: "inherit", strokeWidth: 1.5 }),
+            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(MobileLabel, { children: item.label })
           ] })
         },
         item.id
       );
     }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(DesktopNav, { className, role: "navigation", "aria-label": "Navegaci\xF3n principal", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(LogoWrapper, { children: logo ?? /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(LogoText, { children: "KORE" }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(DesktopItems, { children: items.map((item) => {
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(DesktopNav, { className, role: "navigation", "aria-label": "Navegaci\xF3n principal", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(LogoWrapper, { children: logo ?? /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(LogoText, { children: "KORE" }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DesktopItems, { children: items.map((item) => {
         const isActive = item.id === activeId;
-        return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+        return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(
           DesktopItem,
           {
             type: "button",
             onClick: () => handleNav(item.id),
             "aria-current": isActive ? "page" : void 0,
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
                 Icon_default,
                 {
                   name: isActive && item.iconActive ? item.iconActive : item.icon,
@@ -2135,7 +2089,6 @@ var NavBar_default = NavBar;
   Heading3,
   Icon,
   Input,
-  LottieIcon,
   NavBar,
   Overline,
   SearchInput,

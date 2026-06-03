@@ -285,17 +285,6 @@ interface CardProps {
 }
 declare const Card: ({ children, interactive, onClick, className, ...ariaProps }: CardProps) => react_jsx_runtime.JSX.Element;
 
-interface LottieIconProps {
-    src: string;
-    size?: number;
-    loop?: boolean;
-    autoplay?: boolean;
-    playOnHover?: boolean;
-    fallback?: React$1.ReactNode;
-    className?: string;
-}
-declare const LottieIcon: ({ src, size, loop, autoplay, playOnHover, fallback, className, }: LottieIconProps) => react_jsx_runtime.JSX.Element | null;
-
 type StatTrend = 'up' | 'down' | 'neutral';
 interface StatCardProps {
     /** Valor principal — número o texto */
@@ -388,4 +377,4 @@ interface NavBarProps {
 }
 declare const NavBar: ({ activeId, items, onNavigate, logo, className, }: NavBarProps) => react_jsx_runtime.JSX.Element;
 
-export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps, type AvatarSize, Badge, type BadgeProps, Body, BodyLight, BodySm, Button, type ButtonProps, Caption, Card, type CardProps, Display, type DotStatus, FilterBar, type FilterBarProps, type FilterItem, Heading1, Heading2, Heading3, Icon, type IconColor, type IconName, type IconProps, type IconSize, Input, type InputProps, type InputSize, type InputState, LottieIcon, type LottieIconProps, NavBar, type NavBarProps, type NavItem, Overline, SearchInput, type SearchInputProps, Spinner, StatCard, type StatCardProps, type StatTrend, StreakBadge, type StreakBadgeProps, type StreakVariant, Tag, TagGroup, type TagGroupProps, type TagProps, type TagSize, type TagVariant, Text, type TextProps, type TextVariant, WorkoutCard, type WorkoutCardProps, type WorkoutLevel };
+export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps, type AvatarSize, Badge, type BadgeProps, Body, BodyLight, BodySm, Button, type ButtonProps, Caption, Card, type CardProps, Display, type DotStatus, FilterBar, type FilterBarProps, type FilterItem, Heading1, Heading2, Heading3, Icon, type IconColor, type IconName, type IconProps, type IconSize, Input, type InputProps, type InputSize, type InputState, NavBar, type NavBarProps, type NavItem, Overline, SearchInput, type SearchInputProps, Spinner, StatCard, type StatCardProps, type StatTrend, StreakBadge, type StreakBadgeProps, type StreakVariant, Tag, TagGroup, type TagGroupProps, type TagProps, type TagSize, type TagVariant, Text, type TextProps, type TextVariant, WorkoutCard, type WorkoutCardProps, type WorkoutLevel };
