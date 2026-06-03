@@ -1,12 +1,6 @@
 'use client'
 
-import dynamic           from 'next/dynamic'
-import { useEffect, useState } from 'react'
-
-// next/dynamic con ssr:false excluye lottie-react del bundle SSR
-const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
-
-// ── Tipos ─────────────────────────────────────────────────────────────────
+import { useEffect, useRef } from 'react'
 
 export interface LottieIconProps {
   src:        string
@@ -16,8 +10,6 @@ export interface LottieIconProps {
   className?: string
 }
 
-// ── Componente ────────────────────────────────────────────────────────────
-
 const LottieIcon = ({
   src,
   size     = 48,
@@ -25,30 +17,35 @@ const LottieIcon = ({
   fallback,
   className,
 }: LottieIconProps) => {
-  const [animationData, setData] = useState<object | null>(null)
-  const [error, setError]        = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const hasError     = useRef(false)
 
   useEffect(() => {
-    fetch(src)
-      .then(r => { if (!r.ok) throw new Error('not found'); return r.json() })
-      .then(setData)
-      .catch(() => setError(true))
-  }, [src])
+    if (!containerRef.current) return
 
-  if (error || !animationData) {
-    return fallback ? (
-      <span style={{ display: 'inline-flex', width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
-        {fallback}
-      </span>
-    ) : null
-  }
+    let anim: { destroy: () => void } | null = null
+
+    // Import dinámico dentro de useEffect — nunca se evalúa en el servidor
+    import('lottie-web').then(({ default: lottie }) => {
+      if (!containerRef.current || hasError.current) return
+      anim = lottie.loadAnimation({
+        container:  containerRef.current,
+        renderer:   'svg',
+        loop,
+        autoplay:   true,
+        path:       src,
+      })
+    }).catch(() => {
+      hasError.current = true
+    })
+
+    return () => { anim?.destroy() }
+  }, [src, loop])
 
   return (
-    <Lottie
-      animationData={animationData}
-      loop={loop}
-      autoplay
-      style={{ width: size, height: size }}
+    <div
+      ref={containerRef}
+      style={{ width: size, height: size, display: 'inline-flex' }}
       className={className}
     />
   )
