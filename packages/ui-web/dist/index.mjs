@@ -1346,9 +1346,7 @@ var Card_default = Card;
 
 // src/atoms/LottieIcon/LottieIcon.tsx
 import { useEffect, useRef, useState as useState2 } from "react";
-import LottiePlayer from "lottie-react";
 import { jsx as jsx12 } from "react/jsx-runtime";
-var Lottie = LottiePlayer;
 var LottieIcon = ({
   src,
   size = 48,
@@ -1358,20 +1356,25 @@ var LottieIcon = ({
   fallback,
   className
 }) => {
-  const lottieRef = useRef(null);
+  const [Player, setPlayer] = useState2(null);
   const [animationData, setData] = useState2(null);
   const [error, setError] = useState2(false);
+  const lottieRef = useRef(null);
   useEffect(() => {
+    import("lottie-react").then((mod) => setPlayer(() => mod.default)).catch(() => setError(true));
+  }, []);
+  useEffect(() => {
+    if (!Player) return;
     fetch(src).then((r) => {
       if (!r.ok) throw new Error("not found");
       return r.json();
     }).then(setData).catch(() => setError(true));
-  }, [src]);
-  if (error || !animationData) {
+  }, [src, Player]);
+  if (error || !Player || !animationData) {
     return fallback ? /* @__PURE__ */ jsx12("span", { style: { display: "inline-flex", width: size, height: size, alignItems: "center", justifyContent: "center" }, children: fallback }) : null;
   }
   return /* @__PURE__ */ jsx12(
-    Lottie,
+    Player,
     {
       lottieRef,
       animationData,

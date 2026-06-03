@@ -1,37 +1,18 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import LottiePlayer from 'lottie-react'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
 
 export interface LottieIconProps {
-  /** URL al archivo JSON de Lottie (desde /public) */
   src:          string
-  /** Tamaño en px — default 48 */
   size?:        number
-  /** Loop infinito — default true */
   loop?:        boolean
-  /** Autoplay al montar — default true */
   autoplay?:    boolean
-  /** Reproducir solo al hacer hover */
   playOnHover?: boolean
-  /** Nodo a mostrar si el JSON no carga */
   fallback?:    React.ReactNode
   className?:   string
 }
-
-// Cast necesario — lottie-react tiene incompatibilidad de tipos con React 19
-const Lottie = LottiePlayer as unknown as React.ComponentType<{
-  animationData: object
-  loop:          boolean
-  autoplay:      boolean
-  style?:        React.CSSProperties
-  className?:    string
-  lottieRef?:    React.MutableRefObject<{ play: () => void; stop: () => void } | null>
-  onMouseEnter?: () => void
-  onMouseLeave?: () => void
-}>
 
 // ── Componente ────────────────────────────────────────────────────────────
 
@@ -44,21 +25,28 @@ const LottieIcon = ({
   fallback,
   className,
 }: LottieIconProps) => {
-  const lottieRef                = useRef<{ play: () => void; stop: () => void } | null>(null)
-  const [animationData, setData] = useState<object | null>(null)
-  const [error, setError]        = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [Player, setPlayer]          = useState<React.ComponentType<any> | null>(null)
+  const [animationData, setData]     = useState<object | null>(null)
+  const [error, setError]            = useState(false)
+  const lottieRef                    = useRef<{ play: () => void; stop: () => void } | null>(null)
+
+  // Importar lottie-react solo en el cliente para evitar el require() en SSR
+  useEffect(() => {
+    import('lottie-react')
+      .then(mod => setPlayer(() => mod.default as React.ComponentType<any>))
+      .catch(() => setError(true))
+  }, [])
 
   useEffect(() => {
+    if (!Player) return
     fetch(src)
-      .then(r => {
-        if (!r.ok) throw new Error('not found')
-        return r.json()
-      })
+      .then(r => { if (!r.ok) throw new Error('not found'); return r.json() })
       .then(setData)
       .catch(() => setError(true))
-  }, [src])
+  }, [src, Player])
 
-  if (error || !animationData) {
+  if (error || !Player || !animationData) {
     return fallback ? (
       <span style={{ display: 'inline-flex', width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
         {fallback}
@@ -67,7 +55,7 @@ const LottieIcon = ({
   }
 
   return (
-    <Lottie
+    <Player
       lottieRef={lottieRef}
       animationData={animationData}
       loop={loop}

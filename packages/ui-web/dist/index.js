@@ -1407,9 +1407,7 @@ var Card_default = Card;
 
 // src/atoms/LottieIcon/LottieIcon.tsx
 var import_react12 = require("react");
-var import_lottie_react = __toESM(require("lottie-react"));
 var import_jsx_runtime12 = require("react/jsx-runtime");
-var Lottie = import_lottie_react.default;
 var LottieIcon = ({
   src,
   size = 48,
@@ -1419,20 +1417,25 @@ var LottieIcon = ({
   fallback,
   className
 }) => {
-  const lottieRef = (0, import_react12.useRef)(null);
+  const [Player, setPlayer] = (0, import_react12.useState)(null);
   const [animationData, setData] = (0, import_react12.useState)(null);
   const [error, setError] = (0, import_react12.useState)(false);
+  const lottieRef = (0, import_react12.useRef)(null);
   (0, import_react12.useEffect)(() => {
+    import("lottie-react").then((mod) => setPlayer(() => mod.default)).catch(() => setError(true));
+  }, []);
+  (0, import_react12.useEffect)(() => {
+    if (!Player) return;
     fetch(src).then((r) => {
       if (!r.ok) throw new Error("not found");
       return r.json();
     }).then(setData).catch(() => setError(true));
-  }, [src]);
-  if (error || !animationData) {
+  }, [src, Player]);
+  if (error || !Player || !animationData) {
     return fallback ? /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { style: { display: "inline-flex", width: size, height: size, alignItems: "center", justifyContent: "center" }, children: fallback }) : null;
   }
   return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-    Lottie,
+    Player,
     {
       lottieRef,
       animationData,

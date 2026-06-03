@@ -286,17 +286,11 @@ interface CardProps {
 declare const Card: ({ children, interactive, onClick, className, ...ariaProps }: CardProps) => react_jsx_runtime.JSX.Element;
 
 interface LottieIconProps {
-    /** URL al archivo JSON de Lottie (desde /public) */
     src: string;
-    /** Tamaño en px — default 48 */
     size?: number;
-    /** Loop infinito — default true */
     loop?: boolean;
-    /** Autoplay al montar — default true */
     autoplay?: boolean;
-    /** Reproducir solo al hacer hover */
     playOnHover?: boolean;
-    /** Nodo a mostrar si el JSON no carga */
     fallback?: React$1.ReactNode;
     className?: string;
 }
