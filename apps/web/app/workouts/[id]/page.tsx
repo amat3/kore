@@ -42,11 +42,18 @@ export default function WorkoutDetailPage() {
   const dispatch  = useAppDispatch()
   const favorites = useAppSelector(state => state.workouts.favorites)
 
-  const [workout,  setWorkout]  = useState<Workout | null>(null)
-  const [loading,  setLoading]  = useState(true)
-  const [notFound, setNotFound] = useState(false)
+  const [workout,    setWorkout]    = useState<Workout | null>(null)
+  const [loading,    setLoading]    = useState(true)
+  const [notFound,   setNotFound]   = useState(false)
+  const [videoOpen,  setVideoOpen]  = useState(false)
 
   const isFavorite = workout ? favorites.includes(workout.id) : false
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setVideoOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   useEffect(() => {
     if (!id) return
@@ -124,31 +131,37 @@ export default function WorkoutDetailPage() {
 
           {/* CTA */}
           <motion.div variants={fadeUp}>
-            <StartButton type="button">
+            <StartButton
+              type="button"
+              onClick={() => workout.videoUrl && setVideoOpen(true)}
+              disabled={!workout.videoUrl}
+            >
               <Icon name="Play" size="sm" color="inherit" />
               Empezar entrenamiento
             </StartButton>
           </motion.div>
 
-          {/* Vídeo */}
-          {workout.videoUrl && (
-            <motion.div variants={fadeUp}>
-              <VideoSection>
-                <SectionLabel variant="overline" as="span">Vídeo del entrenamiento</SectionLabel>
-                <VideoWrapper>
-                  <iframe
-                    src={workout.videoUrl}
-                    title={workout.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
-                    allowFullScreen
-                  />
-                </VideoWrapper>
-              </VideoSection>
-            </motion.div>
-          )}
-
         </motion.div>
       </Container>
+
+      {/* Video overlay */}
+      {videoOpen && workout.videoUrl && (
+        <VideoOverlay onClick={() => setVideoOpen(false)}>
+          <VideoModal onClick={e => e.stopPropagation()}>
+            <CloseButton type="button" onClick={() => setVideoOpen(false)} aria-label="Cerrar vídeo">
+              <Icon name="X" size="sm" color="inherit" />
+            </CloseButton>
+            <VideoWrapper>
+              <iframe
+                src={`${workout.videoUrl}?autoplay=1`}
+                title={workout.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+                allowFullScreen
+              />
+            </VideoWrapper>
+          </VideoModal>
+        </VideoOverlay>
+      )}
     </Page>
   )
 }
@@ -295,23 +308,51 @@ const StartButton = styled.button`
   }
 `
 
-const VideoSection = styled.div`
-  display:        flex;
-  flex-direction: column;
-  gap:            var(--spacing-m);
+const VideoOverlay = styled.div`
+  position:        fixed;
+  inset:           0;
+  background:      var(--background-scrim-heavy);
+  z-index:         200;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  padding:         var(--spacing-l);
+  backdrop-filter: blur(8px);
 `
 
-const SectionLabel = styled(Text)`
-  display:       block;
-  margin-bottom: var(--spacing-xs);
+const VideoModal = styled.div`
+  position:      relative;
+  width:         100%;
+  max-width:     900px;
+  border-radius: var(--corners-default-card);
+  overflow:      hidden;
+  box-shadow:    0 24px 80px rgba(0,0,0,0.6);
+`
+
+const CloseButton = styled.button`
+  position:        absolute;
+  top:             var(--spacing-s);
+  right:           var(--spacing-s);
+  z-index:         10;
+  background:      rgba(0,0,0,0.6);
+  border:          none;
+  border-radius:   50%;
+  width:           var(--sizing-2xl);
+  height:          var(--sizing-2xl);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  cursor:          pointer;
+  color:           #F7F4F1;
+  backdrop-filter: blur(4px);
+  transition:      background 150ms;
+  &:hover { background: rgba(0,0,0,0.8); }
 `
 
 const VideoWrapper = styled.div`
-  position:      relative;
-  aspect-ratio:  16 / 9;
-  border-radius: var(--corners-default-card);
-  overflow:      hidden;
-  background:    #000;
+  position:     relative;
+  aspect-ratio: 16 / 9;
+  background:   #000;
 
   iframe {
     position: absolute;
