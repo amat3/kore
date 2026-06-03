@@ -20,10 +20,11 @@ export interface WorkoutCardProps {
   level?:     WorkoutLevel
   imageSrc?:  string
   imageAlt?:  string
-  onClick?:   () => void
-  completed?: boolean
-  favorited?: boolean
-  className?: string
+  onClick?:    () => void
+  onFavorite?: () => void
+  completed?:  boolean
+  favorited?:  boolean
+  className?:  string
 }
 
 const WorkoutCard = ({
@@ -34,8 +35,9 @@ const WorkoutCard = ({
   imageSrc,
   imageAlt,
   onClick,
-  completed = false,
-  favorited = false,
+  onFavorite,
+  completed  = false,
+  favorited  = false,
   className,
 }: WorkoutCardProps) => (
   <Card
@@ -61,9 +63,14 @@ const WorkoutCard = ({
         </CompletedBadge>
       )}
 
-      {favorited && (
-        <FavoriteBadge aria-label="Favorito">
-          <Icon name="Heart" size="sm" color="inherit" />
+      {(favorited || onFavorite) && (
+        <FavoriteBadge
+          as={onFavorite ? 'button' : 'div'}
+          aria-label={favorited ? 'Quitar de favoritos' : 'Añadir a favoritos'}
+          onClick={onFavorite ? (e: React.MouseEvent) => { e.stopPropagation(); onFavorite() } : undefined}
+          style={{ cursor: onFavorite ? 'pointer' : 'default', background: 'none', border: 'none', padding: 0 }}
+        >
+          <Icon name={favorited ? 'Heart' : 'Heart'} size="sm" color="inherit" />
         </FavoriteBadge>
       )}
     </ImageWrapper>

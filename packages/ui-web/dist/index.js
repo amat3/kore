@@ -1498,6 +1498,7 @@ var WorkoutCard = ({
   imageSrc,
   imageAlt,
   onClick,
+  onFavorite,
   completed = false,
   favorited = false,
   className
@@ -1513,7 +1514,19 @@ var WorkoutCard = ({
       /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(ImageWrapper, { className: "kore-card-image", children: [
         imageSrc ? /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("img", { src: imageSrc, alt: imageAlt ?? title, loading: "lazy" }) : /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Placeholder, { children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: "Dumbbell", size: "lg", color: "muted" }) }),
         completed && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(CompletedBadge, { "aria-label": "Completado", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: "Check", size: "xs", color: "inherit" }) }),
-        favorited && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(FavoriteBadge, { "aria-label": "Favorito", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: "Heart", size: "sm", color: "inherit" }) })
+        (favorited || onFavorite) && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+          FavoriteBadge,
+          {
+            as: onFavorite ? "button" : "div",
+            "aria-label": favorited ? "Quitar de favoritos" : "A\xF1adir a favoritos",
+            onClick: onFavorite ? (e) => {
+              e.stopPropagation();
+              onFavorite();
+            } : void 0,
+            style: { cursor: onFavorite ? "pointer" : "default", background: "none", border: "none", padding: 0 },
+            children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: favorited ? "Heart" : "Heart", size: "sm", color: "inherit" })
+          }
+        )
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(Body2, { children: [
         /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Overline2, { variant: "overline", as: "span", children: category }),

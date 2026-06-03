@@ -310,11 +310,12 @@ interface WorkoutCardProps {
     imageSrc?: string;
     imageAlt?: string;
     onClick?: () => void;
+    onFavorite?: () => void;
     completed?: boolean;
     favorited?: boolean;
     className?: string;
 }
-declare const WorkoutCard: ({ title, category, duration, level, imageSrc, imageAlt, onClick, completed, favorited, className, }: WorkoutCardProps) => react_jsx_runtime.JSX.Element;
+declare const WorkoutCard: ({ title, category, duration, level, imageSrc, imageAlt, onClick, onFavorite, completed, favorited, className, }: WorkoutCardProps) => react_jsx_runtime.JSX.Element;
 
 interface FilterItem {
     id: string;

@@ -12,6 +12,7 @@
     "@emailjs/browser": "^4.4.1",
     "@kore/tokens": "*",
     "@kore/ui-web": "*",
+    "@reduxjs/toolkit": "^2.12.0",
     "dotenv": "^17.4.2",
     "firebase": "^12.14.0",
     "framer-motion": "^12.40.0",
@@ -22,6 +23,7 @@
     "react-dom": "19.2.4",
     "react-hook-form": "^7.77.0",
     "react-i18next": "^17.0.8",
+    "react-redux": "^9.3.0",
     "recharts": "^3.8.1"
   },
   "devDependencies": {

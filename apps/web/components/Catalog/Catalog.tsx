@@ -12,7 +12,9 @@ import { useState } from 'react'
 import styled from '@emotion/styled'
 import { css, keyframes } from '@emotion/react'
 import { WorkoutCard, FilterBar, Text } from '@kore/ui-web'
-import { useWorkouts } from '@/hooks/useWorkouts'
+import { useWorkouts }    from '@/hooks/useWorkouts'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { toggleFavorite } from '@/store/workoutsSlice'
 
 // ── Skeleton animation ────────────────────────────────────────────────────
 const shimmer = keyframes`
@@ -36,6 +38,9 @@ const SkeletonCard = () => (
 const Catalog = () => {
   const [search, setSearch] = useState('')
   const [categories, setCategories] = useState<string[]>([])
+
+  const dispatch  = useAppDispatch()
+  const favorites = useAppSelector(state => state.workouts.favorites)
 
   const {
     workouts,
@@ -113,7 +118,9 @@ const Catalog = () => {
                   duration={workout.duration}
                   level={workout.level}
                   imageSrc={workout.imageSrc}
+                  favorited={favorites.includes(workout.id)}
                   onClick={() => console.log('Abrir workout:', workout.id)}
+                  onFavorite={() => dispatch(toggleFavorite(workout.id))}
                 />
               ))}
             </Grid>
