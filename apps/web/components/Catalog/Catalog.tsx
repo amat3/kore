@@ -112,7 +112,11 @@ const Catalog = () => {
             </ResultsCount>
             <Grid>
               {workouts.map((workout) => (
-                <CardLink key={workout.id} href={`/workouts/${workout.id}`}>
+                <CardWrapper key={workout.id}>
+                  <CardNavLink
+                    href={`/workouts/${workout.id}`}
+                    aria-label={`Ver ${workout.title}`}
+                  />
                   <WorkoutCard
                     title={workout.title}
                     category={workout.category}
@@ -122,7 +126,7 @@ const Catalog = () => {
                     favorited={favorites.includes(workout.id)}
                     onFavorite={() => dispatch(toggleFavorite(workout.id))}
                   />
-                </CardLink>
+                </CardWrapper>
               ))}
             </Grid>
           </>
@@ -190,11 +194,17 @@ const Grid = styled.div`
   gap: var(--spacing-m);
 `
 
-const CardLink = styled(Link)`
-  display:         block;
-  text-decoration: none;
-  color:           inherit;
+// Patrón card-link: <a> absoluto cubre la card sin envolver interactive content
+const CardWrapper = styled.div`
+  position: relative;
+`
+
+const CardNavLink = styled(Link)`
+  position:        absolute;
+  inset:           0;
+  z-index:         1;
   border-radius:   var(--corners-default-card);
+  text-decoration: none;
 `
 
 // ── Skeleton ──────────────────────────────────────────────────────────────
