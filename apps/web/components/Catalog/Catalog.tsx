@@ -119,7 +119,7 @@ const Catalog = () => {
                   level={workout.level}
                   imageSrc={workout.imageSrc}
                   favorited={favorites.includes(workout.id)}
-                  onClick={() => console.log('Abrir workout:', workout.id)}
+                  onClick={() => {}}
                   onFavorite={() => dispatch(toggleFavorite(workout.id))}
                 />
               ))}
