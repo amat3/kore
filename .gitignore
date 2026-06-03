@@ -36,3 +36,10 @@ npm-debug.log*
 apps/mobile/android/
 apps/mobile/ios/
 
+# Logs y reportes generados
+*.log
+packages/ui-web/coverage/
+
+# Claude Code (configuración local — rutas absolutas de la máquina)
+.claude/
+
