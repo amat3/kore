@@ -96,7 +96,7 @@ const TokensShowcase = () => {
         <motion.div variants={fadeUp}>
           <SectionOverline variant="overline" as="span">Design Tokens</SectionOverline>
           <SectionTitle variant="h1" as="h2">
-            Un sistema, <em>dos plataformas</em>
+            164 <em>decisiones de diseño</em>
           </SectionTitle>
           <SectionSubtitle variant="body-light">
             <code>@kore/tokens</code> genera <strong>CSS custom properties</strong> para web
