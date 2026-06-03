@@ -394,3 +394,4 @@ Turborepo usa remote cache en Vercel pero **no restaura los archivos a disco** e
 | `Can't resolve '@kore/tokens/css'` | Turbopack resuelve módulos antes de que el build genere el CSS | El import ya usa `./kore.css` (archivo local en `apps/web/app/`) — si cambias tokens, ejecuta `cp packages/tokens/dist/kore.css apps/web/app/kore.css` y commitea |
 | `Can't resolve '@kore/ui-web'` | dist no commiteado | `git add packages/ui-web/dist && git push` |
 | Google OAuth falla en producción | Dominio de Vercel no está en Firebase Auth authorized domains | Firebase Console → Authentication → Settings → Authorized domains → añadir `kore-juanan-amate.vercel.app` |
+| Cambios en componentes no se reflejan en producción | `turbo.json` tenía `inputs: ["src/**/*.ts"]` que no coincide con `apps/web/components/*.tsx` — el cache nunca se invalidaba | Resuelto eliminando `inputs` de turbo.json. Sin inputs, Turborepo usa todos los archivos del package para el hash |
