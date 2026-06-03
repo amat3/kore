@@ -64,14 +64,14 @@ const WorkoutCard = ({
       )}
 
       {(favorited || onFavorite) && (
-        <FavoriteBadge
-          as={onFavorite ? 'button' : 'div'}
+        <FavoriteButton
+          type="button"
           aria-label={favorited ? 'Quitar de favoritos' : 'Añadir a favoritos'}
-          onClick={onFavorite ? (e: React.MouseEvent) => { e.stopPropagation(); onFavorite() } : undefined}
-          style={{ cursor: onFavorite ? 'pointer' : 'default', background: 'none', border: 'none', padding: 0 }}
+          onClick={e => { e.stopPropagation(); onFavorite?.() }}
+          $active={favorited}
         >
-          <Icon name={favorited ? 'Heart' : 'Heart'} size="sm" color="inherit" />
-        </FavoriteBadge>
+          <Icon name="Heart" size="sm" color="inherit" />
+        </FavoriteButton>
       )}
     </ImageWrapper>
 
@@ -175,12 +175,25 @@ const CompletedBadge = styled.div`
   justify-content:  center;
 `
 
-const FavoriteBadge = styled.div`
-  position: absolute;
-  top:      var(--spacing-xs);
-  left:     var(--spacing-xs);
-  color:    var(--foreground-accent-on-surface);
-  filter:   drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+const FavoriteButton = styled.button<{ $active?: boolean }>`
+  position:         absolute;
+  top:              var(--spacing-xs);
+  left:             var(--spacing-xs);
+  background:       none;
+  border:           none;
+  padding:          var(--spacing-2xs);
+  border-radius:    50%;
+  cursor:           pointer;
+  color:            ${({ $active }) => $active
+    ? 'var(--foreground-accent-on-surface)'
+    : 'rgba(247,244,241,0.7)'};
+  filter:           drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  transition:       color 150ms, transform 150ms;
+  z-index:          2;
+
+  @media (hover: hover) {
+    &:hover { transform: scale(1.2); }
+  }
 `
 
 export default WorkoutCard

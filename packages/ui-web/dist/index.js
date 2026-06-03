@@ -1515,16 +1515,16 @@ var WorkoutCard = ({
         imageSrc ? /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("img", { src: imageSrc, alt: imageAlt ?? title, loading: "lazy" }) : /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Placeholder, { children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: "Dumbbell", size: "lg", color: "muted" }) }),
         completed && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(CompletedBadge, { "aria-label": "Completado", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: "Check", size: "xs", color: "inherit" }) }),
         (favorited || onFavorite) && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
-          FavoriteBadge,
+          FavoriteButton,
           {
-            as: onFavorite ? "button" : "div",
+            type: "button",
             "aria-label": favorited ? "Quitar de favoritos" : "A\xF1adir a favoritos",
-            onClick: onFavorite ? (e) => {
+            onClick: (e) => {
               e.stopPropagation();
-              onFavorite();
-            } : void 0,
-            style: { cursor: onFavorite ? "pointer" : "default", background: "none", border: "none", padding: 0 },
-            children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: favorited ? "Heart" : "Heart", size: "sm", color: "inherit" })
+              onFavorite?.();
+            },
+            $active: favorited,
+            children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Icon_default, { name: "Heart", size: "sm", color: "inherit" })
           }
         )
       ] }),
@@ -1618,12 +1618,23 @@ var CompletedBadge = import_styled10.default.div`
   align-items:      center;
   justify-content:  center;
 `;
-var FavoriteBadge = import_styled10.default.div`
-  position: absolute;
-  top:      var(--spacing-xs);
-  left:     var(--spacing-xs);
-  color:    var(--foreground-accent-on-surface);
-  filter:   drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+var FavoriteButton = import_styled10.default.button`
+  position:         absolute;
+  top:              var(--spacing-xs);
+  left:             var(--spacing-xs);
+  background:       none;
+  border:           none;
+  padding:          var(--spacing-2xs);
+  border-radius:    50%;
+  cursor:           pointer;
+  color:            ${({ $active }) => $active ? "var(--foreground-accent-on-surface)" : "rgba(247,244,241,0.7)"};
+  filter:           drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  transition:       color 150ms, transform 150ms;
+  z-index:          2;
+
+  @media (hover: hover) {
+    &:hover { transform: scale(1.2); }
+  }
 `;
 var WorkoutCard_default = WorkoutCard;
 
