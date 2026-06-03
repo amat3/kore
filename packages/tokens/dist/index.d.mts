@@ -282,6 +282,28 @@ declare const containers: {
     readonly xl: 1200;
     readonly '2xl': 1400;
 };
+declare const layout: {
+    readonly mobile: {
+        readonly gutter: 16;
+        readonly sectionGap: 64;
+        readonly sectionPad: 48;
+    };
+    readonly tablet: {
+        readonly gutter: 40;
+        readonly sectionGap: 80;
+        readonly sectionPad: 64;
+    };
+    readonly desktop: {
+        readonly gutter: 56;
+        readonly sectionGap: 96;
+        readonly sectionPad: 80;
+    };
+    readonly wide: {
+        readonly gutter: 80;
+        readonly sectionGap: 120;
+        readonly sectionPad: 96;
+    };
+};
 type Spacing = typeof spacing;
 type Sizing = typeof sizing;
 type Radius = typeof radius;
@@ -450,4 +472,4 @@ type TypeRoles = typeof typeRoles;
 
 type Theme = typeof lightTheme;
 
-export { type Borders, type Breakpoints, type ColorPrimitives, type DarkTheme, type FontFamily, type FontWeight, type LightTheme, type Radius, type Sizing, type Spacing, type Theme, type Tints, type TypeRoles, type TypeScale, borders, breakpoints, colorPrimitives, containers, darkTheme, fontFamily, fontWeight, letterSpacing, lightTheme, lineHeight, radius, sizing, spacing, tints, typeRoles, typeScale, zIndex };
+export { type Borders, type Breakpoints, type ColorPrimitives, type DarkTheme, type FontFamily, type FontWeight, type LightTheme, type Radius, type Sizing, type Spacing, type Theme, type Tints, type TypeRoles, type TypeScale, borders, breakpoints, colorPrimitives, containers, darkTheme, fontFamily, fontWeight, layout, letterSpacing, lightTheme, lineHeight, radius, sizing, spacing, tints, typeRoles, typeScale, zIndex };

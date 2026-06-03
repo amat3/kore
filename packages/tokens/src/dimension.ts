@@ -81,8 +81,35 @@ export const containers = {
   '2xl': 1400,
 } as const
 
+// ── Layout (espaciado estructural responsive) ─────────────────────────────
+// Separado del spacing base — para contenedores y secciones, no componentes.
+// El spacing base (2–80px) es siempre fijo; el layout escala con viewport.
+export const layout = {
+  mobile: {
+    gutter:      16,   // padding horizontal de contenedores
+    sectionGap:  64,   // espacio vertical entre secciones
+    sectionPad:  48,   // padding-block de cada sección
+  },
+  tablet: {
+    gutter:      40,
+    sectionGap:  80,
+    sectionPad:  64,
+  },
+  desktop: {
+    gutter:      56,
+    sectionGap:  96,
+    sectionPad:  80,
+  },
+  wide: {
+    gutter:      80,
+    sectionGap:  120,
+    sectionPad:  96,
+  },
+} as const
+
 export type Spacing   = typeof spacing
 export type Sizing    = typeof sizing
 export type Radius    = typeof radius
 export type Borders   = typeof borders
 export type Breakpoints = typeof breakpoints
+export type Layout    = typeof layout

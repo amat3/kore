@@ -4,7 +4,7 @@ import { useState }              from 'react'
 import styled                    from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
 import { Text, Icon }            from '@kore/ui-web'
-import { typeScale, spacing }    from '@kore/tokens'
+import { typeScale, spacing, layout, breakpoints } from '@kore/tokens'
 
 // ── Variantes ─────────────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -64,6 +64,19 @@ const COLOR_GROUPS = [
 ]
 
 const SPACING_KEYS = ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'] as const
+
+const LAYOUT_TOKENS = [
+  { key: 'gutter',     label: '--layout-gutter',      desc: 'Padding horizontal de contenedores' },
+  { key: 'sectionGap', label: '--layout-section-gap',  desc: 'Espacio vertical entre secciones' },
+  { key: 'sectionPad', label: '--layout-section-pad',  desc: 'Padding-block de cada sección' },
+] as const
+
+const LAYOUT_BPS = [
+  { key: 'mobile',  label: `< ${breakpoints.tablet}px`   },
+  { key: 'tablet',  label: `${breakpoints.tablet}–${breakpoints.desktop - 1}px` },
+  { key: 'desktop', label: `${breakpoints.desktop}–${breakpoints.wide - 1}px`   },
+  { key: 'wide',    label: `≥ ${breakpoints.wide}px`     },
+] as const
 
 // ── Componente ────────────────────────────────────────────────────────────
 const TokensShowcase = () => {
@@ -191,6 +204,45 @@ const TokensShowcase = () => {
               )
             })}
           </SpacingGrid>
+        </motion.div>
+
+        {/* ── Layout tokens ── */}
+        <motion.div variants={fadeUp}>
+          <BlockTitle variant="overline" as="h3">Layout tokens — responsive</BlockTitle>
+          <BlockSubtitle variant="body-sm">
+            Separados del spacing base. Exclusivos para contenedores y secciones
+            — nunca para componentes internos. El spacing base siempre es fijo.
+          </BlockSubtitle>
+          <TableWrapper>
+            <Table>
+              <thead>
+                <tr>
+                  <Th align="left">Token</Th>
+                  <Th align="left" style={{ width: '40%' }}>Uso</Th>
+                  {LAYOUT_BPS.map(bp => (
+                    <Th key={bp.key} align="center">{bp.label}</Th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {LAYOUT_TOKENS.map(token => (
+                  <tr key={token.key}>
+                    <Td><TokenName>{token.label}</TokenName></Td>
+                    <Td><span style={{ fontFamily: 'var(--font-family-ui)', fontSize: 'var(--scale-xs)', color: 'var(--foreground-tertiary-on-surface)' }}>{token.desc}</span></Td>
+                    {LAYOUT_BPS.map(bp => (
+                      <TdCenter key={bp.key}>
+                        <SizeBar
+                          $size={layout[bp.key][token.key] / 2}
+                          $active={bp.key === 'desktop'}
+                        />
+                        <SizeValue>{layout[bp.key][token.key]}px</SizeValue>
+                      </TdCenter>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </TableWrapper>
         </motion.div>
 
       </motion.div>

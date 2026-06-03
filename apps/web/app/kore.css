@@ -248,6 +248,36 @@
   --line-height-loose: 1.7;
 }
 
+/* ── Layout tokens — responsive ──────────────────────────────── */
+@media (max-width: 599px) {
+  :root {
+    --layout-gutter: 16px;
+    --layout-section-gap: 64px;
+    --layout-section-pad: 48px;
+  }
+}
+@media (min-width: 600px) and (max-width: 1199px) {
+  :root {
+    --layout-gutter: 40px;
+    --layout-section-gap: 80px;
+    --layout-section-pad: 64px;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1799px) {
+  :root {
+    --layout-gutter: 56px;
+    --layout-section-gap: 96px;
+    --layout-section-pad: 80px;
+  }
+}
+@media (min-width: 1800px) {
+  :root {
+    --layout-gutter: 80px;
+    --layout-section-gap: 120px;
+    --layout-section-pad: 96px;
+  }
+}
+
 /* ── Typography — escala responsive ──────────────────────────── */
 /* Scale: mobile */
 @media (max-width: 599px) {

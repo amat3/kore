@@ -21,6 +21,7 @@ export {
   breakpoints,
   zIndex,
   containers,
+  layout,
 } from './dimension'
 
 // Typography

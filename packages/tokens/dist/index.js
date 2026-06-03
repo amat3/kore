@@ -27,6 +27,7 @@ __export(index_exports, {
   darkTheme: () => darkTheme,
   fontFamily: () => fontFamily,
   fontWeight: () => fontWeight,
+  layout: () => layout,
   letterSpacing: () => letterSpacing,
   lightTheme: () => lightTheme,
   lineHeight: () => lineHeight,
@@ -327,6 +328,31 @@ var containers = {
   xl: 1200,
   "2xl": 1400
 };
+var layout = {
+  mobile: {
+    gutter: 16,
+    // padding horizontal de contenedores
+    sectionGap: 64,
+    // espacio vertical entre secciones
+    sectionPad: 48
+    // padding-block de cada sección
+  },
+  tablet: {
+    gutter: 40,
+    sectionGap: 80,
+    sectionPad: 64
+  },
+  desktop: {
+    gutter: 56,
+    sectionGap: 96,
+    sectionPad: 80
+  },
+  wide: {
+    gutter: 80,
+    sectionGap: 120,
+    sectionPad: 96
+  }
+};
 
 // src/typography.ts
 var fontFamily = {
@@ -487,6 +513,7 @@ var typeRoles = {
   darkTheme,
   fontFamily,
   fontWeight,
+  layout,
   letterSpacing,
   lightTheme,
   lineHeight,

@@ -17,7 +17,7 @@ import { join } from 'path'
 
 import { lightTheme }   from '../themes/light'
 import { darkTheme }    from '../themes/dark'
-import { spacing, sizing, radius, borders, breakpoints, zIndex, containers } from '../dimension'
+import { spacing, sizing, radius, borders, breakpoints, zIndex, containers, layout } from '../dimension'
 import { fontFamily, fontWeight, letterSpacing, lineHeight, typeScale } from '../typography'
 
 // ── Helpers ──────────────────────────────────────────────────────────────
@@ -166,7 +166,26 @@ ${lineHeightVars}
 }
 `)
 
-  // 7. Typography — escala responsive con media queries
+  // 7. Layout tokens — responsive (gutter, section gap, section padding)
+  const layoutScales: [keyof typeof layout, string][] = [
+    ['mobile',  `(max-width: ${breakpoints.tablet - 1}px)`],
+    ['tablet',  `(min-width: ${breakpoints.tablet}px) and (max-width: ${breakpoints.desktop - 1}px)`],
+    ['desktop', `(min-width: ${breakpoints.desktop}px) and (max-width: ${breakpoints.wide - 1}px)`],
+    ['wide',    `(min-width: ${breakpoints.wide}px)`],
+  ]
+
+  const layoutBlocks = layoutScales.map(([key, mq]) => {
+    const vars = Object.entries(layout[key])
+      .map(([k, v]) => `    --layout-${toKebab(k)}: ${v}px;`)
+      .join('\n')
+    return `@media ${mq} {\n  :root {\n${vars}\n  }\n}`
+  }).join('\n')
+
+  sections.push(`/* ── Layout tokens — responsive ──────────────────────────────── */
+${layoutBlocks}
+`)
+
+  // 8. Typography — escala responsive con media queries
   const scales: [string, keyof typeof typeScale, string][] = [
     ['mobile',  'mobile',  `(max-width: ${breakpoints.tablet - 1}px)`],
     ['tablet',  'tablet',  `(min-width: ${breakpoints.tablet}px) and (max-width: ${breakpoints.desktop - 1}px)`],
