@@ -102,6 +102,28 @@ const DesignSystemShowcase = () => {
         {/* Showcase canvas */}
         <ShowcaseCanvas ref={showcaseRef} $isDark={isDark}>
 
+          {/* § Icons */}
+          <DSBlock className="ds-block">
+            <BlockLabel variant="overline" as="span">Icon — tamaños y colores</BlockLabel>
+            <BlockContent $align="center" $gap="l">
+              <Icon name="Dumbbell"    size="xs"  color="muted"   />
+              <Icon name="Dumbbell"    size="sm"  color="default" />
+              <Icon name="Dumbbell"    size="md"  color="accent"  />
+              <Icon name="Dumbbell"    size="lg"  color="accent"  />
+              <Icon name="Dumbbell"    size="xl"  color="accent"  />
+            </BlockContent>
+            <BlockContent $align="center">
+              <Icon name="Heart"       size="sm" color="accent"   />
+              <Icon name="TrendingUp"  size="sm" color="default"  />
+              <Icon name="Flame"       size="sm" color="accent"   />
+              <Icon name="Users"       size="sm" color="default"  />
+              <Icon name="Star"        size="sm" color="accent"   />
+              <Icon name="Check"       size="sm" color="default"  />
+              <Icon name="CircleAlert" size="sm" color="muted"    />
+              <Icon name="Search"      size="sm" color="muted"    />
+            </BlockContent>
+          </DSBlock>
+
           {/* § Buttons */}
           <DSBlock className="ds-block">
             <BlockLabel variant="overline" as="span">Button</BlockLabel>
