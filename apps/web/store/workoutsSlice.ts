@@ -5,17 +5,10 @@ interface WorkoutsState {
   activeFilters: string[]
 }
 
-const loadFavorites = (): string[] => {
-  if (typeof window === 'undefined') return []
-  try {
-    return JSON.parse(localStorage.getItem('kore-favorites') ?? '[]')
-  } catch {
-    return []
-  }
-}
-
+// Inicializar siempre vacío — se carga desde localStorage en ReduxProvider
+// después de la hidratación para evitar hydration mismatch (React error #418)
 const initialState: WorkoutsState = {
-  favorites:     loadFavorites(),
+  favorites:     [],
   activeFilters: [],
 }
 
@@ -23,6 +16,14 @@ const workoutsSlice = createSlice({
   name: 'workouts',
   initialState,
   reducers: {
+    loadFromStorage(state) {
+      try {
+        const saved = localStorage.getItem('kore-favorites')
+        state.favorites = saved ? JSON.parse(saved) : []
+      } catch {
+        state.favorites = []
+      }
+    },
     toggleFavorite(state, action: PayloadAction<string>) {
       const id  = action.payload
       const idx = state.favorites.indexOf(id)
@@ -44,5 +45,5 @@ const workoutsSlice = createSlice({
   },
 })
 
-export const { toggleFavorite, setFilters, clearFilters } = workoutsSlice.actions
+export const { loadFromStorage, toggleFavorite, setFilters, clearFilters } = workoutsSlice.actions
 export default workoutsSlice.reducer
