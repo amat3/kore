@@ -138,9 +138,8 @@ const Features = () => {
               <EmojiWrapper $accent={feature.accent}>
                 <LottieIcon
                   src={feature.lottie}
-                  size={32}
+                  size={40}
                   loop
-                  fallback={<Emoji>{feature.emoji}</Emoji>}
                 />
               </EmojiWrapper>
 

@@ -6,7 +6,6 @@ export interface LottieIconProps {
   src:        string
   size?:      number
   loop?:      boolean
-  fallback?:  React.ReactNode
   className?: string
 }
 
@@ -14,38 +13,43 @@ const LottieIcon = ({
   src,
   size     = 48,
   loop     = true,
-  fallback,
   className,
 }: LottieIconProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const hasError     = useRef(false)
+  const animRef      = useRef<{ destroy: () => void } | null>(null)
+  const cancelRef    = useRef(false)
 
   useEffect(() => {
-    if (!containerRef.current) return
+    cancelRef.current = false
 
-    let anim: { destroy: () => void } | null = null
-
-    // Import dinámico dentro de useEffect — nunca se evalúa en el servidor
     import('lottie-web').then(({ default: lottie }) => {
-      if (!containerRef.current || hasError.current) return
-      anim = lottie.loadAnimation({
-        container:  containerRef.current,
-        renderer:   'svg',
+      if (cancelRef.current || !containerRef.current) return
+
+      // Limpiar animación anterior (React Strict Mode ejecuta effects dos veces)
+      animRef.current?.destroy()
+      containerRef.current.innerHTML = ''
+
+      animRef.current = lottie.loadAnimation({
+        container: containerRef.current,
+        renderer:  'svg',
         loop,
-        autoplay:   true,
-        path:       src,
+        autoplay:  true,
+        path:      src,
       })
-    }).catch(() => {
-      hasError.current = true
     })
 
-    return () => { anim?.destroy() }
+    return () => {
+      cancelRef.current = true
+      animRef.current?.destroy()
+      animRef.current = null
+      if (containerRef.current) containerRef.current.innerHTML = ''
+    }
   }, [src, loop])
 
   return (
     <div
       ref={containerRef}
-      style={{ width: size, height: size, display: 'inline-flex' }}
+      style={{ width: size, height: size }}
       className={className}
     />
   )
