@@ -4,8 +4,6 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import styled from '@emotion/styled'
-import { Provider }   from 'react-redux'
-import { store }      from '@/store/store'
 import { useAuth }    from '@/providers/AuthProvider'
 import { Avatar, Icon, Text } from '@kore/ui-web'
 import ThemeToggle    from '@/components/ThemeToggle/ThemeToggle'
@@ -31,7 +29,7 @@ export default function WorkoutsLayout({ children }: { children: React.ReactNode
   }
 
   return (
-    <Provider store={store}>
+    <>
       <AppHeader>
         <Container>
           <LogoLink href="/">KORE</LogoLink>
@@ -52,7 +50,7 @@ export default function WorkoutsLayout({ children }: { children: React.ReactNode
         </Container>
       </AppHeader>
       <PageWrapper>{children}</PageWrapper>
-    </Provider>
+    </>
   )
 }
 
