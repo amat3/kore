@@ -178,21 +178,29 @@ const CompletedBadge = styled.div`
 const FavoriteButton = styled.button<{ $active?: boolean }>`
   position:         absolute;
   top:              var(--spacing-xs);
-  left:             var(--spacing-xs);
-  background:       none;
+  right:            var(--spacing-xs);
+  background:       ${({ $active }) => $active
+    ? 'var(--background-accent-solid)'
+    : 'rgba(0,0,0,0.45)'};
   border:           none;
   padding:          var(--spacing-2xs);
   border-radius:    50%;
   cursor:           pointer;
-  color:            ${({ $active }) => $active
-    ? 'var(--foreground-accent-on-surface)'
-    : 'rgba(247,244,241,0.7)'};
-  filter:           drop-shadow(0 1px 2px rgba(0,0,0,0.3));
-  transition:       color 150ms, transform 150ms;
+  color:            #F7F4F1;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  transition:       background 150ms, transform 150ms;
   z-index:          2;
+  backdrop-filter:  blur(4px);
 
   @media (hover: hover) {
-    &:hover { transform: scale(1.2); }
+    &:hover {
+      background: ${({ $active }) => $active
+        ? 'color-mix(in srgb, var(--background-accent-solid), black 15%)'
+        : 'rgba(0,0,0,0.65)'};
+      transform: scale(1.1);
+    }
   }
 `
 
