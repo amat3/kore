@@ -9,21 +9,14 @@
  */
 
 import { useEffect, useRef } from 'react'
-import styled                 from '@emotion/styled'
-import { keyframes }          from '@emotion/react'
-import gsap                   from 'gsap'
+import styled  from '@emotion/styled'
+import gsap    from 'gsap'
 import { ScrollTrigger }      from 'gsap/ScrollTrigger'
 import { Text }               from '@kore/ui-web'
 import LottieIcon             from '@/components/LottieIcon/LottieIcon'
 import { colorPrimitives }    from '@kore/tokens'
 
 gsap.registerPlugin(ScrollTrigger)
-
-// ── Animación del icono ───────────────────────────────────────────────────
-const float = keyframes`
-  0%, 100% { transform: translateY(0px);  }
-  50%       { transform: translateY(-6px); }
-`
 
 // ── Data ──────────────────────────────────────────────────────────────────
 const FEATURES = [
@@ -135,13 +128,11 @@ const Features = () => {
               className="kore-feature-card"
               $accent={feature.accent}
             >
-              <EmojiWrapper $accent={feature.accent}>
-                <LottieIcon
-                  src={feature.lottie}
-                  size={40}
-                  loop
-                />
-              </EmojiWrapper>
+              <LottieIcon
+                src={feature.lottie}
+                size={40}
+                loop
+              />
 
               <CardContent>
                 <CardOverline variant="overline" as="span" $color={feature.accent}>
@@ -239,22 +230,6 @@ const FeatureCard = styled.div<{ $accent: string }>`
   }
 `
 
-const EmojiWrapper = styled.div<{ $accent: string }>`
-  width:            var(--sizing-3xl);
-  height:           var(--sizing-3xl);
-  border-radius:    var(--radius-m);
-  background-color: ${({ $accent }) => $accent}15;
-  display:          flex;
-  align-items:      center;
-  justify-content:  center;
-  flex-shrink:      0;
-`
-
-const Emoji = styled.span`
-  font-size:  24px;
-  line-height: 1;
-  animation:  ${float} 4s ease-in-out infinite;
-`
 
 const CardContent = styled.div`
   display:        flex;
