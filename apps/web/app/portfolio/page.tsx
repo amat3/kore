@@ -1,5 +1,6 @@
 import PortfolioHero          from '@/components/Portfolio/PortfolioHero'
 import DesignSystemShowcase   from '@/components/DesignSystemShowcase/DesignSystemShowcase'
+import TokensShowcase         from '@/components/TokensShowcase/TokensShowcase'
 import StackSection from '@/components/StackSection/StackSection'
 import Dashboard from '@/components/Dashboard/Dashboard'
 import CrossPlatform from '@/components/CrossPlatform/CrossPlatform'
@@ -31,6 +32,7 @@ export default function PortfolioPage() {
     <main>
       <PortfolioHero />
       <DesignSystemShowcase />
+      <TokensShowcase />
       <StackSection />
       <Dashboard />
        <CrossPlatform />
