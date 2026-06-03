@@ -6,14 +6,16 @@ import { db } from '@/lib/firebase'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
 export interface Workout {
-  id:        string
-  title:     string
-  category:  string
-  duration:  number
-  level:     'beginner' | 'intermediate' | 'advanced'
-  imageSrc?: string
-  featured?: boolean
-  order?:    number
+  id:           string
+  title:        string
+  category:     string
+  duration:     number
+  level:        'beginner' | 'intermediate' | 'advanced'
+  imageSrc?:    string
+  description?: string
+  videoUrl?:    string
+  featured?:    boolean
+  order?:       number
 }
 
 export interface UseWorkoutsFilters {
