@@ -9,7 +9,7 @@
  */
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import Link   from 'next/link'
 import styled from '@emotion/styled'
 import { css, keyframes } from '@emotion/react'
 import { WorkoutCard, FilterBar, Text } from '@kore/ui-web'
@@ -39,7 +39,6 @@ const SkeletonCard = () => (
 const Catalog = () => {
   const [search, setSearch] = useState('')
   const [categories, setCategories] = useState<string[]>([])
-  const router    = useRouter()
 
   const dispatch  = useAppDispatch()
   const favorites = useAppSelector(state => state.workouts.favorites)
@@ -113,17 +112,17 @@ const Catalog = () => {
             </ResultsCount>
             <Grid>
               {workouts.map((workout) => (
-                <WorkoutCard
-                  key={workout.id}
-                  title={workout.title}
-                  category={workout.category}
-                  duration={workout.duration}
-                  level={workout.level}
-                  imageSrc={workout.imageSrc}
-                  favorited={favorites.includes(workout.id)}
-                  onClick={() => router.push(`/workouts/${workout.id}`)}
-                  onFavorite={() => dispatch(toggleFavorite(workout.id))}
-                />
+                <CardLink key={workout.id} href={`/workouts/${workout.id}`}>
+                  <WorkoutCard
+                    title={workout.title}
+                    category={workout.category}
+                    duration={workout.duration}
+                    level={workout.level}
+                    imageSrc={workout.imageSrc}
+                    favorited={favorites.includes(workout.id)}
+                    onFavorite={() => dispatch(toggleFavorite(workout.id))}
+                  />
+                </CardLink>
               ))}
             </Grid>
           </>
@@ -189,6 +188,13 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: var(--spacing-m);
+`
+
+const CardLink = styled(Link)`
+  display:         block;
+  text-decoration: none;
+  color:           inherit;
+  border-radius:   var(--corners-default-card);
 `
 
 // ── Skeleton ──────────────────────────────────────────────────────────────
