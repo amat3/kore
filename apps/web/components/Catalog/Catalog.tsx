@@ -199,10 +199,10 @@ const CardWrapper = styled.div`
   position: relative;
 `
 
-const CardNavLink = styled(Link)`
+const CardNavLink = styled.a`
   position:        absolute;
   inset:           0;
-  z-index:         1;
+  z-index:         3;
   border-radius:   var(--corners-default-card);
   text-decoration: none;
 `

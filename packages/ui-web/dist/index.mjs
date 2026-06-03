@@ -1572,7 +1572,7 @@ var FavoriteButton = styled10.button`
   align-items:      center;
   justify-content:  center;
   transition:       background 150ms, transform 150ms;
-  z-index:          2;
+  z-index:          4;
   backdrop-filter:  blur(4px);
 
   @media (hover: hover) {
