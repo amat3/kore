@@ -53,6 +53,10 @@ export type { AvatarSize, DotStatus }         from './atoms/Avatar/Avatar.styles
 export { default as Card }   from './atoms/Card/Card'
 export type { CardProps }    from './atoms/Card/Card'
 
+// ── Atoms: LottieIcon ─────────────────────────────────────────────────────
+export { default as LottieIcon }   from './atoms/LottieIcon/LottieIcon'
+export type { LottieIconProps }    from './atoms/LottieIcon/LottieIcon'
+
 // ── Atoms: StatCard ───────────────────────────────────────────────────────
 export { default as StatCard }          from './atoms/StatCard/StatCard'
 export type { StatCardProps, StatTrend } from './atoms/StatCard/StatCard'

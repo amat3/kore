@@ -1,4 +1,10 @@
 "use client";
+var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+}) : x)(function(x) {
+  if (typeof require !== "undefined") return require.apply(this, arguments);
+  throw Error('Dynamic require of "' + x + '" is not supported');
+});
 
 // src/atoms/Text/Text.tsx
 import React from "react";
@@ -1344,10 +1350,51 @@ var CardStyled = styled8.article`
 `;
 var Card_default = Card;
 
+// src/atoms/LottieIcon/LottieIcon.tsx
+import { useEffect, useRef, useState as useState2 } from "react";
+import { jsx as jsx12 } from "react/jsx-runtime";
+var Lottie = __require("lottie-react").default;
+var LottieIcon = ({
+  src,
+  size = 48,
+  loop = true,
+  autoplay = true,
+  playOnHover = false,
+  fallback,
+  className
+}) => {
+  const lottieRef = useRef(null);
+  const [animationData, setData] = useState2(null);
+  const [error, setError] = useState2(false);
+  useEffect(() => {
+    fetch(src).then((r) => {
+      if (!r.ok) throw new Error("not found");
+      return r.json();
+    }).then(setData).catch(() => setError(true));
+  }, [src]);
+  if (error || !animationData && !error) {
+    return fallback ? /* @__PURE__ */ jsx12("span", { style: { display: "inline-flex", width: size, height: size, alignItems: "center", justifyContent: "center" }, children: fallback }) : null;
+  }
+  return /* @__PURE__ */ jsx12(
+    Lottie,
+    {
+      lottieRef,
+      animationData,
+      loop,
+      autoplay: autoplay && !playOnHover,
+      style: { width: size, height: size },
+      className,
+      onMouseEnter: () => playOnHover && lottieRef.current?.play(),
+      onMouseLeave: () => playOnHover && lottieRef.current?.stop()
+    }
+  );
+};
+var LottieIcon_default = LottieIcon;
+
 // src/atoms/StatCard/StatCard.tsx
 import styled9 from "@emotion/styled";
 import { css as css8 } from "@emotion/react";
-import { jsx as jsx12, jsxs as jsxs6 } from "react/jsx-runtime";
+import { jsx as jsx13, jsxs as jsxs6 } from "react/jsx-runtime";
 var StatCard = ({
   value,
   label,
@@ -1357,13 +1404,13 @@ var StatCard = ({
   className
 }) => /* @__PURE__ */ jsxs6(Wrapper, { className, children: [
   /* @__PURE__ */ jsxs6(TopRow, { children: [
-    /* @__PURE__ */ jsx12(Label, { variant: "overline", as: "span", children: label }),
-    icon && /* @__PURE__ */ jsx12(IconSlot, { "aria-hidden": "true", children: icon })
+    /* @__PURE__ */ jsx13(Label, { variant: "overline", as: "span", children: label }),
+    icon && /* @__PURE__ */ jsx13(IconSlot, { "aria-hidden": "true", children: icon })
   ] }),
-  /* @__PURE__ */ jsx12(Value, { variant: "h1", as: "p", children: value }),
+  /* @__PURE__ */ jsx13(Value, { variant: "h1", as: "p", children: value }),
   trendValue && /* @__PURE__ */ jsxs6(TrendRow, { children: [
-    /* @__PURE__ */ jsx12(TrendIndicator, { $trend: trend, "aria-label": `Tendencia: ${trendValue}`, children: trend === "up" ? "\u2191" : trend === "down" ? "\u2193" : "\u2013" }),
-    /* @__PURE__ */ jsx12(TrendText, { $trend: trend, children: trendValue })
+    /* @__PURE__ */ jsx13(TrendIndicator, { $trend: trend, "aria-label": `Tendencia: ${trendValue}`, children: trend === "up" ? "\u2191" : trend === "down" ? "\u2193" : "\u2013" }),
+    /* @__PURE__ */ jsx13(TrendText, { $trend: trend, children: trendValue })
   ] })
 ] });
 var Wrapper = styled9.div`
@@ -1424,7 +1471,7 @@ var StatCard_default = StatCard;
 
 // src/molecules/WorkoutCard/WorkoutCard.tsx
 import styled10 from "@emotion/styled";
-import { Fragment, jsx as jsx13, jsxs as jsxs7 } from "react/jsx-runtime";
+import { Fragment, jsx as jsx14, jsxs as jsxs7 } from "react/jsx-runtime";
 var levelLabel = {
   beginner: "Principiante",
   intermediate: "Intermedio",
@@ -1451,21 +1498,21 @@ var WorkoutCard = ({
     role: "article",
     children: [
       /* @__PURE__ */ jsxs7(ImageWrapper, { className: "kore-card-image", children: [
-        imageSrc ? /* @__PURE__ */ jsx13("img", { src: imageSrc, alt: imageAlt ?? title, loading: "lazy" }) : /* @__PURE__ */ jsx13(Placeholder, { children: /* @__PURE__ */ jsx13(Icon_default, { name: "Dumbbell", size: "lg", color: "muted" }) }),
-        completed && /* @__PURE__ */ jsx13(CompletedBadge, { "aria-label": "Completado", children: /* @__PURE__ */ jsx13(Icon_default, { name: "Check", size: "xs", color: "inherit" }) }),
-        favorited && /* @__PURE__ */ jsx13(FavoriteBadge, { "aria-label": "Favorito", children: /* @__PURE__ */ jsx13(Icon_default, { name: "Heart", size: "sm", color: "inherit" }) })
+        imageSrc ? /* @__PURE__ */ jsx14("img", { src: imageSrc, alt: imageAlt ?? title, loading: "lazy" }) : /* @__PURE__ */ jsx14(Placeholder, { children: /* @__PURE__ */ jsx14(Icon_default, { name: "Dumbbell", size: "lg", color: "muted" }) }),
+        completed && /* @__PURE__ */ jsx14(CompletedBadge, { "aria-label": "Completado", children: /* @__PURE__ */ jsx14(Icon_default, { name: "Check", size: "xs", color: "inherit" }) }),
+        favorited && /* @__PURE__ */ jsx14(FavoriteBadge, { "aria-label": "Favorito", children: /* @__PURE__ */ jsx14(Icon_default, { name: "Heart", size: "sm", color: "inherit" }) })
       ] }),
       /* @__PURE__ */ jsxs7(Body2, { children: [
-        /* @__PURE__ */ jsx13(Overline2, { variant: "overline", as: "span", children: category }),
-        /* @__PURE__ */ jsx13(Title, { variant: "h3", children: title }),
+        /* @__PURE__ */ jsx14(Overline2, { variant: "overline", as: "span", children: category }),
+        /* @__PURE__ */ jsx14(Title, { variant: "h3", children: title }),
         /* @__PURE__ */ jsxs7(MetaRow, { children: [
           /* @__PURE__ */ jsxs7(MetaText, { variant: "body-sm", as: "span", children: [
             duration,
             " min"
           ] }),
           level && /* @__PURE__ */ jsxs7(Fragment, { children: [
-            /* @__PURE__ */ jsx13(MetaDot, { variant: "body-sm", as: "span", "aria-hidden": "true", children: "\xB7" }),
-            /* @__PURE__ */ jsx13(MetaText, { variant: "body-sm", as: "span", children: levelLabel[level] })
+            /* @__PURE__ */ jsx14(MetaDot, { variant: "body-sm", as: "span", "aria-hidden": "true", children: "\xB7" }),
+            /* @__PURE__ */ jsx14(MetaText, { variant: "body-sm", as: "span", children: levelLabel[level] })
           ] })
         ] })
       ] })
@@ -1601,7 +1648,7 @@ var inlineWrapperStyles = css9`
 `;
 
 // src/molecules/FilterBar/FilterBar.tsx
-import { jsx as jsx14, jsxs as jsxs8 } from "react/jsx-runtime";
+import { jsx as jsx15, jsxs as jsxs8 } from "react/jsx-runtime";
 var FilterBar = ({
   filters,
   onFilterToggle,
@@ -1613,7 +1660,7 @@ var FilterBar = ({
   layout = "stacked",
   className
 }) => {
-  const tagsSection = !hideTags && filters.length > 0 && /* @__PURE__ */ jsx14(TagsRow, { className: "kore-filterbar-tags", children: filters.map((filter) => /* @__PURE__ */ jsx14(
+  const tagsSection = !hideTags && filters.length > 0 && /* @__PURE__ */ jsx15(TagsRow, { className: "kore-filterbar-tags", children: filters.map((filter) => /* @__PURE__ */ jsx15(
     Tag_default,
     {
       variant: filter.selected ? "selected" : "default",
@@ -1625,7 +1672,7 @@ var FilterBar = ({
     },
     filter.id
   )) });
-  const searchSection = !hideSearch && /* @__PURE__ */ jsx14(
+  const searchSection = !hideSearch && /* @__PURE__ */ jsx15(
     SearchInput_default,
     {
       value: searchValue,
@@ -1657,10 +1704,10 @@ var TagsRow = styled11.div`
 var FilterBar_default = FilterBar;
 
 // src/molecules/StreakBadge/StreakBadge.tsx
-import { useEffect, useRef, useState as useState2 } from "react";
+import { useEffect as useEffect2, useRef as useRef2, useState as useState3 } from "react";
 import styled12 from "@emotion/styled";
 import { keyframes as keyframes2 } from "@emotion/react";
-import { jsx as jsx15, jsxs as jsxs9 } from "react/jsx-runtime";
+import { jsx as jsx16, jsxs as jsxs9 } from "react/jsx-runtime";
 var pulse = keyframes2`
   0%, 100% { transform: scale(1);    }
   50%       { transform: scale(1.15); }
@@ -1698,9 +1745,9 @@ var sizeConfig = {
   lg: { wrapper: 88, icon: "lg", countSize: 36, labelSize: 11 }
 };
 var useAnimatedCount = (target, active) => {
-  const [display, setDisplay] = useState2(target);
-  const prevRef = useRef(target);
-  useEffect(() => {
+  const [display, setDisplay] = useState3(target);
+  const prevRef = useRef2(target);
+  useEffect2(() => {
     if (!active || prevRef.current === target) {
       setDisplay(target);
       return;
@@ -1741,9 +1788,9 @@ var StreakBadge = ({
       "aria-label": `Racha de ${count} ${label}`,
       role: "status",
       children: [
-        /* @__PURE__ */ jsx15(IconWrapper, { $animated: config.animated, $color: config.iconColor, children: /* @__PURE__ */ jsx15(Icon_default, { name: config.iconName, size: sizeConf.icon, color: "inherit" }) }),
+        /* @__PURE__ */ jsx16(IconWrapper, { $animated: config.animated, $color: config.iconColor, children: /* @__PURE__ */ jsx16(Icon_default, { name: config.iconName, size: sizeConf.icon, color: "inherit" }) }),
         /* @__PURE__ */ jsxs9(CountWrapper, { children: [
-          /* @__PURE__ */ jsx15(
+          /* @__PURE__ */ jsx16(
             Count,
             {
               $size: sizeConf.countSize,
@@ -1752,7 +1799,7 @@ var StreakBadge = ({
             },
             displayCount
           ),
-          /* @__PURE__ */ jsx15(Label2, { $size: sizeConf.labelSize, $color: config.textColor, children: label })
+          /* @__PURE__ */ jsx16(Label2, { $size: sizeConf.labelSize, $color: config.textColor, children: label })
         ] })
       ]
     }
@@ -1926,7 +1973,7 @@ var activePillStyles = css10`
 `;
 
 // src/molecules/NavBar/NavBar.tsx
-import { Fragment as Fragment2, jsx as jsx16, jsxs as jsxs10 } from "react/jsx-runtime";
+import { Fragment as Fragment2, jsx as jsx17, jsxs as jsxs10 } from "react/jsx-runtime";
 var DEFAULT_ITEMS = [
   { id: "home", label: "Inicio", icon: "House", iconActive: "House" },
   { id: "workouts", label: "Entrenamientos", icon: "Dumbbell", iconActive: "Dumbbell" },
@@ -1942,9 +1989,9 @@ var NavBar = ({
 }) => {
   const handleNav = (id) => onNavigate?.(id);
   return /* @__PURE__ */ jsxs10(Fragment2, { children: [
-    /* @__PURE__ */ jsx16(MobileNav, { className, role: "navigation", "aria-label": "Navegaci\xF3n principal", children: items.map((item) => {
+    /* @__PURE__ */ jsx17(MobileNav, { className, role: "navigation", "aria-label": "Navegaci\xF3n principal", children: items.map((item) => {
       const isActive = item.id === activeId;
-      return /* @__PURE__ */ jsx16(
+      return /* @__PURE__ */ jsx17(
         MobileItem,
         {
           type: "button",
@@ -1952,19 +1999,19 @@ var NavBar = ({
           "aria-current": isActive ? "page" : void 0,
           "aria-label": item.label,
           children: isActive ? /* @__PURE__ */ jsxs10(ActivePill, { children: [
-            /* @__PURE__ */ jsx16(Icon_default, { name: item.iconActive ?? item.icon, size: "sm", color: "inherit", strokeWidth: 2 }),
-            /* @__PURE__ */ jsx16(MobileLabel, { children: item.label })
+            /* @__PURE__ */ jsx17(Icon_default, { name: item.iconActive ?? item.icon, size: "sm", color: "inherit", strokeWidth: 2 }),
+            /* @__PURE__ */ jsx17(MobileLabel, { children: item.label })
           ] }) : /* @__PURE__ */ jsxs10(Fragment2, { children: [
-            /* @__PURE__ */ jsx16(Icon_default, { name: item.icon, size: "sm", color: "inherit", strokeWidth: 1.5 }),
-            /* @__PURE__ */ jsx16(MobileLabel, { children: item.label })
+            /* @__PURE__ */ jsx17(Icon_default, { name: item.icon, size: "sm", color: "inherit", strokeWidth: 1.5 }),
+            /* @__PURE__ */ jsx17(MobileLabel, { children: item.label })
           ] })
         },
         item.id
       );
     }) }),
     /* @__PURE__ */ jsxs10(DesktopNav, { className, role: "navigation", "aria-label": "Navegaci\xF3n principal", children: [
-      /* @__PURE__ */ jsx16(LogoWrapper, { children: logo ?? /* @__PURE__ */ jsx16(LogoText, { children: "KORE" }) }),
-      /* @__PURE__ */ jsx16(DesktopItems, { children: items.map((item) => {
+      /* @__PURE__ */ jsx17(LogoWrapper, { children: logo ?? /* @__PURE__ */ jsx17(LogoText, { children: "KORE" }) }),
+      /* @__PURE__ */ jsx17(DesktopItems, { children: items.map((item) => {
         const isActive = item.id === activeId;
         return /* @__PURE__ */ jsxs10(
           DesktopItem,
@@ -1973,7 +2020,7 @@ var NavBar = ({
             onClick: () => handleNav(item.id),
             "aria-current": isActive ? "page" : void 0,
             children: [
-              /* @__PURE__ */ jsx16(
+              /* @__PURE__ */ jsx17(
                 Icon_default,
                 {
                   name: isActive && item.iconActive ? item.iconActive : item.icon,
@@ -2028,6 +2075,7 @@ export {
   Heading3,
   Icon_default as Icon,
   Input_default as Input,
+  LottieIcon_default as LottieIcon,
   NavBar_default as NavBar,
   Overline,
   SearchInput_default as SearchInput,

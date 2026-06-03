@@ -28,6 +28,7 @@
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@kore/tokens": "*",
+    "lottie-react": "^2.4.1",
     "lucide-react": "^1.17.0"
   },
   "devDependencies": {

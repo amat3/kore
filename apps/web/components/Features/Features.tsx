@@ -13,7 +13,7 @@ import styled                 from '@emotion/styled'
 import { keyframes }          from '@emotion/react'
 import gsap                   from 'gsap'
 import { ScrollTrigger }      from 'gsap/ScrollTrigger'
-import { Text }               from '@kore/ui-web'
+import { Text, LottieIcon }   from '@kore/ui-web'
 import { colorPrimitives }    from '@kore/tokens'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -29,6 +29,7 @@ const FEATURES = [
   {
     id:       'workouts',
     emoji:    '🏋️',
+    lottie:   '/lottie/workout.json',
     overline: 'Entrenamientos',
     title:    'Fuerza desde el primer día',
     body:     'Sesiones de fuerza y cardio con vídeo guiado. Cada entrenamiento, adaptado a tu nivel y tiempo disponible.',
@@ -38,6 +39,7 @@ const FEATURES = [
   {
     id:       'habits',
     emoji:    '🔥',
+    lottie:   '/lottie/fire.json',
     overline: 'Hábitos',
     title:    'La constancia como superpoder',
     body:     'Racha diaria y seguimiento de consistencia. Porque los resultados llegan cuando el hábito se convierte en identidad.',
@@ -47,6 +49,7 @@ const FEATURES = [
   {
     id:       'nutrition',
     emoji:    '🥗',
+    lottie:   '/lottie/nutrition.json',
     overline: 'Nutrición',
     title:    'Come con propósito',
     body:     'Recetas y menús adaptados con buscador multifiltro por tiempo, ingrediente y objetivo. Comer bien nunca fue tan sencillo.',
@@ -56,6 +59,7 @@ const FEATURES = [
   {
     id:       'community',
     emoji:    '👥',
+    lottie:   '/lottie/community.json',
     overline: 'Comunidad',
     title:    'Más fuertes juntas',
     body:     'Conecta y sigue a otras usuarias. Comparte tus logros, inspírate en los suyos y construye tu tribu KORE.',
@@ -131,7 +135,13 @@ const Features = () => {
               $accent={feature.accent}
             >
               <EmojiWrapper $accent={feature.accent}>
-                <Emoji>{feature.emoji}</Emoji>
+                <LottieIcon
+                  src={feature.lottie}
+                  size={32}
+                  loop
+                  playOnHover
+                  fallback={<Emoji>{feature.emoji}</Emoji>}
+                />
               </EmojiWrapper>
 
               <CardContent>
