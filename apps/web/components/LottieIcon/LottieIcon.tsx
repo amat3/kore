@@ -1,38 +1,32 @@
 'use client'
 
-import dynamic              from 'next/dynamic'
+import dynamic           from 'next/dynamic'
 import { useEffect, useState } from 'react'
-import type { LottieComponentProps } from 'lottie-react'
 
-// next/dynamic con ssr:false garantiza que lottie-react nunca se evalúa en el servidor
-const Lottie = dynamic(() => import('lottie-react'), { ssr: false }) as React.ComponentType<LottieComponentProps>
+// next/dynamic con ssr:false excluye lottie-react del bundle SSR
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
 
 export interface LottieIconProps {
-  src:          string
-  size?:        number
-  loop?:        boolean
-  autoplay?:    boolean
-  playOnHover?: boolean
-  fallback?:    React.ReactNode
-  className?:   string
+  src:        string
+  size?:      number
+  loop?:      boolean
+  fallback?:  React.ReactNode
+  className?: string
 }
 
 // ── Componente ────────────────────────────────────────────────────────────
 
 const LottieIcon = ({
   src,
-  size        = 48,
-  loop        = true,
-  autoplay    = true,
-  playOnHover = false,
+  size     = 48,
+  loop     = true,
   fallback,
   className,
 }: LottieIconProps) => {
   const [animationData, setData] = useState<object | null>(null)
   const [error, setError]        = useState(false)
-  const [playing, setPlaying]    = useState(!playOnHover)
 
   useEffect(() => {
     fetch(src)
@@ -50,19 +44,13 @@ const LottieIcon = ({
   }
 
   return (
-    <span
-      style={{ display: 'inline-flex', width: size, height: size }}
-      onMouseEnter={() => playOnHover && setPlaying(true)}
-      onMouseLeave={() => playOnHover && setPlaying(false)}
-    >
-      <Lottie
-        animationData={animationData}
-        loop={loop}
-        autoplay={autoplay && playing}
-        style={{ width: size, height: size }}
-        className={className}
-      />
-    </span>
+    <Lottie
+      animationData={animationData}
+      loop={loop}
+      autoplay
+      style={{ width: size, height: size }}
+      className={className}
+    />
   )
 }
 
