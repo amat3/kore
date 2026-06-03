@@ -9,6 +9,7 @@
  */
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import styled from '@emotion/styled'
 import { css, keyframes } from '@emotion/react'
 import { WorkoutCard, FilterBar, Text } from '@kore/ui-web'
@@ -38,6 +39,7 @@ const SkeletonCard = () => (
 const Catalog = () => {
   const [search, setSearch] = useState('')
   const [categories, setCategories] = useState<string[]>([])
+  const router    = useRouter()
 
   const dispatch  = useAppDispatch()
   const favorites = useAppSelector(state => state.workouts.favorites)
@@ -119,7 +121,7 @@ const Catalog = () => {
                   level={workout.level}
                   imageSrc={workout.imageSrc}
                   favorited={favorites.includes(workout.id)}
-                  onClick={() => {}}
+                  onClick={() => router.push(`/workouts/${workout.id}`)}
                   onFavorite={() => dispatch(toggleFavorite(workout.id))}
                 />
               ))}
