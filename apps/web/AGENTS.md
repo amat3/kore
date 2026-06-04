@@ -409,3 +409,27 @@ cp packages/tokens/dist/kore.css apps/web/app/kore.css
 # 3. Commitear ambos
 git add packages/tokens/dist apps/web/app/kore.css
 ```
+
+## Breakpoints — usar siempre los tokens, nunca píxeles hardcodeados
+
+Las CSS vars NO funcionan en media queries. Usar interpolación JS de Emotion:
+
+```tsx
+// ✅ Correcto
+import { breakpoints } from '@kore/tokens'
+
+const MyComponent = styled.div`
+  @media (min-width: ${breakpoints.tablet}px) { ... }
+  @media (min-width: ${breakpoints.desktop}px) { ... }
+  @media (min-width: ${breakpoints.wide}px) { ... }
+`
+
+// ❌ Hardcodeado — no actualiza si cambia el breakpoint
+const MyComponent = styled.div`
+  @media (min-width: 600px) { ... }
+  @media (min-width: 1200px) { ... }
+`
+```
+
+**Pendiente de refactor:** el código existente usa píxeles hardcodeados en todos los componentes
+(JUA-49 en Linear). Aplicar el patrón correcto en código nuevo.
