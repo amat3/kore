@@ -15,7 +15,7 @@ import React, { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/react'
 import gsap from 'gsap'
-import { Text }        from '@kore/ui-web'
+import { Text } from '@kore/ui-web'
 import { breakpoints } from '@kore/tokens'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
@@ -243,15 +243,15 @@ const FloatingToggle = styled.div`
 `
 
 const Content = styled.div`
-  position:       relative;
-  width:          100%;
-  max-width:      var(--container-xl);
-  display:        flex;
+  position: relative;
+  width: 100%;
+  max-width: var(--container-xl);
+  display: flex;
   flex-direction: column;
-  align-items:    flex-start;
+  align-items: flex-start;
   padding-inline: var(--layout-gutter);
-  margin:         0 auto;
-  z-index:        1;
+  margin: 0 auto;
+  z-index: 1;
 `
 
 const Overline = styled(Text)`
