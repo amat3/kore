@@ -29,19 +29,13 @@ const HeaderStyled = styled.header`
 `
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width:       var(--container-xl);
   width: 100%;
   margin: 0 auto;
-  padding-inline: var(--spacing-l);
+  padding-inline:  var(--layout-gutter);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  @media (min-width: 600px) {
-    padding-inline: var(--spacing-2xl);
-  }
-  @media (min-width: 1200px) {
-    padding-inline: var(--spacing-3xl);
-  }
 `
 
 const LogoLink = styled(Link)`

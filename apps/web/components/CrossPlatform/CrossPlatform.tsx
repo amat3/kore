@@ -291,14 +291,12 @@ const Section = styled.section`
 `
 
 const Container = styled.div`
-  max-width:      1200px;
+  max-width:      var(--container-xl);
   margin:         0 auto;
-  padding-inline: var(--spacing-l);
+  padding-inline: var(--layout-gutter);
   display:        flex;
   flex-direction: column;
   gap:            clamp(3rem, 6vw, 5rem);
-  @media (min-width: 600px)  { padding-inline: var(--spacing-2xl); }
-  @media (min-width: 1200px) { padding-inline: var(--spacing-3xl); }
 `
 
 const HeadingWrapper = styled.div`

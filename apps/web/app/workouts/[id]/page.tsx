@@ -177,9 +177,7 @@ const Page = styled.main`
 const Container = styled.div`
   max-width:      760px;
   margin:         0 auto;
-  padding-inline: var(--spacing-l);
-  @media (min-width: 600px)  { padding-inline: var(--spacing-2xl); }
-  @media (min-width: 1200px) { padding-inline: var(--spacing-3xl); }
+  padding-inline: var(--layout-gutter);
 `
 
 const LoadingWrapper = styled.div`
