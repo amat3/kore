@@ -14,7 +14,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Text } from '@kore/ui-web'
 import LottieIcon from '@/components/LottieIcon/LottieIcon'
-import { colorPrimitives, breakpoints } from '@kore/tokens'
+import { colorPrimitives } from '@kore/tokens'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -151,21 +151,20 @@ const Section = styled.section`
 `
 
 const Container = styled.div`
-  max-width: var(--container-xl);
   width: 100%;
+  max-width: var(--container-xl);
   margin: 0 auto;
   padding-inline: var(--layout-gutter);
 `
 
 const HeadingWrapper = styled.div`
-  max-width: 600px;
+  max-width: var(--container-m);
   margin-bottom: clamp(2.5rem, 6vw, 5rem);
   visibility: visible;
 `
 
 const SectionOverline = styled(Text)`
   display: block;
-  margin-bottom: var(--spacing-m);
 `
 
 const SectionTitle = styled(Text)`
