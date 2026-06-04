@@ -4,7 +4,7 @@ import { useState }              from 'react'
 import styled                    from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
 import { Text, Icon }            from '@kore/ui-web'
-import { typeScale, spacing, layout, breakpoints } from '@kore/tokens'
+import { typeScale, spacing, radius, borders, containers, layout, breakpoints } from '@kore/tokens'
 
 // ── Variantes ─────────────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -63,7 +63,10 @@ const COLOR_GROUPS = [
   },
 ]
 
-const SPACING_KEYS = ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'] as const
+const SPACING_KEYS   = ['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'] as const
+const RADIUS_KEYS    = ['none', 'xs', 's', 'm', 'l', 'xl', '2xl', 'full'] as const
+const CONTAINER_KEYS = ['s', 'm', 'l', 'xl', '2xl'] as const
+const BORDER_KEYS    = ['thin', 'thick', 'block'] as const
 
 const LAYOUT_TOKENS = [
   { key: 'gutter',     label: '--layout-gutter',      desc: 'Padding horizontal de contenedores' },
@@ -204,6 +207,60 @@ const TokensShowcase = () => {
               )
             })}
           </SpacingGrid>
+        </motion.div>
+
+        {/* ── Forma y estructura ── */}
+        <motion.div variants={fadeUp}>
+          <BlockTitle variant="overline" as="h3">Forma y estructura</BlockTitle>
+          <BlockSubtitle variant="body-sm">
+            Radius, bordes y anchos máximos — los mismos valores en web y mobile.
+          </BlockSubtitle>
+
+          {/* Radius */}
+          <ShapeSubtitle variant="caption" as="span">Border radius</ShapeSubtitle>
+          <RadiusGrid>
+            {RADIUS_KEYS.map(key => {
+              const val = radius[key]
+              const displayVal = val === 9999 ? '∞' : `${val}px`
+              const visualRadius = Math.min(val, 20)
+              return (
+                <RadiusItem key={key}>
+                  <RadiusBox $radius={visualRadius} />
+                  <TokenName>--radius-{key}</TokenName>
+                  <SizeValue>{displayVal}</SizeValue>
+                </RadiusItem>
+              )
+            })}
+          </RadiusGrid>
+
+          {/* Borders */}
+          <ShapeSubtitle variant="caption" as="span" style={{ marginTop: 'var(--spacing-xl)', display: 'block' }}>Borders</ShapeSubtitle>
+          <BordersRow>
+            {BORDER_KEYS.map(key => (
+              <BorderItem key={key}>
+                <BorderLine $width={borders[key]} />
+                <TokenName>--borders-{key}</TokenName>
+                <SizeValue>{borders[key]}px</SizeValue>
+              </BorderItem>
+            ))}
+          </BordersRow>
+
+          {/* Containers */}
+          <ShapeSubtitle variant="caption" as="span" style={{ marginTop: 'var(--spacing-xl)', display: 'block' }}>Containers (max-width)</ShapeSubtitle>
+          <ContainersGrid>
+            {CONTAINER_KEYS.map(key => {
+              const val = containers[key as keyof typeof containers]
+              return (
+                <ContainerItem key={key}>
+                  <ContainerBar $width={val} />
+                  <SpacingMeta>
+                    <TokenName>--container-{key}</TokenName>
+                    <SizeValue>{val}px</SizeValue>
+                  </SpacingMeta>
+                </ContainerItem>
+              )
+            })}
+          </ContainersGrid>
         </motion.div>
 
         {/* ── Layout tokens ── */}
@@ -493,6 +550,79 @@ const SpacingMeta = styled.div`
   display:     flex;
   align-items: center;
   gap:         var(--spacing-m);
+`
+
+// ── Forma y estructura ────────────────────────────────────────────────────
+const ShapeSubtitle = styled(Text)`
+  color:         var(--foreground-tertiary-on-surface);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-m);
+`
+
+const RadiusGrid = styled.div`
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap:                   var(--spacing-m);
+  margin-bottom:         var(--spacing-m);
+`
+
+const RadiusItem = styled.div`
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacing-xs);
+  text-align:     center;
+`
+
+const RadiusBox = styled.div<{ $radius: number }>`
+  width:            48px;
+  height:           48px;
+  background:       var(--background-accent-dim);
+  border:           0.5px solid var(--stroke-accent-dim);
+  border-radius:    ${({ $radius }) => $radius}px;
+`
+
+const BordersRow = styled.div`
+  display:       flex;
+  gap:           var(--spacing-2xl);
+  align-items:   center;
+  margin-bottom: var(--spacing-m);
+`
+
+const BorderItem = styled.div`
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-xs);
+`
+
+const BorderLine = styled.div<{ $width: number }>`
+  width:      120px;
+  height:     ${({ $width }) => $width}px;
+  background: var(--foreground-accent-on-surface);
+  border-radius: var(--radius-full);
+`
+
+const ContainersGrid = styled.div`
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-s);
+  margin-bottom:  clamp(2.5rem, 5vw, 4rem);
+`
+
+const ContainerItem = styled.div`
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacing-l);
+`
+
+const ContainerBar = styled.div<{ $width: number }>`
+  height:        var(--spacing-m);
+  width:         ${({ $width }) => Math.round($width / 14)}px;
+  border-radius: var(--radius-xs);
+  background:    var(--background-accent-dim);
+  border:        0.5px solid var(--stroke-accent-dim);
+  flex-shrink:   0;
 `
 
 export default TokensShowcase
