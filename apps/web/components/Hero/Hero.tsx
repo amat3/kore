@@ -243,23 +243,15 @@ const FloatingToggle = styled.div`
 `
 
 const Content = styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  display: flex;
+  position:       relative;
+  width:          100%;
+  max-width:      var(--container-xl);
+  display:        flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding-inline: var(--spacing-l);
-  margin: 0 auto;
-  z-index: 1;
-
-  @media (min-width: ${breakpoints.tablet}px) {
-    padding-inline: var(--spacing-2xl);
-  }
-
-  @media (min-width: ${breakpoints.desktop}px) {
-    padding-inline: var(--spacing-3xl);
-  }
+  align-items:    flex-start;
+  padding-inline: var(--layout-gutter);
+  margin:         0 auto;
+  z-index:        1;
 `
 
 const Overline = styled(Text)`
