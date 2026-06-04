@@ -192,7 +192,7 @@ const Hero = () => {
 
         {/* Puente reclutador */}
         <RecruiterLink href="/portfolio" ref={recruiterRef}>
-          ¿Eres reclutador? Ver portfolio técnico →
+          ¿Vienes del mundo tech? Ver portfolio técnico →
         </RecruiterLink>
       </Content>
 
@@ -269,19 +269,19 @@ const WordmarkWrapper = styled.div`
 
 const Letter = styled(Text)`
   font-size: clamp(5rem, 18vw, 16rem);
-  color: var(--foreground-primary-on-inverse);
+  color: var(--foreground-primary-on-accent);
   display: inline-block;
   visibility: hidden;
   line-height: 1;
 `
 
 const Claim = styled(Text)`
+  max-width: var(--container-m);
   font-size: clamp(1.5rem, 4vw, 3.5rem);
   letter-spacing: var(--letter-spacing-dense);
   color: rgba(247, 244, 241, 0.7);
   margin: 0 0 var(--spacing-2xl);
   visibility: hidden;
-  max-width: 600px;
 `
 
 const CTAs = styled.div`
