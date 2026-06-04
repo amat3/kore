@@ -234,7 +234,7 @@ const TokensShowcase = () => {
           </RadiusGrid>
 
           {/* Borders */}
-          <ShapeSubtitle variant="caption" as="span" style={{ marginTop: 'var(--spacing-xl)', display: 'block' }}>Borders</ShapeSubtitle>
+          <ShapeSubtitleSpaced variant="caption" as="span">Borders</ShapeSubtitleSpaced>
           <BordersRow>
             {BORDER_KEYS.map(key => (
               <BorderItem key={key}>
@@ -246,7 +246,7 @@ const TokensShowcase = () => {
           </BordersRow>
 
           {/* Containers */}
-          <ShapeSubtitle variant="caption" as="span" style={{ marginTop: 'var(--spacing-xl)', display: 'block' }}>Containers (max-width)</ShapeSubtitle>
+          <ShapeSubtitleSpaced variant="caption" as="span">Containers (max-width)</ShapeSubtitleSpaced>
           <ContainersGrid>
             {CONTAINER_KEYS.map(key => {
               const val = containers[key as keyof typeof containers]
@@ -554,10 +554,15 @@ const SpacingMeta = styled.div`
 
 // ── Forma y estructura ────────────────────────────────────────────────────
 const ShapeSubtitle = styled(Text)`
-  color:         var(--foreground-tertiary-on-surface);
+  color:          var(--foreground-tertiary-on-surface);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
-  margin-bottom: var(--spacing-m);
+  display:        block;
+  margin-bottom:  var(--spacing-m);
+`
+
+const ShapeSubtitleSpaced = styled(ShapeSubtitle)`
+  margin-top: var(--spacing-xl);
 `
 
 const RadiusGrid = styled.div`
