@@ -146,25 +146,25 @@ const Features = () => {
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
   background-color: var(--background-surface-low);
-  padding-block: clamp(4rem, 10vw, 8rem);
+  padding-block: var(--layout-section-pad);
   width: 100%;
 `
 
 const Container = styled.div`
-  width:          100%;
-  max-width:      var(--container-xl);
-  margin-inline:  auto;
-  padding-inline: var(--layout-gutter);
-  display:        flex;
+  width: 100%;
+  max-width: var(--container-xl);
+  display: flex;
   flex-direction: column;
-  gap:            clamp(2.5rem, 6vw, 5rem);
+  gap: clamp(2rem, 4vw, 3rem);
+  padding-inline: var(--layout-gutter);
+  margin-inline: auto;
 `
 
 const HeadingWrapper = styled.div`
-  max-width:      var(--container-m);
-  display:        flex;
+  max-width: var(--container-m);
+  display: flex;
   flex-direction: column;
-  gap:            var(--spacing-m);
+  gap: var(--spacing-m);
 `
 
 const SectionOverline = styled(Text)``
@@ -172,9 +172,9 @@ const SectionOverline = styled(Text)``
 const SectionTitle = styled(Text)`
   font-size: clamp(2rem, 5vw, 4rem);
   em {
-    font-style:  italic;
+    font-style: italic;
     font-weight: var(--font-weight-semibold);
-    color:       var(--foreground-accent-on-surface);
+    color: var(--foreground-accent-on-surface);
   }
 `
 
@@ -204,7 +204,7 @@ const FeatureCard = styled.div<{ $accent: string }>`
   padding: var(--spacing-xl);
   background: var(--background-surface-solid);
   border-radius: var(--corners-default-card);
-  border: 0.5px solid var(--stroke-secondary-on-surface);
+  border: var(--borders-thin) solid var(--stroke-secondary-on-surface);
   overflow: hidden;
   transition:
     transform 250ms ease,
@@ -235,7 +235,6 @@ const CardOverline = styled(Text)<{ $color: string }>`
 const CardTitle = styled(Text)`
   letter-spacing: var(--letter-spacing-dense);
   line-height: var(--line-height-dense);
-  margin: 0;
 `
 
 const CardBody = styled(Text)`
