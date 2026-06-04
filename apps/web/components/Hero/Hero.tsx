@@ -15,7 +15,8 @@ import React, { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/react'
 import gsap from 'gsap'
-import { Text } from '@kore/ui-web'
+import { Text }        from '@kore/ui-web'
+import { breakpoints } from '@kore/tokens'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
@@ -158,17 +159,23 @@ const Hero = () => {
       {/* Contenido */}
       <Content>
         {/* Overline */}
-        <Overline variant="overline" as="div" ref={overlineRef}>Fuerza · Origen</Overline>
+        <Overline variant="overline" as="div" ref={overlineRef}>
+          Fuerza · Origen
+        </Overline>
 
         {/* Wordmark KORE — letras individuales */}
         <WordmarkWrapper ref={lettersRef}>
           {'KORE'.split('').map((letter, i) => (
-            <Letter key={i} variant="display" as="span">{letter}</Letter>
+            <Letter key={i} variant="display" as="span">
+              {letter}
+            </Letter>
           ))}
         </WordmarkWrapper>
 
         {/* Claim */}
-        <Claim variant="h1" as="p" ref={claimRef}>Entrena sin límites.</Claim>
+        <Claim variant="h1" as="p" ref={claimRef}>
+          Entrena sin límites.
+        </Claim>
 
         {/* CTAs */}
         <CTAs ref={ctasRef}>
@@ -229,7 +236,7 @@ const FloatingToggle = styled.div`
   right: var(--spacing-l);
   z-index: 10;
 
-  @media (min-width: 600px) {
+  @media (min-width: ${breakpoints.tablet}px) {
     top: var(--spacing-xl);
     right: var(--spacing-2xl);
   }
@@ -237,28 +244,28 @@ const FloatingToggle = styled.div`
 
 const Content = styled.div`
   position: relative;
-  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding-inline: var(--spacing-l);
-  max-width: 1200px;
-  width: 100%;
   margin: 0 auto;
+  z-index: 1;
 
-  @media (min-width: 600px) {
+  @media (min-width: ${breakpoints.tablet}px) {
     padding-inline: var(--spacing-2xl);
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: ${breakpoints.desktop}px) {
     padding-inline: var(--spacing-3xl);
   }
 `
 
 const Overline = styled(Text)`
-  color:         var(--foreground-accent-on-surface);
+  color: var(--foreground-accent-on-surface);
   margin-bottom: var(--spacing-l);
-  visibility:    hidden;
+  visibility: hidden;
 `
 
 const WordmarkWrapper = styled.div`
@@ -269,20 +276,20 @@ const WordmarkWrapper = styled.div`
 `
 
 const Letter = styled(Text)`
-  font-size:   clamp(5rem, 18vw, 16rem);
-  color:       var(--foreground-primary-on-inverse);
-  display:     inline-block;
-  visibility:  hidden;
+  font-size: clamp(5rem, 18vw, 16rem);
+  color: var(--foreground-primary-on-inverse);
+  display: inline-block;
+  visibility: hidden;
   line-height: 1;
 `
 
 const Claim = styled(Text)`
-  font-size:      clamp(1.5rem, 4vw, 3.5rem);
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
   letter-spacing: var(--letter-spacing-dense);
-  color:          rgba(247, 244, 241, 0.7);
-  margin:         0 0 var(--spacing-2xl);
-  visibility:     hidden;
-  max-width:      600px;
+  color: rgba(247, 244, 241, 0.7);
+  margin: 0 0 var(--spacing-2xl);
+  visibility: hidden;
+  max-width: 600px;
 `
 
 const CTAs = styled.div`
@@ -295,7 +302,7 @@ const CTAs = styled.div`
 
 const CTAPrimary = styled(Link)`
   background: var(--background-accent-solid);
-  color:      var(--foreground-primary-on-accent);
+  color: var(--foreground-primary-on-accent);
   border: none;
   border-radius: var(--radius-full);
   padding: var(--spacing-m) var(--spacing-2xl);
@@ -351,7 +358,7 @@ const ScrollIndicator = styled.div`
 `
 
 const ScrollLine = styled.div`
-  width:  var(--borders-thin);
+  width: var(--borders-thin);
   height: var(--spacing-2xl);
   background: linear-gradient(to bottom, #b05e3a, transparent);
   animation: ${bounce} 2s ease-in-out infinite;
