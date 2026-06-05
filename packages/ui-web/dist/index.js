@@ -1593,6 +1593,7 @@ var Title = (0, import_styled10.default)(Text_default)`
   letter-spacing:     var(--letter-spacing-dense);
   line-height:        var(--line-height-dense);
   margin:             0;
+  padding-bottom:     0.15em;
   display:            -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
