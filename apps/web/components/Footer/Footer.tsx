@@ -83,7 +83,6 @@ const Footer = () => (
 // ── Layout ────────────────────────────────────────────────────────────────
 const FooterEl = styled.footer`
   background-color: var(--background-surface-low);
-  border-top:       0.5px solid var(--stroke-secondary-on-surface);
   padding-block:    clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem);
 `
 

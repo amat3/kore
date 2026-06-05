@@ -155,9 +155,9 @@ const Container = styled.div`
   max-width: var(--container-xl);
   display: flex;
   flex-direction: column;
-  gap: clamp(2rem, 4vw, 3rem);
   padding-inline: var(--layout-gutter);
   margin-inline: auto;
+  gap: clamp(2rem, 4vw, 3rem);
 `
 
 const HeadingWrapper = styled.div`

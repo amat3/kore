@@ -132,9 +132,8 @@ const StackSection = () => {
 
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
-  background-color: var(--background-surface-low);
-  padding-block: var(--layout-section-pad);
-  border-top:       0.5px solid var(--stroke-secondary-on-surface);
+  background-color: var(--background-surface-solid);
+  padding-block:    var(--layout-section-pad);
 `
 
 const Container = styled.div`

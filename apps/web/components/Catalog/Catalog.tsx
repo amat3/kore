@@ -141,24 +141,24 @@ const Catalog = () => {
 
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
-  background-color: var(--background-surface-low);
-  padding-block: var(--layout-section-pad);
-  border-top: var(--borders-thin) solid var(--stroke-secondary-on-surface);
+  background-color: var(--background-surface-solid);
+  padding-block:    var(--layout-section-pad);
 `
 
 const Container = styled.div`
-  max-width:      var(--container-xl);
-  padding-inline: var(--layout-gutter);
-  margin-inline:  auto;
-  display:        flex;
+  max-width: var(--container-xl);
+  display: flex;
   flex-direction: column;
-  gap:            clamp(2rem, 4vw, 3rem);
+  padding-inline: var(--layout-gutter);
+  gap: clamp(2rem, 4vw, 3rem);
+  margin-inline: auto;
 `
 
 const HeadingWrapper = styled.div`
-  display:        flex;
+  max-width: var(--container-m);
+  display: flex;
   flex-direction: column;
-  gap:            var(--spacing-m);
+  gap: var(--spacing-m);
 `
 
 const SectionOverline = styled(Text)``
@@ -167,9 +167,9 @@ const SectionTitle = styled(Text)`
   font-size: clamp(2rem, 5vw, 4rem);
   line-height: 1.1;
   em {
-    font-style:  italic;
+    font-style: italic;
     font-weight: var(--font-weight-semibold);
-    color:       var(--foreground-accent-on-surface);
+    color: var(--foreground-accent-on-surface);
   }
 `
 
@@ -180,9 +180,9 @@ const SectionSubtitle = styled(Text)`
 const FilterBarWrapper = styled.div``
 
 const ResultsWrapper = styled.div`
-  display:        flex;
+  display: flex;
   flex-direction: column;
-  gap:            var(--spacing-m);
+  gap: var(--spacing-m);
 `
 
 const ResultsCount = styled(Text)`
@@ -222,7 +222,7 @@ const skeletonBase = css`
 
 const SkeletonWrapper = styled.div`
   border-radius: var(--corners-default-card);
-  border: 0.5px solid var(--stroke-secondary-on-surface);
+  border: var(--borders-thin) solid var(--stroke-secondary-on-surface);
   overflow: hidden;
   background: var(--background-surface-solid);
 `
@@ -233,9 +233,9 @@ const SkeletonImage = styled.div`
 `
 
 const SkeletonBody = styled.div`
-  padding: var(--spacing-m);
   display: flex;
   flex-direction: column;
+  padding: var(--spacing-m);
   gap: var(--spacing-s);
 `
 
