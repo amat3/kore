@@ -9,11 +9,10 @@
  */
 
 import { useState } from 'react'
-import Link   from 'next/link'
 import styled from '@emotion/styled'
 import { css, keyframes } from '@emotion/react'
 import { WorkoutCard, FilterBar, Text } from '@kore/ui-web'
-import { useWorkouts }    from '@/hooks/useWorkouts'
+import { useWorkouts } from '@/hooks/useWorkouts'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { toggleFavorite } from '@/store/workoutsSlice'
 
@@ -40,8 +39,8 @@ const Catalog = () => {
   const [search, setSearch] = useState('')
   const [categories, setCategories] = useState<string[]>([])
 
-  const dispatch  = useAppDispatch()
-  const favorites = useAppSelector(state => state.workouts.favorites)
+  const dispatch = useAppDispatch()
+  const favorites = useAppSelector((state) => state.workouts.favorites)
 
   const {
     workouts,
@@ -70,7 +69,9 @@ const Catalog = () => {
       <Container id="catalog">
         {/* Heading */}
         <HeadingWrapper>
-          <SectionOverline variant="overline" as="span">Entrenamientos</SectionOverline>
+          <SectionOverline variant="overline" as="span">
+            Entrenamientos
+          </SectionOverline>
           <SectionTitle variant="h1" as="h2">
             Entrena con <em>propósito</em>
           </SectionTitle>
@@ -92,7 +93,9 @@ const Catalog = () => {
 
         {/* Resultados */}
         {error ? (
-          <ErrorState variant="body">No se pudieron cargar los entrenamientos. Inténtalo de nuevo.</ErrorState>
+          <ErrorState variant="body">
+            No se pudieron cargar los entrenamientos. Inténtalo de nuevo.
+          </ErrorState>
         ) : loading ? (
           <Grid>
             {Array.from({ length: 6 }).map((_, i) => (
@@ -106,7 +109,7 @@ const Catalog = () => {
             <EmptyText variant="body">Prueba con otros filtros o busca otra cosa.</EmptyText>
           </EmptyState>
         ) : (
-          <>
+          <ResultsWrapper>
             <ResultsCount variant="body-sm">
               {workouts.length} entrenamiento{workouts.length !== 1 ? 's' : ''}
             </ResultsCount>
@@ -129,7 +132,7 @@ const Catalog = () => {
                 </CardWrapper>
               ))}
             </Grid>
-          </>
+          </ResultsWrapper>
         )}
       </Container>
     </Section>
@@ -140,28 +143,29 @@ const Catalog = () => {
 const Section = styled.section`
   background-color: var(--background-surface-low);
   padding-block: var(--layout-section-pad);
-  border-top: 0.5px solid var(--stroke-secondary-on-surface);
+  border-top: var(--borders-thin) solid var(--stroke-secondary-on-surface);
 `
 
 const Container = styled.div`
   max-width:      var(--container-xl);
-  margin: 0 auto;
   padding-inline: var(--layout-gutter);
+  margin-inline:  auto;
+  display:        flex;
+  flex-direction: column;
+  gap:            clamp(2rem, 4vw, 3rem);
 `
 
 const HeadingWrapper = styled.div`
-  margin-bottom: clamp(2rem, 4vw, 3rem);
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-m);
 `
 
-const SectionOverline = styled(Text)`
-  display:       block;
-  margin-bottom: var(--spacing-m);
-`
+const SectionOverline = styled(Text)``
 
 const SectionTitle = styled(Text)`
-  font-size:   clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   line-height: 1.1;
-  margin:      0 0 var(--spacing-m);
   em {
     font-style:  italic;
     font-weight: var(--font-weight-semibold);
@@ -173,13 +177,16 @@ const SectionSubtitle = styled(Text)`
   color: var(--foreground-secondary-on-surface);
 `
 
-const FilterBarWrapper = styled.div`
-  margin-bottom: var(--spacing-xl);
+const FilterBarWrapper = styled.div``
+
+const ResultsWrapper = styled.div`
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-m);
 `
 
 const ResultsCount = styled(Text)`
-  color:  var(--foreground-tertiary-on-surface);
-  margin: 0 0 var(--spacing-m);
+  color: var(--foreground-tertiary-on-surface);
 `
 
 const Grid = styled.div`
@@ -194,10 +201,10 @@ const CardWrapper = styled.div`
 `
 
 const CardNavLink = styled.a`
-  position:        absolute;
-  inset:           0;
-  z-index:         3;
-  border-radius:   var(--corners-default-card);
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: var(--corners-default-card);
   text-decoration: none;
 `
 
@@ -262,9 +269,9 @@ const EmptyText = styled(Text)`
 `
 
 const ErrorState = styled(Text)`
-  color:      var(--foreground-error-on-surface);
+  color: var(--foreground-error-on-surface);
   text-align: center;
-  padding:    var(--spacing-2xl);
+  padding: var(--spacing-2xl);
 `
 
 export default Catalog

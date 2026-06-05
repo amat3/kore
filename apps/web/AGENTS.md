@@ -433,3 +433,28 @@ const MyComponent = styled.div`
 
 **Pendiente de refactor:** el código existente usa píxeles hardcodeados en todos los componentes
 (JUA-49 en Linear). Aplicar el patrón correcto en código nuevo.
+
+## Espaciado — flex+gap en lugar de margin
+
+Preferir `display: flex; flex-direction: column; gap` sobre `margin-bottom` en contenedores:
+
+```tsx
+// ✅ Correcto
+const Container = styled.div`
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacing-l);
+`
+
+// ❌ Evitar
+const Title = styled(Text)`
+  margin-bottom: var(--spacing-l);
+`
+const Subtitle = styled(Text)`
+  margin-bottom: var(--spacing-xl);
+`
+```
+
+**Por qué:** el padre controla el espaciado, no cada hijo individualmente. Más predecible, más fácil de mantener y sin márgenes colapsados.
+
+**Excepción:** `margin-inline: auto` para centrar un bloque — no tiene equivalente directo con flex/gap.
