@@ -385,10 +385,10 @@ declare const typeScale: {
         readonly m: 24;
         readonly l: 32;
         readonly xl: 44;
-        readonly '2xl': 56;
-        readonly '3xl': 72;
-        readonly '4xl': 96;
-        readonly '5xl': 120;
+        readonly '2xl': 40;
+        readonly '3xl': 52;
+        readonly '4xl': 64;
+        readonly '5xl': 80;
     };
 };
 declare const typeRoles: {

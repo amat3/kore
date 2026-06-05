@@ -424,10 +424,10 @@ var typeScale = {
     m: 24,
     l: 32,
     xl: 44,
-    "2xl": 56,
-    "3xl": 72,
-    "4xl": 96,
-    "5xl": 120
+    "2xl": 40,
+    "3xl": 52,
+    "4xl": 64,
+    "5xl": 80
   }
 };
 var typeRoles = {
