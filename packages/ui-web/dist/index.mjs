@@ -1518,11 +1518,13 @@ var Body2 = styled10.div`
   flex-direction: column;
   gap:            var(--spacing-2xs);
   padding:        var(--spacing-m);
+  flex:           1;
 `;
 var MetaRow = styled10.div`
   display:     flex;
   align-items: center;
   gap:         var(--spacing-xs);
+  margin-top:  auto;
 `;
 var Overline2 = styled10(Text_default)`
   line-height: 1;

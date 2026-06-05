@@ -128,12 +128,14 @@ const Body = styled.div`
   flex-direction: column;
   gap:            var(--spacing-2xs);
   padding:        var(--spacing-m);
+  flex:           1;
 `
 
 const MetaRow = styled.div`
   display:     flex;
   align-items: center;
   gap:         var(--spacing-xs);
+  margin-top:  auto;
 `
 
 const Overline = styled(Text)`

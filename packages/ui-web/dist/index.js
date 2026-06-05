@@ -1578,11 +1578,13 @@ var Body2 = import_styled10.default.div`
   flex-direction: column;
   gap:            var(--spacing-2xs);
   padding:        var(--spacing-m);
+  flex:           1;
 `;
 var MetaRow = import_styled10.default.div`
   display:     flex;
   align-items: center;
   gap:         var(--spacing-xs);
+  margin-top:  auto;
 `;
 var Overline2 = (0, import_styled10.default)(Text_default)`
   line-height: 1;
