@@ -76,9 +76,10 @@ const Features = () => {
         autoAlpha: 0,
         duration: 0.8,
         ease: 'power3.out',
+        immediateRender: false,
         scrollTrigger: {
           trigger: headingRef.current,
-          start: 'top 85%',
+          start: 'top 90%',
         },
       })
 
@@ -91,9 +92,10 @@ const Features = () => {
           duration: 0.7,
           stagger: 0.12,
           ease: 'power3.out',
+          immediateRender: false,
           scrollTrigger: {
             trigger: cardsRef.current,
-            start: 'top 80%',
+            start: 'top 90%',
           },
         })
       }
