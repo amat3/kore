@@ -32,7 +32,7 @@ export const letterSpacing = {
 // ── Alturas de línea ──────────────────────────────────────────────────────
 export const lineHeight = {
   veryDense: 1,
-  dense:     1.1,
+  dense:     1.2,
   moderate:  1.25,
   spacious:  1.5,
   loose:     1.7,
