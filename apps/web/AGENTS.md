@@ -354,6 +354,32 @@ const MyComponent = () => {
 - `ctx.revert()` en el return del useEffect
 - `autoAlpha` en lugar de `opacity` + `visibility` combinados
 
+### gsap.from() + ScrollTrigger — immediateRender
+
+`gsap.from()` aplica el estado inicial (`y: 60, opacity: 0`, etc.) en el **primer tick**, antes de que ScrollTrigger evalúe el scroll. Si el elemento puede ser visible sin hacer scroll (mobile, secciones altas), se ve el estado roto y puede desbordarse sobre la sección siguiente.
+
+```typescript
+// ❌ Problema: estado inicial aplicado antes de que el trigger evalúe
+gsap.from(cards, {
+  y: 60,
+  opacity: 0,
+  scrollTrigger: { trigger: cards, start: 'top 80%' },
+})
+
+// ✅ Correcto: retrasar el estado inicial hasta que el tween empiece
+gsap.from(cards, {
+  y: 60,
+  opacity: 0,
+  immediateRender: false,          // ← evita el estado inicial prematuro
+  scrollTrigger: {
+    trigger: cards,
+    start: 'top 90%',             // ← dispara antes de que el usuario vea el elemento
+  },
+})
+```
+
+**Regla:** Usar siempre `immediateRender: false` + `start: 'top 90%'` en animaciones de entrada con ScrollTrigger.
+
 ---
 
 ## Deploy en Vercel
