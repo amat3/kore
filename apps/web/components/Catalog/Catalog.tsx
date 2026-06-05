@@ -198,6 +198,7 @@ const Grid = styled.div`
 // Patrón card-link: <a> absoluto cubre la card sin envolver interactive content
 const CardWrapper = styled.div`
   position: relative;
+  display:  flex;
 `
 
 const CardNavLink = styled.a`
