@@ -47,12 +47,12 @@ const PortfolioHero = () => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          LinkedIn
+          Mi perfil
         </PrimaryLink>
         <SecondaryLink href="https://github.com/amat3" target="_blank" rel="noopener noreferrer">
-          GitHub / amat3
+          Lo que hago
         </SecondaryLink>
-        <SecondaryLink href="mailto:juanantamate@gmail.com">juanantamate@gmail.com</SecondaryLink>
+        <SecondaryLink href="mailto:juanantamate@gmail.com">Escríbeme</SecondaryLink>
       </Links>
 
       {/* Stats rápidos del proyecto */}
@@ -80,7 +80,7 @@ const PortfolioHero = () => (
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
   background-color: var(--background-surface-low);
-  padding-top:    calc(56px + var(--layout-section-pad));
+  padding-top: calc(56px + var(--layout-section-pad));
   padding-bottom: var(--layout-section-pad);
   border-bottom: 0.5px solid var(--stroke-secondary-on-surface);
 `
@@ -165,7 +165,6 @@ const PrimaryLink = styled.a`
   font-size: var(--scale-s);
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-spacious);
-  text-transform: uppercase;
   text-decoration: none;
   transition: background 150ms;
   &:hover {
