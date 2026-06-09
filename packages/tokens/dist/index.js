@@ -23,7 +23,9 @@ __export(index_exports, {
   borders: () => borders,
   breakpoints: () => breakpoints,
   colorPrimitives: () => colorPrimitives,
+  colors: () => colors,
   containers: () => containers,
+  corners: () => corners,
   darkTheme: () => darkTheme,
   fontFamily: () => fontFamily,
   fontWeight: () => fontWeight,
@@ -125,6 +127,103 @@ var tints = {
   },
   error: { 20: "rgba(217, 95, 95, 0.2)" },
   success: { 20: "rgba(76, 175, 125, 0.2)" }
+};
+
+// src/dimension.ts
+var spacing = {
+  "3xs": 2,
+  "2xs": 4,
+  xs: 8,
+  s: 12,
+  m: 16,
+  l: 24,
+  xl: 32,
+  "2xl": 40,
+  "3xl": 56,
+  "4xl": 64,
+  "5xl": 72,
+  "6xl": 80
+};
+var sizing = {
+  s: 12,
+  m: 16,
+  l: 20,
+  // control xsmall
+  xl: 32,
+  // control small
+  "2xl": 40,
+  // control mid
+  "3xl": 48,
+  // control big
+  "4xl": 56,
+  "5xl": 72,
+  "6xl": 96,
+  "7xl": 120
+};
+var radius = {
+  none: 0,
+  xs: 4,
+  // default, borders sutiles
+  s: 8,
+  m: 12,
+  // inputs, campos
+  l: 16,
+  xl: 20,
+  // cards
+  "2xl": 24,
+  full: 9999
+  // pill, circular
+};
+var borders = {
+  thin: 1,
+  thick: 2,
+  block: 4
+};
+var breakpoints = {
+  mobile: 0,
+  tablet: 600,
+  desktop: 1200,
+  wide: 1800
+};
+var zIndex = {
+  base: 0,
+  raised: 10,
+  overlay: 100,
+  modal: 200,
+  toast: 300,
+  tooltip: 400
+};
+var containers = {
+  s: 480,
+  m: 640,
+  l: 960,
+  xl: 1200,
+  "2xl": 1400
+};
+var layout = {
+  mobile: {
+    gutter: 16,
+    // padding horizontal de contenedores
+    sectionGap: 64,
+    // espacio vertical entre secciones
+    sectionPad: 48
+    // padding-block de cada sección
+  },
+  tablet: {
+    gutter: 40,
+    sectionGap: 80,
+    sectionPad: 64
+  },
+  desktop: {
+    gutter: 56,
+    sectionGap: 96,
+    sectionPad: 80
+  },
+  wide: {
+    gutter: 80,
+    sectionGap: 120,
+    sectionPad: 96
+  }
 };
 
 // src/themes/light.ts
@@ -257,103 +356,6 @@ var darkTheme = {
   }
 };
 
-// src/dimension.ts
-var spacing = {
-  "3xs": 2,
-  "2xs": 4,
-  xs: 8,
-  s: 12,
-  m: 16,
-  l: 24,
-  xl: 32,
-  "2xl": 40,
-  "3xl": 56,
-  "4xl": 64,
-  "5xl": 72,
-  "6xl": 80
-};
-var sizing = {
-  s: 12,
-  m: 16,
-  l: 20,
-  // control xsmall
-  xl: 32,
-  // control small
-  "2xl": 40,
-  // control mid
-  "3xl": 48,
-  // control big
-  "4xl": 56,
-  "5xl": 72,
-  "6xl": 96,
-  "7xl": 120
-};
-var radius = {
-  none: 0,
-  xs: 4,
-  // default, borders sutiles
-  s: 8,
-  m: 12,
-  // inputs, campos
-  l: 16,
-  xl: 20,
-  // cards
-  "2xl": 24,
-  full: 9999
-  // pill, circular
-};
-var borders = {
-  thin: 1,
-  thick: 2,
-  block: 4
-};
-var breakpoints = {
-  mobile: 0,
-  tablet: 600,
-  desktop: 1200,
-  wide: 1800
-};
-var zIndex = {
-  base: 0,
-  raised: 10,
-  overlay: 100,
-  modal: 200,
-  toast: 300,
-  tooltip: 400
-};
-var containers = {
-  s: 480,
-  m: 640,
-  l: 960,
-  xl: 1200,
-  "2xl": 1400
-};
-var layout = {
-  mobile: {
-    gutter: 16,
-    // padding horizontal de contenedores
-    sectionGap: 64,
-    // espacio vertical entre secciones
-    sectionPad: 48
-    // padding-block de cada sección
-  },
-  tablet: {
-    gutter: 40,
-    sectionGap: 80,
-    sectionPad: 64
-  },
-  desktop: {
-    gutter: 56,
-    sectionGap: 96,
-    sectionPad: 80
-  },
-  wide: {
-    gutter: 80,
-    sectionGap: 120,
-    sectionPad: 96
-  }
-};
-
 // src/typography.ts
 var fontFamily = {
   display: '"Cormorant Garamond", Georgia, serif',
@@ -375,7 +377,7 @@ var letterSpacing = {
 };
 var lineHeight = {
   veryDense: 1,
-  dense: 1.1,
+  dense: 1.2,
   moderate: 1.25,
   spacious: 1.5,
   loose: 1.7
@@ -504,12 +506,27 @@ var typeRoles = {
     transform: "uppercase"
   }
 };
+
+// src/index.ts
+var colors = {
+  accent: colorPrimitives.terracota[500],
+  accentDark: colorPrimitives.terracota[600],
+  accentLight: colorPrimitives.terracota[100],
+  dark: colorPrimitives.neutral[900],
+  light: colorPrimitives.neutral[50],
+  error: colorPrimitives.error.main,
+  errorDark: colorPrimitives.error.dark,
+  success: colorPrimitives.success.main
+};
+var corners = radius;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   borders,
   breakpoints,
   colorPrimitives,
+  colors,
   containers,
+  corners,
   darkTheme,
   fontFamily,
   fontWeight,

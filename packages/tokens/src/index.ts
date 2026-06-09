@@ -8,6 +8,26 @@
 // Primitivos (solo para referencia, no usar en componentes)
 export { colorPrimitives, tints } from './primitives'
 
+// Convenience aliases para mobile (objetos JS planos)
+import { colorPrimitives as _cp } from './primitives'
+import { radius as _radius }      from './dimension'
+
+export const colors = {
+  accent:     _cp.terracota[500],
+  accentDark: _cp.terracota[600],
+  accentLight: _cp.terracota[100],
+  dark:       _cp.neutral[900],
+  light:      _cp.neutral[50],
+  error:      _cp.error.main,
+  errorDark:  _cp.error.dark,
+  success:    _cp.success.main,
+} as const
+
+export const corners = _radius
+
+export type Colors  = typeof colors
+export type Corners = typeof corners
+
 // Temas semánticos (usar estos en componentes)
 export { lightTheme } from './themes/light'
 export { darkTheme }  from './themes/dark'
