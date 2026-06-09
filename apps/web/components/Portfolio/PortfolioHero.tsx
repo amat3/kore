@@ -7,12 +7,12 @@
  * link de vuelta al producto KORE.
  */
 
-import { useCallback }  from 'react'
-import Link             from 'next/link'
-import styled           from '@emotion/styled'
-import { breakpoints }  from '@kore/tokens'
-import { Text }         from '@kore/ui-web'
-import ThemeToggle      from '@/components/ThemeToggle/ThemeToggle'
+import { useCallback } from 'react'
+import Link from 'next/link'
+import styled from '@emotion/styled'
+import { breakpoints } from '@kore/tokens'
+import { Text } from '@kore/ui-web'
+import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
 
 const PortfolioHero = () => {
   // Next.js App Router intercepta <a> sin target="_blank" para mailto:/tel:
@@ -22,76 +22,78 @@ const PortfolioHero = () => {
   }, [])
 
   return (
-  <Section>
-    <Container>
-      {/* Breadcrumb de vuelta al producto */}
-      <BackLink href="/">← Ver la app KORE</BackLink>
+    <Section>
+      <Container>
+        {/* Breadcrumb de vuelta al producto */}
+        <BackLink href="/">← Ver la app KORE</BackLink>
 
-      <FloatingToggle>
-        <ThemeToggle />
-      </FloatingToggle>
+        <FloatingToggle>
+          <ThemeToggle />
+        </FloatingToggle>
 
-      {/* Identidad */}
-      <Overline variant="overline" as="span">
-        Portfolio técnico
-      </Overline>
+        {/* Identidad */}
+        <Overline variant="overline" as="span">
+          Portfolio técnico
+        </Overline>
 
-      <Title variant="h1">Juan Antonio Amate</Title>
+        <Title variant="h1">Juan Antonio Amate</Title>
 
-      <Role variant="overline" as="p">
-        Mid Frontend Developer · React / React Native
-      </Role>
+        <Role variant="overline" as="p">
+          Mid Frontend Developer · React / React Native
+        </Role>
 
-      <Description variant="body-light">
-        Especialista en UI, design systems y animaciones avanzadas. Lo que ves aquí — tokens
-        semánticos, monorrepo Turborepo, componentes documentados con Storybook y animaciones GSAP —
-        está construido desde cero con React 19 y Next.js 16 como parte del proyecto{' '}
-        <strong>KORE</strong>.
-      </Description>
+        <Description variant="body-light">
+          Especialista en UI, design systems y animaciones avanzadas. Lo que ves aquí — tokens
+          semánticos, monorepo Turborepo, componentes documentados con Storybook y animaciones GSAP
+          — está construido desde cero con React 19 y Next.js 16 como parte del proyecto{' '}
+          <strong>KORE</strong>.
+        </Description>
 
-      {/* Links */}
-      <Links>
-        <PrimaryLink
-          href="https://linkedin.com/in/juanan-amate-react"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Mi perfil en LinkedIn
-        </PrimaryLink>
-        <SecondaryLink href="https://github.com/amat3" target="_blank" rel="noopener noreferrer">
-          Lo que hago / GitHub
-        </SecondaryLink>
-        <SecondaryLink href="mailto:juanantamate@gmail.com" onClick={handleProtoLink}>Escríbeme un email</SecondaryLink>
-      </Links>
+        {/* Links */}
+        <Links>
+          <PrimaryLink
+            href="https://linkedin.com/in/juanan-amate-react"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Mi perfil en LinkedIn
+          </PrimaryLink>
+          <SecondaryLink href="https://github.com/amat3" target="_blank" rel="noopener noreferrer">
+            Lo que hago / GitHub
+          </SecondaryLink>
+          <SecondaryLink href="mailto:juanantamate@gmail.com" onClick={handleProtoLink}>
+            Escríbeme un email
+          </SecondaryLink>
+        </Links>
 
-      {/* Stats rápidos del proyecto */}
-      <StatsRow>
-        {[
-          { num: '2', label: 'Packages npm' },
-          { num: '15', label: 'Componentes' },
-          { num: '164', label: 'Design tokens' },
-          { num: '100%', label: 'TypeScript' },
-        ].map((s) => (
-          <StatItem key={s.label}>
-            <StatNum variant="display" as="span">
-              {s.num}
-            </StatNum>
-            <StatLabel variant="overline" as="span">
-              {s.label}
-            </StatLabel>
-          </StatItem>
-        ))}
-      </StatsRow>
-    </Container>
-  </Section>
+        {/* Stats rápidos del proyecto */}
+        <StatsRow>
+          {[
+            { num: '2', label: 'Packages npm' },
+            { num: '15', label: 'Componentes' },
+            { num: '164', label: 'Design tokens' },
+            { num: '100%', label: 'TypeScript' },
+          ].map((s) => (
+            <StatItem key={s.label}>
+              <StatNum variant="display" as="span">
+                {s.num}
+              </StatNum>
+              <StatLabel variant="overline" as="span">
+                {s.label}
+              </StatLabel>
+            </StatItem>
+          ))}
+        </StatsRow>
+      </Container>
+    </Section>
   )
 }
 
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
   background-color: var(--background-surface-low);
-  padding-top:      calc(56px + var(--layout-section-pad));
-  padding-bottom:   var(--layout-section-pad);
+  padding-top: calc(56px + var(--layout-section-pad));
+  padding-bottom: var(--layout-section-pad);
 `
 
 const Container = styled.div`
