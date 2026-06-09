@@ -7,7 +7,7 @@
  * Demuestra: validación, estados loading/success/error, UX de formulario.
  */
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from '@emotion/styled'
 import { breakpoints } from '@kore/tokens'
@@ -46,6 +46,12 @@ const Contact = () => {
     reset,
     formState: { errors },
   } = useForm<ContactForm>()
+
+  // Next.js App Router intercepta <a> sin target="_blank" — forzamos href manualmente
+  const handleProtoLink = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    window.location.href = e.currentTarget.href
+  }, [])
 
   const onSubmit = async (data: ContactForm) => {
     setStatus('loading')
@@ -119,11 +125,11 @@ const Contact = () => {
                 </BrandIcon>
                 github.com/amat3
               </ContactLink>
-              <ContactLink href="mailto:juanantamate@gmail.com">
+              <ContactLink href="mailto:juanantamate@gmail.com" onClick={handleProtoLink}>
                 <Icon name="Mail" size="sm" color="inherit" />
                 juanantamate@gmail.com
               </ContactLink>
-              <ContactLink href="tel:+34629572745">
+              <ContactLink href="tel:+34629572745" onClick={handleProtoLink}>
                 <Icon name="Phone" size="sm" color="inherit" />
                 +34 629 572 745
               </ContactLink>

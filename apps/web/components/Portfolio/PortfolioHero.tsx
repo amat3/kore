@@ -7,13 +7,21 @@
  * link de vuelta al producto KORE.
  */
 
-import Link from 'next/link'
-import styled from '@emotion/styled'
-import { breakpoints } from '@kore/tokens'
-import { Text } from '@kore/ui-web'
-import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
+import { useCallback }  from 'react'
+import Link             from 'next/link'
+import styled           from '@emotion/styled'
+import { breakpoints }  from '@kore/tokens'
+import { Text }         from '@kore/ui-web'
+import ThemeToggle      from '@/components/ThemeToggle/ThemeToggle'
 
-const PortfolioHero = () => (
+const PortfolioHero = () => {
+  // Next.js App Router intercepta <a> sin target="_blank" para mailto:/tel:
+  const handleProtoLink = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    window.location.href = e.currentTarget.href
+  }, [])
+
+  return (
   <Section>
     <Container>
       {/* Breadcrumb de vuelta al producto */}
@@ -53,7 +61,7 @@ const PortfolioHero = () => (
         <SecondaryLink href="https://github.com/amat3" target="_blank" rel="noopener noreferrer">
           Lo que hago / GitHub
         </SecondaryLink>
-        <SecondaryLink href="mailto:juanantamate@gmail.com">Escríbeme un email</SecondaryLink>
+        <SecondaryLink href="mailto:juanantamate@gmail.com" onClick={handleProtoLink}>Escríbeme un email</SecondaryLink>
       </Links>
 
       {/* Stats rápidos del proyecto */}
@@ -76,7 +84,8 @@ const PortfolioHero = () => (
       </StatsRow>
     </Container>
   </Section>
-)
+  )
+}
 
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
