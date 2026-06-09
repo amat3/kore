@@ -29,20 +29,38 @@ npx tsc --noEmit                # verificar TypeScript
 
 ## Configuración obligatoria
 
-### Reanimated — babel.config.js
+### Alias `@/` — babel-plugin-module-resolver
 
-`react-native-reanimated/plugin` debe ser el **último** plugin de Babel:
+Metro `resolver.alias` solo hace match exacto — **no soporta prefijos** como `@/*`.
+Para que `@/hooks/foo` resuelva a `apps/mobile/hooks/foo` se usa Babel:
+
+```bash
+npm install --save-dev babel-plugin-module-resolver
+```
 
 ```javascript
 // babel.config.js
 module.exports = {
   presets: ['babel-preset-expo'],
   plugins: [
-    // ... otros plugins ...
-    'react-native-reanimated/plugin',  // ← siempre el último
+    [
+      'module-resolver',
+      {
+        root:       ['.'],
+        extensions: ['.ios.ts', '.android.ts', '.ts', '.tsx', '.js', '.jsx', '.json'],
+        alias:      { '@': '.' },
+      },
+    ],
+    'react-native-reanimated/plugin', // ← siempre el último
   ],
 }
 ```
+
+Tras cualquier cambio en `babel.config.js` reiniciar con `npx expo start --clear`.
+
+### Reanimated — babel.config.js
+
+`react-native-reanimated/plugin` debe ser el **último** plugin de Babel (ver config completa arriba).
 
 ### SafeAreaProvider — wrap en el root
 
@@ -72,10 +90,31 @@ export default function RootLayout() {
 | Animación jerky en Android | `useNativeDriver` implícito en Reanimated funciona diferente | Usar siempre Reanimated, nunca Animated API de RN |
 | `StyleSheet` props en `@emotion/native` | Emotion Native no acepta todas las props de StyleSheet | Usar solo props CSS válidas en styled components |
 | Metro bundle error tras cambiar babel | Cache de Metro desactualizada | `npx expo start --clear` |
+| `Unable to resolve "@/hooks/..."` | `resolver.alias` de Metro no soporta prefijos | Usar `babel-plugin-module-resolver` (ver sección abajo) |
+| `Type 'ColorValue' not assignable to 'string'` en `tabBarIcon` | Expo Router pasa `ColorValue` (no `string`) al `color` de los iconos de tabs | Tipar el prop como `ColorValue` y hacer cast a `string` al pasarlo a Lucide |
 
 ---
 
 ## Patrones de Expo Router
+
+### Tab bar con iconos Lucide
+
+`tabBarIcon` recibe `color: ColorValue` (no `string`). Lucide espera `string`, así que castear:
+
+```typescript
+import type { ColorValue }  from 'react-native'
+import * as LucideIcons     from 'lucide-react-native'
+
+type TabIconProps = { color: ColorValue; size: number }
+
+const HomeIcon = ({ color, size }: TabIconProps) =>
+  <LucideIcons.House size={size} color={color as string} />
+
+// En el layout:
+<Tabs.Screen name="index" options={{ tabBarIcon: HomeIcon }} />
+```
+
+### Navegación programática
 
 ```typescript
 // Navegación programática
