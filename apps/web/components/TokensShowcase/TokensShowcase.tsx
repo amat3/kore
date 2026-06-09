@@ -1,6 +1,6 @@
 'use client'
 
-import { useState }              from 'react'
+import { useState, useEffect }   from 'react'
 import styled                    from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
 import { Text, Icon }            from '@kore/ui-web'
@@ -15,6 +15,34 @@ const fadeUp: Variants = {
 const stagger: Variants = {
   hidden:  {},
   visible: { transition: { staggerChildren: 0.1 } },
+}
+
+// ── Hook: breakpoint activo ───────────────────────────────────────────────
+type BpKey = 'mobile' | 'tablet' | 'desktop' | 'wide'
+
+const useActiveBreakpoint = (): BpKey => {
+  const getBreakpoint = (): BpKey => {
+    if (typeof window === 'undefined') return 'desktop'
+    if (window.matchMedia(`(min-width: ${breakpoints.wide}px)`).matches)    return 'wide'
+    if (window.matchMedia(`(min-width: ${breakpoints.desktop}px)`).matches) return 'desktop'
+    if (window.matchMedia(`(min-width: ${breakpoints.tablet}px)`).matches)  return 'tablet'
+    return 'mobile'
+  }
+
+  const [active, setActive] = useState<BpKey>(getBreakpoint)
+
+  useEffect(() => {
+    const queries = [
+      { mq: window.matchMedia(`(min-width: ${breakpoints.wide}px)`),    bp: 'wide'    as BpKey },
+      { mq: window.matchMedia(`(min-width: ${breakpoints.desktop}px)`), bp: 'desktop' as BpKey },
+      { mq: window.matchMedia(`(min-width: ${breakpoints.tablet}px)`),  bp: 'tablet'  as BpKey },
+    ]
+    const handler = () => setActive(getBreakpoint())
+    queries.forEach(({ mq }) => mq.addEventListener('change', handler))
+    return ()  => queries.forEach(({ mq }) => mq.removeEventListener('change', handler))
+  }, [])
+
+  return active
 }
 
 // ── Data ──────────────────────────────────────────────────────────────────
@@ -83,7 +111,8 @@ const LAYOUT_BPS = [
 
 // ── Componente ────────────────────────────────────────────────────────────
 const TokensShowcase = () => {
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDark]   = useState(false)
+  const activeBreakpoint      = useActiveBreakpoint()
 
   return (
   <Section>
@@ -137,7 +166,7 @@ const TokensShowcase = () => {
                       const val = typeScale[bp.key][key as ScaleKey]
                       return (
                         <TdCenter key={bp.key}>
-                          <SizeBar $size={val} $active={bp.key === 'desktop'} />
+                          <SizeBar $size={val} $active={bp.key === activeBreakpoint} />
                           <SizeValue>{val}px</SizeValue>
                         </TdCenter>
                       )
@@ -290,7 +319,7 @@ const TokensShowcase = () => {
                       <TdCenter key={bp.key}>
                         <SizeBar
                           $size={layout[bp.key][token.key] / 2}
-                          $active={bp.key === 'desktop'}
+                          $active={bp.key === activeBreakpoint}
                         />
                         <SizeValue>{layout[bp.key][token.key]}px</SizeValue>
                       </TdCenter>
