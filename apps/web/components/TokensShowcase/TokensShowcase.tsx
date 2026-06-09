@@ -113,6 +113,9 @@ const LAYOUT_BPS = [
 const TokensShowcase = () => {
   const [isDark, setIsDark]   = useState(false)
   const activeBreakpoint      = useActiveBreakpoint()
+  const isMobile              = activeBreakpoint === 'mobile'
+  const visibleBreakpoints    = isMobile ? BREAKPOINTS.filter(bp => bp.key === 'mobile')    : BREAKPOINTS
+  const visibleLayoutBps      = isMobile ? LAYOUT_BPS.filter(bp => bp.key === 'mobile')     : LAYOUT_BPS
 
   return (
   <Section>
@@ -148,7 +151,7 @@ const TokensShowcase = () => {
               <thead>
                 <tr>
                   <Th align="left">Token</Th>
-                  {BREAKPOINTS.map(bp => (
+                  {visibleBreakpoints.map(bp => (
                     <Th key={bp.key} align="center">
                       <div>{bp.label}</div>
                       <BpSub>{bp.sub}</BpSub>
@@ -162,7 +165,7 @@ const TokensShowcase = () => {
                     <Td>
                       <TokenName>--scale-{key}</TokenName>
                     </Td>
-                    {BREAKPOINTS.map(bp => {
+                    {visibleBreakpoints.map(bp => {
                       const val = typeScale[bp.key][key as ScaleKey]
                       return (
                         <TdCenter key={bp.key}>
@@ -305,7 +308,7 @@ const TokensShowcase = () => {
                 <tr>
                   <Th align="left">Token</Th>
                   <Th align="left" style={{ width: '40%' }}>Uso</Th>
-                  {LAYOUT_BPS.map(bp => (
+                  {visibleLayoutBps.map(bp => (
                     <Th key={bp.key} align="center">{bp.label}</Th>
                   ))}
                 </tr>
@@ -315,7 +318,7 @@ const TokensShowcase = () => {
                   <tr key={token.key}>
                     <Td><TokenName>{token.label}</TokenName></Td>
                     <Td><span style={{ fontFamily: 'var(--font-family-ui)', fontSize: 'var(--scale-xs)', color: 'var(--foreground-tertiary-on-surface)' }}>{token.desc}</span></Td>
-                    {LAYOUT_BPS.map(bp => (
+                    {visibleLayoutBps.map(bp => (
                       <TdCenter key={bp.key}>
                         <SizeBar
                           $size={layout[bp.key][token.key] / 2}
