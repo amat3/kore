@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
-    "@kore/tokens": "*",
     "@emotion/native": "^11.11.0",
     "@emotion/react": "^11.14.0",
+    "@kore/tokens": "*",
     "dayjs": "^1.11.21",
-    "expo": "~56.0.5",
+    "expo": "~56.0.9",
     "expo-constants": "~56.0.17",
     "expo-font": "~56.0.5",
     "expo-linking": "~56.0.13",
@@ -15,6 +15,7 @@
     "expo-status-bar": "~56.0.4",
     "firebase": "^12.14.0",
     "i18next": "^26.3.1",
+    "lucide-react-native": "^1.17.0",
     "react": "19.2.3",
     "react-hook-form": "^7.78.0",
     "react-i18next": "^17.0.8",
@@ -22,7 +23,8 @@
     "react-native-gesture-handler": "~2.31.1",
     "react-native-reanimated": "4.3.1",
     "react-native-safe-area-context": "~5.7.0",
-    "react-native-screens": "4.25.2"
+    "react-native-screens": "4.25.2",
+    "react-native-svg": "15.15.4"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
