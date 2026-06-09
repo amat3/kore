@@ -135,6 +135,30 @@ const { id } = useLocalSearchParams<{ id: string }>()
 
 ---
 
+## Fuentes — nunca usar fontFamily de @kore/tokens en mobile
+
+`fontFamily` en `@kore/tokens` son CSS font stacks (`'"Cormorant Garamond", Georgia, serif'`) — **no funcionan en React Native** y causan crash en Android.
+
+En RN cada peso de fuente es una familia separada. Usar siempre `@/constants/fonts`:
+
+```typescript
+import { Fonts } from '@/constants/fonts'
+
+// ✅ Correcto — nombre exacto del archivo de fuente
+fontFamily: Fonts.displaySemiBold  // 'CormorantGaramond_600SemiBold'
+fontFamily: Fonts.uiRegular        // 'DMSans_400Regular'
+
+// ❌ Crash — CSS stack, solo web
+fontFamily: fontFamily.display     // '"Cormorant Garamond", Georgia, serif'
+
+// ❌ Inútil — en RN el peso ya está en el nombre de la familia
+fontFamily: Fonts.uiRegular, fontWeight: '600'  // no aplica el bold
+```
+
+Las fuentes se cargan en `app/_layout.tsx` con `useFonts` de `expo-font` y `SplashScreen.preventAutoHideAsync()`.
+
+---
+
 ## Tokens — diferencia con web
 
 En mobile los tokens son **objetos JS**, no CSS vars:
