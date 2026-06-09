@@ -174,6 +174,65 @@ style={{ padding: 'var(--spacing-m)' }}
 
 ---
 
+## Tokens semánticos — usar lightTheme/darkTheme, nunca strings hardcodeados
+
+`@kore/tokens` exporta `lightTheme` y `darkTheme` con todos los valores semánticos del design system. **Nunca escribir RGBA hardcodeados** — el token ya existe.
+
+```typescript
+import { lightTheme, darkTheme, tints } from '@kore/tokens'
+
+// ✅ Correcto
+const light = {
+  backgroundInput:     lightTheme.background.inputDefault,     // rgba(255,255,255,0.8)
+  foregroundSecondary: lightTheme.foreground.secondaryOnSurface,
+  accent:              lightTheme.foreground.accentOnSurface,
+  accentDim:           lightTheme.stroke.accentDim,            // rgba(176,94,58,0.2)
+  border:              lightTheme.stroke.secondaryOnSurface,
+  errorBorder:         lightTheme.stroke.error,                // para borde de campo
+  errorFg:             lightTheme.foreground.errorOnSurface,   // para texto e iconos
+  errorDim:            lightTheme.background.errorDim,         // para fondo tintado
+}
+
+// ❌ Hardcodeado — roto si cambia el design system
+const light = {
+  accentDim: 'rgba(176, 94, 58, 0.2)',
+  border:    'rgba(26,26,26,0.12)',
+  errorDim:  'rgba(217, 95, 95, 0.15)',
+}
+```
+
+### Distinción stroke vs foreground para error/success
+
+El design system tiene **dos colores distintos** para error y success:
+
+| Token | Valor (light) | Uso |
+|-------|---------------|-----|
+| `stroke.error` / `colors.error` | `#D95F5F` | Borde del campo |
+| `foreground.errorOnSurface` | `#B02020` | Texto e iconos (mejor contraste) |
+| `stroke.success` / `colors.success` | `#4CAF7D` | Borde del campo |
+| `foreground.successOnSurface` | `#2E7D52` | Texto e iconos |
+
+En dark mode, `foreground.errorOnSurface` = `#F7BEBE` (más claro para contraste inverso).
+
+### Estructura de lightTheme / darkTheme
+
+```typescript
+lightTheme.background.{
+  surfaceLow, surfaceGlass, surfaceSolid, surfaceBright,
+  inputDefault, accentDim, errorDim, successDim, ...
+}
+lightTheme.foreground.{
+  primaryOnSurface, secondaryOnSurface, tertiaryOnSurface,
+  accentOnSurface, errorOnSurface, successOnSurface, ...
+}
+lightTheme.stroke.{
+  secondaryOnSurface, primaryOnSurface, accent, accentDim,
+  error, success, focus, ...
+}
+```
+
+---
+
 ## Gestos y feedback táctil
 
 ```typescript
