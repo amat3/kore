@@ -400,7 +400,6 @@ const BlockSubtitle = styled(Text)`
 
 // ── Tabla tipográfica ──────────────────────────────────────────────────────
 const TableWrapper = styled.div`
-  overflow-x:    auto;
   border-radius: var(--corners-default-card);
   border:        0.5px solid var(--stroke-secondary-on-surface);
   margin-bottom: clamp(2.5rem, 5vw, 4rem);
@@ -411,24 +410,33 @@ const Table = styled.table`
   border-collapse: collapse;
   background:      var(--background-surface-solid);
   font-family:     var(--font-family-ui);
+  table-layout:    fixed;
 `
 
 const Th = styled.th<{ align?: string }>`
-  padding:        var(--spacing-m) var(--spacing-l);
+  padding:        var(--spacing-s) var(--spacing-xs);
   text-align:     ${({ align }) => align ?? 'left'};
-  font-size:      var(--scale-xs);
+  font-size:      var(--scale-2xs);
   font-weight:    var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
   color:          var(--foreground-tertiary-on-surface);
   border-bottom:  0.5px solid var(--stroke-secondary-on-surface);
-  white-space:    nowrap;
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    padding:   var(--spacing-m) var(--spacing-l);
+    font-size: var(--scale-xs);
+  }
 `
 
 const Td = styled.td`
-  padding:       var(--spacing-s) var(--spacing-l);
-  border-bottom: 0.5px solid var(--stroke-tertiary-on-surface);
+  padding:        var(--spacing-xs);
+  border-bottom:  0.5px solid var(--stroke-tertiary-on-surface);
   vertical-align: middle;
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    padding: var(--spacing-s) var(--spacing-l);
+  }
 `
 
 const TdCenter = styled(Td)`
