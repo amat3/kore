@@ -47,12 +47,12 @@ const PortfolioHero = () => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          Mi perfil
+          Mi perfil en LinkedIn
         </PrimaryLink>
         <SecondaryLink href="https://github.com/amat3" target="_blank" rel="noopener noreferrer">
-          Lo que hago
+          Lo que hago / GitHub
         </SecondaryLink>
-        <SecondaryLink href="mailto:juanantamate@gmail.com">Escríbeme</SecondaryLink>
+        <SecondaryLink href="mailto:juanantamate@gmail.com">Escríbeme un email</SecondaryLink>
       </Links>
 
       {/* Stats rápidos del proyecto */}
