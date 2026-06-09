@@ -36,7 +36,9 @@ Actúa como **Senior UI Engineer**. Interfaces nativas que se integran con la l�
 ## Tokens disponibles
 
 ```typescript
-import { colors, spacing, corners, typeScale, fontFamily, fontWeight } from '@kore/tokens'
+import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { Fonts } from '@/constants/fonts'
+// ⚠️ NO importar fontFamily ni fontWeight de @kore/tokens — son CSS stacks, crashan en RN
 
 colors.accent   // #B05E3A terracota
 colors.dark     // #1A1A1A obsidiana
@@ -54,11 +56,13 @@ typeScale.mobile.m   // 14px   typeScale.mobile.l   // 16px
 typeScale.mobile.xl  // 20px   typeScale.mobile['2xl'] // 24px
 typeScale.mobile['3xl'] // 32px
 
-fontFamily.display   // 'Cormorant Garamond'
-fontFamily.ui        // 'DM Sans'
-fontWeight.light     // '300'
-fontWeight.regular   // '400'
-fontWeight.semibold  // '600'
+// Fuentes nativas — cada peso es una familia separada
+Fonts.displaySemiBold  // 'CormorantGaramond_600SemiBold'
+Fonts.displayRegular   // 'CormorantGaramond_400Regular'
+Fonts.displayLight     // 'CormorantGaramond_300Light'
+Fonts.uiSemiBold       // 'DMSans_600SemiBold'
+Fonts.uiRegular        // 'DMSans_400Regular'
+Fonts.uiLight          // 'DMSans_300Light'
 ```
 
 ---
@@ -164,7 +168,8 @@ import styled   from '@emotion/native'
 import Animated, { SlideInRight, FadeOut, useAnimatedStyle, withSpring } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useRouter, Link }   from 'expo-router'
-import { colors, spacing, corners, typeScale, fontFamily, fontWeight } from '@kore/tokens'
+import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { Fonts } from '@/constants/fonts'
 import { useTranslation }    from 'react-i18next'
 import dayjs                 from 'dayjs'
 import { db, auth }          from '@/lib/firebase'
