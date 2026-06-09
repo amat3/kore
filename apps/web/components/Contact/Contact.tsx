@@ -10,6 +10,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from '@emotion/styled'
+import { breakpoints } from '@kore/tokens'
 import { motion, type Variants } from 'framer-motion'
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
@@ -288,7 +289,7 @@ const Grid = styled.div`
   grid-template-columns: 1fr;
   gap: clamp(3rem, 6vw, 6rem);
 
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.tablet}px) {
     grid-template-columns: 1fr 1fr;
     align-items: start;
   }

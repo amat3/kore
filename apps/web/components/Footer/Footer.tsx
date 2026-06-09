@@ -1,6 +1,7 @@
 'use client'
 
 import styled        from '@emotion/styled'
+import { breakpoints } from '@kore/tokens'
 import Link          from 'next/link'
 import { Icon, Text } from '@kore/ui-web'
 
@@ -102,11 +103,11 @@ const Grid = styled.div`
   grid-template-columns: 1fr;
   gap:                   var(--spacing-2xl);
 
-  @media (min-width: 600px) {
+  @media (min-width: ${breakpoints.tablet}px) {
     grid-template-columns: 1fr 1fr;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.desktop}px) {
     grid-template-columns: 2fr 1fr 1fr 1fr;
     align-items: start;
   }

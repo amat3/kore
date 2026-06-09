@@ -4,7 +4,7 @@ import { useRef, useState, useEffect }                from 'react'
 import styled                    from '@emotion/styled'
 import { motion, useInView, type Variants } from 'framer-motion'
 import { Text }                             from '@kore/ui-web'
-import { colorPrimitives }                 from '@kore/tokens'
+import { colorPrimitives, breakpoints }    from '@kore/tokens'
 import {
   BarChart, Bar,
   LineChart, Line,
@@ -293,7 +293,7 @@ const StatsGrid = styled.div`
   display:               grid;
   grid-template-columns: repeat(4, 1fr);
   gap:                   var(--spacing-m);
-  @media (max-width: 600px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: ${breakpoints.tablet - 1}px) { grid-template-columns: repeat(2, 1fr); }
 `
 
 const StatCard = styled.div`
@@ -326,7 +326,7 @@ const ChartsGrid = styled.div`
   display:               grid;
   grid-template-columns: repeat(2, 1fr);
   gap:                   var(--spacing-m);
-  @media (max-width: 768px) { grid-template-columns: 1fr; }
+  @media (max-width: ${breakpoints.tablet - 1}px) { grid-template-columns: 1fr; }
 `
 
 const ChartCard = styled.div`

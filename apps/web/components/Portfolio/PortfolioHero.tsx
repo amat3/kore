@@ -9,6 +9,7 @@
 
 import Link from 'next/link'
 import styled from '@emotion/styled'
+import { breakpoints } from '@kore/tokens'
 import { Text } from '@kore/ui-web'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
 
@@ -112,7 +113,7 @@ const FloatingToggle = styled.div`
   right: var(--spacing-l);
   z-index: 10;
 
-  @media (min-width: 600px) {
+  @media (min-width: ${breakpoints.tablet}px) {
     top: var(--spacing-xl);
     right: var(--spacing-2xl);
   }
@@ -197,7 +198,7 @@ const StatsRow = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-m);
 
-  @media (max-width: 600px) {
+  @media (max-width: ${breakpoints.tablet - 1}px) {
     grid-template-columns: repeat(2, 1fr);
   }
 `

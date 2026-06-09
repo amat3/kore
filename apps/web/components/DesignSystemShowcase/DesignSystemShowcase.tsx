@@ -10,6 +10,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import styled from '@emotion/styled'
+import { breakpoints } from '@kore/tokens'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -476,7 +477,7 @@ const StatsRow = styled.div`
   margin-top: clamp(2rem, 4vw, 3rem);
   text-align: center;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${breakpoints.tablet - 1}px) {
     grid-template-columns: repeat(2, 1fr);
   }
 `

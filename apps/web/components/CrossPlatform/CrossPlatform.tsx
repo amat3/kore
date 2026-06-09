@@ -8,6 +8,7 @@
  */
 
 import styled           from '@emotion/styled'
+import { breakpoints }  from '@kore/tokens'
 import { keyframes }    from '@emotion/react'
 import { motion, type Variants } from 'framer-motion'
 import { Text }                  from '@kore/ui-web'
@@ -777,7 +778,7 @@ const TokensBridge = styled.div`
   border:         0.5px solid var(--stroke-secondary-on-surface);
   background:     var(--background-surface-solid);
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.tablet - 1}px) {
     grid-template-columns: 1fr;
     text-align: center;
   }
@@ -789,7 +790,7 @@ const BridgeItem = styled.div<{ $right?: boolean }>`
   gap:            var(--spacing-xs);
   text-align:     ${({ $right }) => $right ? 'right' : 'left'};
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.tablet - 1}px) {
     text-align: center;
   }
 `
@@ -852,7 +853,7 @@ const StatsRow = styled.div`
   display:               grid;
   grid-template-columns: repeat(4, 1fr);
   gap:                   var(--spacing-m);
-  @media (max-width: 600px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: ${breakpoints.tablet - 1}px) { grid-template-columns: repeat(2, 1fr); }
 `
 
 const StatItem = styled.div`
