@@ -102,12 +102,12 @@ const LAYOUT_TOKENS = [
   { key: 'sectionPad', label: '--layout-section-pad',  desc: 'Padding-block de cada sección' },
 ] as const
 
-const LAYOUT_BPS = [
-  { key: 'mobile',  label: `< ${breakpoints.tablet}px`   },
-  { key: 'tablet',  label: `${breakpoints.tablet}–${breakpoints.desktop - 1}px` },
-  { key: 'desktop', label: `${breakpoints.desktop}–${breakpoints.wide - 1}px`   },
-  { key: 'wide',    label: `≥ ${breakpoints.wide}px`     },
-] as const
+const LAYOUT_BPS: { key: BpKey; label: string; sub: string }[] = [
+  { key: 'mobile',  label: 'Mobile',    sub: `< ${breakpoints.tablet}px`                          },
+  { key: 'tablet',  label: 'Tablet',    sub: `${breakpoints.tablet}–${breakpoints.desktop - 1}px` },
+  { key: 'desktop', label: 'Desktop',   sub: `${breakpoints.desktop}–${breakpoints.wide - 1}px`   },
+  { key: 'wide',    label: 'Ultrawide', sub: `≥ ${breakpoints.wide}px`                            },
+]
 
 // ── Componente ────────────────────────────────────────────────────────────
 const TokensShowcase = () => {
@@ -125,6 +125,7 @@ const TokensShowcase = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
+        style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(2.5rem, 5vw, 4rem)' }}
       >
 
         {/* Heading */}
@@ -225,20 +226,22 @@ const TokensShowcase = () => {
           <BlockSubtitle variant="body-sm">
             13 pasos de <code>2px</code> a <code>80px</code> — web y mobile comparten los mismos valores.
           </BlockSubtitle>
-          <SpacingGrid>
-            {SPACING_KEYS.map(key => {
-              const val = spacing[key]
-              return (
-                <SpacingItem key={key}>
-                  <SpacingBar $size={val} />
-                  <SpacingMeta>
-                    <TokenName>--spacing-{key}</TokenName>
-                    <SizeValue>{val}px</SizeValue>
-                  </SpacingMeta>
-                </SpacingItem>
-              )
-            })}
-          </SpacingGrid>
+          <TokenBlock>
+            <SpacingGrid>
+              {SPACING_KEYS.map(key => {
+                const val = spacing[key]
+                return (
+                  <SpacingItem key={key}>
+                    <SpacingBar $size={val} />
+                    <SpacingMeta>
+                      <TokenName>--spacing-{key}</TokenName>
+                      <SizeValue>{val}px</SizeValue>
+                    </SpacingMeta>
+                  </SpacingItem>
+                )
+              })}
+            </SpacingGrid>
+          </TokenBlock>
         </motion.div>
 
         {/* ── Forma y estructura ── */}
@@ -248,51 +251,53 @@ const TokensShowcase = () => {
             Radius, bordes y anchos máximos — los mismos valores en web y mobile.
           </BlockSubtitle>
 
-          {/* Radius */}
-          <ShapeSubtitle variant="caption" as="span">Border radius</ShapeSubtitle>
-          <RadiusGrid>
-            {RADIUS_KEYS.map(key => {
-              const val = radius[key]
-              const displayVal = val === 9999 ? '∞' : `${val}px`
-              const visualRadius = Math.min(val, 20)
-              return (
-                <RadiusItem key={key}>
-                  <RadiusBox $radius={visualRadius} />
-                  <TokenName>--radius-{key}</TokenName>
-                  <SizeValue>{displayVal}</SizeValue>
-                </RadiusItem>
-              )
-            })}
-          </RadiusGrid>
+          <TokenBlock>
+            {/* Radius */}
+            <ShapeSubtitle variant="caption" as="span">Border radius</ShapeSubtitle>
+            <RadiusGrid>
+              {RADIUS_KEYS.map(key => {
+                const val = radius[key]
+                const displayVal = val === 9999 ? '∞' : `${val}px`
+                const visualRadius = Math.min(val, 20)
+                return (
+                  <RadiusItem key={key}>
+                    <RadiusBox $radius={visualRadius} />
+                    <TokenName>--radius-{key}</TokenName>
+                    <SizeValue>{displayVal}</SizeValue>
+                  </RadiusItem>
+                )
+              })}
+            </RadiusGrid>
 
-          {/* Borders */}
-          <ShapeSubtitleSpaced variant="caption" as="span">Borders</ShapeSubtitleSpaced>
-          <BordersRow>
-            {BORDER_KEYS.map(key => (
-              <BorderItem key={key}>
-                <BorderLine $width={borders[key]} />
-                <TokenName>--borders-{key}</TokenName>
-                <SizeValue>{borders[key]}px</SizeValue>
-              </BorderItem>
-            ))}
-          </BordersRow>
+            {/* Borders */}
+            <ShapeSubtitleSpaced variant="caption" as="span">Borders</ShapeSubtitleSpaced>
+            <BordersRow>
+              {BORDER_KEYS.map(key => (
+                <BorderItem key={key}>
+                  <BorderLine $width={borders[key]} />
+                  <TokenName>--borders-{key}</TokenName>
+                  <SizeValue>{borders[key]}px</SizeValue>
+                </BorderItem>
+              ))}
+            </BordersRow>
 
-          {/* Containers */}
-          <ShapeSubtitleSpaced variant="caption" as="span">Containers (max-width)</ShapeSubtitleSpaced>
-          <ContainersGrid>
-            {CONTAINER_KEYS.map(key => {
-              const val = containers[key as keyof typeof containers]
-              return (
-                <ContainerItem key={key}>
-                  <ContainerBar $width={val} />
-                  <SpacingMeta>
-                    <TokenName>--container-{key}</TokenName>
-                    <SizeValue>{val}px</SizeValue>
-                  </SpacingMeta>
-                </ContainerItem>
-              )
-            })}
-          </ContainersGrid>
+            {/* Containers */}
+            <ShapeSubtitleSpaced variant="caption" as="span">Containers (max-width)</ShapeSubtitleSpaced>
+            <ContainersGrid>
+              {CONTAINER_KEYS.map(key => {
+                const val = containers[key as keyof typeof containers]
+                return (
+                  <ContainerItem key={key}>
+                    <ContainerBar $width={val} />
+                    <SpacingMeta>
+                      <TokenName>--container-{key}</TokenName>
+                      <SizeValue>{val}px</SizeValue>
+                    </SpacingMeta>
+                  </ContainerItem>
+                )
+              })}
+            </ContainersGrid>
+          </TokenBlock>
         </motion.div>
 
         {/* ── Layout tokens ── */}
@@ -307,9 +312,12 @@ const TokensShowcase = () => {
               <thead>
                 <tr>
                   <Th align="left">Token</Th>
-                  <Th align="left" style={{ width: '40%' }}>Uso</Th>
+                  <UsoTh align="left">Uso</UsoTh>
                   {visibleLayoutBps.map(bp => (
-                    <Th key={bp.key} align="center">{bp.label}</Th>
+                    <Th key={bp.key} align="center">
+                      <div>{bp.label}</div>
+                      <BpSub>{bp.sub}</BpSub>
+                    </Th>
                   ))}
                 </tr>
               </thead>
@@ -317,7 +325,7 @@ const TokensShowcase = () => {
                 {LAYOUT_TOKENS.map(token => (
                   <tr key={token.key}>
                     <Td><TokenName>{token.label}</TokenName></Td>
-                    <Td><span style={{ fontFamily: 'var(--font-family-ui)', fontSize: 'var(--scale-xs)', color: 'var(--foreground-tertiary-on-surface)' }}>{token.desc}</span></Td>
+                    <UsoTd><span style={{ fontFamily: 'var(--font-family-ui)', fontSize: 'var(--scale-xs)', color: 'var(--foreground-tertiary-on-surface)' }}>{token.desc}</span></UsoTd>
                     {visibleLayoutBps.map(bp => (
                       <TdCenter key={bp.key}>
                         <SizeBar
@@ -369,9 +377,8 @@ const SectionTitle = styled(Text)`
 `
 
 const SectionSubtitle = styled(Text)`
-  color:         var(--foreground-secondary-on-surface);
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
-  max-width:     680px;
+  color:     var(--foreground-secondary-on-surface);
+  max-width: 680px;
   code {
     font-family:   monospace;
     font-size:     0.9em;
@@ -405,7 +412,6 @@ const BlockSubtitle = styled(Text)`
 const TableWrapper = styled.div`
   border-radius: var(--corners-default-card);
   border:        0.5px solid var(--stroke-secondary-on-surface);
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 `
 
 const Table = styled.table`
@@ -444,6 +450,21 @@ const Td = styled.td`
 
 const TdCenter = styled(Td)`
   text-align: center;
+`
+
+const UsoTh = styled(Th)`
+  display: none;
+  @media (min-width: ${breakpoints.desktop}px) {
+    display: table-cell;
+    width: 40%;
+  }
+`
+
+const UsoTd = styled(Td)`
+  display: none;
+  @media (min-width: ${breakpoints.desktop}px) {
+    display: table-cell;
+  }
 `
 
 const BpSub = styled.div`
@@ -516,7 +537,6 @@ const TokenCanvas = styled.div<{ $isDark: boolean }>`
   display:       flex;
   flex-direction: column;
   gap:           var(--spacing-xl);
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
   transition:    background 300ms ease;
 `
 
@@ -562,12 +582,23 @@ const ChipName = styled.span`
   line-height: 1.3;
 `
 
+// ── Token block (caja compartida) ─────────────────────────────────────────
+const TokenBlock = styled.div`
+  background:    var(--background-surface-solid);
+  border-radius: var(--corners-default-card);
+  border:        0.5px solid var(--stroke-secondary-on-surface);
+  padding:       var(--spacing-l);
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    padding: var(--spacing-xl);
+  }
+`
+
 // ── Espaciado ──────────────────────────────────────────────────────────────
 const SpacingGrid = styled.div`
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-s);
-  margin-bottom:  clamp(2.5rem, 5vw, 4rem);
 `
 
 const SpacingItem = styled.div`
@@ -651,7 +682,6 @@ const ContainersGrid = styled.div`
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-s);
-  margin-bottom:  clamp(2.5rem, 5vw, 4rem);
 `
 
 const ContainerItem = styled.div`
