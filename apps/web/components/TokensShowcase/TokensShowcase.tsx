@@ -310,7 +310,7 @@ const TokensShowcase = () => {
 
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
-  background-color: var(--background-surface-solid);
+  background-color: var(--background-surface-low);
   padding-block:    var(--layout-section-pad);
 `
 

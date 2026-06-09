@@ -80,9 +80,8 @@ const PortfolioHero = () => (
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
   background-color: var(--background-surface-low);
-  padding-top: calc(56px + var(--layout-section-pad));
-  padding-bottom: var(--layout-section-pad);
-  border-bottom: 0.5px solid var(--stroke-secondary-on-surface);
+  padding-top:      calc(56px + var(--layout-section-pad));
+  padding-bottom:   var(--layout-section-pad);
 `
 
 const Container = styled.div`

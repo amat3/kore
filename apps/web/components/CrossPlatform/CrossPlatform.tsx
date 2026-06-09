@@ -285,7 +285,7 @@ const CrossPlatform = () => (
 
 // ── Styled — Sección ──────────────────────────────────────────────────────
 const Section = styled.section`
-  background-color: var(--background-surface-low);
+  background-color: var(--background-surface-solid);
   padding-block:    var(--layout-section-pad);
 `
 
