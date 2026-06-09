@@ -27,22 +27,8 @@
     },
     "plugins": [
       "expo-router",
-      "expo-status-bar",
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./assets/fonts/CormorantGaramond-Regular.ttf",
-            "./assets/fonts/CormorantGaramond-SemiBold.ttf",
-            "./assets/fonts/CormorantGaramond-Italic.ttf",
-            "./assets/fonts/DMSans-Regular.ttf",
-            "./assets/fonts/DMSans-SemiBold.ttf"
-          ]
-        }
-      ]
+      "expo-status-bar"
     ],
-    "experiments": {
-      "typedRoutes": true
-    }
+    "experiments": {}
   }
 }

@@ -1,6 +1,9 @@
-import { View, Text, TextInput, Pressable, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import { View, Text, TextInput, Pressable, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { useSafeAreaInsets }   from 'react-native-safe-area-context'
+import { Link }                from 'expo-router'
+import { sendPasswordResetEmail } from 'firebase/auth'
+import { auth }                from '@/lib/firebase'
 import { useThemeColors }      from '@/hooks/useThemeColors'
 import { useAuth }             from '@/providers/AuthProvider'
 import { colors, spacing, corners, typeScale } from '@kore/tokens'
@@ -11,7 +14,21 @@ export default function LoginScreen() {
   const insets = useSafeAreaInsets()
   const theme  = useThemeColors()
   const { login } = useAuth()
-  const { control, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<LoginForm>()
+  const { control, handleSubmit, setError, getValues, formState: { errors, isSubmitting } } = useForm<LoginForm>()
+
+  const handleForgotPassword = async () => {
+    const email = getValues('email')
+    if (!email) {
+      Alert.alert('Introduce tu email', 'Escribe tu email en el campo de arriba y pulsa "Olvidé mi contraseña".')
+      return
+    }
+    try {
+      await sendPasswordResetEmail(auth, email)
+      Alert.alert('Email enviado', `Revisa tu bandeja de entrada en ${email}`)
+    } catch {
+      Alert.alert('Error', 'No hemos encontrado ese email')
+    }
+  }
 
   const onSubmit = async ({ email, password }: LoginForm) => {
     try {
@@ -122,12 +139,28 @@ export default function LoginScreen() {
             alignItems:      'center',
             minHeight:       48,
             opacity:         isSubmitting ? 0.6 : 1,
+            marginBottom:    spacing.xl,
           })}
         >
           <Text style={{ fontFamily: 'DMSans-Regular', fontWeight: '600', fontSize: typeScale.mobile.m, color: '#FFFFFF' }}>
             {isSubmitting ? 'Entrando...' : 'Entrar'}
           </Text>
         </Pressable>
+
+        <Pressable
+          onPress={handleForgotPassword}
+          accessibilityRole="button"
+          accessibilityLabel="Olvidé mi contraseña"
+          style={{ alignItems: 'center', marginBottom: spacing.m, minHeight: 44, justifyContent: 'center' }}
+        >
+          <Text style={{ fontFamily: 'DMSans-Regular', fontSize: typeScale.mobile.s, color: theme.foregroundTertiary }}>
+            Olvidé mi contraseña
+          </Text>
+        </Pressable>
+
+        <Link href="/register" style={{ textAlign: 'center', fontFamily: 'DMSans-Regular', fontSize: typeScale.mobile.s, color: theme.foregroundSecondary }}>
+          ¿No tienes cuenta? Regístrate
+        </Link>
       </ScrollView>
     </KeyboardAvoidingView>
   )
