@@ -8,6 +8,7 @@ import styled           from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
 import { useAuth }      from '@/providers/AuthProvider'
 import { Icon, Text }   from '@kore/ui-web'
+import KoreWordmark     from '@/components/KoreWordmark/KoreWordmark'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
 interface LoginFormData {
@@ -77,7 +78,7 @@ const LoginForm = () => {
 
         {/* Header */}
         <motion.div variants={fadeUp}>
-          <LogoLink href="/">KORE</LogoLink>
+          <LogoLink href="/"><KoreWordmark fontSize="var(--scale-2xl)" /></LogoLink>
           <Title variant="h1">Bienvenida de nuevo</Title>
           <Subtitle variant="body-light">Accede a tus entrenamientos y continúa donde lo dejaste.</Subtitle>
         </motion.div>
@@ -199,13 +200,8 @@ const Wrapper = styled.div`
 `
 
 const LogoLink = styled(Link)`
-  display:         block;
-  font-family:     var(--font-family-display);
-  font-size:       var(--scale-2xl);
-  font-weight:     var(--font-weight-light);
-  color:           var(--foreground-accent-on-surface);
+  display:         inline-flex;
   text-decoration: none;
-  letter-spacing:  var(--letter-spacing-wide);
   margin-bottom:   var(--spacing-2xl);
 `
 

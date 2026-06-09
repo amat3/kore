@@ -7,6 +7,7 @@ import styled from '@emotion/styled'
 import { useAuth }    from '@/providers/AuthProvider'
 import { Avatar, Icon, Text } from '@kore/ui-web'
 import ThemeToggle    from '@/components/ThemeToggle/ThemeToggle'
+import KoreWordmark   from '@/components/KoreWordmark/KoreWordmark'
 
 export default function WorkoutsLayout({ children }: { children: React.ReactNode }) {
   const { user, loading, logout } = useAuth()
@@ -32,7 +33,7 @@ export default function WorkoutsLayout({ children }: { children: React.ReactNode
     <>
       <AppHeader>
         <Container>
-          <LogoLink href="/">KORE</LogoLink>
+          <LogoLink href="/"><KoreWordmark fontSize="var(--scale-xl)" /></LogoLink>
           <Actions>
             <UserInfo>
               <Avatar
@@ -80,13 +81,9 @@ const Container = styled.div`
 `
 
 const LogoLink = styled(Link)`
-  font-family: var(--font-family-display);
-  font-size: var(--scale-xl);
-  font-weight: var(--font-weight-light);
-  letter-spacing: var(--letter-spacing-wide);
-  color: var(--foreground-accent-on-surface);
+  display:         inline-flex;
   text-decoration: none;
-  line-height: 1;
+  line-height:     1;
 `
 
 const Actions = styled.div`
