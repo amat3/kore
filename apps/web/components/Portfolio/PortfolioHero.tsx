@@ -23,11 +23,15 @@ const PortfolioHero = () => (
       </FloatingToggle>
 
       {/* Identidad */}
-      <Overline variant="overline" as="span">Portfolio técnico</Overline>
+      <Overline variant="overline" as="span">
+        Portfolio técnico
+      </Overline>
 
       <Title variant="h1">Juan Antonio Amate</Title>
 
-      <Role variant="overline" as="p">Mid Frontend Developer · React / React Native</Role>
+      <Role variant="overline" as="p">
+        Mid Frontend Developer · React / React Native
+      </Role>
 
       <Description variant="body-light">
         Especialista en UI, design systems y animaciones avanzadas. Lo que ves aquí — tokens
@@ -54,14 +58,18 @@ const PortfolioHero = () => (
       {/* Stats rápidos del proyecto */}
       <StatsRow>
         {[
-          { num: '2',    label: 'Packages npm'    },
-          { num: '15',   label: 'Componentes'      },
-          { num: '164',  label: 'Design tokens'    },
-          { num: '100%', label: 'TypeScript'        },
+          { num: '2', label: 'Packages npm' },
+          { num: '15', label: 'Componentes' },
+          { num: '164', label: 'Design tokens' },
+          { num: '100%', label: 'TypeScript' },
         ].map((s) => (
           <StatItem key={s.label}>
-            <StatNum variant="display" as="span">{s.num}</StatNum>
-            <StatLabel variant="overline" as="span">{s.label}</StatLabel>
+            <StatNum variant="display" as="span">
+              {s.num}
+            </StatNum>
+            <StatLabel variant="overline" as="span">
+              {s.label}
+            </StatLabel>
           </StatItem>
         ))}
       </StatsRow>
@@ -72,13 +80,13 @@ const PortfolioHero = () => (
 // ── Styled ────────────────────────────────────────────────────────────────
 const Section = styled.section`
   background-color: var(--background-surface-low);
-  padding-top: calc(56px + clamp(4rem, 10vw, 8rem));
-  padding-bottom: clamp(4rem, 10vw, 8rem);
+  padding-top:    calc(56px + var(--layout-section-pad));
+  padding-bottom: var(--layout-section-pad);
   border-bottom: 0.5px solid var(--stroke-secondary-on-surface);
 `
 
 const Container = styled.div`
-  max-width:      var(--container-xl);
+  max-width: var(--container-xl);
   margin: 0 auto;
   padding-inline: var(--layout-gutter);
 `
@@ -112,28 +120,28 @@ const FloatingToggle = styled.div`
 `
 
 const Overline = styled(Text)`
-  display:       block;
+  display: block;
   margin-bottom: var(--spacing-m);
 `
 
 const Title = styled(Text)`
-  font-size:   clamp(2.5rem, 6vw, 5rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   line-height: 1.05;
-  margin:      0 0 var(--spacing-s);
+  margin: 0 0 var(--spacing-s);
 `
 
 const Role = styled(Text)`
   font-size: var(--scale-m);
-  margin:    0 0 var(--spacing-xl);
+  margin: 0 0 var(--spacing-xl);
 `
 
 const Description = styled(Text)`
   font-size: var(--scale-l);
-  color:     var(--foreground-secondary-on-surface);
-  margin:    0 0 var(--spacing-2xl);
+  color: var(--foreground-secondary-on-surface);
+  margin: 0 0 var(--spacing-2xl);
   max-width: 680px;
   strong {
-    color:       var(--foreground-primary-on-surface);
+    color: var(--foreground-primary-on-surface);
     font-weight: var(--font-weight-semibold);
   }
 `
@@ -207,8 +215,8 @@ const StatItem = styled.div`
 `
 
 const StatNum = styled(Text)`
-  font-size:   clamp(1.5rem, 3vw, 2.5rem);
-  color:       var(--foreground-accent-on-surface);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--foreground-accent-on-surface);
   line-height: 1;
 `
 
