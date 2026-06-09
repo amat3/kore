@@ -1,5 +1,6 @@
 import { Fonts } from '@/constants/fonts'
-import { View, Text, TextInput, Pressable, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native'
+import { Text, TextInput, Pressable, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native'
+import KoreWordmark from '@/components/atoms/KoreWordmark'
 import { useForm, Controller } from 'react-hook-form'
 import { useSafeAreaInsets }   from 'react-native-safe-area-context'
 import { Link }                from 'expo-router'
@@ -50,9 +51,7 @@ export default function LoginScreen() {
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: spacing.xl, paddingTop: insets.top + spacing.xl }}
         keyboardShouldPersistTaps="handled"
       >
-        <Text style={{ fontFamily: Fonts.displaySemiBold, fontSize: 40, color: theme.foreground, marginBottom: spacing.xs }}>
-          KORE
-        </Text>
+        <KoreWordmark fontSize={40} color={theme.foreground} style={{ marginBottom: spacing.xs }} />
         <Text style={{ fontFamily: Fonts.uiRegular, fontSize: typeScale.mobile.m, color: theme.foregroundSecondary, marginBottom: spacing['2xl'] }}>
           Inicia sesión para continuar
         </Text>

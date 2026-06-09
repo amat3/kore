@@ -1,4 +1,5 @@
-export { Text }   from './Text'
+export { Text }          from './Text'
+export { default as KoreWordmark } from './KoreWordmark'
 export { Button } from './Button'
 export { Badge }  from './Badge'
 export { Icon }   from './Icon'
