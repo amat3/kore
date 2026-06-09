@@ -40,46 +40,49 @@ const slideRight: Variants = {
 }
 
 // ── Mockup Browser ────────────────────────────────────────────────────────
+const SHARED_CARDS = [
+  { cat: 'Fuerza',  title: 'Full body con peso libre', dur: '45 min · Intermedio'   },
+  { cat: 'Yoga',    title: 'Yoga restaurativo',         dur: '30 min · Principiante' },
+  { cat: 'Cardio',  title: 'HIIT explosivo',            dur: '20 min · Avanzado'     },
+  { cat: 'Pilates', title: 'Core profundo',             dur: '40 min · Intermedio'   },
+]
+
 const BrowserMockup = () => (
   <Browser>
-    {/* Barra superior */}
     <BrowserBar>
       <BrowserDots>
         <BrowserDot $color="#FF5F57" />
         <BrowserDot $color="#FEBC2E" />
         <BrowserDot $color="#28C840" />
       </BrowserDots>
-      <BrowserUrl>kore.app</BrowserUrl>
+      <BrowserUrl>kore.app/workouts</BrowserUrl>
     </BrowserBar>
 
-    {/* Contenido web */}
     <BrowserContent>
-      {/* Nav */}
       <MockNav>
         <MockNavLogo>KORE</MockNavLogo>
         <MockNavItems>
-          <MockNavItem $active>Inicio</MockNavItem>
-          <MockNavItem>Entrena</MockNavItem>
+          <MockNavItem>Inicio</MockNavItem>
+          <MockNavItem $active>Entrena</MockNavItem>
           <MockNavItem>Perfil</MockNavItem>
         </MockNavItems>
       </MockNav>
 
-      {/* Hero mini */}
-      <MockHero>
-        <MockOverline>Fuerza · Origen</MockOverline>
-        <MockWordmark>KORE</MockWordmark>
-        <MockClaim>Entrena sin límites.</MockClaim>
-        <MockCTA>Empezar →</MockCTA>
-      </MockHero>
+      <MockCatalogHeader>
+        <MockCatalogTitle>Entrenamientos</MockCatalogTitle>
+        <MockSearchBar>
+          <MockSearchIcon>🔍</MockSearchIcon>
+          <MockSearchText>Buscar...</MockSearchText>
+        </MockSearchBar>
+        <MockFilterRow>
+          {['Todos', 'Fuerza', 'Yoga', 'Cardio'].map((tag, i) => (
+            <MockFilterTag key={tag} $active={i === 0}>{tag}</MockFilterTag>
+          ))}
+        </MockFilterRow>
+      </MockCatalogHeader>
 
-      {/* Cards grid */}
       <MockGrid>
-        {[
-          { cat: 'Fuerza',  title: 'Full body',       dur: '45 min' },
-          { cat: 'Yoga',    title: 'Restaurativo',    dur: '30 min' },
-          { cat: 'Cardio',  title: 'HIIT explosivo',  dur: '20 min' },
-          { cat: 'Pilates', title: 'Core profundo',   dur: '40 min' },
-        ].map(card => (
+        {SHARED_CARDS.map(card => (
           <MockCard key={card.title}>
             <MockCardImg />
             <MockCardBody>
@@ -135,10 +138,7 @@ const PhoneMockup = () => (
 
       {/* Cards */}
       <PhoneCards>
-        {[
-          { cat: 'Fuerza', title: 'Full body con peso libre', dur: '45 min · Intermedio' },
-          { cat: 'Yoga',   title: 'Yoga restaurativo',        dur: '30 min · Principiante' },
-        ].map(card => (
+        {SHARED_CARDS.slice(0, 2).map(card => (
           <PhoneCard key={card.title}>
             <PhoneCardImg />
             <PhoneCardBody>
@@ -419,68 +419,56 @@ const MockNavItem = styled.span<{ $active?: boolean }>`
   color:          ${({ $active }) => $active ? '#B05E3A' : 'rgba(247,244,241,0.4)'};
 `
 
-const MockHero = styled.div`
-  background:   linear-gradient(135deg, #1A1A1A 0%, #2D2A28 100%);
-  padding:      24px 14px;
-  position:     relative;
-  overflow:     hidden;
-
-  &::after {
-    content:    '';
-    position:   absolute;
-    inset:      0;
-    background: radial-gradient(ellipse at 70% 30%, rgba(176,94,58,0.15), transparent 60%);
-  }
+const MockCatalogHeader = styled.div`
+  padding:        8px 10px 4px;
+  display:        flex;
+  flex-direction: column;
+  gap:            6px;
+  background:     var(--background-surface-low);
 `
 
-const MockOverline = styled.p`
-  font-family:    var(--font-family-ui);
-  font-size:      8px;
-  font-weight:    600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color:          #B05E3A;
-  margin:         0 0 4px;
-  position:       relative;
-  z-index:        1;
-`
-
-const MockWordmark = styled.h2`
-  font-family:    var(--font-family-display);
-  font-size:      40px;
-  font-weight:    300;
-  color:          #F7F4F1;
-  margin:         0 0 4px;
-  letter-spacing: 0.05em;
-  line-height:    1;
-  position:       relative;
-  z-index:        1;
-`
-
-const MockClaim = styled.p`
+const MockCatalogTitle = styled.h3`
   font-family: var(--font-family-display);
-  font-size:   13px;
-  font-weight: 300;
-  color:       rgba(247,244,241,0.6);
-  margin:      0 0 12px;
-  position:    relative;
-  z-index:     1;
+  font-size:   14px;
+  font-weight: 600;
+  color:       var(--foreground-primary-on-surface);
+  margin:      0;
 `
 
-const MockCTA = styled.button`
-  background:     #B05E3A;
-  color:          #F7F4F1;
-  border:         none;
-  border-radius:  100px;
-  padding:        5px 14px;
+const MockSearchBar = styled.div`
+  display:       flex;
+  align-items:   center;
+  gap:           5px;
+  padding:       5px 8px;
+  border-radius: 6px;
+  background:    var(--background-surface-solid);
+  border:        0.5px solid var(--stroke-secondary-on-surface);
+`
+
+const MockSearchIcon = styled.span`font-size: 8px;`
+
+const MockSearchText = styled.span`
+  font-family: var(--font-family-ui);
+  font-size:   8px;
+  color:       var(--foreground-tertiary-on-surface);
+`
+
+const MockFilterRow = styled.div`
+  display: flex;
+  gap:     4px;
+`
+
+const MockFilterTag = styled.span<{ $active?: boolean }>`
   font-family:    var(--font-family-ui);
-  font-size:      9px;
+  font-size:      7px;
   font-weight:    600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  cursor:         default;
-  position:       relative;
-  z-index:        1;
+  padding:        2px 7px;
+  border-radius:  100px;
+  border:         0.5px solid ${({ $active }) => $active ? '#B05E3A' : 'var(--stroke-secondary-on-surface)'};
+  background:     ${({ $active }) => $active ? 'rgba(176,94,58,0.15)' : 'transparent'};
+  color:          ${({ $active }) => $active ? '#B05E3A' : 'var(--foreground-secondary-on-surface)'};
 `
 
 const MockGrid = styled.div`
