@@ -6,7 +6,7 @@ import { useTranslation }           from 'react-i18next'
 import AsyncStorage                 from '@react-native-async-storage/async-storage'
 import * as LucideIcons             from 'lucide-react-native'
 import styled                       from '@emotion/native'
-import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { colors, spacing, corners, typeScale, lightTheme } from '@kore/tokens'
 import { Fonts }                    from '@/constants/fonts'
 import { useThemeColors }           from '@/hooks/useThemeColors'
 import { useTheme }                 from '@/providers/ThemeProvider'
@@ -104,7 +104,7 @@ export default function ProfileScreen() {
               <Switch
                 value={isDark}
                 onValueChange={toggleTheme}
-                trackColor={{ false: theme.border, true: colors.accent }}
+                trackColor={{ false: theme.border, true: theme.accent }}
                 thumbColor="#FFFFFF"
               />
             </SettingRow>
@@ -155,7 +155,7 @@ export default function ProfileScreen() {
             accessibilityRole="button"
             accessibilityLabel={t('profile.logout')}
           >
-            <LucideIcons.LogOut size={16} color="#EF4444" />
+            <LucideIcons.LogOut size={16} color="${lightTheme.stroke.error}" />
             <LogoutText>{t('profile.logout')}</LogoutText>
           </LogoutBtn>
         </Pad>
@@ -181,7 +181,7 @@ const AvatarCircle = styled.View<{ $accent: string }>`
 const AvatarText = styled.Text`
   font-family: ${Fonts.displaySemiBold};
   font-size:   ${typeScale.mobile['2xl']}px;
-  color:        #F7F4F1;
+  color:       ${lightTheme.foreground.primaryOnAccent};
 `
 
 const SectionLabel = styled.Text<{ $color: string }>`
@@ -277,13 +277,13 @@ const LogoutBtn = styled.Pressable<{ $border: string }>`
   padding-vertical: ${spacing.m}px;
   border-radius:    ${corners.xl}px;
   border-width:     1px;
-  border-color:     #EF4444;
+  border-color:     ${lightTheme.stroke.error};
   min-height:       52px;
 `
 
 const LogoutText = styled.Text`
   font-family:    ${Fonts.uiSemiBold};
   font-size:      ${typeScale.mobile.m}px;
-  color:          #EF4444;
+  color:          ${lightTheme.stroke.error};
   letter-spacing: 0.5px;
 `

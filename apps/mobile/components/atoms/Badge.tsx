@@ -1,6 +1,7 @@
-import { View }        from 'react-native'
-import { Text }        from './Text'
-import { colors, spacing, corners, typeScale, colorPrimitives } from '@kore/tokens'
+import { View }          from 'react-native'
+import { Text }          from './Text'
+import { lightTheme, darkTheme, spacing, corners, typeScale } from '@kore/tokens'
+import { useTheme }      from '@/providers/ThemeProvider'
 import type { ReactNode } from 'react'
 
 export type BadgeVariant = 'default' | 'accent' | 'success' | 'error' | 'warning'
@@ -10,16 +11,21 @@ export interface BadgeProps {
   children:  ReactNode
 }
 
-const variantMap: Record<BadgeVariant, { bg: string; text: string }> = {
-  default: { bg: 'rgba(26,26,26,0.08)',          text: colorPrimitives.neutral[600]   },
-  accent:  { bg: `${colors.accent}20`,           text: colors.accent                  },
-  success: { bg: `${colors.success}20`,          text: colors.success                 },
-  error:   { bg: `${colors.error}20`,            text: colors.error                   },
-  warning: { bg: `${colorPrimitives.neutral[400]}30`, text: colorPrimitives.neutral[700] },
+const variants = (isDark: boolean) => {
+  const t = isDark ? darkTheme : lightTheme
+  return {
+    default: { bg: t.background.surfaceGlass,  text: t.foreground.secondaryOnSurface },
+    accent:  { bg: t.background.accentDim,     text: t.foreground.accentOnSurface    },
+    success: { bg: t.background.successDim,    text: t.foreground.successOnSurface   },
+    error:   { bg: t.background.errorDim,      text: t.foreground.errorOnSurface     },
+    warning: { bg: t.background.controlDefault, text: t.foreground.secondaryOnSurface },
+  } satisfies Record<BadgeVariant, { bg: string; text: string }>
 }
 
 export const Badge = ({ variant = 'default', children }: BadgeProps) => {
-  const { bg, text } = variantMap[variant]
+  const { isDark } = useTheme()
+  const { bg, text } = variants(isDark)[variant]
+
   return (
     <View style={{
       alignSelf:         'flex-start',

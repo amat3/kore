@@ -5,7 +5,7 @@ import Animated, {
 }                                        from 'react-native-reanimated'
 import styled                            from '@emotion/native'
 import * as LucideIcons                  from 'lucide-react-native'
-import { typeScale, spacing, corners }   from '@kore/tokens'
+import { typeScale, spacing, corners, colorPrimitives, tints } from '@kore/tokens'
 import { Fonts }                         from '@/constants/fonts'
 
 export type StreakVariant = 'active' | 'inactive' | 'record'
@@ -25,23 +25,23 @@ const variantConfig: Record<StreakVariant, {
   icon:      'Flame' | 'Trophy'
 }> = {
   active: {
-    iconColor: '#F97316',
-    bgColor:   'rgba(249,115,22,0.15)',
-    textColor: '#1A1A1A',
+    iconColor: '#F97316',                       // naranja flame — sin token equivalente
+    bgColor:   'rgba(249,115,22,0.15)',         // naranja flame dim — sin token equivalente
+    textColor: colorPrimitives.neutral[900],
     animated:  true,
     icon:      'Flame',
   },
   inactive: {
-    iconColor: '#9CA3AF',
-    bgColor:   'rgba(156,163,175,0.12)',
-    textColor: '#9CA3AF',
+    iconColor: colorPrimitives.neutral[400],
+    bgColor:   tints.black['10'],
+    textColor: colorPrimitives.neutral[400],
     animated:  false,
     icon:      'Flame',
   },
   record: {
-    iconColor: '#F59E0B',
-    bgColor:   'rgba(245,158,11,0.15)',
-    textColor: '#1A1A1A',
+    iconColor: '#F59E0B',                       // ámbar trophy — sin token equivalente
+    bgColor:   'rgba(245,158,11,0.15)',         // ámbar trophy dim — sin token equivalente
+    textColor: colorPrimitives.neutral[900],
     animated:  true,
     icon:      'Trophy',
   },

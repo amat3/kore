@@ -6,7 +6,7 @@ import { useSafeAreaInsets }   from 'react-native-safe-area-context'
 import { Link }                from 'expo-router'
 import { useThemeColors }      from '@/hooks/useThemeColors'
 import { useAuth }             from '@/providers/AuthProvider'
-import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { colors, spacing, corners, typeScale, lightTheme } from '@kore/tokens'
 
 interface RegisterForm { name: string; email: string; password: string }
 
@@ -104,7 +104,7 @@ export default function RegisterScreen() {
             marginBottom:    spacing.xl,
           })}
         >
-          <Text style={{ fontFamily: Fonts.uiSemiBold, fontSize: typeScale.mobile.m, color: '#FFFFFF' }}>
+          <Text style={{ fontFamily: Fonts.uiSemiBold, fontSize: typeScale.mobile.m, color: lightTheme.foreground.primaryOnAccent }}>
             {isSubmitting ? 'Creando...' : 'Crear cuenta'}
           </Text>
         </Pressable>

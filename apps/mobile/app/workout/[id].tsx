@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useSafeAreaInsets }               from 'react-native-safe-area-context'
 import * as LucideIcons                    from 'lucide-react-native'
 import styled                              from '@emotion/native'
-import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { colors, spacing, corners, typeScale, lightTheme, colorPrimitives } from '@kore/tokens'
 import { Fonts }                           from '@/constants/fonts'
 import { useThemeColors }                  from '@/hooks/useThemeColors'
 import { Text }                            from '@/components/atoms'
@@ -17,9 +17,9 @@ const levelLabel: Record<string, string> = {
 }
 
 const levelColor: Record<string, string> = {
-  beginner:     '#22C55E',
+  beginner:     lightTheme.stroke.success,
   intermediate: colors.accent,
-  advanced:     '#EF4444',
+  advanced:     lightTheme.stroke.error,
 }
 
 export default function WorkoutDetailScreen() {
@@ -131,7 +131,7 @@ export default function WorkoutDetailScreen() {
             accessibilityRole="button"
             accessibilityLabel="Empezar entrenamiento"
           >
-            <LucideIcons.Play size={16} color="#F7F4F1" fill="#F7F4F1" />
+            <LucideIcons.Play size={16} color={lightTheme.foreground.primaryOnAccent} fill={lightTheme.foreground.primaryOnAccent} />
             <CTAText>Empezar entrenamiento</CTAText>
           </CTAButton>
         </Animated.View>
@@ -185,14 +185,14 @@ const CTAButton = styled.Pressable<{ $accent: string; $disabled: boolean }>`
   gap:              ${spacing.s}px;
   padding-vertical: ${spacing.m}px;
   border-radius:    ${corners.xl}px;
-  background-color: ${({ $accent, $disabled }) => $disabled ? '#9CA3AF' : $accent};
+  background-color: ${({ $accent, $disabled }) => $disabled ? colorPrimitives.neutral[400] : $accent};
   min-height:       52px;
 `
 
 const CTAText = styled.Text`
   font-family:    ${Fonts.uiSemiBold};
   font-size:      ${typeScale.mobile.m}px;
-  color:          #F7F4F1;
+  color:          ${lightTheme.foreground.primaryOnAccent};
   letter-spacing: 0.5px;
   text-transform: uppercase;
 `

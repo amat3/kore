@@ -4,7 +4,7 @@ import Animated, {
 }                                           from 'react-native-reanimated'
 import styled                               from '@emotion/native'
 import * as LucideIcons                     from 'lucide-react-native'
-import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { colors, spacing, corners, typeScale, lightTheme, tints } from '@kore/tokens'
 import { Fonts }                            from '@/constants/fonts'
 import { useThemeColors }                   from '@/hooks/useThemeColors'
 
@@ -94,11 +94,11 @@ const WorkoutCard = ({
             width:           24,
             height:          24,
             borderRadius:    12,
-            backgroundColor: colors.success,
+            backgroundColor: lightTheme.stroke.success,
             alignItems:      'center',
             justifyContent:  'center',
           }}>
-            <LucideIcons.Check size={12} color="#fff" />
+            <LucideIcons.Check size={12} color={lightTheme.foreground.primaryOnAccent} />
           </View>
         )}
 
@@ -112,7 +112,7 @@ const WorkoutCard = ({
               width:           32,
               height:          32,
               borderRadius:    16,
-              backgroundColor: favorited ? colors.accent : 'rgba(0,0,0,0.45)',
+              backgroundColor: favorited ? colors.accent : tints.black['40'],
               alignItems:      'center',
               justifyContent:  'center',
             }}
@@ -120,7 +120,7 @@ const WorkoutCard = ({
             accessibilityLabel={favorited ? 'Quitar de favoritos' : 'Añadir a favoritos'}
             hitSlop={8}
           >
-            <LucideIcons.Heart size={14} color="#F7F4F1" fill={favorited ? '#F7F4F1' : 'none'} />
+            <LucideIcons.Heart size={14} color={lightTheme.foreground.primaryOnAccent} fill={favorited ? lightTheme.foreground.primaryOnAccent : 'none'} />
           </Pressable>
         )}
       </View>

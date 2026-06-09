@@ -1,8 +1,7 @@
 import { Pressable, ActivityIndicator, View } from 'react-native'
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
 import { Text }         from './Text'
-import { useThemeColors } from '@/hooks/useThemeColors'
-import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { colors, spacing, corners, typeScale, lightTheme } from '@kore/tokens'
 import { Fonts } from '@/constants/fonts'
 import type { ReactNode } from 'react'
 
@@ -40,7 +39,6 @@ export const Button = ({
   children,
   accessibilityLabel,
 }: ButtonProps) => {
-  const theme = useThemeColors()
   const scale = useSharedValue(1)
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -56,7 +54,7 @@ export const Button = ({
     : 'transparent'
 
   const textColor = variant === 'solid'
-    ? '#FFFFFF'
+    ? lightTheme.foreground.primaryOnAccent
     : colors.accent
 
   const sz = sizeStyles[size]

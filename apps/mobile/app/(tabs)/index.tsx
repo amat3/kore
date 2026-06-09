@@ -6,7 +6,7 @@ import { useTranslation }                         from 'react-i18next'
 import dayjs                                      from 'dayjs'
 import 'dayjs/locale/es'
 import styled                                     from '@emotion/native'
-import { spacing, colors, corners, typeScale } from '@kore/tokens'
+import { spacing, colors, corners, typeScale, lightTheme } from '@kore/tokens'
 import { Fonts } from '@/constants/fonts'
 import { useAuth }                                from '@/providers/AuthProvider'
 import { useThemeColors }                         from '@/hooks/useThemeColors'
@@ -216,6 +216,6 @@ const CTAButton = styled.Pressable<{ $accent: string }>`
 const CTAText = styled.Text`
   font-family: ${Fonts.uiSemiBold};
   font-size:   ${typeScale.mobile.m}px;
-  color:       #F7F4F1;
+  color:       ${lightTheme.foreground.primaryOnAccent};
   letter-spacing: 0.3px;
 `
