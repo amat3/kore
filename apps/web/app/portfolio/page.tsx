@@ -5,6 +5,7 @@ import StackSection from '@/components/StackSection/StackSection'
 import Dashboard from '@/components/Dashboard/Dashboard'
 import CrossPlatform from '@/components/CrossPlatform/CrossPlatform'
 import Contact from '@/components/Contact/Contact'
+import Footer  from '@/components/Footer/Footer'
 
 export const metadata = {
   title:       'Portfolio técnico — Juan Antonio Amate · Frontend Developer',
@@ -37,6 +38,7 @@ export default function PortfolioPage() {
       <StackSection />
       <Dashboard />
       <Contact />
+      <Footer surface="solid" />
     </main>
   )
 }

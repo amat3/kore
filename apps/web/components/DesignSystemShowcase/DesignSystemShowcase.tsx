@@ -482,12 +482,13 @@ const StatsRow = styled.div`
 `
 
 const StatItem = styled.div`
-  display: flex;
+  display:        flex;
   flex-direction: column;
-  gap: var(--spacing-2xs);
-  padding: var(--spacing-l);
-  border-radius: var(--corners-default-card);
-  border: 0.5px solid var(--stroke-secondary-on-surface);
+  gap:            var(--spacing-2xs);
+  padding:        var(--spacing-l);
+  border-radius:  var(--corners-default-card);
+  border:         0.5px solid var(--stroke-secondary-on-surface);
+  background:     var(--background-surface-low);
 `
 
 const StatNum = styled(Text)`

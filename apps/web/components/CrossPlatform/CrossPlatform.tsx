@@ -859,7 +859,7 @@ const StatItem = styled.div`
   padding:        var(--spacing-l);
   border-radius:  var(--corners-default-card);
   border:         0.5px solid var(--stroke-secondary-on-surface);
-  background:     var(--background-surface-solid);
+  background:     var(--background-surface-low);
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-2xs);
