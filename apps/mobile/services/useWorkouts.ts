@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { collection, getDocs, query, orderBy } from 'firebase/firestore'
+import { collection, getDocs, getDoc, doc, query, orderBy } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 
 export interface Workout {
@@ -64,4 +64,23 @@ export const useWorkouts = (filters?: UseWorkoutsFilters) => {
   )
 
   return { workouts: filtered, loading, error, categories, total: workouts.length }
+}
+
+export const useWorkoutDetail = (id: string) => {
+  const [workout, setWorkout] = useState<Workout | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
+
+  useEffect(() => {
+    if (!id) return
+    getDoc(doc(db, 'workouts', id))
+      .then(snap => {
+        if (!snap.exists()) { setNotFound(true); return }
+        setWorkout({ id: snap.id, ...snap.data() } as Workout)
+      })
+      .catch(() => setNotFound(true))
+      .finally(() => setLoading(false))
+  }, [id])
+
+  return { workout, loading, notFound }
 }
