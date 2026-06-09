@@ -410,20 +410,21 @@ const BlockSubtitle = styled(Text)`
 
 // ── Tabla tipográfica ──────────────────────────────────────────────────────
 const TableWrapper = styled.div`
+  background:    var(--background-surface-solid);
   border-radius: var(--corners-default-card);
   border:        0.5px solid var(--stroke-secondary-on-surface);
+  overflow:      hidden;
 `
 
 const Table = styled.table`
   width:           100%;
   border-collapse: collapse;
-  background:      var(--background-surface-solid);
   font-family:     var(--font-family-ui);
   table-layout:    fixed;
 `
 
 const Th = styled.th<{ align?: string }>`
-  padding:        var(--spacing-s) var(--spacing-xs);
+  padding:        var(--spacing-s) var(--spacing-m);
   text-align:     ${({ align }) => align ?? 'left'};
   font-size:      var(--scale-2xs);
   font-weight:    var(--font-weight-semibold);
@@ -439,7 +440,7 @@ const Th = styled.th<{ align?: string }>`
 `
 
 const Td = styled.td`
-  padding:        var(--spacing-xs);
+  padding:        var(--spacing-s) var(--spacing-m);
   border-bottom:  0.5px solid var(--stroke-tertiary-on-surface);
   vertical-align: middle;
 
@@ -530,14 +531,18 @@ const ThemeToggleBtn = styled.button`
 `
 
 const TokenCanvas = styled.div<{ $isDark: boolean }>`
-  background:    ${({ $isDark }) => $isDark ? '#1A1A1A' : 'var(--background-surface-solid)'};
-  border-radius: var(--corners-default-card);
-  border:        0.5px solid var(--stroke-secondary-on-surface);
-  padding:       var(--spacing-xl);
-  display:       flex;
+  background:     ${({ $isDark }) => $isDark ? '#1A1A1A' : 'var(--background-surface-solid)'};
+  border-radius:  var(--corners-default-card);
+  border:         0.5px solid var(--stroke-secondary-on-surface);
+  padding:        var(--spacing-l);
+  display:        flex;
   flex-direction: column;
-  gap:           var(--spacing-xl);
-  transition:    background 300ms ease;
+  gap:            var(--spacing-xl);
+  transition:     background 300ms ease;
+
+  @media (min-width: ${breakpoints.tablet}px) {
+    padding: var(--spacing-xl);
+  }
 `
 
 const TokenGroup = styled.div`
