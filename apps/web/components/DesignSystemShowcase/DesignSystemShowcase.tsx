@@ -314,7 +314,7 @@ const DesignSystemShowcase = () => {
 // ── Styled ─────────────────────────────────────────────────────────────────
 const Section = styled.section`
   background-color: var(--background-surface-solid);
-  padding-block:    var(--layout-section-pad);
+  padding-block: var(--layout-section-pad);
 `
 
 const Container = styled.div`
@@ -414,7 +414,7 @@ const StorybookLink = styled.a`
 `
 
 const ShowcaseCanvas = styled.div<{ $isDark: boolean }>`
-  background: ${({ $isDark }) => ($isDark ? '#1A1A1A' : 'var(--background-surface-solid)')};
+  background: ${({ $isDark }) => ($isDark ? '#1A1A1A' : 'var(--background-surface-low)')};
   border-radius: var(--corners-default-card);
   border: 0.5px solid var(--stroke-secondary-on-surface);
   padding: var(--spacing-xl);
@@ -467,33 +467,6 @@ const InputGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: var(--spacing-m);
-`
-
-const TokenGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: var(--spacing-s);
-`
-
-const TokenChip = styled.div`
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-`
-
-const TokenSwatch = styled.div`
-  width: var(--spacing-l);
-  height: var(--spacing-l);
-  border-radius: var(--radius-xs);
-  border: 0.5px solid var(--stroke-secondary-on-surface);
-  flex-shrink: 0;
-`
-
-const TokenName = styled.span`
-  font-family: monospace;
-  font-size: 10px;
-  color: var(--foreground-secondary-on-surface);
-  line-height: 1.3;
 `
 
 const StatsRow = styled.div`
