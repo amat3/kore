@@ -1,9 +1,23 @@
-import { useEffect }             from 'react'
+import { useEffect }               from 'react'
 import { Stack, useRouter, useSegments } from 'expo-router'
-import { SafeAreaProvider }      from 'react-native-safe-area-context'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { AuthProvider, useAuth } from '@/providers/AuthProvider'
+import { SafeAreaProvider }          from 'react-native-safe-area-context'
+import { GestureHandlerRootView }    from 'react-native-gesture-handler'
+import { useFonts }                  from 'expo-font'
+import * as SplashScreen             from 'expo-splash-screen'
+import {
+  CormorantGaramond_300Light,
+  CormorantGaramond_400Regular,
+  CormorantGaramond_600SemiBold,
+}                                    from '@expo-google-fonts/cormorant-garamond'
+import {
+  DMSans_300Light,
+  DMSans_400Regular,
+  DMSans_600SemiBold,
+}                                    from '@expo-google-fonts/dm-sans'
+import { AuthProvider, useAuth }     from '@/providers/AuthProvider'
 import '@/i18n'
+
+SplashScreen.preventAutoHideAsync()
 
 const AuthGuard = () => {
   const { user, loading } = useAuth()
@@ -24,6 +38,23 @@ const AuthGuard = () => {
 }
 
 export default function RootLayout() {
+  const [fontsLoaded, fontError] = useFonts({
+    CormorantGaramond_300Light,
+    CormorantGaramond_400Regular,
+    CormorantGaramond_600SemiBold,
+    DMSans_300Light,
+    DMSans_400Regular,
+    DMSans_600SemiBold,
+  })
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync()
+    }
+  }, [fontsLoaded, fontError])
+
+  if (!fontsLoaded && !fontError) return null
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>

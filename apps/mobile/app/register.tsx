@@ -1,3 +1,4 @@
+import { Fonts } from '@/constants/fonts'
 import { View, Text, TextInput, Pressable, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { useSafeAreaInsets }   from 'react-native-safe-area-context'
@@ -33,10 +34,10 @@ export default function RegisterScreen() {
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: spacing.xl, paddingTop: insets.top + spacing.xl }}
         keyboardShouldPersistTaps="handled"
       >
-        <Text style={{ fontFamily: 'CormorantGaramond-SemiBold', fontSize: 40, color: theme.foreground, marginBottom: spacing.xs }}>
+        <Text style={{ fontFamily: Fonts.displaySemiBold, fontSize: 40, color: theme.foreground, marginBottom: spacing.xs }}>
           KORE
         </Text>
-        <Text style={{ fontFamily: 'DMSans-Regular', fontSize: typeScale.mobile.m, color: theme.foregroundSecondary, marginBottom: spacing['2xl'] }}>
+        <Text style={{ fontFamily: Fonts.uiRegular, fontSize: typeScale.mobile.m, color: theme.foregroundSecondary, marginBottom: spacing['2xl'] }}>
           Crea tu cuenta
         </Text>
 
@@ -61,7 +62,7 @@ export default function RegisterScreen() {
                   value={value}
                   onChangeText={onChange}
                   style={{
-                    fontFamily:      'DMSans-Regular',
+                    fontFamily:      Fonts.uiRegular,
                     fontSize:        typeScale.mobile.m,
                     color:           theme.foreground,
                     backgroundColor: theme.surfaceLow,
@@ -74,7 +75,7 @@ export default function RegisterScreen() {
                   }}
                 />
                 {errors[field] && (
-                  <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 12, color: colors.error, marginBottom: spacing.s }}>
+                  <Text style={{ fontFamily: Fonts.uiRegular, fontSize: 12, color: colors.error, marginBottom: spacing.s }}>
                     {errors[field]?.message}
                   </Text>
                 )}
@@ -84,7 +85,7 @@ export default function RegisterScreen() {
         ))}
 
         {errors.root && (
-          <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 12, color: colors.error, marginBottom: spacing.m }}>
+          <Text style={{ fontFamily: Fonts.uiRegular, fontSize: 12, color: colors.error, marginBottom: spacing.m }}>
             {errors.root.message}
           </Text>
         )}
@@ -104,12 +105,12 @@ export default function RegisterScreen() {
             marginBottom:    spacing.xl,
           })}
         >
-          <Text style={{ fontFamily: 'DMSans-Regular', fontWeight: '600', fontSize: typeScale.mobile.m, color: '#FFFFFF' }}>
+          <Text style={{ fontFamily: Fonts.uiSemiBold, fontSize: typeScale.mobile.m, color: '#FFFFFF' }}>
             {isSubmitting ? 'Creando...' : 'Crear cuenta'}
           </Text>
         </Pressable>
 
-        <Link href="/login" style={{ textAlign: 'center', fontFamily: 'DMSans-Regular', fontSize: typeScale.mobile.s, color: theme.foregroundSecondary }}>
+        <Link href="/login" style={{ textAlign: 'center', fontFamily: Fonts.uiRegular, fontSize: typeScale.mobile.s, color: theme.foregroundSecondary }}>
           ¿Ya tienes cuenta? Inicia sesión
         </Link>
       </ScrollView>

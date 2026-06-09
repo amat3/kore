@@ -1,7 +1,8 @@
 import { View, TextInput, Pressable, ScrollView } from 'react-native'
 import styled                                      from '@emotion/native'
 import * as LucideIcons                            from 'lucide-react-native'
-import { colors, spacing, corners, typeScale, fontFamily } from '@kore/tokens'
+import { colors, spacing, corners, typeScale }     from '@kore/tokens'
+import { Fonts }                                   from '@/constants/fonts'
 import { useThemeColors }                          from '@/hooks/useThemeColors'
 
 export interface FilterItem {
@@ -11,13 +12,13 @@ export interface FilterItem {
 }
 
 export interface FilterBarProps {
-  filters:           FilterItem[]
-  onFilterToggle?:   (id: string) => void
-  onSearch?:         (value: string) => void
-  searchValue?:      string
+  filters:            FilterItem[]
+  onFilterToggle?:    (id: string) => void
+  onSearch?:          (value: string) => void
+  searchValue?:       string
   searchPlaceholder?: string
-  hideSearch?:       boolean
-  hideTags?:         boolean
+  hideSearch?:        boolean
+  hideTags?:          boolean
 }
 
 const FilterBar = ({
@@ -64,7 +65,7 @@ const FilterBar = ({
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: spacing.s, paddingHorizontal: 0 }}
+          contentContainerStyle={{ gap: spacing.s }}
         >
           {filters.map(filter => (
             <Pressable
@@ -88,36 +89,36 @@ const FilterBar = ({
 
 // ── Styled ─────────────────────────────────────────────────────────────────
 const SearchWrapper = styled.View<{ $borderColor: string; $bg: string }>`
-  flex-direction: row;
-  align-items:    center;
-  gap:            ${spacing.s}px;
-  padding-vertical: ${spacing.s}px;
+  flex-direction:     row;
+  align-items:        center;
+  gap:                ${spacing.s}px;
+  padding-vertical:   ${spacing.s}px;
   padding-horizontal: ${spacing.m}px;
-  border-radius:  ${corners.m}px;
-  border-width:   0.5px;
-  border-color:   ${({ $borderColor }) => $borderColor};
-  background-color: ${({ $bg }) => $bg};
+  border-radius:      ${corners.m}px;
+  border-width:       0.5px;
+  border-color:       ${({ $borderColor }) => $borderColor};
+  background-color:   ${({ $bg }) => $bg};
 `
 
 const SearchInput = styled.TextInput<{ $color: string }>`
   flex:        1;
-  font-family: ${fontFamily.ui};
+  font-family: ${Fonts.uiRegular};
   font-size:   ${typeScale.mobile.m}px;
   color:       ${({ $color }) => $color};
   padding:     0;
 `
 
 const TagChip = styled.View<{ $selected: boolean; $accent: string; $border: string }>`
-  padding-vertical: ${spacing.xs}px;
+  padding-vertical:   ${spacing.xs}px;
   padding-horizontal: ${spacing.m}px;
-  border-radius:   ${corners.xl}px;
-  border-width:    0.5px;
-  border-color:    ${({ $selected, $accent, $border }) => $selected ? $accent : $border};
-  background-color: ${({ $selected, $accent }) => $selected ? `${$accent}1A` : 'transparent'};
+  border-radius:      ${corners.xl}px;
+  border-width:       0.5px;
+  border-color:       ${({ $selected, $accent, $border }) => $selected ? $accent : $border};
+  background-color:   ${({ $selected, $accent }) => $selected ? `${$accent}1A` : 'transparent'};
 `
 
 const TagLabel = styled.Text<{ $selected: boolean; $accent: string; $fg: string }>`
-  font-family: ${fontFamily.ui};
+  font-family: ${Fonts.uiRegular};
   font-size:   ${typeScale.mobile.s}px;
   color:       ${({ $selected, $accent, $fg }) => $selected ? $accent : $fg};
 `

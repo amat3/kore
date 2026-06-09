@@ -1,3 +1,4 @@
+import { Fonts } from '@/constants/fonts'
 import { View, Text, TextInput, Pressable, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { useSafeAreaInsets }   from 'react-native-safe-area-context'
@@ -49,10 +50,10 @@ export default function LoginScreen() {
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: spacing.xl, paddingTop: insets.top + spacing.xl }}
         keyboardShouldPersistTaps="handled"
       >
-        <Text style={{ fontFamily: 'CormorantGaramond-SemiBold', fontSize: 40, color: theme.foreground, marginBottom: spacing.xs }}>
+        <Text style={{ fontFamily: Fonts.displaySemiBold, fontSize: 40, color: theme.foreground, marginBottom: spacing.xs }}>
           KORE
         </Text>
-        <Text style={{ fontFamily: 'DMSans-Regular', fontSize: typeScale.mobile.m, color: theme.foregroundSecondary, marginBottom: spacing['2xl'] }}>
+        <Text style={{ fontFamily: Fonts.uiRegular, fontSize: typeScale.mobile.m, color: theme.foregroundSecondary, marginBottom: spacing['2xl'] }}>
           Inicia sesión para continuar
         </Text>
 
@@ -69,7 +70,7 @@ export default function LoginScreen() {
               value={value}
               onChangeText={onChange}
               style={{
-                fontFamily:      'DMSans-Regular',
+                fontFamily:      Fonts.uiRegular,
                 fontSize:        typeScale.mobile.m,
                 color:           theme.foreground,
                 backgroundColor: theme.surfaceLow,
@@ -84,7 +85,7 @@ export default function LoginScreen() {
           )}
         />
         {errors.email && (
-          <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 12, color: colors.error, marginBottom: spacing.s }}>
+          <Text style={{ fontFamily: Fonts.uiRegular, fontSize: 12, color: colors.error, marginBottom: spacing.s }}>
             {errors.email.message}
           </Text>
         )}
@@ -101,7 +102,7 @@ export default function LoginScreen() {
               value={value}
               onChangeText={onChange}
               style={{
-                fontFamily:      'DMSans-Regular',
+                fontFamily:      Fonts.uiRegular,
                 fontSize:        typeScale.mobile.m,
                 color:           theme.foreground,
                 backgroundColor: theme.surfaceLow,
@@ -116,13 +117,13 @@ export default function LoginScreen() {
           )}
         />
         {errors.password && (
-          <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 12, color: colors.error, marginBottom: spacing.s }}>
+          <Text style={{ fontFamily: Fonts.uiRegular, fontSize: 12, color: colors.error, marginBottom: spacing.s }}>
             {errors.password.message}
           </Text>
         )}
 
         {errors.root && (
-          <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 12, color: colors.error, marginBottom: spacing.m }}>
+          <Text style={{ fontFamily: Fonts.uiRegular, fontSize: 12, color: colors.error, marginBottom: spacing.m }}>
             {errors.root.message}
           </Text>
         )}
@@ -142,7 +143,7 @@ export default function LoginScreen() {
             marginBottom:    spacing.xl,
           })}
         >
-          <Text style={{ fontFamily: 'DMSans-Regular', fontWeight: '600', fontSize: typeScale.mobile.m, color: '#FFFFFF' }}>
+          <Text style={{ fontFamily: Fonts.uiSemiBold, fontSize: typeScale.mobile.m, color: '#FFFFFF' }}>
             {isSubmitting ? 'Entrando...' : 'Entrar'}
           </Text>
         </Pressable>
@@ -153,12 +154,12 @@ export default function LoginScreen() {
           accessibilityLabel="Olvidé mi contraseña"
           style={{ alignItems: 'center', marginBottom: spacing.m, minHeight: 44, justifyContent: 'center' }}
         >
-          <Text style={{ fontFamily: 'DMSans-Regular', fontSize: typeScale.mobile.s, color: theme.foregroundTertiary }}>
+          <Text style={{ fontFamily: Fonts.uiRegular, fontSize: typeScale.mobile.s, color: theme.foregroundTertiary }}>
             Olvidé mi contraseña
           </Text>
         </Pressable>
 
-        <Link href="/register" style={{ textAlign: 'center', fontFamily: 'DMSans-Regular', fontSize: typeScale.mobile.s, color: theme.foregroundSecondary }}>
+        <Link href="/register" style={{ textAlign: 'center', fontFamily: Fonts.uiRegular, fontSize: typeScale.mobile.s, color: theme.foregroundSecondary }}>
           ¿No tienes cuenta? Regístrate
         </Link>
       </ScrollView>

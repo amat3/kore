@@ -1,7 +1,8 @@
-import { View, Text } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useThemeColors }    from '@/hooks/useThemeColors'
-import { spacing }           from '@kore/tokens'
+import { View }                from 'react-native'
+import { useSafeAreaInsets }  from 'react-native-safe-area-context'
+import { useThemeColors }     from '@/hooks/useThemeColors'
+import { Text }               from '@/components/atoms'
+import { spacing }            from '@kore/tokens'
 
 export default function ActivityScreen() {
   const insets = useSafeAreaInsets()
@@ -14,10 +15,8 @@ export default function ActivityScreen() {
       paddingHorizontal: spacing.l,
       backgroundColor:   theme.background,
     }}>
-      <Text style={{ fontFamily: 'CormorantGaramond-SemiBold', fontSize: 32, color: theme.foreground }}>
-        Mi actividad
-      </Text>
-      <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 14, color: theme.foregroundSecondary, marginTop: spacing.s }}>
+      <Text variant="h1">Mi actividad</Text>
+      <Text variant="body" color={theme.foregroundSecondary} style={{ marginTop: spacing.s }}>
         JUA-72 — en construcción
       </Text>
     </View>

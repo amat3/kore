@@ -1,8 +1,8 @@
-import styled          from '@emotion/native'
-import { typeScale, fontFamily, fontWeight, letterSpacing, lineHeight } from '@kore/tokens'
-import { useThemeColors } from '@/hooks/useThemeColors'
-import type { ComponentProps } from 'react'
 import { Text as RNText }      from 'react-native'
+import type { ComponentProps } from 'react'
+import { typeScale, letterSpacing } from '@kore/tokens'
+import { useThemeColors }           from '@/hooks/useThemeColors'
+import { Fonts }                    from '@/constants/fonts'
 
 export type TextVariant =
   | 'display'
@@ -16,62 +16,54 @@ export interface TextProps extends ComponentProps<typeof RNText> {
   color?:   string
 }
 
+// En RN fontFamily incluye el peso — no se usa fontWeight por separado
 const variantStyles: Record<TextVariant, object> = {
   display: {
-    fontFamily:    fontFamily.display,
-    fontSize:      typeScale.mobile['3xl'],
-    fontWeight:    fontWeight.semibold,
-    lineHeight:    typeScale.mobile['3xl'] * 1.1,
+    fontFamily: Fonts.displaySemiBold,
+    fontSize:   typeScale.mobile['3xl'],
+    lineHeight: typeScale.mobile['3xl'] * 1.1,
   },
   h1: {
-    fontFamily:    fontFamily.display,
-    fontSize:      typeScale.mobile['2xl'],
-    fontWeight:    fontWeight.semibold,
-    lineHeight:    typeScale.mobile['2xl'] * 1.15,
+    fontFamily: Fonts.displaySemiBold,
+    fontSize:   typeScale.mobile['2xl'],
+    lineHeight: typeScale.mobile['2xl'] * 1.15,
   },
   h2: {
-    fontFamily:    fontFamily.display,
-    fontSize:      typeScale.mobile.xl,
-    fontWeight:    fontWeight.semibold,
-    lineHeight:    typeScale.mobile.xl * 1.2,
+    fontFamily: Fonts.displaySemiBold,
+    fontSize:   typeScale.mobile.xl,
+    lineHeight: typeScale.mobile.xl * 1.2,
   },
   h3: {
-    fontFamily:    fontFamily.display,
-    fontSize:      typeScale.mobile.l,
-    fontWeight:    fontWeight.semibold,
-    lineHeight:    typeScale.mobile.l * 1.3,
+    fontFamily: Fonts.displaySemiBold,
+    fontSize:   typeScale.mobile.l,
+    lineHeight: typeScale.mobile.l * 1.3,
   },
   overline: {
-    fontFamily:    fontFamily.ui,
+    fontFamily:    Fonts.uiSemiBold,
     fontSize:      typeScale.mobile.xs,
-    fontWeight:    fontWeight.semibold,
     letterSpacing: letterSpacing.spacious,
     lineHeight:    typeScale.mobile.xs * 1.4,
     textTransform: 'uppercase' as const,
   },
   body: {
-    fontFamily:  fontFamily.ui,
-    fontSize:    typeScale.mobile.m,
-    fontWeight:  fontWeight.regular,
-    lineHeight:  typeScale.mobile.m * 1.6,
+    fontFamily: Fonts.uiRegular,
+    fontSize:   typeScale.mobile.m,
+    lineHeight: typeScale.mobile.m * 1.6,
   },
   'body-light': {
-    fontFamily:  fontFamily.ui,
-    fontSize:    typeScale.mobile.m,
-    fontWeight:  fontWeight.light,
-    lineHeight:  typeScale.mobile.m * 1.6,
+    fontFamily: Fonts.uiLight,
+    fontSize:   typeScale.mobile.m,
+    lineHeight: typeScale.mobile.m * 1.6,
   },
   'body-sm': {
-    fontFamily:  fontFamily.ui,
-    fontSize:    typeScale.mobile.s,
-    fontWeight:  fontWeight.regular,
-    lineHeight:  typeScale.mobile.s * 1.5,
+    fontFamily: Fonts.uiRegular,
+    fontSize:   typeScale.mobile.s,
+    lineHeight: typeScale.mobile.s * 1.5,
   },
   caption: {
-    fontFamily:  fontFamily.ui,
-    fontSize:    typeScale.mobile.xs,
-    fontWeight:  fontWeight.regular,
-    lineHeight:  typeScale.mobile.xs * 1.4,
+    fontFamily: Fonts.uiRegular,
+    fontSize:   typeScale.mobile.xs,
+    lineHeight: typeScale.mobile.xs * 1.4,
   },
 }
 

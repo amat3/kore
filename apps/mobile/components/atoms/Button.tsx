@@ -2,7 +2,8 @@ import { Pressable, ActivityIndicator, View } from 'react-native'
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
 import { Text }         from './Text'
 import { useThemeColors } from '@/hooks/useThemeColors'
-import { colors, spacing, corners, typeScale, fontFamily, fontWeight } from '@kore/tokens'
+import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { Fonts } from '@/constants/fonts'
 import type { ReactNode } from 'react'
 
 export type ButtonVariant = 'solid' | 'outlined' | 'ghost'
@@ -94,7 +95,7 @@ export const Button = ({
           <Text
             variant="body"
             color={textColor}
-            style={{ fontWeight: fontWeight.semibold, fontFamily: fontFamily.ui, fontSize: sz.fontSize }}
+            style={{ fontFamily: Fonts.uiSemiBold, fontSize: sz.fontSize }}
           >
             {children}
           </Text>

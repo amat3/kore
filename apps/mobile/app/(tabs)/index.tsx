@@ -6,7 +6,8 @@ import { useTranslation }                         from 'react-i18next'
 import dayjs                                      from 'dayjs'
 import 'dayjs/locale/es'
 import styled                                     from '@emotion/native'
-import { spacing, colors, corners, typeScale, fontFamily, fontWeight } from '@kore/tokens'
+import { spacing, colors, corners, typeScale } from '@kore/tokens'
+import { Fonts } from '@/constants/fonts'
 import { useAuth }                                from '@/providers/AuthProvider'
 import { useThemeColors }                         from '@/hooks/useThemeColors'
 import { Text }                                   from '@/components/atoms'
@@ -176,15 +177,14 @@ const SectionHeader = styled.View`
 `
 
 const SectionTitle = styled.Text<{ $color: string }>`
-  font-family: ${fontFamily.display};
+  font-family: ${Fonts.displaySemiBold};
   font-size:   ${typeScale.mobile.xl}px;
-  font-weight: ${fontWeight.semibold};
   color:       ${({ $color }) => $color};
   line-height: ${typeScale.mobile.xl * 1.2}px;
 `
 
 const DateText = styled.Text<{ $color: string }>`
-  font-family: ${fontFamily.ui};
+  font-family: ${Fonts.uiRegular};
   font-size:   ${typeScale.mobile.s}px;
   color:       ${({ $color }) => $color};
 `
@@ -199,9 +199,8 @@ const CardWrapper = styled.View`
 `
 
 const LinkText = styled.Text<{ $color: string }>`
-  font-family: ${fontFamily.ui};
+  font-family: ${Fonts.uiSemiBold};
   font-size:   ${typeScale.mobile.s}px;
-  font-weight: ${fontWeight.semibold};
   color:       ${({ $color }) => $color};
 `
 
@@ -215,9 +214,8 @@ const CTAButton = styled.Pressable<{ $accent: string }>`
 `
 
 const CTAText = styled.Text`
-  font-family: ${fontFamily.ui};
+  font-family: ${Fonts.uiSemiBold};
   font-size:   ${typeScale.mobile.m}px;
-  font-weight: ${fontWeight.semibold};
   color:       #F7F4F1;
   letter-spacing: 0.3px;
 `

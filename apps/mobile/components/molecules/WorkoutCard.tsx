@@ -4,7 +4,8 @@ import Animated, {
 }                                           from 'react-native-reanimated'
 import styled                               from '@emotion/native'
 import * as LucideIcons                     from 'lucide-react-native'
-import { colors, spacing, corners, typeScale, fontFamily, fontWeight } from '@kore/tokens'
+import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { Fonts }                            from '@/constants/fonts'
 import { useThemeColors }                   from '@/hooks/useThemeColors'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
@@ -144,9 +145,8 @@ const WorkoutCard = ({
 
 // ── Styled ─────────────────────────────────────────────────────────────────
 const CategoryText = styled.Text`
-  font-family:    ${fontFamily.ui};
+  font-family:    ${Fonts.uiSemiBold};
   font-size:      ${typeScale.mobile.xs}px;
-  font-weight:    ${fontWeight.semibold};
   letter-spacing: 1.2px;
   text-transform: uppercase;
   color:          ${colors.accent};
@@ -154,17 +154,15 @@ const CategoryText = styled.Text`
 `
 
 const TitleText = styled.Text<{ $color: string }>`
-  font-family: ${fontFamily.display};
+  font-family: ${Fonts.displaySemiBold};
   font-size:   ${typeScale.mobile.xl}px;
-  font-weight: ${fontWeight.semibold};
   line-height: ${typeScale.mobile.xl * 1.2}px;
   color:       ${({ $color }) => $color};
 `
 
 const MetaText = styled.Text<{ $color: string }>`
-  font-family: ${fontFamily.ui};
+  font-family: ${Fonts.uiLight};
   font-size:   ${typeScale.mobile.s}px;
-  font-weight: ${fontWeight.light};
   line-height: ${typeScale.mobile.s * 1.4}px;
   color:       ${({ $color }) => $color};
 `

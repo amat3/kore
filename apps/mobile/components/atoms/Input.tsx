@@ -2,7 +2,8 @@ import { View, TextInput, Pressable } from 'react-native'
 import { useState }    from 'react'
 import { Text }        from './Text'
 import { useThemeColors } from '@/hooks/useThemeColors'
-import { colors, spacing, corners, typeScale, fontFamily } from '@kore/tokens'
+import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { Fonts } from '@/constants/fonts'
 import type { ComponentProps } from 'react'
 
 export interface InputProps extends ComponentProps<typeof TextInput> {
@@ -35,7 +36,7 @@ export const Input = ({
   return (
     <View style={{ gap: spacing['2xs'] }}>
       {label && (
-        <Text variant="caption" color={theme.foregroundSecondary} style={{ fontFamily: fontFamily.ui }}>
+        <Text variant="caption" color={theme.foregroundSecondary} style={{ fontFamily: Fonts.uiRegular }}>
           {label}
         </Text>
       )}
@@ -58,7 +59,7 @@ export const Input = ({
           style={[
             {
               flex:        1,
-              fontFamily:  fontFamily.ui,
+              fontFamily:  Fonts.uiRegular,
               fontSize:    typeScale.mobile.m,
               color:       theme.foreground,
               paddingVertical: spacing.s,

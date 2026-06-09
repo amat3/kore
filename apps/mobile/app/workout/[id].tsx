@@ -1,11 +1,12 @@
-import { View, Text, Pressable, ScrollView } from 'react-native'
-import { useLocalSearchParams, useRouter }    from 'expo-router'
-import { useSafeAreaInsets }                  from 'react-native-safe-area-context'
-import { useThemeColors }                     from '@/hooks/useThemeColors'
-import { colors, spacing, typeScale }         from '@kore/tokens'
+import { View, Pressable, ScrollView }  from 'react-native'
+import { useLocalSearchParams, useRouter } from 'expo-router'
+import { useSafeAreaInsets }             from 'react-native-safe-area-context'
+import { useThemeColors }                from '@/hooks/useThemeColors'
+import { Text }                          from '@/components/atoms'
+import { colors, spacing }              from '@kore/tokens'
 
 export default function WorkoutDetailScreen() {
-  const { id }  = useLocalSearchParams<{ id: string }>()
+  const { id } = useLocalSearchParams<{ id: string }>()
   const router  = useRouter()
   const insets  = useSafeAreaInsets()
   const theme   = useThemeColors()
@@ -20,14 +21,10 @@ export default function WorkoutDetailScreen() {
             accessibilityLabel="Volver"
             style={{ marginBottom: spacing.l, minHeight: 44, justifyContent: 'center', alignSelf: 'flex-start' }}
           >
-            <Text style={{ fontFamily: 'DMSans-Regular', fontSize: typeScale.mobile.m, color: colors.accent }}>
-              ← Volver
-            </Text>
+            <Text variant="body" color={colors.accent}>← Volver</Text>
           </Pressable>
-          <Text style={{ fontFamily: 'CormorantGaramond-SemiBold', fontSize: 36, color: theme.foreground }}>
-            Detalle workout
-          </Text>
-          <Text style={{ fontFamily: 'DMSans-Regular', fontSize: typeScale.mobile.s, color: theme.foregroundSecondary, marginTop: spacing.s }}>
+          <Text variant="h1">Detalle workout</Text>
+          <Text variant="body-sm" color={theme.foregroundSecondary} style={{ marginTop: spacing.s }}>
             ID: {id} · JUA-70 — en construcción
           </Text>
         </View>
