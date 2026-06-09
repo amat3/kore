@@ -4,6 +4,7 @@ import styled        from '@emotion/styled'
 import { breakpoints } from '@kore/tokens'
 import Link          from 'next/link'
 import { Icon, Text } from '@kore/ui-web'
+import KoreWordmark  from '@/components/KoreWordmark/KoreWordmark'
 
 // ── Componente ────────────────────────────────────────────────────────────
 const Footer = ({ surface = 'low' }: { surface?: 'low' | 'solid' }) => (
@@ -14,7 +15,7 @@ const Footer = ({ surface = 'low' }: { surface?: 'low' | 'solid' }) => (
 
         {/* Brand */}
         <BrandCol>
-          <Logo href="/">KORE</Logo>
+          <Logo href="/"><KoreWordmark fontSize="var(--scale-3xl)" /></Logo>
           <Tagline variant="body-light">Entrena sin límites.</Tagline>
         </BrandCol>
 
@@ -123,11 +124,7 @@ const BrandCol = styled.div`
 
 // Logo: elemento de navegación — no es tipografía pura, se queda como Link
 const Logo = styled(Link)`
-  font-family:     var(--font-family-display);
-  font-size:       var(--scale-3xl);
-  font-weight:     var(--font-weight-light);
-  letter-spacing:  var(--letter-spacing-wide);
-  color:           var(--foreground-accent-on-surface);
+  display:         inline-flex;
   text-decoration: none;
   line-height:     1;
 `

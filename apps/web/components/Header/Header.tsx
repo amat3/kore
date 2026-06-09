@@ -3,11 +3,12 @@
 import Link from 'next/link'
 import styled from '@emotion/styled'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
+import KoreWordmark from '@/components/KoreWordmark/KoreWordmark'
 
 const Header = () => (
   <HeaderStyled>
     <Container>
-      <LogoLink href="/">KORE</LogoLink>
+      <LogoLink href="/"><KoreWordmark fontSize="var(--scale-xl)" /></LogoLink>
       <ThemeToggle />
     </Container>
   </HeaderStyled>
@@ -39,13 +40,9 @@ const Container = styled.div`
 `
 
 const LogoLink = styled(Link)`
-  font-family: var(--font-family-display);
-  font-size: var(--scale-xl);
-  font-weight: var(--font-weight-light);
-  letter-spacing: var(--letter-spacing-wide);
-  color: var(--foreground-accent-on-surface);
+  display:         inline-flex;
   text-decoration: none;
-  line-height: 1;
+  line-height:     1;
 `
 
 export default Header

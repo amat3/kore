@@ -8,6 +8,7 @@ import styled           from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
 import { useAuth }      from '@/providers/AuthProvider'
 import { Icon, Text }   from '@kore/ui-web'
+import KoreWordmark     from '@/components/KoreWordmark/KoreWordmark'
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
 interface RegisterFormData {
@@ -81,7 +82,7 @@ const RegisterForm = () => {
       <motion.div variants={stagger} initial="hidden" animate="visible">
 
         <motion.div variants={fadeUp}>
-          <LogoLink href="/">KORE</LogoLink>
+          <LogoLink href="/"><KoreWordmark fontSize="var(--scale-2xl)" /></LogoLink>
           <Title variant="h1">Empieza hoy</Title>
           <Subtitle variant="body-light">Crea tu cuenta y accede a todos los entrenamientos KORE.</Subtitle>
         </motion.div>
@@ -237,7 +238,7 @@ const GoogleIcon = () => (
 
 // ── Styled — igual que LoginForm ──────────────────────────────────────────
 const Wrapper        = styled.div`width: 100%; max-width: 420px; margin: 0 auto; padding: var(--spacing-2xl) var(--spacing-l);`
-const LogoLink       = styled(Link)`display: block; font-family: var(--font-family-display); font-size: var(--scale-2xl); font-weight: var(--font-weight-light); color: var(--foreground-accent-on-surface); text-decoration: none; letter-spacing: var(--letter-spacing-wide); margin-bottom: var(--spacing-2xl);`
+const LogoLink       = styled(Link)`display: inline-flex; text-decoration: none; margin-bottom: var(--spacing-2xl);`
 const Title          = styled(Text)`font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.1; margin: 0 0 var(--spacing-s);`
 const Subtitle       = styled(Text)`color: var(--foreground-secondary-on-surface); margin: 0 0 var(--spacing-2xl);`
 const GoogleButton   = styled.button`display: flex; align-items: center; justify-content: center; gap: var(--spacing-s); width: 100%; padding: var(--spacing-m); border-radius: var(--radius-full); border: 1.5px solid var(--stroke-secondary-on-surface); background: var(--background-surface-solid); color: var(--foreground-primary-on-surface); font-family: var(--font-family-ui); font-size: var(--scale-s); font-weight: var(--font-weight-semibold); cursor: pointer; transition: border-color 150ms, background 150ms; margin-bottom: var(--spacing-l); &:hover:not(:disabled) { border-color: var(--stroke-accent); background: var(--background-action-hover); } &:disabled { opacity: 0.5; cursor: not-allowed; }`
