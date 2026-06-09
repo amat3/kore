@@ -1,5 +1,5 @@
-import { useColorScheme } from 'react-native'
 import { colorPrimitives } from '@kore/tokens'
+import { useTheme }        from '@/providers/ThemeProvider'
 
 const light = {
   background:          colorPrimitives.neutral[50],
@@ -24,6 +24,6 @@ const dark = {
 } as const
 
 export const useThemeColors = () => {
-  const scheme = useColorScheme()
-  return scheme === 'dark' ? dark : light
+  const { isDark } = useTheme()
+  return isDark ? dark : light
 }

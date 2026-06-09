@@ -15,6 +15,7 @@ import {
   DMSans_600SemiBold,
 }                                    from '@expo-google-fonts/dm-sans'
 import { AuthProvider, useAuth }     from '@/providers/AuthProvider'
+import { ThemeProvider }             from '@/providers/ThemeProvider'
 import '@/i18n'
 
 SplashScreen.preventAutoHideAsync()
@@ -58,18 +59,20 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <AuthProvider>
-          <AuthGuard />
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="login" />
-            <Stack.Screen name="register" />
-            <Stack.Screen
-              name="workout/[id]"
-              options={{ presentation: 'card', animation: 'slide_from_right' }}
-            />
-          </Stack>
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <AuthGuard />
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="login" />
+              <Stack.Screen name="register" />
+              <Stack.Screen
+                name="workout/[id]"
+                options={{ presentation: 'card', animation: 'slide_from_right' }}
+              />
+            </Stack>
+          </AuthProvider>
+        </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   )
