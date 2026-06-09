@@ -430,7 +430,7 @@ const DSBlock = styled.div<{ $wide?: boolean }>`
   gap: var(--spacing-m);
   padding: var(--spacing-l);
   border-radius: var(--radius-m);
-  background: var(--background-surface-low);
+  background: var(--background-surface-solid);
   border: 0.5px solid var(--stroke-secondary-on-surface);
   visibility: visible;
   ${({ $wide }) =>
