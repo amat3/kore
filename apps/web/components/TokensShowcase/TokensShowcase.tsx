@@ -142,11 +142,13 @@ const TokensShowcase = () => {
         </motion.div>
 
         {/* ── Escala tipográfica ── */}
-        <motion.div variants={fadeUp}>
-          <BlockTitle variant="overline" as="h3">Escala tipográfica — responsive</BlockTitle>
-          <BlockSubtitle variant="body-sm">
-            Los tokens <code>--scale-*</code> cambian automáticamente con el viewport.
-          </BlockSubtitle>
+        <motion.div variants={fadeUp} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-l)' }}>
+          <div>
+            <BlockTitle variant="overline" as="h3">Escala tipográfica — responsive</BlockTitle>
+            <BlockSubtitle variant="body-sm">
+              Los tokens <code>--scale-*</code> cambian automáticamente con el viewport.
+            </BlockSubtitle>
+          </div>
           <TableWrapper>
             <Table>
               <thead>
@@ -183,7 +185,7 @@ const TokensShowcase = () => {
         </motion.div>
 
         {/* ── Tokens de color ── */}
-        <motion.div variants={fadeUp}>
+        <motion.div variants={fadeUp} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-l)' }}>
           <ColorHeader>
             <div>
               <BlockTitle variant="overline" as="h3">
@@ -221,11 +223,13 @@ const TokensShowcase = () => {
         </motion.div>
 
         {/* ── Espaciado ── */}
-        <motion.div variants={fadeUp}>
-          <BlockTitle variant="overline" as="h3">Escala de espaciado</BlockTitle>
-          <BlockSubtitle variant="body-sm">
-            13 pasos de <code>2px</code> a <code>80px</code> — web y mobile comparten los mismos valores.
-          </BlockSubtitle>
+        <motion.div variants={fadeUp} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-l)' }}>
+          <div>
+            <BlockTitle variant="overline" as="h3">Escala de espaciado</BlockTitle>
+            <BlockSubtitle variant="body-sm">
+              13 pasos de <code>2px</code> a <code>80px</code> — web y mobile comparten los mismos valores.
+            </BlockSubtitle>
+          </div>
           <TokenBlock>
             <SpacingGrid>
               {SPACING_KEYS.map(key => {
@@ -245,12 +249,13 @@ const TokensShowcase = () => {
         </motion.div>
 
         {/* ── Forma y estructura ── */}
-        <motion.div variants={fadeUp}>
-          <BlockTitle variant="overline" as="h3">Forma y estructura</BlockTitle>
-          <BlockSubtitle variant="body-sm">
-            Radius, bordes y anchos máximos — los mismos valores en web y mobile.
-          </BlockSubtitle>
-
+        <motion.div variants={fadeUp} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-l)' }}>
+          <div>
+            <BlockTitle variant="overline" as="h3">Forma y estructura</BlockTitle>
+            <BlockSubtitle variant="body-sm">
+              Radius, bordes y anchos máximos — los mismos valores en web y mobile.
+            </BlockSubtitle>
+          </div>
           <TokenBlock>
             {/* Radius */}
             <ShapeSubtitle variant="caption" as="span">Border radius</ShapeSubtitle>
@@ -301,12 +306,14 @@ const TokensShowcase = () => {
         </motion.div>
 
         {/* ── Layout tokens ── */}
-        <motion.div variants={fadeUp}>
-          <BlockTitle variant="overline" as="h3">Layout tokens — responsive</BlockTitle>
-          <BlockSubtitle variant="body-sm">
-            Separados del spacing base. Exclusivos para contenedores y secciones
-            — nunca para componentes internos. El spacing base siempre es fijo.
-          </BlockSubtitle>
+        <motion.div variants={fadeUp} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-l)' }}>
+          <div>
+            <BlockTitle variant="overline" as="h3">Layout tokens — responsive</BlockTitle>
+            <BlockSubtitle variant="body-sm">
+              Separados del spacing base. Exclusivos para contenedores y secciones
+              — nunca para componentes internos. El spacing base siempre es fijo.
+            </BlockSubtitle>
+          </div>
           <TableWrapper>
             <Table>
               <thead>
@@ -399,12 +406,11 @@ const BlockTitle = styled(Text)`
 `
 
 const BlockSubtitle = styled(Text)`
-  color:         var(--foreground-tertiary-on-surface);
-  margin-bottom: var(--spacing-xl);
+  color: var(--foreground-tertiary-on-surface);
   code {
-    font-family:   monospace;
-    font-size:     0.9em;
-    color:         var(--foreground-accent-on-surface);
+    font-family: monospace;
+    font-size:   0.9em;
+    color:       var(--foreground-accent-on-surface);
   }
 `
 
@@ -506,7 +512,6 @@ const ColorHeader = styled.div`
   justify-content: space-between;
   gap:             var(--spacing-l);
   flex-wrap:       wrap;
-  margin-bottom:   var(--spacing-l);
 `
 
 const ThemeToggleBtn = styled.button`
