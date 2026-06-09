@@ -2,7 +2,7 @@ import { View, TextInput, Pressable } from 'react-native'
 import { useState }                   from 'react'
 import { Text }                        from './Text'
 import { useThemeColors }              from '@/hooks/useThemeColors'
-import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { spacing, corners, typeScale } from '@kore/tokens'
 import { Fonts }                       from '@/constants/fonts'
 import * as LucideIcons                from 'lucide-react-native'
 import type { ComponentProps, ReactNode } from 'react'
@@ -44,9 +44,9 @@ export const Input = ({
                'default'
 
   const borderColor =
-    state === 'error'   ? colors.error    :
-    state === 'success' ? colors.success  :
-    focused             ? theme.accent    :
+    state === 'error'   ? theme.errorBorder   :
+    state === 'success' ? theme.successBorder :
+    focused             ? theme.accent        :
                           theme.border
 
   const ringColor =
@@ -60,13 +60,12 @@ export const Input = ({
     state === 'success' ? theme.successDim :
                           theme.backgroundInput
 
-  const showClear = clearable && !!value && state !== 'disabled'
-
-  const iconColor =
-    state === 'error'   ? colors.error   :
-    state === 'success' ? colors.success :
-    focused             ? theme.accent   :
+  const labelColor =
+    state === 'error'   ? theme.errorFg   :
+    state === 'success' ? theme.successFg :
                           theme.foregroundSecondary
+
+  const showClear = clearable && !!value && state !== 'disabled'
 
   return (
     <View style={{ gap: spacing['2xs'] }}>
@@ -78,10 +77,7 @@ export const Input = ({
             fontFamily:    Fonts.uiSemiBold,
             letterSpacing: 0.8,
             textTransform: 'uppercase',
-            color:
-              state === 'error'   ? colors.error   :
-              state === 'success' ? colors.success  :
-                                    theme.foregroundSecondary,
+            color:         labelColor,
           }}
         >
           {label}
@@ -95,15 +91,15 @@ export const Input = ({
         borderColor:  ringColor,
       }}>
         <View style={{
-          flexDirection:   'row',
-          alignItems:      'center',
-          backgroundColor: bgColor,
-          borderRadius:    corners.s,
-          borderWidth:     1.5,
+          flexDirection:     'row',
+          alignItems:        'center',
+          backgroundColor:   bgColor,
+          borderRadius:      corners.s,
+          borderWidth:       1.5,
           borderColor,
           paddingHorizontal: spacing.m,
-          minHeight:       44,
-          opacity:         state === 'disabled' ? 0.5 : 1,
+          minHeight:         44,
+          opacity:           state === 'disabled' ? 0.5 : 1,
         }}>
 
           {leftIcon && (
@@ -130,12 +126,11 @@ export const Input = ({
             {...props}
           />
 
-          {/* Icono de estado en campo (error/success) */}
           {state === 'error' && !rightIcon && !showClear && (
-            <LucideIcons.CircleAlert size={16} color={colors.error} style={{ marginLeft: spacing.xs }} />
+            <LucideIcons.CircleAlert size={16} color={theme.errorFg} style={{ marginLeft: spacing.xs }} />
           )}
           {state === 'success' && !rightIcon && !showClear && (
-            <LucideIcons.CircleCheck size={16} color={colors.success} style={{ marginLeft: spacing.xs }} />
+            <LucideIcons.CircleCheck size={16} color={theme.successFg} style={{ marginLeft: spacing.xs }} />
           )}
 
           {showClear && (
@@ -158,17 +153,16 @@ export const Input = ({
         </View>
       </View>
 
-      {/* Texto auxiliar */}
       {error && (
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing['2xs'] }}>
-          <LucideIcons.CircleAlert size={12} color={colors.error} />
-          <Text variant="caption" style={{ color: colors.error }}>{error}</Text>
+          <LucideIcons.CircleAlert size={12} color={theme.errorFg} />
+          <Text variant="caption" style={{ color: theme.errorFg }}>{error}</Text>
         </View>
       )}
       {success && !error && (
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing['2xs'] }}>
-          <LucideIcons.CircleCheck size={12} color={colors.success} />
-          <Text variant="caption" style={{ color: colors.success }}>{success}</Text>
+          <LucideIcons.CircleCheck size={12} color={theme.successFg} />
+          <Text variant="caption" style={{ color: theme.successFg }}>{success}</Text>
         </View>
       )}
       {helper && !error && !success && (
