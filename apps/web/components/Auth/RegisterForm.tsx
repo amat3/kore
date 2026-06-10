@@ -36,6 +36,8 @@ const RegisterForm = () => {
   const [authError,     setAuthError]           = useState<string | null>(null)
   const [loading,       setLoading]             = useState(false)
   const [googleLoading, setGoogleLoading]       = useState(false)
+  const [showPassword,        setShowPassword]        = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const {
     register,
@@ -82,7 +84,7 @@ const RegisterForm = () => {
       <motion.div variants={stagger} initial="hidden" animate="visible">
 
         <motion.div variants={fadeUp}>
-          <LogoLink href="/"><KoreWordmark fontSize="var(--scale-2xl)" /></LogoLink>
+          <LogoLink href="/"><KoreWordmark fontSize="var(--scale-3xl)" fontWeight="var(--font-weight-semibold)" /></LogoLink>
           <Title variant="h1">Empieza hoy</Title>
           <Subtitle variant="body-light">Crea tu cuenta y accede a todos los entrenamientos KORE.</Subtitle>
         </motion.div>
@@ -149,21 +151,31 @@ const RegisterForm = () => {
           <motion.div variants={fadeUp}>
             <FieldGroup>
               <Label htmlFor="password">Contraseña</Label>
-              <InputField
-                id="password"
-                type="password"
-                placeholder="Mínimo 8 caracteres"
-                $hasError={!!errors.password}
-                autoComplete="new-password"
-                {...register('password', {
-                  required:  'La contraseña es obligatoria',
-                  minLength: { value: 8, message: 'Mínimo 8 caracteres' },
-                  pattern: {
-                    value:   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-                    message: 'Debe incluir mayúscula, minúscula y número',
-                  },
-                })}
-              />
+              <PasswordField>
+                <InputField
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Mínimo 8 caracteres"
+                  $hasError={!!errors.password}
+                  $hasToggle
+                  autoComplete="new-password"
+                  {...register('password', {
+                    required:  'La contraseña es obligatoria',
+                    minLength: { value: 8, message: 'Mínimo 8 caracteres' },
+                    pattern: {
+                      value:   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+                      message: 'Debe incluir mayúscula, minúscula y número',
+                    },
+                  })}
+                />
+                <PasswordToggle
+                  type="button"
+                  onClick={() => setShowPassword(v => !v)}
+                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  <Icon name={showPassword ? 'EyeOff' : 'Eye'} size="sm" color="inherit" />
+                </PasswordToggle>
+              </PasswordField>
               {errors.password && <FieldError variant="caption" as="span">{errors.password.message}</FieldError>}
             </FieldGroup>
           </motion.div>
@@ -171,18 +183,28 @@ const RegisterForm = () => {
           <motion.div variants={fadeUp}>
             <FieldGroup>
               <Label htmlFor="confirmPassword">Confirmar contraseña</Label>
-              <InputField
-                id="confirmPassword"
-                type="password"
-                placeholder="Repite la contraseña"
-                $hasError={!!errors.confirmPassword}
-                autoComplete="new-password"
-                {...register('confirmPassword', {
-                  required: 'Confirma tu contraseña',
-                  validate: val =>
-                    val === password || 'Las contraseñas no coinciden',
-                })}
-              />
+              <PasswordField>
+                <InputField
+                  id="confirmPassword"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="Repite la contraseña"
+                  $hasError={!!errors.confirmPassword}
+                  $hasToggle
+                  autoComplete="new-password"
+                  {...register('confirmPassword', {
+                    required: 'Confirma tu contraseña',
+                    validate: val =>
+                      val === password || 'Las contraseñas no coinciden',
+                  })}
+                />
+                <PasswordToggle
+                  type="button"
+                  onClick={() => setShowConfirmPassword(v => !v)}
+                  aria-label={showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  <Icon name={showConfirmPassword ? 'EyeOff' : 'Eye'} size="sm" color="inherit" />
+                </PasswordToggle>
+              </PasswordField>
               {errors.confirmPassword && (
                 <FieldError variant="caption" as="span">{errors.confirmPassword.message}</FieldError>
               )}
@@ -247,7 +269,9 @@ const DividerText    = styled(Text)`color: var(--foreground-tertiary-on-surface)
 const Form           = styled.form`display: flex; flex-direction: column; gap: var(--spacing-l); margin-bottom: var(--spacing-l);`
 const FieldGroup     = styled.div`display: flex; flex-direction: column; gap: var(--spacing-xs);`
 const Label          = styled.label`font-family: var(--font-family-ui); font-size: var(--scale-s); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-spacious); text-transform: uppercase; color: var(--foreground-secondary-on-surface);`
-const InputField     = styled.input<{ $hasError: boolean }>`width: 100%; background: var(--background-surface-low); border: 1.5px solid ${({ $hasError }) => $hasError ? 'var(--stroke-error)' : 'var(--stroke-secondary-on-surface)'}; border-radius: var(--radius-s); padding: var(--spacing-m); font-family: var(--font-family-ui); font-size: var(--scale-m); color: var(--foreground-primary-on-surface); outline: none; transition: border-color 150ms, box-shadow 150ms; box-sizing: border-box; &::placeholder { color: var(--foreground-tertiary-on-surface); } &:focus { border-color: var(--stroke-accent); box-shadow: 0 0 0 3px var(--background-accent-dim); }`
+const InputField     = styled.input<{ $hasError: boolean; $hasToggle?: boolean }>`width: 100%; background: var(--background-surface-low); border: 1.5px solid ${({ $hasError }) => $hasError ? 'var(--stroke-error)' : 'var(--stroke-secondary-on-surface)'}; border-radius: var(--radius-s); padding: var(--spacing-m); padding-right: ${({ $hasToggle }) => $hasToggle ? 'var(--spacing-3xl)' : 'var(--spacing-m)'}; font-family: var(--font-family-ui); font-size: var(--scale-m); color: var(--foreground-primary-on-surface); outline: none; transition: border-color 150ms, box-shadow 150ms; box-sizing: border-box; &::placeholder { color: var(--foreground-tertiary-on-surface); } &:focus { border-color: var(--stroke-accent); box-shadow: 0 0 0 3px var(--background-accent-dim); }`
+const PasswordField  = styled.div`position: relative;`
+const PasswordToggle = styled.button`position: absolute; top: 50%; right: var(--spacing-s); transform: translateY(-50%); display: flex; align-items: center; justify-content: center; padding: var(--spacing-2xs); border: none; background: none; color: var(--foreground-tertiary-on-surface); cursor: pointer; transition: color 150ms; &:hover { color: var(--foreground-secondary-on-surface); }`
 const FieldError     = styled(Text)`color: var(--foreground-error-on-surface);`
 const ErrorBanner    = styled.div`display: flex; align-items: center; gap: var(--spacing-s); padding: var(--spacing-m); border-radius: var(--radius-s); background: var(--background-error-dim); color: var(--foreground-error-on-surface); font-family: var(--font-family-ui); font-size: var(--scale-s); font-weight: var(--font-weight-semibold);`
 const SubmitButton   = styled(motion.button)`display: flex; align-items: center; justify-content: center; gap: var(--spacing-s); width: 100%; padding: var(--spacing-m); border-radius: var(--radius-full); border: none; background: var(--background-accent-solid); color: var(--foreground-primary-on-accent); font-family: var(--font-family-ui); font-size: var(--scale-s); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-spacious); text-transform: uppercase; cursor: pointer; transition: background 150ms; &:disabled { opacity: 0.5; cursor: not-allowed; } &:hover:not(:disabled) { background: color-mix(in srgb, var(--background-accent-solid), black 12%); }`

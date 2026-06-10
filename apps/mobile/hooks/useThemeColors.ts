@@ -4,6 +4,7 @@ import { useTheme }              from '@/providers/ThemeProvider'
 const light = {
   background:          lightTheme.background.surfaceLow,
   backgroundCard:      lightTheme.background.surfaceBright,
+  backgroundSolid:     lightTheme.background.surfaceSolid,
   backgroundInput:     lightTheme.background.inputDefault,
   foreground:          lightTheme.foreground.primaryOnSurface,
   foregroundSecondary: lightTheme.foreground.secondaryOnSurface,
@@ -24,6 +25,7 @@ const light = {
 const dark = {
   background:          darkTheme.background.surfaceLow,
   backgroundCard:      darkTheme.background.surfaceSolid,
+  backgroundSolid:     darkTheme.background.surfaceSolid,
   backgroundInput:     darkTheme.background.inputDefault,
   foreground:          darkTheme.foreground.primaryOnSurface,
   foregroundSecondary: darkTheme.foreground.secondaryOnSurface,

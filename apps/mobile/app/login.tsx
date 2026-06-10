@@ -1,13 +1,18 @@
 import { Fonts } from '@/constants/fonts'
-import { Text, TextInput, Pressable, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native'
+import { useState } from 'react'
+import { View, Pressable, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native'
+import * as LucideIcons from 'lucide-react-native'
 import KoreWordmark from '@/components/atoms/KoreWordmark'
+import { GoogleButton, Input, Text } from '@/components/atoms'
 import { useForm, Controller } from 'react-hook-form'
 import { useSafeAreaInsets }   from 'react-native-safe-area-context'
+import { useTranslation }      from 'react-i18next'
 import { Link }                from 'expo-router'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { auth }                from '@/lib/firebase'
 import { useThemeColors }      from '@/hooks/useThemeColors'
 import { useAuth }             from '@/providers/AuthProvider'
+import { useGoogleAuth }       from '@/hooks/useGoogleAuth'
 import { colors, spacing, corners, typeScale, lightTheme } from '@kore/tokens'
 
 interface LoginForm { email: string; password: string }
@@ -15,8 +20,30 @@ interface LoginForm { email: string; password: string }
 export default function LoginScreen() {
   const insets = useSafeAreaInsets()
   const theme  = useThemeColors()
-  const { login } = useAuth()
+  const { t }  = useTranslation()
+  const { login, loginGoogle } = useAuth()
   const { control, handleSubmit, setError, getValues, formState: { errors, isSubmitting } } = useForm<LoginForm>()
+  const [showPassword, setShowPassword] = useState(false)
+
+  const { loading: googleLoading, signIn: handleGoogleSignIn, isAvailable: googleAvailable } = useGoogleAuth(async idToken => {
+    try {
+      await loginGoogle(idToken)
+    } catch {
+      setError('root', { message: t('auth.googleError') })
+    }
+  })
+
+  const handleGoogle = async () => {
+    if (!googleAvailable) {
+      setError('root', { message: t('auth.googleUnavailable') })
+      return
+    }
+    try {
+      await handleGoogleSignIn()
+    } catch {
+      setError('root', { message: t('auth.googleError') })
+    }
+  }
 
   const handleForgotPassword = async () => {
     const email = getValues('email')
@@ -51,87 +78,95 @@ export default function LoginScreen() {
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: spacing.xl, paddingTop: insets.top + spacing.xl }}
         keyboardShouldPersistTaps="handled"
       >
-        <KoreWordmark fontSize={40} color={theme.foreground} style={{ marginBottom: spacing.xs }} />
-        <Text style={{ fontFamily: Fonts.uiRegular, fontSize: typeScale.mobile.m, color: theme.foregroundSecondary, marginBottom: spacing['2xl'] }}>
-          Inicia sesión para continuar
+        {/* Header */}
+        <KoreWordmark fontSize={40} color={theme.accent} style={{ marginBottom: spacing.l }} />
+        <Text variant="h1" style={{ marginBottom: spacing.xs }}>{t('auth.loginTitle')}</Text>
+        <Text variant="body-light" color={theme.foregroundSecondary} style={{ marginBottom: spacing['2xl'] }}>
+          {t('auth.loginSubtitle')}
         </Text>
 
+        {/* Google */}
+        <View style={{ marginBottom: spacing.l }}>
+          <GoogleButton onPress={handleGoogle} loading={googleLoading}>
+            {t('auth.continueWithGoogle')}
+          </GoogleButton>
+        </View>
+
+        {/* Divider */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.m, marginBottom: spacing.l }}>
+          <View style={{ flex: 1, height: 0.5, backgroundColor: theme.border }} />
+          <Text style={{ fontFamily: Fonts.uiSemiBold, fontSize: typeScale.mobile.xs, letterSpacing: 0.8, color: theme.foregroundTertiary, textTransform: 'uppercase' }}>
+            {t('auth.orWithEmail')}
+          </Text>
+          <View style={{ flex: 1, height: 0.5, backgroundColor: theme.border }} />
+        </View>
+
+        {/* Form */}
         <Controller
           control={control}
           name="email"
           rules={{ required: 'Campo obligatorio', pattern: { value: /\S+@\S+\.\S+/, message: 'Email inválido' } }}
           render={({ field: { onChange, value } }) => (
-            <TextInput
-              placeholder="Email"
-              placeholderTextColor={theme.foregroundTertiary}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              value={value}
-              onChangeText={onChange}
-              style={{
-                fontFamily:      Fonts.uiRegular,
-                fontSize:        typeScale.mobile.m,
-                color:           theme.foreground,
-                backgroundColor: theme.surfaceLow,
-                borderRadius:    corners.m,
-                borderWidth:     0.5,
-                borderColor:     errors.email ? colors.error : theme.border,
-                padding:         spacing.l,
-                marginBottom:    spacing.s,
-                minHeight:       48,
-              }}
-            />
+            <View style={{ marginBottom: spacing.m }}>
+              <Input
+                label={t('auth.email')}
+                placeholder="tu@email.com"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoComplete="email"
+                value={value}
+                onChangeText={onChange}
+                error={errors.email?.message}
+              />
+            </View>
           )}
         />
-        {errors.email && (
-          <Text style={{ fontFamily: Fonts.uiRegular, fontSize: 12, color: colors.error, marginBottom: spacing.s }}>
-            {errors.email.message}
-          </Text>
-        )}
 
         <Controller
           control={control}
           name="password"
           rules={{ required: 'Campo obligatorio', minLength: { value: 6, message: 'Mínimo 6 caracteres' } }}
           render={({ field: { onChange, value } }) => (
-            <TextInput
-              placeholder="Contraseña"
-              placeholderTextColor={theme.foregroundTertiary}
-              secureTextEntry
-              value={value}
-              onChangeText={onChange}
-              style={{
-                fontFamily:      Fonts.uiRegular,
-                fontSize:        typeScale.mobile.m,
-                color:           theme.foreground,
-                backgroundColor: theme.surfaceLow,
-                borderRadius:    corners.m,
-                borderWidth:     0.5,
-                borderColor:     errors.password ? colors.error : theme.border,
-                padding:         spacing.l,
-                marginBottom:    spacing.m,
-                minHeight:       48,
-              }}
-            />
+            <View style={{ marginBottom: spacing.m }}>
+              <Input
+                label={t('auth.password')}
+                placeholder="••••••••"
+                secureTextEntry={!showPassword}
+                autoComplete="current-password"
+                value={value}
+                onChangeText={onChange}
+                error={errors.password?.message}
+                rightIcon={
+                  <Pressable
+                    onPress={() => setShowPassword(prev => !prev)}
+                    hitSlop={8}
+                    accessibilityRole="button"
+                    accessibilityLabel={showPassword ? t('auth.hidePassword') : t('auth.showPassword')}
+                  >
+                    {showPassword
+                      ? <LucideIcons.EyeOff size={18} color={theme.foregroundTertiary} />
+                      : <LucideIcons.Eye size={18} color={theme.foregroundTertiary} />}
+                  </Pressable>
+                }
+              />
+            </View>
           )}
         />
-        {errors.password && (
-          <Text style={{ fontFamily: Fonts.uiRegular, fontSize: 12, color: colors.error, marginBottom: spacing.s }}>
-            {errors.password.message}
-          </Text>
-        )}
 
         {errors.root && (
-          <Text style={{ fontFamily: Fonts.uiRegular, fontSize: 12, color: colors.error, marginBottom: spacing.m }}>
-            {errors.root.message}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.s, padding: spacing.m, borderRadius: corners.s, backgroundColor: theme.errorDim, marginBottom: spacing.m }}>
+            <LucideIcons.CircleAlert size={16} color={theme.errorFg} />
+            <Text style={{ fontFamily: Fonts.uiSemiBold, fontSize: typeScale.mobile.s, color: theme.errorFg, flex: 1 }}>
+              {errors.root.message}
+            </Text>
+          </View>
         )}
 
         <Pressable
           onPress={handleSubmit(onSubmit)}
           disabled={isSubmitting}
           accessibilityRole="button"
-          accessibilityLabel="Iniciar sesión"
+          accessibilityLabel={t('auth.signIn')}
           style={({ pressed }) => ({
             backgroundColor: pressed ? colors.accentDark : colors.accent,
             borderRadius:    corners.full,
@@ -139,28 +174,31 @@ export default function LoginScreen() {
             alignItems:      'center',
             minHeight:       48,
             opacity:         isSubmitting ? 0.6 : 1,
-            marginBottom:    spacing.xl,
+            marginBottom:    spacing.m,
           })}
         >
-          <Text style={{ fontFamily: Fonts.uiSemiBold, fontSize: typeScale.mobile.m, color: lightTheme.foreground.primaryOnAccent }}>
-            {isSubmitting ? 'Entrando...' : 'Entrar'}
+          <Text style={{ fontFamily: Fonts.uiSemiBold, fontSize: typeScale.mobile.s, letterSpacing: 1, textTransform: 'uppercase', color: lightTheme.foreground.primaryOnAccent }}>
+            {isSubmitting ? t('auth.signingIn') : t('auth.signIn')}
           </Text>
         </Pressable>
 
         <Pressable
           onPress={handleForgotPassword}
           accessibilityRole="button"
-          accessibilityLabel="Olvidé mi contraseña"
-          style={{ alignItems: 'center', marginBottom: spacing.m, minHeight: 44, justifyContent: 'center' }}
+          accessibilityLabel={t('auth.forgotPassword')}
+          style={{ alignItems: 'center', marginBottom: spacing.xl, minHeight: 44, justifyContent: 'center' }}
         >
-          <Text style={{ fontFamily: Fonts.uiRegular, fontSize: typeScale.mobile.s, color: theme.foregroundTertiary }}>
-            Olvidé mi contraseña
+          <Text variant="body-sm" color={theme.foregroundTertiary}>
+            {t('auth.forgotPassword')}
           </Text>
         </Pressable>
 
-        <Link href="/register" style={{ textAlign: 'center', fontFamily: Fonts.uiRegular, fontSize: typeScale.mobile.s, color: theme.foregroundSecondary }}>
-          ¿No tienes cuenta? Regístrate
-        </Link>
+        <Text variant="body-sm" color={theme.foregroundSecondary} style={{ textAlign: 'center' }}>
+          {t('auth.noAccountPrefix')}{' '}
+          <Link href="/register" style={{ color: theme.accent, fontFamily: Fonts.uiSemiBold }}>
+            {t('auth.noAccountAction')}
+          </Link>
+        </Text>
       </ScrollView>
     </KeyboardAvoidingView>
   )
