@@ -155,7 +155,7 @@ export default function ProfileScreen() {
             accessibilityRole="button"
             accessibilityLabel={t('profile.logout')}
           >
-            <LucideIcons.LogOut size={16} color="${lightTheme.stroke.error}" />
+            <LucideIcons.LogOut size={16} color={lightTheme.stroke.error} />
             <LogoutText>{t('profile.logout')}</LogoutText>
           </LogoutBtn>
         </Pad>
