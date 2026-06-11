@@ -28,10 +28,11 @@ const AuthGuard = () => {
 
   useEffect(() => {
     if (loading) return
-    const inAuthGroup = segments[0] === '(tabs)'
-    if (!user && inAuthGroup) {
+    const inProtectedGroup = segments[0] === '(tabs)' || segments[0] === 'workout'
+    const inAuthScreen     = segments[0] === 'login' || segments[0] === 'register'
+    if (!user && inProtectedGroup) {
       router.replace('/login')
-    } else if (user && !inAuthGroup) {
+    } else if (user && inAuthScreen) {
       router.replace('/(tabs)/')
     }
   }, [user, loading, segments, router])
