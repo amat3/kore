@@ -106,8 +106,8 @@ export default function HomeScreen() {
       </Animated.View>
 
       {/* ── Entrenamientos recientes ── */}
-      <Animated.View entering={FadeInDown.duration(400).delay(160)}>
-        <View style={{ marginTop: spacing.xl }}>
+      <View style={{ marginTop: spacing.xl }}>
+        <Animated.View entering={FadeInDown.duration(400).delay(160)}>
           <Section>
             <SectionHeader>
               <SectionTitle $color={theme.foreground}>Entrenamientos</SectionTitle>
@@ -121,31 +121,31 @@ export default function HomeScreen() {
               </Pressable>
             </SectionHeader>
           </Section>
+        </Animated.View>
 
-          <FlatList
-            data={MOCK_WORKOUTS}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={item => item.id}
-            contentContainerStyle={{
-              paddingHorizontal: spacing.l,
-              gap:               spacing.m,
-            }}
-            renderItem={({ item }) => (
-              <CardWrapper>
-                <WorkoutCard
-                  title={item.title}
-                  category={item.category}
-                  duration={item.duration}
-                  level={item.level}
-                  imageSrc={item.imageSrc || undefined}
-                  onPress={() => router.push(`/workout/${item.id}`)}
-                />
-              </CardWrapper>
-            )}
-          />
-        </View>
-      </Animated.View>
+        <FlatList
+          data={MOCK_WORKOUTS}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={item => item.id}
+          contentContainerStyle={{
+            paddingHorizontal: spacing.l,
+            gap:               spacing.m,
+          }}
+          renderItem={({ item }) => (
+            <CardWrapper>
+              <WorkoutCard
+                title={item.title}
+                category={item.category}
+                duration={item.duration}
+                level={item.level}
+                imageSrc={item.imageSrc || undefined}
+                onPress={() => router.push(`/workout/${item.id}`)}
+              />
+            </CardWrapper>
+          )}
+        />
+      </View>
 
       {/* ── CTA catálogo ── */}
       <Animated.View entering={FadeInDown.duration(400).delay(240)}>
