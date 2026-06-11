@@ -105,12 +105,18 @@ export default function WorkoutDetailScreen() {
       {/* Meta */}
       <Animated.View entering={FadeInDown.duration(300).delay(120)}>
         <MetaRow>
-          <Badge variant="accent">{workout.category}</Badge>
-          <Badge variant={levelVariant[workout.level] ?? 'default'}>
-            {levelLabel[workout.level] ?? workout.level}
-          </Badge>
+          <MetaItem>
+            <Badge variant="accent">{workout.category}</Badge>
+          </MetaItem>
+          <MetaItem>
+            <Badge variant={levelVariant[workout.level] ?? 'default'}>
+              {levelLabel[workout.level] ?? workout.level}
+            </Badge>
+          </MetaItem>
           <MetaChip>
-            <LucideIcons.Clock size={12} color={theme.foregroundSecondary} />
+            <ChipIcon>
+              <LucideIcons.Clock size={12} color={theme.foregroundSecondary} />
+            </ChipIcon>
             <ChipText $color={theme.foregroundSecondary}>{workout.duration} min</ChipText>
           </MetaChip>
         </MetaRow>
@@ -119,7 +125,7 @@ export default function WorkoutDetailScreen() {
       {/* Título + favorito */}
       <Animated.View entering={FadeInDown.duration(300).delay(180)}>
         <TitleRow>
-          <Text variant="h1" style={{ flex: 1 }}>{workout.title}</Text>
+          <Text variant="h1" style={{ flex: 1, marginRight: spacing.m }}>{workout.title}</Text>
           <FavoriteBtn
             onPress={() => toggleFavorite(workout.id)}
             $bg={isFavorite ? colors.accent : theme.backgroundSolid}
@@ -173,16 +179,25 @@ const BackText = styled.Text<{ $color: string }>`
 
 const MetaRow = styled.View`
   flex-direction: row;
-  align-items:    center;
+  align-items:    flex-start;
   flex-wrap:      wrap;
-  gap:            ${spacing.s}px;
   margin-bottom:  ${spacing.m}px;
 `
 
+const MetaItem = styled.View`
+  margin-right: ${spacing.s}px;
+`
+
+// Altura fija = Badge (md) para alinear con los Badge,
+// que fuerzan alignSelf: 'flex-start' internamente.
 const MetaChip = styled.View`
   flex-direction: row;
   align-items:    center;
-  gap:            ${spacing['2xs']}px;
+  height:         24px;
+`
+
+const ChipIcon = styled.View`
+  margin-right: ${spacing['2xs']}px;
 `
 
 const ChipText = styled.Text<{ $color: string }>`
@@ -195,7 +210,6 @@ const TitleRow = styled.View`
   flex-direction: row;
   align-items:    flex-start;
   justify-content: space-between;
-  gap:            ${spacing.m}px;
   margin-bottom:  ${spacing.l}px;
 `
 
