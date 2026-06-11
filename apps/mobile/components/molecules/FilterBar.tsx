@@ -1,9 +1,9 @@
-import { View, TextInput, Pressable, ScrollView } from 'react-native'
-import styled                                      from '@emotion/native'
+import { View, Text, Pressable, ScrollView }       from 'react-native'
 import * as LucideIcons                            from 'lucide-react-native'
-import { colors, spacing, corners, typeScale }     from '@kore/tokens'
+import { spacing, corners, typeScale, letterSpacing } from '@kore/tokens'
 import { Fonts }                                   from '@/constants/fonts'
 import { useThemeColors }                          from '@/hooks/useThemeColors'
+import { Input }                                   from '@/components/atoms'
 
 export interface FilterItem {
   id:        string
@@ -35,30 +35,18 @@ const FilterBar = ({
   return (
     <View style={{ gap: spacing.m }}>
       {!hideSearch && (
-        <SearchWrapper $borderColor={theme.border} $bg={theme.backgroundCard}>
-          <LucideIcons.Search size={16} color={theme.foregroundTertiary} />
-          <SearchInput
-            value={searchValue}
-            onChangeText={onSearch}
-            placeholder={searchPlaceholder}
-            placeholderTextColor={theme.foregroundTertiary}
-            $color={theme.foreground}
-            returnKeyType="search"
-            autoCapitalize="none"
-            autoCorrect={false}
-            accessibilityLabel="Buscar entrenamientos"
-          />
-          {searchValue.length > 0 && (
-            <Pressable
-              onPress={() => onSearch?.('')}
-              accessibilityRole="button"
-              accessibilityLabel="Limpiar búsqueda"
-              hitSlop={8}
-            >
-              <LucideIcons.X size={14} color={theme.foregroundTertiary} />
-            </Pressable>
-          )}
-        </SearchWrapper>
+        <Input
+          value={searchValue}
+          onChangeText={onSearch}
+          placeholder={searchPlaceholder}
+          returnKeyType="search"
+          autoCapitalize="none"
+          autoCorrect={false}
+          accessibilityLabel="Buscar entrenamientos"
+          leftIcon={<LucideIcons.Search size={16} color={theme.foregroundTertiary} />}
+          clearable
+          onClear={() => onSearch?.('')}
+        />
       )}
 
       {!hideTags && filters.length > 0 && (
@@ -74,11 +62,26 @@ const FilterBar = ({
               accessibilityRole="button"
               accessibilityLabel={`${filter.selected ? 'Quitar' : 'Aplicar'} filtro: ${filter.label}`}
             >
-              <TagChip $selected={!!filter.selected} $accent={colors.accent} $border={theme.border}>
-                <TagLabel $selected={!!filter.selected} $accent={colors.accent} $fg={theme.foregroundSecondary}>
+              <View style={{
+                height:            24,
+                paddingHorizontal: spacing.xs,
+                borderRadius:      corners.xs,
+                borderWidth:       1.5,
+                borderColor:       filter.selected ? theme.strokeAccent : theme.border,
+                backgroundColor:   filter.selected ? theme.accentLight  : theme.backgroundSolid,
+                alignItems:        'center',
+                justifyContent:    'center',
+              }}>
+                <Text style={{
+                  fontFamily:    Fonts.uiSemiBold,
+                  fontSize:      typeScale.mobile.xs,
+                  letterSpacing: letterSpacing.spacious,
+                  textTransform: 'uppercase',
+                  color:         filter.selected ? theme.accentDarkOnSurface : theme.foregroundSecondary,
+                }}>
                   {filter.label}
-                </TagLabel>
-              </TagChip>
+                </Text>
+              </View>
             </Pressable>
           ))}
         </ScrollView>
@@ -86,41 +89,5 @@ const FilterBar = ({
     </View>
   )
 }
-
-// ── Styled ─────────────────────────────────────────────────────────────────
-const SearchWrapper = styled.View<{ $borderColor: string; $bg: string }>`
-  flex-direction:     row;
-  align-items:        center;
-  gap:                ${spacing.s}px;
-  padding-vertical:   ${spacing.s}px;
-  padding-horizontal: ${spacing.m}px;
-  border-radius:      ${corners.m}px;
-  border-width:       0.5px;
-  border-color:       ${({ $borderColor }) => $borderColor};
-  background-color:   ${({ $bg }) => $bg};
-`
-
-const SearchInput = styled.TextInput<{ $color: string }>`
-  flex:        1;
-  font-family: ${Fonts.uiRegular};
-  font-size:   ${typeScale.mobile.m}px;
-  color:       ${({ $color }) => $color};
-  padding:     0;
-`
-
-const TagChip = styled.View<{ $selected: boolean; $accent: string; $border: string }>`
-  padding-vertical:   ${spacing.xs}px;
-  padding-horizontal: ${spacing.m}px;
-  border-radius:      ${corners.xl}px;
-  border-width:       0.5px;
-  border-color:       ${({ $selected, $accent, $border }) => $selected ? $accent : $border};
-  background-color:   ${({ $selected, $accent }) => $selected ? `${$accent}1A` : 'transparent'};
-`
-
-const TagLabel = styled.Text<{ $selected: boolean; $accent: string; $fg: string }>`
-  font-family: ${Fonts.uiRegular};
-  font-size:   ${typeScale.mobile.s}px;
-  color:       ${({ $selected, $accent, $fg }) => $selected ? $accent : $fg};
-`
 
 export default FilterBar

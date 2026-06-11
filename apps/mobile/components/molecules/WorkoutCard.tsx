@@ -155,8 +155,8 @@ const CategoryText = styled.Text`
 
 const TitleText = styled.Text<{ $color: string }>`
   font-family: ${Fonts.displaySemiBold};
-  font-size:   ${typeScale.mobile.xl}px;
-  line-height: ${typeScale.mobile.xl * 1.2}px;
+  font-size:   ${typeScale.mobile['2xl']}px;
+  line-height: ${typeScale.mobile['2xl'] * 1.2}px;
   color:       ${({ $color }) => $color};
 `
 

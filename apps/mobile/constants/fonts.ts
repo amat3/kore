@@ -7,9 +7,10 @@
  */
 export const Fonts = {
   // Cormorant Garamond — display serif
-  displayLight:    'CormorantGaramond_300Light',
-  displayRegular:  'CormorantGaramond_400Regular',
-  displaySemiBold: 'CormorantGaramond_600SemiBold',
+  displayLight:          'CormorantGaramond_300Light',
+  displayRegular:        'CormorantGaramond_400Regular',
+  displaySemiBold:       'CormorantGaramond_600SemiBold',
+  displaySemiBoldItalic: 'CormorantGaramond_600SemiBold_Italic',
 
   // DM Sans — UI sans-serif
   uiLight:         'DMSans_300Light',
