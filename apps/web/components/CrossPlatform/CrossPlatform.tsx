@@ -213,6 +213,7 @@ const CrossPlatform = () => (
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
+          style={{ minWidth: 0 }}
         >
           <BrowserMockup />
         </motion.div>
@@ -788,6 +789,7 @@ const BridgeItem = styled.div<{ $right?: boolean }>`
   display:        flex;
   flex-direction: column;
   gap:            var(--spacing-xs);
+  min-width:      0;
   text-align:     ${({ $right }) => $right ? 'right' : 'left'};
 
   @media (max-width: ${breakpoints.tablet - 1}px) {
@@ -800,6 +802,8 @@ const BridgeLabel = styled(Text)`
 `
 
 const BridgeCode = styled.code`
+  display:       block;
+  width:         100%;
   font-family:   monospace;
   font-size:     var(--scale-xs);
   color:         var(--foreground-primary-on-surface);

@@ -670,6 +670,7 @@ const RadiusBox = styled.div<{ $radius: number }>`
 
 const BordersRow = styled.div`
   display:       flex;
+  flex-wrap:     wrap;
   gap:           var(--spacing-2xl);
   align-items:   center;
   margin-bottom: var(--spacing-m);
