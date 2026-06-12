@@ -21,14 +21,12 @@ import {
   sizing,
   layout,
   typeScale,
-  letterSpacing,
   lightTheme,
-  colorPrimitives,
 } from '@kore/tokens'
 import { Fonts } from '@/constants/fonts'
 import { useThemeColors } from '@/hooks/useThemeColors'
 import { useFavorites } from '@/hooks/useFavorites'
-import { Text, Badge } from '@/components/atoms'
+import { Text, Badge, Button } from '@/components/atoms'
 import type { BadgeVariant } from '@/components/atoms'
 import { useWorkoutDetail } from '@/services/useWorkouts'
 
@@ -90,7 +88,7 @@ export default function WorkoutDetailScreen() {
   }
 
   const isFavorite = favorites.includes(workout.id)
-  const videoWidth  = windowWidth - spacing.l * 2
+  const videoWidth = windowWidth - spacing.l * 2
   const videoHeight = (videoWidth * 9) / 16
 
   return (
@@ -101,7 +99,7 @@ export default function WorkoutDetailScreen() {
           paddingTop: insets.top + spacing.l,
           paddingBottom: insets.bottom + spacing['3xl'],
           paddingHorizontal: layout.mobile.gutter,
-          gap: 32,
+          gap: spacing['l'],
         }}
         showsVerticalScrollIndicator={false}
       >
@@ -211,21 +209,23 @@ export default function WorkoutDetailScreen() {
 
         {/* CTA */}
         <Animated.View entering={FadeInDown.duration(300).delay(300)}>
-          <CTAButton
-            onPress={() => workout.videoUrl && setVideoOpen(true)}
+          <Button
+            variant="solid"
+            size="xl"
+            uppercase
             disabled={!workout.videoUrl}
-            $accent={colors.accent}
-            $disabled={!workout.videoUrl}
-            accessibilityRole="button"
+            onPress={() => setVideoOpen(true)}
             accessibilityLabel="Empezar entrenamiento"
+            leftIcon={
+              <LucideIcons.Play
+                size={16}
+                color={lightTheme.foreground.primaryOnAccent}
+                fill={lightTheme.foreground.primaryOnAccent}
+              />
+            }
           >
-            <LucideIcons.Play
-              size={16}
-              color={lightTheme.foreground.primaryOnAccent}
-              fill={lightTheme.foreground.primaryOnAccent}
-            />
-            <CTAText>Empezar entrenamiento</CTAText>
-          </CTAButton>
+            Empezar entrenamiento
+          </Button>
         </Animated.View>
       </ScrollView>
 
@@ -275,7 +275,8 @@ const MetaRow = styled.View`
   flex-direction: row;
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-bottom: ${spacing.m}px;
+
+  gap: ${spacing.m}px;
 `
 
 const MetaItem = styled.View`
@@ -316,27 +317,6 @@ const FavoriteBtn = styled.Pressable<{ $bg: string; $border: string }>`
   background-color: ${({ $bg }) => $bg};
   border-width: 0.5px;
   border-color: ${({ $border }) => $border};
-`
-
-const CTAButton = styled.Pressable<{ $accent: string; $disabled: boolean }>`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: ${spacing.s}px;
-  padding-vertical: ${spacing.m}px;
-  padding-horizontal: ${spacing['2xl']}px;
-  border-radius: ${corners.full}px;
-  background-color: ${({ $accent, $disabled }) =>
-    $disabled ? colorPrimitives.neutral[400] : $accent};
-  min-height: 52px;
-`
-
-const CTAText = styled.Text`
-  font-family: ${Fonts.uiSemiBold};
-  font-size: ${typeScale.mobile.s}px;
-  color: ${lightTheme.foreground.primaryOnAccent};
-  letter-spacing: ${typeScale.mobile.s * letterSpacing.spacious}px;
-  text-transform: uppercase;
 `
 
 const VideoOverlay = styled.View`

@@ -1,18 +1,19 @@
 import { Pressable, ActivityIndicator, View } from 'react-native'
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
 import { Text }         from './Text'
-import { colors, spacing, corners, typeScale, lightTheme } from '@kore/tokens'
+import { colors, spacing, corners, typeScale, letterSpacing, lightTheme } from '@kore/tokens'
 import { Fonts } from '@/constants/fonts'
 import type { ReactNode } from 'react'
 
 export type ButtonVariant = 'solid' | 'outlined' | 'ghost'
-export type ButtonSize    = 'sm' | 'md' | 'lg'
+export type ButtonSize    = 'sm' | 'md' | 'lg' | 'xl'
 
 export interface ButtonProps {
   variant?:   ButtonVariant
   size?:      ButtonSize
   loading?:   boolean
   disabled?:  boolean
+  uppercase?: boolean
   leftIcon?:  ReactNode
   rightIcon?: ReactNode
   onPress?:   () => void
@@ -21,18 +22,20 @@ export interface ButtonProps {
 }
 
 const sizeStyles = {
-  sm: { paddingVertical: spacing.xs,  paddingHorizontal: spacing.m,  fontSize: typeScale.mobile.s,  minHeight: 36 },
-  md: { paddingVertical: spacing.s,   paddingHorizontal: spacing.l,  fontSize: typeScale.mobile.m,  minHeight: 44 },
-  lg: { paddingVertical: spacing.m,   paddingHorizontal: spacing.xl, fontSize: typeScale.mobile.l,  minHeight: 52 },
+  sm: { paddingVertical: spacing.xs,  paddingHorizontal: spacing.m,   fontSize: typeScale.mobile.s,  minHeight: 36 },
+  md: { paddingVertical: spacing.s,   paddingHorizontal: spacing.l,   fontSize: typeScale.mobile.m,  minHeight: 44 },
+  lg: { paddingVertical: spacing.m,   paddingHorizontal: spacing.xl,  fontSize: typeScale.mobile.l,  minHeight: 52 },
+  xl: { paddingVertical: spacing.m,   paddingHorizontal: spacing['2xl'], fontSize: typeScale.mobile.s, minHeight: 52 },
 }
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export const Button = ({
-  variant  = 'solid',
-  size     = 'md',
-  loading  = false,
-  disabled = false,
+  variant   = 'solid',
+  size      = 'md',
+  loading   = false,
+  disabled  = false,
+  uppercase = false,
   leftIcon,
   rightIcon,
   onPress,
@@ -93,7 +96,14 @@ export const Button = ({
           <Text
             variant="body"
             color={textColor}
-            style={{ fontFamily: Fonts.uiSemiBold, fontSize: sz.fontSize }}
+            style={{
+              fontFamily: Fonts.uiSemiBold,
+              fontSize:   sz.fontSize,
+              ...(uppercase && {
+                textTransform: 'uppercase' as const,
+                letterSpacing: sz.fontSize * letterSpacing.spacious,
+              }),
+            }}
           >
             {children}
           </Text>
