@@ -1,4 +1,6 @@
-import { View, Image, ScrollView, Pressable, Linking, ActivityIndicator } from 'react-native'
+import { useState }                        from 'react'
+import { View, Image, ScrollView, Pressable, Modal, ActivityIndicator } from 'react-native'
+import { WebView }                         from 'react-native-webview'
 import Animated, { FadeInDown }           from 'react-native-reanimated'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useSafeAreaInsets }               from 'react-native-safe-area-context'
@@ -32,6 +34,7 @@ export default function WorkoutDetailScreen() {
 
   const { favorites, toggleFavorite } = useFavorites()
   const { workout, loading, notFound } = useWorkoutDetail(id ?? '')
+  const [videoOpen, setVideoOpen] = useState(false)
 
   if (loading) {
     return (
@@ -50,11 +53,9 @@ export default function WorkoutDetailScreen() {
   }
 
   const isFavorite = favorites.includes(workout.id)
-  const handleVideo = () => {
-    if (workout.videoUrl) Linking.openURL(workout.videoUrl)
-  }
 
   return (
+    <>
     <ScrollView
       style={{ flex: 1, backgroundColor: theme.background }}
       contentContainerStyle={{
@@ -155,7 +156,7 @@ export default function WorkoutDetailScreen() {
       {/* CTA */}
       <Animated.View entering={FadeInDown.duration(300).delay(300)}>
         <CTAButton
-          onPress={handleVideo}
+          onPress={() => workout.videoUrl && setVideoOpen(true)}
           disabled={!workout.videoUrl}
           $accent={colors.accent}
           $disabled={!workout.videoUrl}
@@ -167,6 +168,39 @@ export default function WorkoutDetailScreen() {
         </CTAButton>
       </Animated.View>
     </ScrollView>
+
+    {/* Vídeo */}
+    <Modal
+      visible={videoOpen}
+      transparent
+      animationType="fade"
+      onRequestClose={() => setVideoOpen(false)}
+    >
+      <VideoOverlay>
+        <VideoModalBox>
+          <CloseButton
+            onPress={() => setVideoOpen(false)}
+            accessibilityRole="button"
+            accessibilityLabel="Cerrar vídeo"
+            hitSlop={8}
+          >
+            <LucideIcons.X size={18} color={lightTheme.foreground.primaryOnAccent} />
+          </CloseButton>
+          <VideoWrapper>
+            {workout.videoUrl && (
+              <WebView
+                source={{ uri: `${workout.videoUrl}?autoplay=1` }}
+                style={{ flex: 1, backgroundColor: '#000' }}
+                allowsInlineMediaPlayback
+                mediaPlaybackRequiresUserAction={false}
+                allowsFullscreenVideo
+              />
+            )}
+          </VideoWrapper>
+        </VideoModalBox>
+      </VideoOverlay>
+    </Modal>
+    </>
   )
 }
 
@@ -242,4 +276,37 @@ const CTAText = styled.Text`
   color:          ${lightTheme.foreground.primaryOnAccent};
   letter-spacing: ${typeScale.mobile.s * letterSpacing.spacious}px;
   text-transform: uppercase;
+`
+
+const VideoOverlay = styled.View`
+  flex:             1;
+  align-items:      center;
+  justify-content:  center;
+  padding:          ${spacing.l}px;
+  background-color: ${lightTheme.background.scrimHeavy};
+`
+
+const VideoModalBox = styled.View`
+  width:            100%;
+  border-radius:    ${corners.xl}px;
+  overflow:         hidden;
+  background-color: #000;
+`
+
+const VideoWrapper = styled.View`
+  width:        100%;
+  aspect-ratio: 16 / 9;
+`
+
+const CloseButton = styled.Pressable`
+  position:         absolute;
+  top:              ${spacing.s}px;
+  right:            ${spacing.s}px;
+  z-index:          10;
+  width:            ${sizing['2xl']}px;
+  height:           ${sizing['2xl']}px;
+  border-radius:    ${sizing['2xl'] / 2}px;
+  align-items:      center;
+  justify-content:  center;
+  background-color: rgba(0,0,0,0.6);
 `

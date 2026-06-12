@@ -41,7 +41,7 @@ const variantStyles: Record<TextVariant, object> = {
   overline: {
     fontFamily:    Fonts.uiSemiBold,
     fontSize:      typeScale.mobile.xs,
-    letterSpacing: letterSpacing.spacious,
+    letterSpacing: typeScale.mobile.xs * letterSpacing.spacious,
     lineHeight:    typeScale.mobile.xs * 1.4,
     textTransform: 'uppercase' as const,
   },
