@@ -55,6 +55,7 @@ export default function WorkoutDetailScreen() {
   const { favorites, toggleFavorite } = useFavorites()
   const { workout, loading, notFound } = useWorkoutDetail(id ?? '')
   const [videoOpen, setVideoOpen] = useState(false)
+  const { width: windowWidth } = useWindowDimensions()
 
   if (loading) {
     return (
@@ -89,7 +90,6 @@ export default function WorkoutDetailScreen() {
   }
 
   const isFavorite = favorites.includes(workout.id)
-  const { width: windowWidth } = useWindowDimensions()
   const videoWidth  = windowWidth - spacing.l * 2
   const videoHeight = (videoWidth * 9) / 16
 
