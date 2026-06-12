@@ -166,7 +166,7 @@ export default function ProfileScreen() {
 
 // ── Styled ──────────────────────────────────────────────────────────────────
 const Pad = styled.View`
-  padding-horizontal: ${spacing.l}px;
+  padding-horizontal: ${`${spacing.l}px`};
 `
 
 const AvatarCircle = styled.View<{ $accent: string }>`
@@ -180,50 +180,50 @@ const AvatarCircle = styled.View<{ $accent: string }>`
 
 const AvatarText = styled.Text`
   font-family: ${Fonts.displaySemiBold};
-  font-size:   ${typeScale.mobile['2xl']}px;
+  font-size:   ${`${typeScale.mobile['2xl']}px`};
   color:       ${lightTheme.foreground.primaryOnAccent};
 `
 
 const SectionLabel = styled.Text<{ $color: string }>`
   font-family:    ${Fonts.uiSemiBold};
-  font-size:      ${typeScale.mobile.xs}px;
+  font-size:      ${`${typeScale.mobile.xs}px`};
   letter-spacing: 0.8px;
   text-transform: uppercase;
   color:          ${({ $color }) => $color};
-  margin-bottom:  ${spacing.s}px;
+  margin-bottom:  ${`${spacing.s}px`};
 `
 
 const StatsRow = styled.View`
   flex-direction: row;
-  gap:            ${spacing.m}px;
+  gap:            ${`${spacing.m}px`};
 `
 
 const StatBox = styled.View<{ $border: string }>`
   flex:             1;
-  padding:          ${spacing.m}px;
-  border-radius:    ${corners.m}px;
+  padding:          ${`${spacing.m}px`};
+  border-radius:    ${`${corners.m}px`};
   border-width:     0.5px;
   border-color:     ${({ $border }) => $border};
   align-items:      center;
-  gap:              ${spacing['2xs']}px;
+  gap:              ${`${spacing['2xs']}px`};
 `
 
 const StatValue = styled.Text<{ $color: string }>`
   font-family: ${Fonts.displaySemiBold};
-  font-size:   ${typeScale.mobile['2xl']}px;
+  font-size:   ${`${typeScale.mobile['2xl']}px`};
   color:       ${({ $color }) => $color};
 `
 
 const StatLabel = styled.Text<{ $color: string }>`
   font-family:    ${Fonts.uiRegular};
-  font-size:      ${typeScale.mobile.xs}px;
+  font-size:      ${`${typeScale.mobile.xs}px`};
   letter-spacing: 0.5px;
   text-transform: uppercase;
   color:          ${({ $color }) => $color};
 `
 
 const SettingsCard = styled.View<{ $border: string; $bg: string }>`
-  border-radius:    ${corners.m}px;
+  border-radius:    ${`${corners.m}px`};
   border-width:     0.5px;
   border-color:     ${({ $border }) => $border};
   background-color: ${({ $bg }) => $bg};
@@ -234,7 +234,7 @@ const SettingRow = styled.View<{ $border: string }>`
   flex-direction:      row;
   align-items:         center;
   justify-content:     space-between;
-  padding:             ${spacing.m}px ${spacing.l}px;
+  padding:             ${`${spacing.m}px`} ${`${spacing.l}px`};
   border-bottom-width: 0.5px;
   border-bottom-color: ${({ $border }) => $border};
   min-height:          52px;
@@ -242,19 +242,19 @@ const SettingRow = styled.View<{ $border: string }>`
 
 const SettingLabel = styled.Text<{ $color: string }>`
   font-family: ${Fonts.uiRegular};
-  font-size:   ${typeScale.mobile.m}px;
+  font-size:   ${`${typeScale.mobile.m}px`};
   color:       ${({ $color }) => $color};
 `
 
 const LangToggle = styled.View`
   flex-direction: row;
-  gap:            ${spacing.xs}px;
+  gap:            ${`${spacing.xs}px`};
 `
 
 const LangBtn = styled.Pressable<{ $active: boolean; $accent: string; $border: string }>`
-  padding-vertical:   ${spacing.xs}px;
-  padding-horizontal: ${spacing.m}px;
-  border-radius:      ${corners.s}px;
+  padding-vertical:   ${`${spacing.xs}px`};
+  padding-horizontal: ${`${spacing.m}px`};
+  border-radius:      ${`${corners.s}px`};
   border-width:       1px;
   border-color:       ${({ $active, $accent, $border }) => $active ? $accent : $border};
   background-color:   ${({ $active, $accent }) => $active ? `${$accent}1A` : 'transparent'};
@@ -265,7 +265,7 @@ const LangBtn = styled.Pressable<{ $active: boolean; $accent: string; $border: s
 
 const LangText = styled.Text<{ $active: boolean; $accent: string; $fg: string }>`
   font-family: ${Fonts.uiSemiBold};
-  font-size:   ${typeScale.mobile.s}px;
+  font-size:   ${`${typeScale.mobile.s}px`};
   color:       ${({ $active, $accent, $fg }) => $active ? $accent : $fg};
 `
 
@@ -273,9 +273,9 @@ const LogoutBtn = styled.Pressable<{ $border: string }>`
   flex-direction:   row;
   align-items:      center;
   justify-content:  center;
-  gap:              ${spacing.s}px;
-  padding-vertical: ${spacing.m}px;
-  border-radius:    ${corners.xl}px;
+  gap:              ${`${spacing.s}px`};
+  padding-vertical: ${`${spacing.m}px`};
+  border-radius:    ${`${corners.xl}px`};
   border-width:     1px;
   border-color:     ${lightTheme.stroke.error};
   min-height:       52px;
@@ -283,7 +283,7 @@ const LogoutBtn = styled.Pressable<{ $border: string }>`
 
 const LogoutText = styled.Text`
   font-family:    ${Fonts.uiSemiBold};
-  font-size:      ${typeScale.mobile.m}px;
+  font-size:      ${`${typeScale.mobile.m}px`};
   color:          ${lightTheme.stroke.error};
   letter-spacing: 0.5px;
 `

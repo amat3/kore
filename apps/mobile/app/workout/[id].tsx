@@ -14,15 +14,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as LucideIcons from 'lucide-react-native'
 import styled from '@emotion/native'
-import {
-  colors,
-  spacing,
-  corners,
-  sizing,
-  layout,
-  typeScale,
-  lightTheme,
-} from '@kore/tokens'
+import { colors, spacing, corners, sizing, layout, typeScale, lightTheme } from '@kore/tokens'
 import { Fonts } from '@/constants/fonts'
 import { useThemeColors } from '@/hooks/useThemeColors'
 import { useFavorites } from '@/hooks/useFavorites'
@@ -267,7 +259,7 @@ export default function WorkoutDetailScreen() {
 // ── Styled ─────────────────────────────────────────────────────────────────
 const BackText = styled.Text<{ $color: string }>`
   font-family: ${Fonts.uiSemiBold};
-  font-size: ${typeScale.mobile.s}px;
+  font-size: ${`${typeScale.mobile.s}px`};
   color: ${({ $color }) => $color};
 `
 
@@ -275,12 +267,12 @@ const MetaRow = styled.View`
   flex-direction: row;
   align-items: flex-start;
   flex-wrap: wrap;
-
-  gap: ${spacing.m}px;
+  width: 100%;
+  gap: ${`${spacing.s}px`};
 `
 
 const MetaItem = styled.View`
-  margin-right: ${spacing.s}px;
+  margin-right: ${`${spacing.s}px`};
 `
 
 // Altura fija = Badge (md) para alinear con los Badge,
@@ -292,12 +284,12 @@ const MetaChip = styled.View`
 `
 
 const ChipIcon = styled.View`
-  margin-right: ${spacing['2xs']}px;
+  margin-right: ${`${spacing['2xs']}px`};
 `
 
 const ChipText = styled.Text<{ $color: string }>`
   font-family: ${Fonts.uiSemiBold};
-  font-size: ${typeScale.mobile.xs}px;
+  font-size: ${`${typeScale.mobile.xs}px`};
   color: ${({ $color }) => $color};
 `
 
@@ -305,13 +297,13 @@ const TitleRow = styled.View`
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: ${spacing.l}px;
+  margin-bottom: ${`${spacing.l}px`};
 `
 
 const FavoriteBtn = styled.Pressable<{ $bg: string; $border: string }>`
-  width: ${sizing['3xl']}px;
-  height: ${sizing['3xl']}px;
-  border-radius: ${sizing['3xl'] / 2}px;
+  width: ${`${sizing['3xl']}px`};
+  height: ${`${sizing['3xl']}px`};
+  border-radius: ${`${sizing['3xl'] / 2}px`};
   align-items: center;
   justify-content: center;
   background-color: ${({ $bg }) => $bg};
@@ -323,13 +315,13 @@ const VideoOverlay = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding: ${spacing.l}px;
+  padding: ${`${spacing.l}px`};
   background-color: ${lightTheme.background.scrimHeavy};
 `
 
 const VideoModalBox = styled.View`
   width: 100%;
-  border-radius: ${corners.xl}px;
+  border-radius: ${`${corners.xl}px`};
   overflow: hidden;
   background-color: #000;
 `
@@ -340,12 +332,12 @@ const VideoWrapper = styled.View`
 
 const CloseButton = styled.Pressable`
   position: absolute;
-  top: ${spacing.s}px;
-  right: ${spacing.s}px;
+  top: ${`${spacing.s}px`};
+  right: ${`${spacing.s}px`};
   z-index: 10;
-  width: ${sizing['2xl']}px;
-  height: ${sizing['2xl']}px;
-  border-radius: ${sizing['2xl'] / 2}px;
+  width: ${`${sizing['2xl']}px`};
+  height: ${`${sizing['2xl']}px`};
+  border-radius: ${`${sizing['2xl'] / 2}px`};
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.6);

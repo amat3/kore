@@ -166,26 +166,26 @@ export default function HomeScreen() {
 
 // ── Styled ─────────────────────────────────────────────────────────────────
 const Section = styled.View`
-  padding-horizontal: ${spacing.l}px;
+  padding-horizontal: ${`${spacing.l}px`};
 `
 
 const SectionHeader = styled.View`
   flex-direction:  row;
   align-items:     center;
   justify-content: space-between;
-  margin-bottom:   ${spacing.m}px;
+  margin-bottom:   ${`${spacing.m}px`};
 `
 
 const SectionTitle = styled.Text<{ $color: string }>`
   font-family: ${Fonts.displaySemiBold};
-  font-size:   ${typeScale.mobile.xl}px;
+  font-size:   ${`${typeScale.mobile.xl}px`};
   color:       ${({ $color }) => $color};
-  line-height: ${typeScale.mobile.xl * 1.2}px;
+  line-height: ${`${typeScale.mobile.xl * 1.2}px`};
 `
 
 const DateText = styled.Text<{ $color: string }>`
   font-family: ${Fonts.uiRegular};
-  font-size:   ${typeScale.mobile.s}px;
+  font-size:   ${`${typeScale.mobile.s}px`};
   color:       ${({ $color }) => $color};
 `
 
@@ -200,22 +200,22 @@ const CardWrapper = styled.View`
 
 const LinkText = styled.Text<{ $color: string }>`
   font-family: ${Fonts.uiSemiBold};
-  font-size:   ${typeScale.mobile.s}px;
+  font-size:   ${`${typeScale.mobile.s}px`};
   color:       ${({ $color }) => $color};
 `
 
 const CTAButton = styled.Pressable<{ $accent: string }>`
   align-items:      center;
   justify-content:  center;
-  padding-vertical: ${spacing.m}px;
-  border-radius:    ${corners.xl}px;
+  padding-vertical: ${`${spacing.m}px`};
+  border-radius:    ${`${corners.xl}px`};
   background-color: ${({ $accent }) => $accent};
   min-height:       48px;
 `
 
 const CTAText = styled.Text`
   font-family: ${Fonts.uiSemiBold};
-  font-size:   ${typeScale.mobile.m}px;
+  font-size:   ${`${typeScale.mobile.m}px`};
   color:       ${lightTheme.foreground.primaryOnAccent};
   letter-spacing: 0.3px;
 `

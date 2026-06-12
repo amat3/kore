@@ -146,24 +146,24 @@ const WorkoutCard = ({
 // ── Styled ─────────────────────────────────────────────────────────────────
 const CategoryText = styled.Text`
   font-family:    ${Fonts.uiSemiBold};
-  font-size:      ${typeScale.mobile.xs}px;
+  font-size:      ${`${typeScale.mobile.xs}px`};
   letter-spacing: 1.2px;
   text-transform: uppercase;
   color:          ${colors.accent};
-  line-height:    ${typeScale.mobile.xs * 1.4}px;
+  line-height:    ${`${typeScale.mobile.xs * 1.4}px`};
 `
 
 const TitleText = styled.Text<{ $color: string }>`
   font-family: ${Fonts.displaySemiBold};
-  font-size:   ${typeScale.mobile['2xl']}px;
-  line-height: ${typeScale.mobile['2xl'] * 1.2}px;
+  font-size:   ${`${typeScale.mobile['2xl']}px`};
+  line-height: ${`${typeScale.mobile['2xl'] * 1.2}px`};
   color:       ${({ $color }) => $color};
 `
 
 const MetaText = styled.Text<{ $color: string }>`
   font-family: ${Fonts.uiLight};
-  font-size:   ${typeScale.mobile.s}px;
-  line-height: ${typeScale.mobile.s * 1.4}px;
+  font-size:   ${`${typeScale.mobile.s}px`};
+  line-height: ${`${typeScale.mobile.s * 1.4}px`};
   color:       ${({ $color }) => $color};
 `
 

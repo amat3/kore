@@ -193,34 +193,34 @@ export default function ActivityScreen() {
 
 // ── Styled ─────────────────────────────────────────────────────────────────
 const Pad = styled.View`
-  padding-horizontal: ${spacing.l}px;
+  padding-horizontal: ${`${spacing.l}px`};
 `
 
 const StatsRow = styled.View`
   flex-direction: row;
-  gap:            ${spacing.m}px;
+  gap:            ${`${spacing.m}px`};
   align-items:    center;
 `
 
 const StatBox = styled.View<{ $border: string }>`
   flex:               1;
-  padding:            ${spacing.m}px;
-  border-radius:      ${corners.m}px;
+  padding:            ${`${spacing.m}px`};
+  border-radius:      ${`${corners.m}px`};
   border-width:       0.5px;
   border-color:       ${({ $border }) => $border};
-  gap:                ${spacing['2xs']}px;
+  gap:                ${`${spacing['2xs']}px`};
 `
 
 const StatValue = styled.Text<{ $color: string }>`
   font-family: ${Fonts.displaySemiBold};
-  font-size:   ${typeScale.mobile['2xl']}px;
-  line-height: ${typeScale.mobile['2xl'] * 1.1}px;
+  font-size:   ${`${typeScale.mobile['2xl']}px`};
+  line-height: ${`${typeScale.mobile['2xl'] * 1.1}px`};
   color:       ${({ $color }) => $color};
 `
 
 const StatLabel = styled.Text<{ $color: string }>`
   font-family:    ${Fonts.uiRegular};
-  font-size:      ${typeScale.mobile.xs}px;
+  font-size:      ${`${typeScale.mobile.xs}px`};
   letter-spacing: 0.8px;
   text-transform: uppercase;
   color:          ${({ $color }) => $color};
@@ -228,45 +228,45 @@ const StatLabel = styled.Text<{ $color: string }>`
 
 const SectionTitle = styled.Text<{ $color: string }>`
   font-family:   ${Fonts.displaySemiBold};
-  font-size:     ${typeScale.mobile.xl}px;
+  font-size:     ${`${typeScale.mobile.xl}px`};
   color:         ${({ $color }) => $color};
-  margin-bottom: ${spacing.m}px;
+  margin-bottom: ${`${spacing.m}px`};
 `
 
 const ChartCard = styled.View<{ $border: string; $bg: string }>`
-  border-radius:  ${corners.m}px;
+  border-radius:  ${`${corners.m}px`};
   border-width:   0.5px;
   border-color:   ${({ $border }) => $border};
   background-color: ${({ $bg }) => $bg};
-  padding:        ${spacing.l}px;
+  padding:        ${`${spacing.l}px`};
   align-items:    center;
 `
 
 const MonthLabel = styled.Text<{ $color: string }>`
   font-family:    ${Fonts.uiSemiBold};
-  font-size:      ${typeScale.mobile.xs}px;
+  font-size:      ${`${typeScale.mobile.xs}px`};
   letter-spacing: 0.8px;
   text-transform: uppercase;
   color:          ${({ $color }) => $color};
-  margin-bottom:  ${spacing.s}px;
+  margin-bottom:  ${`${spacing.s}px`};
 `
 
 const SessionRow = styled.View<{ $border: string }>`
   flex-direction: row;
   align-items:    center;
-  padding-vertical: ${spacing.m}px;
+  padding-vertical: ${`${spacing.m}px`};
   border-bottom-width: 0.5px;
   border-bottom-color: ${({ $border }) => $border};
 `
 
 const SessionTitle = styled.Text<{ $color: string }>`
   font-family: ${Fonts.uiRegular};
-  font-size:   ${typeScale.mobile.m}px;
+  font-size:   ${`${typeScale.mobile.m}px`};
   color:       ${({ $color }) => $color};
 `
 
 const SessionMeta = styled.Text<{ $color: string }>`
   font-family: ${Fonts.uiLight};
-  font-size:   ${typeScale.mobile.xs}px;
+  font-size:   ${`${typeScale.mobile.xs}px`};
   color:       ${({ $color }) => $color};
 `

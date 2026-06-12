@@ -134,10 +134,10 @@ const StreakBadge = ({
 const Wrapper = styled.View<{ $bgColor: string }>`
   flex-direction:     row;
   align-items:        center;
-  gap:                ${spacing.xs}px;
-  padding-vertical:   ${spacing.xs}px;
-  padding-horizontal: ${spacing.m}px;
-  border-radius:      ${corners.xl}px;
+  gap:                ${`${spacing.xs}px`};
+  padding-vertical:   ${`${spacing.xs}px`};
+  padding-horizontal: ${`${spacing.m}px`};
+  border-radius:      ${`${corners.xl}px`};
   background-color:   ${({ $bgColor }) => $bgColor};
 `
 
