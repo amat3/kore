@@ -6,7 +6,7 @@ import { useTranslation }               from 'react-i18next'
 import dayjs                            from 'dayjs'
 import 'dayjs/locale/es'
 import styled                           from '@emotion/native'
-import { colors, spacing, corners, typeScale } from '@kore/tokens'
+import { colors, spacing, corners, typeScale, letterSpacing } from '@kore/tokens'
 import { Fonts }                        from '@/constants/fonts'
 import { useThemeColors }               from '@/hooks/useThemeColors'
 import { useAuth }                      from '@/providers/AuthProvider'
@@ -166,9 +166,9 @@ export default function ActivityScreen() {
           ) : (
             grouped.map(group => (
               <View key={group.month} style={{ marginBottom: spacing.m }}>
-                <MonthLabel $color={theme.foregroundTertiary}>
+                <Text variant="overline" color={theme.foregroundTertiary} style={{ marginBottom: spacing.s }}>
                   {group.month.charAt(0).toUpperCase() + group.month.slice(1)}
-                </MonthLabel>
+                </Text>
                 <FlatList
                   data={group.items}
                   keyExtractor={s => s.id}
@@ -221,7 +221,7 @@ const StatValue = styled.Text<{ $color: string }>`
 const StatLabel = styled.Text<{ $color: string }>`
   font-family:    ${Fonts.uiRegular};
   font-size:      ${`${typeScale.mobile.xs}px`};
-  letter-spacing: 0.8px;
+  letter-spacing: ${`${typeScale.mobile.xs * letterSpacing.spacious}px`};
   text-transform: uppercase;
   color:          ${({ $color }) => $color};
 `
@@ -242,14 +242,6 @@ const ChartCard = styled.View<{ $border: string; $bg: string }>`
   align-items:    center;
 `
 
-const MonthLabel = styled.Text<{ $color: string }>`
-  font-family:    ${Fonts.uiSemiBold};
-  font-size:      ${`${typeScale.mobile.xs}px`};
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  color:          ${({ $color }) => $color};
-  margin-bottom:  ${`${spacing.s}px`};
-`
 
 const SessionRow = styled.View<{ $border: string }>`
   flex-direction: row;

@@ -6,7 +6,7 @@ import { useTranslation }           from 'react-i18next'
 import AsyncStorage                 from '@react-native-async-storage/async-storage'
 import * as LucideIcons             from 'lucide-react-native'
 import styled                       from '@emotion/native'
-import { colors, spacing, corners, typeScale, lightTheme } from '@kore/tokens'
+import { colors, spacing, corners, typeScale, letterSpacing, lightTheme } from '@kore/tokens'
 import { Fonts }                    from '@/constants/fonts'
 import { useThemeColors }           from '@/hooks/useThemeColors'
 import { useTheme }                 from '@/providers/ThemeProvider'
@@ -63,7 +63,9 @@ export default function ProfileScreen() {
       {/* Stats */}
       <Animated.View entering={FadeInDown.duration(350).delay(60)}>
         <Pad>
-          <SectionLabel $color={theme.foregroundTertiary}>{t('profile.stats')}</SectionLabel>
+          <Text variant="overline" color={theme.foregroundTertiary} style={{ marginBottom: spacing.s }}>
+            {t('profile.stats')}
+          </Text>
           <StatsRow>
             <StatBox $border={theme.border}>
               {loading
@@ -93,7 +95,9 @@ export default function ProfileScreen() {
       {/* Preferencias */}
       <Animated.View entering={FadeInDown.duration(350).delay(120)}>
         <Pad>
-          <SectionLabel $color={theme.foregroundTertiary}>{t('profile.preferences')}</SectionLabel>
+          <Text variant="overline" color={theme.foregroundTertiary} style={{ marginBottom: spacing.s }}>
+            {t('profile.preferences')}
+          </Text>
           <SettingsCard $border={theme.border} $bg={theme.backgroundCard}>
             {/* Tema oscuro */}
             <SettingRow $border={theme.border}>
@@ -184,15 +188,6 @@ const AvatarText = styled.Text`
   color:       ${lightTheme.foreground.primaryOnAccent};
 `
 
-const SectionLabel = styled.Text<{ $color: string }>`
-  font-family:    ${Fonts.uiSemiBold};
-  font-size:      ${`${typeScale.mobile.xs}px`};
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  color:          ${({ $color }) => $color};
-  margin-bottom:  ${`${spacing.s}px`};
-`
-
 const StatsRow = styled.View`
   flex-direction: row;
   gap:            ${`${spacing.m}px`};
@@ -217,7 +212,7 @@ const StatValue = styled.Text<{ $color: string }>`
 const StatLabel = styled.Text<{ $color: string }>`
   font-family:    ${Fonts.uiRegular};
   font-size:      ${`${typeScale.mobile.xs}px`};
-  letter-spacing: 0.5px;
+  letter-spacing: ${`${typeScale.mobile.xs * letterSpacing.spacious}px`};
   text-transform: uppercase;
   color:          ${({ $color }) => $color};
 `

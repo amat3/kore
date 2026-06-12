@@ -6,11 +6,11 @@ import { useTranslation }                         from 'react-i18next'
 import dayjs                                      from 'dayjs'
 import 'dayjs/locale/es'
 import styled                                     from '@emotion/native'
-import { spacing, colors, corners, typeScale, lightTheme } from '@kore/tokens'
+import { spacing, colors, typeScale } from '@kore/tokens'
 import { Fonts } from '@/constants/fonts'
 import { useAuth }                                from '@/providers/AuthProvider'
 import { useThemeColors }                         from '@/hooks/useThemeColors'
-import { Text }                                   from '@/components/atoms'
+import { Text, Button }                           from '@/components/atoms'
 import { StreakBadge, WorkoutCard }               from '@/components/molecules'
 import type { WorkoutLevel }                      from '@/components/molecules'
 
@@ -150,14 +150,15 @@ export default function HomeScreen() {
       {/* ── CTA catálogo ── */}
       <Animated.View entering={FadeInDown.duration(400).delay(240)}>
         <Section style={{ marginTop: spacing.xl }}>
-          <CTAButton
+          <Button
+            variant="solid"
+            size="xl"
+            uppercase
             onPress={() => router.push('/(tabs)/workouts')}
-            $accent={colors.accent}
-            accessibilityRole="button"
             accessibilityLabel="Ir al catálogo de entrenamientos"
           >
-            <CTAText>Explorar catálogo completo</CTAText>
-          </CTAButton>
+            Explorar catálogo completo
+          </Button>
         </Section>
       </Animated.View>
     </ScrollView>
@@ -202,20 +203,4 @@ const LinkText = styled.Text<{ $color: string }>`
   font-family: ${Fonts.uiSemiBold};
   font-size:   ${`${typeScale.mobile.s}px`};
   color:       ${({ $color }) => $color};
-`
-
-const CTAButton = styled.Pressable<{ $accent: string }>`
-  align-items:      center;
-  justify-content:  center;
-  padding-vertical: ${`${spacing.m}px`};
-  border-radius:    ${`${corners.xl}px`};
-  background-color: ${({ $accent }) => $accent};
-  min-height:       48px;
-`
-
-const CTAText = styled.Text`
-  font-family: ${Fonts.uiSemiBold};
-  font-size:   ${`${typeScale.mobile.m}px`};
-  color:       ${lightTheme.foreground.primaryOnAccent};
-  letter-spacing: 0.3px;
 `
