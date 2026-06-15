@@ -268,12 +268,10 @@ const MetaRow = styled.View`
   align-items: flex-start;
   flex-wrap: wrap;
   width: 100%;
-  gap: ${`${spacing.s}px`};
+  gap: ${`${spacing['2xs']}px`};
 `
 
-const MetaItem = styled.View`
-  margin-right: ${`${spacing.s}px`};
-`
+const MetaItem = styled.View``
 
 // Altura fija = Badge (md) para alinear con los Badge,
 // que fuerzan alignSelf: 'flex-start' internamente.
@@ -297,7 +295,6 @@ const TitleRow = styled.View`
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: ${`${spacing.l}px`};
 `
 
 const FavoriteBtn = styled.Pressable<{ $bg: string; $border: string }>`
