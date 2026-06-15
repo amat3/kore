@@ -92,6 +92,8 @@ export default function RootLayout() {
 | Metro bundle error tras cambiar babel | Cache de Metro desactualizada | `npx expo start --clear` |
 | `Unable to resolve "@/hooks/..."` | `resolver.alias` de Metro no soporta prefijos | Usar `babel-plugin-module-resolver` (ver sección abajo) |
 | `Type 'ColorValue' not assignable to 'string'` en `tabBarIcon` | Expo Router pasa `ColorValue` (no `string`) al `color` de los iconos de tabs | Tipar el prop como `ColorValue` y hacer cast a `string` al pasarlo a Lucide |
+| `npx expo run:android` → "No Android connected device found" tras reiniciar el Mac | `ANDROID_HOME`/`ANDROID_SDK_ROOT` y el PATH a `platform-tools`/`emulator` no persisten entre sesiones de shell si no están en `~/.zshrc` | Añadir a `~/.zshrc`: `export ANDROID_HOME="$HOME/Library/Android/sdk"`, `export ANDROID_SDK_ROOT="$ANDROID_HOME"`, `export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"` |
+| Emulador Android arranca con pantalla en negro (pero `adb shell getprop sys.boot_completed` = 1) | Backend gráfico (OpenGL/Metal) del emulador queda colgado tras un reinicio de macOS | `adb emu kill`, luego relanzar con `emulator -avd <nombre> -gpu swiftshader_indirect -no-snapshot` (renderizado por software) |
 
 ---
 
