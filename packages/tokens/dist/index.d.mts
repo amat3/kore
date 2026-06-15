@@ -336,7 +336,7 @@ declare const letterSpacing: {
 };
 declare const lineHeight: {
     readonly veryDense: 1;
-    readonly dense: 1.1;
+    readonly dense: 1.2;
     readonly moderate: 1.25;
     readonly spacious: 1.5;
     readonly loose: 1.7;
@@ -404,7 +404,7 @@ declare const typeRoles: {
         readonly family: "\"Cormorant Garamond\", Georgia, serif";
         readonly weight: 300;
         readonly scale: "4xl";
-        readonly lineHeight: 1.1;
+        readonly lineHeight: 1.2;
         readonly letterSpacing: -0.02;
         readonly transform: "none";
     };
@@ -412,7 +412,7 @@ declare const typeRoles: {
         readonly family: "\"Cormorant Garamond\", Georgia, serif";
         readonly weight: 600;
         readonly scale: "3xl";
-        readonly lineHeight: 1.1;
+        readonly lineHeight: 1.2;
         readonly letterSpacing: -0.02;
         readonly transform: "none";
     };
@@ -470,6 +470,29 @@ type FontWeight = typeof fontWeight;
 type TypeScale = typeof typeScale;
 type TypeRoles = typeof typeRoles;
 
+declare const colors: {
+    readonly accent: "#B05E3A";
+    readonly accentDark: "#A05232";
+    readonly accentLight: "#F0D9C8";
+    readonly dark: "#1A1A1A";
+    readonly light: "#F7F4F1";
+    readonly error: "#D95F5F";
+    readonly errorDark: "#B02020";
+    readonly success: "#4CAF7D";
+};
+declare const corners: {
+    readonly none: 0;
+    readonly xs: 4;
+    readonly s: 8;
+    readonly m: 12;
+    readonly l: 16;
+    readonly xl: 20;
+    readonly '2xl': 24;
+    readonly full: 9999;
+};
+type Colors = typeof colors;
+type Corners = typeof corners;
+
 type Theme = typeof lightTheme;
 
-export { type Borders, type Breakpoints, type ColorPrimitives, type DarkTheme, type FontFamily, type FontWeight, type LightTheme, type Radius, type Sizing, type Spacing, type Theme, type Tints, type TypeRoles, type TypeScale, borders, breakpoints, colorPrimitives, containers, darkTheme, fontFamily, fontWeight, layout, letterSpacing, lightTheme, lineHeight, radius, sizing, spacing, tints, typeRoles, typeScale, zIndex };
+export { type Borders, type Breakpoints, type ColorPrimitives, type Colors, type Corners, type DarkTheme, type FontFamily, type FontWeight, type LightTheme, type Radius, type Sizing, type Spacing, type Theme, type Tints, type TypeRoles, type TypeScale, borders, breakpoints, colorPrimitives, colors, containers, corners, darkTheme, fontFamily, fontWeight, layout, letterSpacing, lightTheme, lineHeight, radius, sizing, spacing, tints, typeRoles, typeScale, zIndex };

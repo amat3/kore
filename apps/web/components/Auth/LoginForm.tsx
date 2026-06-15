@@ -34,6 +34,7 @@ const LoginForm = () => {
   const [authError, setAuthError]  = useState<string | null>(null)
   const [loading,   setLoading]    = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
+  const [showPassword, setShowPassword]   = useState(false)
 
   const {
     register,
@@ -78,7 +79,7 @@ const LoginForm = () => {
 
         {/* Header */}
         <motion.div variants={fadeUp}>
-          <LogoLink href="/"><KoreWordmark fontSize="var(--scale-2xl)" /></LogoLink>
+          <LogoLink href="/"><KoreWordmark fontSize="var(--scale-3xl)" fontWeight="var(--font-weight-semibold)" /></LogoLink>
           <Title variant="h1">Bienvenida de nuevo</Title>
           <Subtitle variant="body-light">Accede a tus entrenamientos y continúa donde lo dejaste.</Subtitle>
         </motion.div>
@@ -130,17 +131,27 @@ const LoginForm = () => {
           <motion.div variants={fadeUp}>
             <FieldGroup>
               <Label htmlFor="password">Contraseña</Label>
-              <InputField
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                $hasError={!!errors.password}
-                autoComplete="current-password"
-                {...register('password', {
-                  required: 'La contraseña es obligatoria',
-                  minLength: { value: 6, message: 'Mínimo 6 caracteres' },
-                })}
-              />
+              <PasswordField>
+                <InputField
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  $hasError={!!errors.password}
+                  $hasToggle
+                  autoComplete="current-password"
+                  {...register('password', {
+                    required: 'La contraseña es obligatoria',
+                    minLength: { value: 6, message: 'Mínimo 6 caracteres' },
+                  })}
+                />
+                <PasswordToggle
+                  type="button"
+                  onClick={() => setShowPassword(v => !v)}
+                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  <Icon name={showPassword ? 'EyeOff' : 'Eye'} size="sm" color="inherit" />
+                </PasswordToggle>
+              </PasswordField>
               {errors.password && <FieldError variant="caption" as="span">{errors.password.message}</FieldError>}
             </FieldGroup>
           </motion.div>
@@ -284,13 +295,14 @@ const Label = styled.label`
   color:          var(--foreground-secondary-on-surface);
 `
 
-const InputField = styled.input<{ $hasError: boolean }>`
+const InputField = styled.input<{ $hasError: boolean; $hasToggle?: boolean }>`
   width:          100%;
   background:     var(--background-surface-low);
   border:         1.5px solid ${({ $hasError }) =>
     $hasError ? 'var(--stroke-error)' : 'var(--stroke-secondary-on-surface)'};
   border-radius:  var(--radius-s);
   padding:        var(--spacing-m);
+  padding-right:  ${({ $hasToggle }) => $hasToggle ? 'var(--spacing-3xl)' : 'var(--spacing-m)'};
   font-family:    var(--font-family-ui);
   font-size:      var(--scale-m);
   color:          var(--foreground-primary-on-surface);
@@ -303,6 +315,28 @@ const InputField = styled.input<{ $hasError: boolean }>`
     border-color: var(--stroke-accent);
     box-shadow:   0 0 0 3px var(--background-accent-dim);
   }
+`
+
+const PasswordField = styled.div`
+  position: relative;
+`
+
+const PasswordToggle = styled.button`
+  position:        absolute;
+  top:             50%;
+  right:           var(--spacing-s);
+  transform:       translateY(-50%);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  padding:         var(--spacing-2xs);
+  border:          none;
+  background:      none;
+  color:           var(--foreground-tertiary-on-surface);
+  cursor:          pointer;
+  transition:      color 150ms;
+
+  &:hover { color: var(--foreground-secondary-on-surface); }
 `
 
 const FieldError = styled(Text)`

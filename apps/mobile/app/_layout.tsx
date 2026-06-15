@@ -1,0 +1,82 @@
+import { useEffect }               from 'react'
+import { Stack, useRouter, useSegments } from 'expo-router'
+import { SafeAreaProvider }          from 'react-native-safe-area-context'
+import { GestureHandlerRootView }    from 'react-native-gesture-handler'
+import { useFonts }                  from 'expo-font'
+import * as SplashScreen             from 'expo-splash-screen'
+import {
+  CormorantGaramond_300Light,
+  CormorantGaramond_400Regular,
+  CormorantGaramond_600SemiBold,
+  CormorantGaramond_600SemiBold_Italic,
+}                                    from '@expo-google-fonts/cormorant-garamond'
+import {
+  DMSans_300Light,
+  DMSans_400Regular,
+  DMSans_600SemiBold,
+}                                    from '@expo-google-fonts/dm-sans'
+import { AuthProvider, useAuth }     from '@/providers/AuthProvider'
+import { ThemeProvider }             from '@/providers/ThemeProvider'
+import '@/i18n'
+
+SplashScreen.preventAutoHideAsync()
+
+const AuthGuard = () => {
+  const { user, loading } = useAuth()
+  const router            = useRouter()
+  const segments          = useSegments()
+
+  useEffect(() => {
+    if (loading) return
+    const inProtectedGroup = segments[0] === '(tabs)' || segments[0] === 'workout'
+    const inAuthScreen     = segments[0] === 'login' || segments[0] === 'register'
+    if (!user && inProtectedGroup) {
+      router.replace('/login')
+    } else if (user && inAuthScreen) {
+      router.replace('/(tabs)/')
+    }
+  }, [user, loading, segments, router])
+
+  return null
+}
+
+export default function RootLayout() {
+  const [fontsLoaded, fontError] = useFonts({
+    CormorantGaramond_300Light,
+    CormorantGaramond_400Regular,
+    CormorantGaramond_600SemiBold,
+    CormorantGaramond_600SemiBold_Italic,
+    DMSans_300Light,
+    DMSans_400Regular,
+    DMSans_600SemiBold,
+  })
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync()
+    }
+  }, [fontsLoaded, fontError])
+
+  if (!fontsLoaded && !fontError) return null
+
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <AuthGuard />
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="login" />
+              <Stack.Screen name="register" />
+              <Stack.Screen
+                name="workout/[id]"
+                options={{ presentation: 'card', animation: 'slide_from_right' }}
+              />
+            </Stack>
+          </AuthProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
+  )
+}
