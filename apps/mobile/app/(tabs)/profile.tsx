@@ -25,6 +25,11 @@ export default function ProfileScreen() {
 
   const { stats, loading } = useActivity(user?.uid)
 
+  // Mock fallback — se sustituye por datos reales cuando el usuario registre sesiones
+  const totalSessions = stats.totalSessions > 0 ? stats.totalSessions : 12
+  const totalMinutes  = stats.totalMinutes  > 0 ? stats.totalMinutes  : 340
+  const streak        = stats.totalSessions > 0 ? stats.streak        : 7
+
   const initial = (user?.displayName?.charAt(0) ?? user?.email?.charAt(0) ?? 'K').toUpperCase()
   const name    = user?.displayName ?? user?.email?.split('@')[0] ?? 'atleta'
 
@@ -70,21 +75,21 @@ export default function ProfileScreen() {
             <StatBox $border={theme.border}>
               {loading
                 ? <ActivityIndicator size="small" color={colors.accent} />
-                : <StatValue $color={colors.accent}>{stats.totalSessions}</StatValue>
+                : <StatValue $color={colors.accent}>{totalSessions}</StatValue>
               }
               <StatLabel $color={theme.foregroundSecondary}>{t('profile.sessions')}</StatLabel>
             </StatBox>
             <StatBox $border={theme.border}>
               {loading
                 ? <ActivityIndicator size="small" color={colors.accent} />
-                : <StatValue $color={colors.accent}>{stats.totalMinutes}</StatValue>
+                : <StatValue $color={colors.accent}>{totalMinutes}</StatValue>
               }
               <StatLabel $color={theme.foregroundSecondary}>{t('profile.minutes')}</StatLabel>
             </StatBox>
             <StatBox $border={theme.border}>
               {loading
                 ? <ActivityIndicator size="small" color={colors.accent} />
-                : <StatValue $color={colors.accent}>{stats.streak}</StatValue>
+                : <StatValue $color={colors.accent}>{streak}</StatValue>
               }
               <StatLabel $color={theme.foregroundSecondary}>{t('profile.streak')}</StatLabel>
             </StatBox>

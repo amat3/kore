@@ -10,7 +10,7 @@ import { Fonts }                        from '@/constants/fonts'
 import { useThemeColors }               from '@/hooks/useThemeColors'
 import { useAuth }                      from '@/providers/AuthProvider'
 import { Text }                         from '@/components/atoms'
-import { StreakBadge, WeeklyChart }     from '@/components/molecules'
+import { WeeklyChart }                  from '@/components/molecules'
 import { useActivity }                  from '@/services/useActivity'
 import type { Session }                 from '@/services/useActivity'
 
@@ -87,9 +87,11 @@ export default function ActivityScreen() {
               accent={colors.accent}      fg={theme.foreground}
               secondary={theme.foregroundSecondary} border={theme.border}
             />
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <StreakBadge count={streak} variant={streak > 0 ? 'active' : 'inactive'} size="sm" />
-            </View>
+            <StatCard
+              value={String(streak)}      label="racha"
+              accent={colors.accent}      fg={theme.foreground}
+              secondary={theme.foregroundSecondary} border={theme.border}
+            />
           </StatsRow>
         </Pad>
       </Animated.View>
