@@ -1,4 +1,4 @@
-import { ScrollView, View, FlatList, Pressable } from 'react-native'
+import { ScrollView, View, Pressable }            from 'react-native'
 import Animated, { FadeInDown }                  from 'react-native-reanimated'
 import { useRouter }                              from 'expo-router'
 import { useSafeAreaInsets }                      from 'react-native-safe-area-context'
@@ -11,47 +11,11 @@ import { Fonts } from '@/constants/fonts'
 import { useAuth }                                from '@/providers/AuthProvider'
 import { useThemeColors }                         from '@/hooks/useThemeColors'
 import { Text, Button }                           from '@/components/atoms'
-import { StreakBadge, WorkoutCard }               from '@/components/molecules'
-import type { WorkoutLevel }                      from '@/components/molecules'
+import { StreakCard, CategoryCarousel, MotivationalBanner } from '@/components/molecules'
+import { useWorkouts }                            from '@/services/useWorkouts'
+import { useActivity }                            from '@/services/useActivity'
 
 dayjs.locale('es')
-
-// ── Mock data — se reemplazará por Firestore en JUA-72 ────────────────────
-const MOCK_STREAK = 7
-
-const MOCK_WORKOUTS: Array<{
-  id:       string
-  title:    string
-  category: string
-  duration: number
-  level:    WorkoutLevel
-  imageSrc: string
-}> = [
-  {
-    id:       '1',
-    title:    'Fuerza total cuerpo completo',
-    category: 'Fuerza',
-    duration: 45,
-    level:    'intermediate',
-    imageSrc: '',
-  },
-  {
-    id:       '2',
-    title:    'HIIT explosivo',
-    category: 'Cardio',
-    duration: 30,
-    level:    'advanced',
-    imageSrc: '',
-  },
-  {
-    id:       '3',
-    title:    'Yoga matutino',
-    category: 'Flexibilidad',
-    duration: 20,
-    level:    'beginner',
-    imageSrc: '',
-  },
-]
 
 // ── Componente ─────────────────────────────────────────────────────────────
 export default function HomeScreen() {
@@ -66,6 +30,21 @@ export default function HomeScreen() {
     ?? 'atleta'
 
   const today = dayjs().format('dddd, D [de] MMMM')
+
+  const { stats } = useActivity(user?.uid)
+  // Mock fallback — se sustituye por datos reales cuando el usuario registre sesiones
+  const weeklyMinutes = stats.totalSessions > 0 ? stats.weeklyMinutes : [0, 45, 20, 0, 30, 45, 0]
+  const streak        = stats.totalSessions > 0 ? stats.streak        : 7
+
+  const { workouts, categories } = useWorkouts()
+  const categoryItems = categories.map(name => ({
+    name,
+    count: workouts.filter(w => w.category === name).length,
+  }))
+
+  const goToCategory = (category: string) => {
+    router.push({ pathname: '/(tabs)/workouts', params: { category } })
+  }
 
   return (
     <ScrollView
@@ -88,29 +67,26 @@ export default function HomeScreen() {
         </Section>
       </Animated.View>
 
-      {/* ── Racha ── */}
-      <Animated.View entering={FadeInDown.duration(400).delay(80)}>
+      {/* ── Frase motivacional ── */}
+      <Animated.View entering={FadeInDown.duration(400).delay(40)}>
         <Section style={{ marginTop: spacing.xl }}>
-          <SectionHeader>
-            <SectionTitle $color={theme.foreground}>Racha actual</SectionTitle>
-          </SectionHeader>
-          <StreakRow>
-            <StreakBadge
-              count={MOCK_STREAK}
-              variant={MOCK_STREAK > 0 ? 'active' : 'inactive'}
-              label={t('home.streak', { days: '' }).replace(/\d+\s/, '').trim()}
-              size="lg"
-            />
-          </StreakRow>
+          <MotivationalBanner />
         </Section>
       </Animated.View>
 
-      {/* ── Entrenamientos recientes ── */}
-      <View style={{ marginTop: spacing.xl }}>
+      {/* ── Racha ── */}
+      <Animated.View entering={FadeInDown.duration(400).delay(80)}>
+        <Section style={{ marginTop: spacing.xl }}>
+          <StreakCard streak={streak} weeklyMinutes={weeklyMinutes} />
+        </Section>
+      </Animated.View>
+
+      {/* ── Categorías ── */}
+      {categoryItems.length > 0 && (
         <Animated.View entering={FadeInDown.duration(400).delay(160)}>
-          <Section>
+          <Section style={{ marginTop: spacing.xl }}>
             <SectionHeader>
-              <SectionTitle $color={theme.foreground}>Entrenamientos</SectionTitle>
+              <SectionTitle $color={theme.foreground}>{t('home.categoriesTitle')}</SectionTitle>
               <Pressable
                 onPress={() => router.push('/(tabs)/workouts')}
                 accessibilityRole="button"
@@ -120,32 +96,10 @@ export default function HomeScreen() {
                 <LinkText $color={colors.accent}>Ver todo</LinkText>
               </Pressable>
             </SectionHeader>
+            <CategoryCarousel categories={categoryItems} onSelectCategory={goToCategory} />
           </Section>
         </Animated.View>
-
-        <FlatList
-          data={MOCK_WORKOUTS}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={item => item.id}
-          contentContainerStyle={{
-            paddingHorizontal: spacing.l,
-            gap:               spacing.m,
-          }}
-          renderItem={({ item }) => (
-            <CardWrapper>
-              <WorkoutCard
-                title={item.title}
-                category={item.category}
-                duration={item.duration}
-                level={item.level}
-                imageSrc={item.imageSrc || undefined}
-                onPress={() => router.push(`/workout/${item.id}`)}
-              />
-            </CardWrapper>
-          )}
-        />
-      </View>
+      )}
 
       {/* ── CTA catálogo ── */}
       <Animated.View entering={FadeInDown.duration(400).delay(240)}>
@@ -188,15 +142,6 @@ const DateText = styled.Text<{ $color: string }>`
   font-family: ${Fonts.uiRegular};
   font-size:   ${`${typeScale.mobile.s}px`};
   color:       ${({ $color }) => $color};
-`
-
-const StreakRow = styled.View`
-  flex-direction: row;
-  align-items:    center;
-`
-
-const CardWrapper = styled.View`
-  width: 220px;
 `
 
 const LinkText = styled.Text<{ $color: string }>`

@@ -1,7 +1,7 @@
-import { useState, useCallback }            from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { FlatList, View, ActivityIndicator } from 'react-native'
 import Animated, { FadeIn }                 from 'react-native-reanimated'
-import { useRouter }                         from 'expo-router'
+import { useRouter, useLocalSearchParams }   from 'expo-router'
 import { useSafeAreaInsets }                 from 'react-native-safe-area-context'
 import { useTranslation }                    from 'react-i18next'
 import { spacing, colors, layout }           from '@kore/tokens'
@@ -19,8 +19,16 @@ export default function WorkoutsScreen() {
   const router = useRouter()
   const { t }  = useTranslation()
 
+  const { category: categoryParam } = useLocalSearchParams<{ category?: string }>()
+
   const [search,           setSearch]           = useState('')
-  const [activeCategories, setActiveCategories] = useState<string[]>([])
+  const [activeCategories, setActiveCategories] = useState<string[]>(
+    categoryParam ? [categoryParam] : []
+  )
+
+  useEffect(() => {
+    if (categoryParam) setActiveCategories([categoryParam])
+  }, [categoryParam])
 
   const { workouts, loading, error, categories } = useWorkouts({
     search,

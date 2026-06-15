@@ -1,6 +1,5 @@
 import { ScrollView, View, FlatList }  from 'react-native'
 import Animated, { FadeInDown }        from 'react-native-reanimated'
-import Svg, { Rect, Text as SvgText }  from 'react-native-svg'
 import { useSafeAreaInsets }            from 'react-native-safe-area-context'
 import { useTranslation }               from 'react-i18next'
 import dayjs                            from 'dayjs'
@@ -11,54 +10,11 @@ import { Fonts }                        from '@/constants/fonts'
 import { useThemeColors }               from '@/hooks/useThemeColors'
 import { useAuth }                      from '@/providers/AuthProvider'
 import { Text }                         from '@/components/atoms'
-import { StreakBadge }                  from '@/components/molecules'
+import { StreakBadge, WeeklyChart }     from '@/components/molecules'
 import { useActivity }                  from '@/services/useActivity'
 import type { Session }                 from '@/services/useActivity'
 
 dayjs.locale('es')
-
-const DAYS = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
-
-// ── Gráfica semanal ────────────────────────────────────────────────────────
-const WeeklyChart = ({ data, accent, fg, border }: {
-  data:   number[]
-  accent: string
-  fg:     string
-  border: string
-}) => {
-  const BAR_W  = 28
-  const GAP    = 10
-  const HEIGHT = 80
-  const max    = Math.max(...data, 1)
-
-  return (
-    <Svg width={(BAR_W + GAP) * 7 - GAP} height={HEIGHT + 24}>
-      {data.map((val, i) => {
-        const barH = Math.max((val / max) * HEIGHT, val > 0 ? 4 : 2)
-        const x    = i * (BAR_W + GAP)
-        const y    = HEIGHT - barH
-        return (
-          <React.Fragment key={i}>
-            <Rect
-              x={x} y={y} width={BAR_W} height={barH}
-              rx={4} fill={val > 0 ? accent : border}
-              opacity={val > 0 ? 1 : 0.4}
-            />
-            <SvgText
-              x={x + BAR_W / 2} y={HEIGHT + 16}
-              textAnchor="middle"
-              fontSize={10}
-              fontFamily={Fonts.uiRegular}
-              fill={fg}
-            >
-              {DAYS[i]}
-            </SvgText>
-          </React.Fragment>
-        )
-      })}
-    </Svg>
-  )
-}
 
 // ── Tarjeta de stat ────────────────────────────────────────────────────────
 const StatCard = ({ value, label, accent, fg, secondary, border }: {
@@ -86,8 +42,6 @@ const SessionItem = ({ item, border, fg, secondary }: {
 )
 
 // ── Componente principal ───────────────────────────────────────────────────
-import React from 'react'
-
 export default function ActivityScreen() {
   const { user }  = useAuth()
   const theme     = useThemeColors()
