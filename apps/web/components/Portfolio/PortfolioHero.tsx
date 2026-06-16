@@ -127,29 +127,32 @@ const FloatingToggle = styled.div`
 const HeroGrid = styled.div`
   display:        flex;
   flex-direction: column;
-  gap:            var(--spacing-2xl);
+  gap:            var(--spacing-xl);
 
   @media (min-width: ${breakpoints.desktop}px) {
-    flex-direction:  row;
-    align-items:     center;
-    gap:             var(--spacing-3xl);
+    flex-direction: row;
+    align-items:    flex-start;
+    gap:            var(--spacing-3xl);
   }
 `
 
 const TextCol = styled.div`
-  flex: 1.1;
+  flex:      1.1;
   min-width: 0;
+  order:     1;
 `
 
 const VisualCol = styled.div`
   flex:            1;
   display:         flex;
   justify-content: center;
-  align-items:     center;
+  align-items:     flex-start;
+  order:           0;
 
-  @media (max-width: ${breakpoints.desktop - 1}px) {
-    max-height: 340px;
-    overflow:   hidden;
+  @media (min-width: ${breakpoints.desktop}px) {
+    position:  sticky;
+    top:       calc(56px + var(--spacing-xl));
+    order:     2;
   }
 `
 
