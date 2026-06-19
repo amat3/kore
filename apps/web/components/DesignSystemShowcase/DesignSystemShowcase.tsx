@@ -106,14 +106,6 @@ const DesignSystemShowcase = () => {
               Storybook
             </StorybookLink>
 
-            <GlassLink
-              href="https://main--6a1f429ec79df80605844468.chromatic.com/?path=/story/kore-atoms-card--glass-on-scene"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon name="Sparkles" size="xs" color="inherit" />
-              Glass Identity
-            </GlassLink>
           </HeaderActions>
         </HeadingRow>
 
@@ -444,28 +436,6 @@ const StorybookLink = styled.a`
   }
 `
 
-const GlassLink = styled.a`
-  display:                  flex;
-  align-items:              center;
-  gap:                      var(--spacing-xs);
-  padding:                  var(--spacing-xs) var(--spacing-m);
-  border-radius:            var(--radius-full);
-  border:                   1px solid var(--stroke-glass);
-  background:               var(--background-glass-warm);
-  backdrop-filter:          blur(var(--blur-soft));
-  -webkit-backdrop-filter:  blur(var(--blur-soft));
-  color:                    var(--foreground-primary-on-surface);
-  font-family:              var(--font-family-ui);
-  font-size:                var(--scale-s);
-  font-weight:              var(--font-weight-semibold);
-  text-decoration:          none;
-  transition:               background 150ms, border-color 150ms, box-shadow 150ms;
-  &:hover {
-    border-color: var(--stroke-glass-glow);
-    box-shadow:   var(--shadow-glass-sm);
-    background:   var(--background-glass-surface);
-  }
-`
 
 const GlassCanvas = styled.div`
   display:          flex;
