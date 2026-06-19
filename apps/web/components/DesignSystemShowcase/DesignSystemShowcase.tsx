@@ -98,7 +98,7 @@ const DesignSystemShowcase = () => {
             </ThemeToggle>
 
             <StorybookLink
-              href="https://6a1f429ec79df80605844468-jlgixgzjns.chromatic.com"
+              href="https://www.chromatic.com/library?appId=6a1f429ec79df80605844468&branch=main"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -107,7 +107,7 @@ const DesignSystemShowcase = () => {
             </StorybookLink>
 
             <GlassLink
-              href="https://6a1f429ec79df80605844468-jlgixgzjns.chromatic.com/?path=/story/kore-atoms-card--glass-on-scene"
+              href="https://main--6a1f429ec79df80605844468.chromatic.com/?path=/story/kore-atoms-card--glass-on-scene"
               target="_blank"
               rel="noopener noreferrer"
             >
