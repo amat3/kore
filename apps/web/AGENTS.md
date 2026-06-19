@@ -484,3 +484,39 @@ const Subtitle = styled(Text)`
 **Por qué:** el padre controla el espaciado, no cada hijo individualmente. Más predecible, más fácil de mantener y sin márgenes colapsados.
 
 **Excepción:** `margin-inline: auto` para centrar un bloque — no tiene equivalente directo con flex/gap.
+
+---
+
+## Storybook / Chromatic
+
+### Chromatic NO se autodespliega con push a main
+
+Vercel redespliega `apps/web` automáticamente, pero Chromatic **no tiene integración CI**. Hay que lanzarlo manualmente:
+
+```bash
+cd packages/ui-web
+npm run chromatic   # script añadido en packages/ui-web/package.json
+```
+
+### URLs de Chromatic
+
+| Tipo | Formato | Cuándo usar |
+|------|---------|-------------|
+| Permalink branch | `https://main--6a1f429ec79df80605844468.chromatic.com` | Enlace en portfolio — siempre apunta al último build de main |
+| Build específico | `https://6a1f429ec79df80605844468-{buildHash}.chromatic.com` | Solo si necesitas pinear una versión concreta |
+| Chromatic Library | `https://www.chromatic.com/library?appId=6a1f429ec79df80605844468&branch=main` | Vista de galería de componentes en Chromatic |
+
+El permalink de branch (`main--{appId}`) **solo funciona una vez que existe al menos un build en esa branch**. Antes del primer build da 404.
+
+### Deep-link a una story concreta
+
+```
+https://main--6a1f429ec79df80605844468.chromatic.com/?path=/story/kore-atoms-card--glass-on-scene
+```
+
+El parámetro `?path=/story/{story-id}` funciona en el viewer de Storybook. El story ID sigue el patrón `{title-kebab}--{export-kebab}`:
+- `KORE/Atoms/Card` + `GlassOnScene` → `kore-atoms-card--glass-on-scene`
+
+### App ID de Chromatic
+
+`6a1f429ec79df80605844468` — necesario para construir todas las URLs anteriores.
