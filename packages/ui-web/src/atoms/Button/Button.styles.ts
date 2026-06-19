@@ -44,6 +44,32 @@ export const variantStyles = {
     }
   `,
 
+  glass: css`
+    background-color:        var(--background-glass-warm);
+    backdrop-filter:         blur(var(--blur-soft));
+    -webkit-backdrop-filter: blur(var(--blur-soft));
+    border:                  1px solid var(--stroke-glass);
+    color:                   var(--foreground-primary-on-surface);
+    transition:              background-color 150ms ease, border-color 150ms ease,
+                             box-shadow 150ms ease, opacity 150ms ease, transform 150ms ease;
+
+    &:hover:not(:disabled) {
+      background-color: var(--background-glass-surface);
+      border-color:     var(--stroke-glass-glow);
+      box-shadow:       var(--shadow-glass-sm);
+    }
+    &:active:not(:disabled) {
+      background-color: var(--background-glass-warm);
+      border-color:     var(--stroke-glass);
+      box-shadow:       none;
+      transform:        scale(0.98);
+    }
+
+    @supports not (backdrop-filter: blur(1px)) {
+      background: color-mix(in srgb, var(--background-glass-surface), var(--background-glass-warm) 60%);
+    }
+  `,
+
 } as const
 
 // ── Tamaños ───────────────────────────────────────────────────────────────

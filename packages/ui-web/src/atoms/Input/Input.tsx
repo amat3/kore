@@ -12,6 +12,7 @@ import {
   successTextStyles,
   stateStyles,
   sizeStyles,
+  glassFieldStyles,
   InputState,
   InputSize,
 } from './Input.styles'
@@ -29,6 +30,8 @@ export interface InputProps
   clearable?:    boolean
   onClear?:      () => void
   fullWidth?:    boolean
+  /** Activa superficie glass (backdrop-filter + bordes terracota) */
+  glass?:        boolean
 }
 
 const Input = ({
@@ -43,6 +46,7 @@ const Input = ({
   clearable  = false,
   onClear,
   fullWidth  = true,
+  glass      = false,
   disabled,
   id,
   value,
@@ -86,7 +90,7 @@ const Input = ({
         </LabelStyled>
       )}
 
-      <FieldStyled $state={resolvedState} $size={size}>
+      <FieldStyled $state={resolvedState} $size={size} $glass={glass}>
 
         {leftIcon && (
           <span className="kore-input-icon" aria-hidden="true">
@@ -185,10 +189,11 @@ const LabelStyled = styled.label<{ $size: InputSize; $state: InputState }>`
   };
 `
 
-const FieldStyled = styled.div<{ $state: InputState; $size: InputSize }>`
+const FieldStyled = styled.div<{ $state: InputState; $size: InputSize; $glass: boolean }>`
   ${baseFieldStyles}
   ${({ $state }) => stateStyles[$state]}
   ${({ $size  }) => sizeStyles[$size]}
+  ${({ $glass }) => $glass && glassFieldStyles}
 `
 
 const HelperTextStyled  = styled.p`${helperStyles}`

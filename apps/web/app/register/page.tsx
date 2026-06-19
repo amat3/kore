@@ -1,4 +1,5 @@
-import RegisterForm from '@/components/Auth/RegisterForm'
+import RegisterForm  from '@/components/Auth/RegisterForm'
+import GlassScene    from '@/components/GlassScene/GlassScene'
 
 export const metadata = {
   title: 'Crear cuenta — KORE',
@@ -7,14 +8,18 @@ export const metadata = {
 export default function RegisterPage() {
   return (
     <main style={{
+      position:        'relative',
       minHeight:       '100svh',
       display:         'flex',
       alignItems:      'center',
       justifyContent:  'center',
-      backgroundColor: 'var(--background-surface-low)',
       padding:         '1rem',
+      zIndex:          1,
     }}>
-      <RegisterForm />
+      <GlassScene position="fixed" />
+      <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+        <RegisterForm />
+      </div>
     </main>
   )
 }

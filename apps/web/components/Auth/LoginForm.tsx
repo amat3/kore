@@ -204,10 +204,20 @@ const GoogleIcon = () => (
 
 // ── Styled ────────────────────────────────────────────────────────────────
 const Wrapper = styled.div`
-  width:          100%;
-  max-width:      420px;
-  margin:         0 auto;
-  padding:        var(--spacing-2xl) var(--spacing-l);
+  width:                    100%;
+  max-width:                420px;
+  margin:                   0 auto;
+  padding:                  var(--spacing-2xl) var(--spacing-l);
+  background:               var(--background-glass-surface);
+  backdrop-filter:          blur(var(--blur-medium));
+  -webkit-backdrop-filter:  blur(var(--blur-medium));
+  border:                   1px solid var(--stroke-glass);
+  box-shadow:               var(--shadow-glass-md), var(--shadow-glass-inset);
+  border-radius:            var(--corners-default-card);
+
+  @supports not (backdrop-filter: blur(1px)) {
+    background: color-mix(in srgb, var(--background-glass-surface), var(--background-glass-warm) 40%);
+  }
 `
 
 const LogoLink = styled(Link)`
@@ -228,26 +238,29 @@ const Subtitle = styled(Text)`
 `
 
 const GoogleButton = styled.button`
-  display:         flex;
-  align-items:     center;
-  justify-content: center;
-  gap:             var(--spacing-s);
-  width:           100%;
-  padding:         var(--spacing-m);
-  border-radius:   var(--radius-full);
-  border:          1.5px solid var(--stroke-secondary-on-surface);
-  background:      var(--background-surface-solid);
-  color:           var(--foreground-primary-on-surface);
-  font-family:     var(--font-family-ui);
-  font-size:       var(--scale-s);
-  font-weight:     var(--font-weight-semibold);
-  cursor:          pointer;
-  transition:      border-color 150ms, background 150ms;
-  margin-bottom:   var(--spacing-l);
+  display:                  flex;
+  align-items:              center;
+  justify-content:          center;
+  gap:                      var(--spacing-s);
+  width:                    100%;
+  padding:                  var(--spacing-m);
+  border-radius:            var(--radius-full);
+  border:                   1.5px solid var(--stroke-glass);
+  background:               var(--background-glass-warm);
+  backdrop-filter:          blur(var(--blur-soft));
+  -webkit-backdrop-filter:  blur(var(--blur-soft));
+  color:                    var(--foreground-primary-on-surface);
+  font-family:              var(--font-family-ui);
+  font-size:                var(--scale-s);
+  font-weight:              var(--font-weight-semibold);
+  cursor:                   pointer;
+  transition:               border-color 150ms, background 150ms, box-shadow 150ms;
+  margin-bottom:            var(--spacing-l);
 
   &:hover:not(:disabled) {
-    border-color: var(--stroke-accent);
-    background:   var(--background-action-hover);
+    border-color: var(--stroke-glass-glow);
+    background:   var(--background-glass-surface);
+    box-shadow:   var(--shadow-glass-sm);
   }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 `
@@ -296,24 +309,29 @@ const Label = styled.label`
 `
 
 const InputField = styled.input<{ $hasError: boolean; $hasToggle?: boolean }>`
-  width:          100%;
-  background:     var(--background-surface-low);
-  border:         1.5px solid ${({ $hasError }) =>
-    $hasError ? 'var(--stroke-error)' : 'var(--stroke-secondary-on-surface)'};
-  border-radius:  var(--radius-s);
-  padding:        var(--spacing-m);
-  padding-right:  ${({ $hasToggle }) => $hasToggle ? 'var(--spacing-3xl)' : 'var(--spacing-m)'};
-  font-family:    var(--font-family-ui);
-  font-size:      var(--scale-m);
-  color:          var(--foreground-primary-on-surface);
-  outline:        none;
-  transition:     border-color 150ms, box-shadow 150ms;
-  box-sizing:     border-box;
+  width:                    100%;
+  background:               var(--background-glass-surface);
+  backdrop-filter:          blur(var(--blur-soft));
+  -webkit-backdrop-filter:  blur(var(--blur-soft));
+  border:                   1.5px solid ${({ $hasError }) =>
+    $hasError ? 'var(--stroke-error)' : 'var(--stroke-glass-subtle)'};
+  border-radius:            var(--radius-s);
+  padding:                  var(--spacing-m);
+  padding-right:            ${({ $hasToggle }) => $hasToggle ? 'var(--spacing-3xl)' : 'var(--spacing-m)'};
+  font-family:              var(--font-family-ui);
+  font-size:                var(--scale-m);
+  color:                    var(--foreground-primary-on-surface);
+  outline:                  none;
+  transition:               border-color 150ms, box-shadow 150ms;
+  box-sizing:               border-box;
 
   &::placeholder { color: var(--foreground-tertiary-on-surface); }
   &:focus {
-    border-color: var(--stroke-accent);
-    box-shadow:   0 0 0 3px var(--background-accent-dim);
+    border-color: ${({ $hasError }) => $hasError ? 'var(--stroke-error)' : 'var(--stroke-glass)'};
+    box-shadow:   ${({ $hasError }) =>
+      $hasError
+        ? '0 0 0 3px var(--background-error-dim)'
+        : '0 0 0 3px var(--stroke-glass-glow)'};
   }
 `
 

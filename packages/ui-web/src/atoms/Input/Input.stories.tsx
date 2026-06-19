@@ -228,6 +228,39 @@ export const LoginForm: Story = {
   ),
 }
 
+// ── Glass ─────────────────────────────────────────────────────────────────
+export const GlassField: Story = {
+  name: 'Glass — campo individual',
+  args: {
+    label:       'Email',
+    placeholder: 'tu@email.com',
+    type:        'email',
+    glass:       true,
+  },
+}
+
+/** Formulario glass completo sobre escena terracota — contexto real de uso en /login */
+export const GlassOnScene: Story = {
+  name: 'Glass — formulario sobre escena',
+  parameters: { controls: { disable: true } },
+  decorators: [
+    Story => (
+      <div style={{
+        background: 'linear-gradient(135deg, var(--brand-terracota) 0%, var(--brand-obsidian) 55%, var(--brand-terracota-dark) 100%)',
+        padding: 40, borderRadius: 16, maxWidth: 400,
+      }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Input label="Email"      type="email"    placeholder="tu@email.com"  glass leftIcon={<MailIcon />} />
+      <Input label="Contraseña" type="password" placeholder="••••••••"       glass leftIcon={<LockIcon />} />
+    </div>
+  ),
+}
+
 // ── Todos los estados ─────────────────────────────────────────────────────
 export const AllStates: Story = {
   name: 'Todos los estados',

@@ -294,7 +294,7 @@ const DesignSystemShowcase = () => {
           {[
             { num: '15', label: 'Componentes' },
             { num: '2', label: 'Packages' },
-            { num: '167', label: 'CSS vars' },
+            { num: '190', label: 'CSS vars' },
             { num: '100%', label: 'TypeScript' },
           ].map((stat) => (
             <StatItem key={stat.label}>

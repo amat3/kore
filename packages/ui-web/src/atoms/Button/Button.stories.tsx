@@ -7,7 +7,7 @@ const meta: Meta<typeof Button> = {
   tags:      ['autodocs'],
   parameters: { layout: 'centered' },
   argTypes: {
-    variant:   { control: 'select', options: ['solid', 'outlined', 'ghost'] },
+    variant:   { control: 'select', options: ['solid', 'outlined', 'ghost', 'glass'] },
     size:      { control: 'select', options: ['sm', 'md', 'lg'] },
     width:     { control: 'select', options: ['hug', 'full'] },
     isLoading: { control: 'boolean' },
@@ -19,10 +19,28 @@ const meta: Meta<typeof Button> = {
 export default meta
 type Story = StoryObj<typeof Button>
 
-// ── Variantes
+// ── Variantes base
 export const Solid:    Story = { args: { variant: 'solid'    } }
 export const Outlined: Story = { args: { variant: 'outlined' } }
 export const Ghost:    Story = { args: { variant: 'ghost'    } }
+
+// ── Glass
+export const Glass: Story = { args: { variant: 'glass' } }
+
+/** Variante glass sobre escena terracota — contexto real de uso */
+export const GlassOnScene: Story = {
+  args: { variant: 'glass' },
+  decorators: [
+    Story => (
+      <div style={{
+        background: 'linear-gradient(135deg, var(--brand-terracota) 0%, var(--brand-obsidian) 55%, var(--brand-terracota-dark) 100%)',
+        padding: 40, borderRadius: 16, display: 'flex', gap: 12, flexWrap: 'wrap' as const,
+      }}>
+        <Story />
+      </div>
+    ),
+  ],
+}
 
 // ── Tamaños
 export const Small:  Story = { args: { size: 'sm' } }
@@ -55,6 +73,17 @@ export const AllVariants: Story = {
           <Button variant={variant} disabled>Disabled</Button>
         </div>
       ))}
+      <div
+        style={{
+          display: 'flex', gap: 12, alignItems: 'center', padding: 20, borderRadius: 12,
+          background: 'linear-gradient(135deg, var(--brand-terracota) 0%, var(--brand-obsidian) 100%)',
+        }}
+      >
+        {(['sm', 'md', 'lg'] as const).map(size => (
+          <Button key={size} variant="glass" size={size}>glass {size}</Button>
+        ))}
+        <Button variant="glass" disabled>Disabled</Button>
+      </div>
     </div>
   ),
 }

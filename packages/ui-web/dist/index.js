@@ -317,6 +317,31 @@ var variantStyles2 = {
     &:active:not(:disabled) {
       background-color: color-mix(in srgb, var(--background-accent-dim), var(--background-accent-solid) 15%);
     }
+  `,
+  glass: import_react4.css`
+    background-color:        var(--background-glass-warm);
+    backdrop-filter:         blur(var(--blur-soft));
+    -webkit-backdrop-filter: blur(var(--blur-soft));
+    border:                  1px solid var(--stroke-glass);
+    color:                   var(--foreground-primary-on-surface);
+    transition:              background-color 150ms ease, border-color 150ms ease,
+                             box-shadow 150ms ease, opacity 150ms ease, transform 150ms ease;
+
+    &:hover:not(:disabled) {
+      background-color: var(--background-glass-surface);
+      border-color:     var(--stroke-glass-glow);
+      box-shadow:       var(--shadow-glass-sm);
+    }
+    &:active:not(:disabled) {
+      background-color: var(--background-glass-warm);
+      border-color:     var(--stroke-glass);
+      box-shadow:       none;
+      transform:        scale(0.98);
+    }
+
+    @supports not (backdrop-filter: blur(1px)) {
+      background: color-mix(in srgb, var(--background-glass-surface), var(--background-glass-warm) 60%);
+    }
   `
 };
 var sizeStyles = {
@@ -463,6 +488,17 @@ var variantStyles3 = {
     background-color: var(--background-accent-solid);
     color:            var(--foreground-primary-on-accent);
     border:           1px solid transparent;
+  `,
+  glass: import_react5.css`
+    background-color:        var(--background-glass-surface);
+    backdrop-filter:         blur(var(--blur-soft));
+    -webkit-backdrop-filter: blur(var(--blur-soft));
+    border:                  1px solid var(--stroke-glass-subtle);
+    color:                   var(--foreground-primary-on-surface);
+
+    @supports not (backdrop-filter: blur(1px)) {
+      background: color-mix(in srgb, var(--background-glass-surface), var(--background-glass-warm) 50%);
+    }
   `
 };
 var sizeStyles2 = {
@@ -722,6 +758,24 @@ var successTextStyles = import_react6.css`
   ${helperStyles}
   color: var(--foreground-success-on-surface);
 `;
+var glassFieldStyles = import_react6.css`
+  background-color:        var(--background-glass-surface);
+  backdrop-filter:         blur(var(--blur-soft));
+  -webkit-backdrop-filter: blur(var(--blur-soft));
+  border-color:            var(--stroke-glass-subtle);
+
+  &:hover {
+    border-color: var(--stroke-glass);
+  }
+  &:focus-within {
+    border-color: var(--stroke-glass);
+    box-shadow:   0 0 0 3px var(--stroke-glass-glow);
+  }
+
+  @supports not (backdrop-filter: blur(1px)) {
+    background: color-mix(in srgb, var(--background-glass-surface), var(--background-glass-warm) 40%);
+  }
+`;
 
 // src/atoms/Input/Input.tsx
 var import_jsx_runtime7 = require("react/jsx-runtime");
@@ -737,6 +791,7 @@ var Input = ({
   clearable = false,
   onClear,
   fullWidth = true,
+  glass = false,
   disabled,
   id,
   value,
@@ -771,7 +826,7 @@ var Input = ({
         children: label
       }
     ),
-    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(FieldStyled, { $state: resolvedState, $size: size, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(FieldStyled, { $state: resolvedState, $size: size, $glass: glass, children: [
       leftIcon && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "kore-input-icon", "aria-hidden": "true", children: leftIcon }),
       /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
         "input",
@@ -841,6 +896,7 @@ var FieldStyled = import_styled5.default.div`
   ${baseFieldStyles}
   ${({ $state }) => stateStyles[$state]}
   ${({ $size }) => sizeStyles3[$size]}
+  ${({ $glass }) => $glass && glassFieldStyles}
 `;
 var HelperTextStyled = import_styled5.default.p`${helperStyles}`;
 var ErrorTextStyled = import_styled5.default.p`${errorTextStyles}`;
@@ -1352,7 +1408,7 @@ var baseStyles = import_react11.css`
   border:           0.5px solid var(--stroke-secondary-on-surface);
   background:       var(--background-surface-low);
   width:            100%;
-  transition:       border-color 200ms ease, transform 200ms ease;
+  transition:       border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
 `;
 var interactiveStyles = import_react11.css`
   cursor: pointer;
@@ -1375,8 +1431,43 @@ var interactiveStyles = import_react11.css`
     outline-offset: 2px;
   }
 `;
+var glassStyles = import_react11.css`
+  background:               var(--background-glass-surface);
+  backdrop-filter:          blur(var(--blur-medium));
+  -webkit-backdrop-filter:  blur(var(--blur-medium));
+  border:                   1px solid var(--stroke-glass);
+  box-shadow:               var(--shadow-glass-md), var(--shadow-glass-inset);
+
+  @supports not (backdrop-filter: blur(1px)) {
+    background: color-mix(in srgb, var(--background-glass-surface), var(--background-glass-warm) 40%);
+  }
+`;
+var glassInteractiveStyles = import_react11.css`
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--stroke-glass-glow);
+      box-shadow:   var(--shadow-glass-lg), var(--shadow-glass-inset);
+      transform:    translateY(-2px);
+    }
+  }
+
+  &:active {
+    transform:    scale(0.99);
+    border-color: var(--stroke-glass);
+    box-shadow:   var(--shadow-glass-sm), var(--shadow-glass-inset);
+  }
+
+  &:focus-visible {
+    outline:        2px solid var(--stroke-glass-glow);
+    outline-offset: 2px;
+  }
+`;
 var Card = ({
   children,
+  variant = "default",
   interactive = false,
   onClick,
   className,
@@ -1384,6 +1475,7 @@ var Card = ({
 }) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
   CardStyled,
   {
+    $variant: variant,
     $interactive: interactive || !!onClick,
     onClick,
     className,
@@ -1400,7 +1492,9 @@ var Card = ({
 );
 var CardStyled = import_styled8.default.article`
   ${baseStyles}
-  ${({ $interactive }) => $interactive && interactiveStyles}
+  ${({ $variant }) => $variant === "glass" && glassStyles}
+  ${({ $interactive, $variant }) => $interactive && $variant !== "glass" && interactiveStyles}
+  ${({ $interactive, $variant }) => $interactive && $variant === "glass" && glassInteractiveStyles}
 `;
 var Card_default = Card;
 

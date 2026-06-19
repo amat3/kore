@@ -53,8 +53,19 @@ var tints = {
   terracota: {
     80: "rgba(176, 94, 58, 0.8)",
     40: "rgba(176, 94, 58, 0.4)",
+    25: "rgba(176, 94, 58, 0.25)",
     20: "rgba(176, 94, 58, 0.2)",
-    10: "rgba(176, 94, 58, 0.1)"
+    18: "rgba(176, 94, 58, 0.18)",
+    15: "rgba(176, 94, 58, 0.15)",
+    12: "rgba(176, 94, 58, 0.12)",
+    10: "rgba(176, 94, 58, 0.1)",
+    8: "rgba(176, 94, 58, 0.08)",
+    5: "rgba(176, 94, 58, 0.05)"
+  },
+  // Marfil (#F7F4F1 = neutral[50]) — para superficies glass en light mode
+  ivory: {
+    55: "rgba(247, 244, 241, 0.55)",
+    10: "rgba(247, 244, 241, 0.10)"
   },
   black: {
     90: "rgba(0, 0, 0, 0.9)",
@@ -182,6 +193,7 @@ var layout = {
 };
 
 // src/themes/light.ts
+var ivory = tints.ivory;
 var lightTheme = {
   // ── Backgrounds ─────────────────────────────────────────────
   background: {
@@ -211,7 +223,12 @@ var lightTheme = {
     inputDefault: tints.white[80],
     actionHover: tints.black[10],
     actionPush: tints.black[20],
-    actionSelected: tints.terracota[10]
+    actionSelected: tints.terracota[10],
+    // ── Glass identity ────────────────────────────────────────
+    glassSurface: ivory[55],
+    // marfil translúcido — superficie principal
+    glassWarm: tints.terracota[5]
+    // tinte terracota sutil sobre glass
   },
   // ── Foregrounds ──────────────────────────────────────────────
   foreground: {
@@ -235,7 +252,14 @@ var lightTheme = {
     accentDim: tints.terracota[20],
     focus: colorPrimitives.terracota[500],
     error: colorPrimitives.error.main,
-    success: colorPrimitives.success.main
+    success: colorPrimitives.success.main,
+    // ── Glass identity ────────────────────────────────────────
+    glass: tints.terracota[15],
+    // borde glass principal
+    glassSubtle: ivory[10],
+    // borde glass secundario
+    glassGlow: tints.terracota[18]
+    // glow terracota para focus/hover
   },
   // ── Gradients ────────────────────────────────────────────────
   gradient: {
@@ -247,6 +271,7 @@ var lightTheme = {
 };
 
 // src/themes/dark.ts
+var ivory2 = tints.ivory;
 var darkTheme = {
   // ── Backgrounds ─────────────────────────────────────────────
   background: {
@@ -276,7 +301,12 @@ var darkTheme = {
     inputDefault: tints.white[5],
     actionHover: tints.white[10],
     actionPush: tints.white[20],
-    actionSelected: tints.terracota[10]
+    actionSelected: tints.terracota[10],
+    // ── Glass identity ────────────────────────────────────────
+    glassSurface: tints.black[50],
+    // obsidiana translúcida — superficie principal
+    glassWarm: tints.terracota[10]
+    // tinte terracota sobre glass oscuro
   },
   // ── Foregrounds ──────────────────────────────────────────────
   foreground: {
@@ -300,7 +330,14 @@ var darkTheme = {
     accentDim: tints.terracota[20],
     focus: colorPrimitives.terracota[100],
     error: colorPrimitives.error.main,
-    success: colorPrimitives.success.main
+    success: colorPrimitives.success.main,
+    // ── Glass identity ────────────────────────────────────────
+    glass: tints.terracota[25],
+    // borde glass principal (más visible en dark)
+    glassSubtle: ivory2[10],
+    // borde glass secundario
+    glassGlow: tints.terracota[20]
+    // glow terracota para focus/hover
   },
   // ── Gradients ────────────────────────────────────────────────
   gradient: {
@@ -309,6 +346,32 @@ var darkTheme = {
     accentStart: tints.terracota[10],
     accentEnd: tints.terracota[40]
   }
+};
+
+// src/effects.ts
+var blur = {
+  soft: "4px",
+  medium: "12px",
+  heavy: "16px",
+  ultra: "24px"
+};
+var shadow = {
+  glassSm: `0 2px 12px ${tints.terracota[8]}`,
+  glassMd: `0 4px 24px ${tints.terracota[12]}`,
+  glassLg: `0 8px 48px ${tints.terracota[18]}`,
+  glassInset: `inset 0 1px 0 ${tints.ivory[10]}`
+};
+var brand = {
+  terracota: colorPrimitives.terracota[500],
+  // #B05E3A — acento principal
+  terracotaLight: colorPrimitives.terracota[300],
+  // #D99A7E — variante clara
+  terracotaDark: colorPrimitives.terracota[800],
+  // #7A3D22 — variante oscura
+  obsidian: colorPrimitives.neutral[900],
+  // #1A1A1A — fondo oscuro
+  ivory: colorPrimitives.neutral[50]
+  // #F7F4F1 — fondo claro
 };
 
 // src/typography.ts
@@ -475,7 +538,9 @@ var colors = {
 };
 var corners = radius;
 export {
+  blur,
   borders,
+  brand,
   breakpoints,
   colorPrimitives,
   colors,
@@ -489,6 +554,7 @@ export {
   lightTheme,
   lineHeight,
   radius,
+  shadow,
   sizing,
   spacing,
   tints,

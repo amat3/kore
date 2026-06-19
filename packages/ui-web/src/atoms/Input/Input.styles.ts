@@ -211,5 +211,27 @@ export const successTextStyles = css`
   color: var(--foreground-success-on-surface);
 `
 
+// ── Glass field overlay ───────────────────────────────────────────────────
+// Se aplica sobre cualquier state — modifica background y borde sin romper
+// los estados de error/success/disabled.
+export const glassFieldStyles = css`
+  background-color:        var(--background-glass-surface);
+  backdrop-filter:         blur(var(--blur-soft));
+  -webkit-backdrop-filter: blur(var(--blur-soft));
+  border-color:            var(--stroke-glass-subtle);
+
+  &:hover {
+    border-color: var(--stroke-glass);
+  }
+  &:focus-within {
+    border-color: var(--stroke-glass);
+    box-shadow:   0 0 0 3px var(--stroke-glass-glow);
+  }
+
+  @supports not (backdrop-filter: blur(1px)) {
+    background: color-mix(in srgb, var(--background-glass-surface), var(--background-glass-warm) 40%);
+  }
+`
+
 export type InputState = keyof typeof stateStyles
 export type InputSize  = keyof typeof sizeStyles

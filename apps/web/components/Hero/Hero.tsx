@@ -20,6 +20,7 @@ import { breakpoints } from '@kore/tokens'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
+import GlassScene from '@/components/GlassScene/GlassScene'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -152,6 +153,9 @@ const Hero = () => {
         <GradientOverlay />
       </Background>
 
+      {/* Blobs terracota animados — identidad glass */}
+      <GlassScene position="absolute" />
+
       <FloatingToggle>
         <ThemeToggle />
       </FloatingToggle>
@@ -214,7 +218,7 @@ const HeroSection = styled.section`
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #1a1a1a;
+  background: var(--brand-obsidian);
 `
 
 const Background = styled.div`
@@ -227,7 +231,7 @@ const Background = styled.div`
 const GradientOverlay = styled.div`
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 60% 40%, rgba(176, 94, 58, 0.15) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 60% 40%, var(--background-glass-warm) 0%, transparent 60%);
 `
 
 const FloatingToggle = styled.div`
@@ -255,7 +259,7 @@ const Content = styled.div`
 `
 
 const Overline = styled(Text)`
-  color: var(--foreground-accent-on-surface);
+  color: var(--brand-terracota);
   margin-bottom: var(--spacing-l);
   visibility: hidden;
 `
@@ -279,7 +283,7 @@ const Claim = styled(Text)`
   max-width: var(--container-m);
   font-size: clamp(1.5rem, 4vw, 3.5rem);
   letter-spacing: var(--letter-spacing-dense);
-  color: rgba(247, 244, 241, 0.7);
+  color: color-mix(in srgb, var(--brand-ivory) 70%, transparent);
   margin: 0 0 var(--spacing-2xl);
   visibility: hidden;
 `
@@ -321,20 +325,27 @@ const CTAPrimary = styled(Link)`
 `
 
 const CTASecondary = styled.button`
-  background: transparent;
-  color: rgba(247, 244, 241, 0.6);
-  border: none;
-  padding: 0;
-  font-family: var(--font-family-ui);
-  font-size: var(--scale-s);
-  font-weight: var(--font-weight-regular);
-  letter-spacing: var(--letter-spacing-moderate);
-  cursor: pointer;
-  transition: color 200ms ease;
+  background:               var(--background-glass-warm);
+  backdrop-filter:          blur(var(--blur-soft));
+  -webkit-backdrop-filter:  blur(var(--blur-soft));
+  border:                   1px solid var(--stroke-glass);
+  border-radius:            var(--radius-full);
+  padding:                  var(--spacing-m) var(--spacing-2xl);
+  color:                    var(--brand-ivory);
+  font-family:              var(--font-family-ui);
+  font-size:                var(--scale-s);
+  font-weight:              var(--font-weight-semibold);
+  letter-spacing:           var(--letter-spacing-spacious);
+  text-transform:           uppercase;
+  cursor:                   pointer;
+  transition:               border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
 
   &:hover {
-    color: var(--foreground-primary-on-inverse);
+    border-color: var(--stroke-glass-glow);
+    background:   var(--background-glass-surface);
+    box-shadow:   var(--shadow-glass-sm);
   }
+  &:active { transform: scale(0.98); }
 `
 
 const ScrollIndicator = styled.div`
@@ -352,7 +363,7 @@ const ScrollIndicator = styled.div`
 const ScrollLine = styled.div`
   width: var(--borders-thin);
   height: var(--spacing-2xl);
-  background: linear-gradient(to bottom, #b05e3a, transparent);
+  background: linear-gradient(to bottom, var(--brand-terracota), transparent);
   animation: ${bounce} 2s ease-in-out infinite;
 `
 
@@ -362,7 +373,7 @@ const ScrollLabel = styled.span`
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
-  color: rgba(247, 244, 241, 0.3);
+  color: color-mix(in srgb, var(--brand-ivory) 30%, transparent);
 `
 
 const RecruiterLinkBase = React.forwardRef<HTMLAnchorElement, React.ComponentProps<typeof Link>>(
@@ -376,14 +387,14 @@ const RecruiterLink = styled(RecruiterLinkBase)`
   font-family: var(--font-family-ui);
   font-size: var(--scale-s);
   font-weight: var(--font-weight-regular);
-  color: rgba(247, 244, 241, 0.4);
+  color: color-mix(in srgb, var(--brand-ivory) 40%, transparent);
   text-decoration: none;
   letter-spacing: var(--letter-spacing-moderate);
   transition: color 200ms;
   visibility: hidden;
 
   &:hover {
-    color: rgba(247, 244, 241, 0.8);
+    color: color-mix(in srgb, var(--brand-ivory) 80%, transparent);
   }
 `
 

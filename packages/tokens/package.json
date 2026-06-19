@@ -20,7 +20,7 @@
     }
   },
   "scripts": {
-   "build": "tsx src/scripts/build-tokens.ts && tsup",
+   "build": "tsup && tsx src/scripts/build-tokens.ts",
     "dev": "tsx watch src/scripts/build-tokens.ts",
     "type-check": "tsc --noEmit"
   },

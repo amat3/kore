@@ -57,6 +57,7 @@ declare const variantStyles$2: {
     readonly solid: _emotion_utils.SerializedStyles;
     readonly outlined: _emotion_utils.SerializedStyles;
     readonly ghost: _emotion_utils.SerializedStyles;
+    readonly glass: _emotion_utils.SerializedStyles;
 };
 declare const sizeStyles$4: {
     readonly sm: _emotion_utils.SerializedStyles;
@@ -92,6 +93,7 @@ declare const variantStyles$1: {
     readonly error: _emotion_utils.SerializedStyles;
     readonly warning: _emotion_utils.SerializedStyles;
     readonly solid: _emotion_utils.SerializedStyles;
+    readonly glass: _emotion_utils.SerializedStyles;
 };
 declare const sizeStyles$3: {
     readonly sm: _emotion_utils.SerializedStyles;
@@ -169,8 +171,10 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
     clearable?: boolean;
     onClear?: () => void;
     fullWidth?: boolean;
+    /** Activa superficie glass (backdrop-filter + bordes terracota) */
+    glass?: boolean;
 }
-declare const Input: ({ state, size, label, helperText, errorText, successText, leftIcon, rightIcon, clearable, onClear, fullWidth, disabled, id, value, defaultValue, onChange, ...props }: InputProps) => react_jsx_runtime.JSX.Element;
+declare const Input: ({ state, size, label, helperText, errorText, successText, leftIcon, rightIcon, clearable, onClear, fullWidth, glass, disabled, id, value, defaultValue, onChange, ...props }: InputProps) => react_jsx_runtime.JSX.Element;
 
 interface SearchInputProps {
     value?: string;
@@ -275,6 +279,8 @@ declare const AvatarGroup: ({ users, max, size, className, }: AvatarGroupProps) 
 
 interface CardProps {
     children: React.ReactNode;
+    /** 'default' sólido · 'glass' blur translúcido con tinte terracota */
+    variant?: 'default' | 'glass';
     /** Activa hover, tap feedback y cursor pointer */
     interactive?: boolean;
     onClick?: () => void;
@@ -283,7 +289,7 @@ interface CardProps {
     'aria-label'?: string;
     role?: string;
 }
-declare const Card: ({ children, interactive, onClick, className, ...ariaProps }: CardProps) => react_jsx_runtime.JSX.Element;
+declare const Card: ({ children, variant, interactive, onClick, className, ...ariaProps }: CardProps) => react_jsx_runtime.JSX.Element;
 
 type StatTrend = 'up' | 'down' | 'neutral';
 interface StatCardProps {
