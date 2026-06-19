@@ -31,6 +31,8 @@ declare const lightTheme: {
         readonly actionHover: "rgba(0, 0, 0, 0.1)";
         readonly actionPush: "rgba(0, 0, 0, 0.2)";
         readonly actionSelected: "rgba(176, 94, 58, 0.1)";
+        readonly glassSurface: "rgba(247, 244, 241, 0.55)";
+        readonly glassWarm: "rgba(176, 94, 58, 0.05)";
     };
     readonly foreground: {
         readonly primaryOnSurface: "#1A1A1A";
@@ -53,6 +55,9 @@ declare const lightTheme: {
         readonly focus: "#B05E3A";
         readonly error: "#D95F5F";
         readonly success: "#4CAF7D";
+        readonly glass: "rgba(176, 94, 58, 0.15)";
+        readonly glassSubtle: "rgba(247, 244, 241, 0.10)";
+        readonly glassGlow: "rgba(176, 94, 58, 0.18)";
     };
     readonly gradient: {
         readonly surfaceStart: "rgba(247, 244, 241, 0)";
@@ -112,8 +117,18 @@ declare const tints: {
     readonly terracota: {
         readonly 80: "rgba(176, 94, 58, 0.8)";
         readonly 40: "rgba(176, 94, 58, 0.4)";
+        readonly 25: "rgba(176, 94, 58, 0.25)";
         readonly 20: "rgba(176, 94, 58, 0.2)";
+        readonly 18: "rgba(176, 94, 58, 0.18)";
+        readonly 15: "rgba(176, 94, 58, 0.15)";
+        readonly 12: "rgba(176, 94, 58, 0.12)";
         readonly 10: "rgba(176, 94, 58, 0.1)";
+        readonly 8: "rgba(176, 94, 58, 0.08)";
+        readonly 5: "rgba(176, 94, 58, 0.05)";
+    };
+    readonly ivory: {
+        readonly 55: "rgba(247, 244, 241, 0.55)";
+        readonly 10: "rgba(247, 244, 241, 0.10)";
     };
     readonly black: {
         readonly 90: "rgba(0, 0, 0, 0.9)";
@@ -182,6 +197,8 @@ declare const darkTheme: {
         readonly actionHover: "rgba(255, 255, 255, 0.1)";
         readonly actionPush: "rgba(255, 255, 255, 0.2)";
         readonly actionSelected: "rgba(176, 94, 58, 0.1)";
+        readonly glassSurface: "rgba(0, 0, 0, 0.5)";
+        readonly glassWarm: "rgba(176, 94, 58, 0.1)";
     };
     readonly foreground: {
         readonly primaryOnSurface: "#F7F4F1";
@@ -204,6 +221,9 @@ declare const darkTheme: {
         readonly focus: "#F0D9C8";
         readonly error: "#D95F5F";
         readonly success: "#4CAF7D";
+        readonly glass: "rgba(176, 94, 58, 0.25)";
+        readonly glassSubtle: "rgba(247, 244, 241, 0.10)";
+        readonly glassGlow: "rgba(176, 94, 58, 0.2)";
     };
     readonly gradient: {
         readonly surfaceStart: "rgba(26, 26, 26, 0)";
@@ -309,6 +329,35 @@ type Sizing = typeof sizing;
 type Radius = typeof radius;
 type Borders = typeof borders;
 type Breakpoints = typeof breakpoints;
+
+/**
+ * @kore/tokens — Effects Tokens
+ *
+ * Blur scale y glass shadow scale. Invariantes (no dependen del tema).
+ * Consumir via CSS vars: var(--blur-medium), var(--shadow-glass-md)
+ */
+declare const blur: {
+    readonly soft: "4px";
+    readonly medium: "12px";
+    readonly heavy: "16px";
+    readonly ultra: "24px";
+};
+declare const shadow: {
+    readonly glassSm: "0 2px 12px rgba(176, 94, 58, 0.08)";
+    readonly glassMd: "0 4px 24px rgba(176, 94, 58, 0.12)";
+    readonly glassLg: "0 8px 48px rgba(176, 94, 58, 0.18)";
+    readonly glassInset: "inset 0 1px 0 rgba(247, 244, 241, 0.10)";
+};
+declare const brand: {
+    readonly terracota: "#B05E3A";
+    readonly terracotaLight: "#D99A7E";
+    readonly terracotaDark: "#7A3D22";
+    readonly obsidian: "#1A1A1A";
+    readonly ivory: "#F7F4F1";
+};
+type Blur = typeof blur;
+type Shadow = typeof shadow;
+type Brand = typeof brand;
 
 /**
  * @kore/tokens — Typography Tokens
@@ -495,4 +544,4 @@ type Corners = typeof corners;
 
 type Theme = typeof lightTheme;
 
-export { type Borders, type Breakpoints, type ColorPrimitives, type Colors, type Corners, type DarkTheme, type FontFamily, type FontWeight, type LightTheme, type Radius, type Sizing, type Spacing, type Theme, type Tints, type TypeRoles, type TypeScale, borders, breakpoints, colorPrimitives, colors, containers, corners, darkTheme, fontFamily, fontWeight, layout, letterSpacing, lightTheme, lineHeight, radius, sizing, spacing, tints, typeRoles, typeScale, zIndex };
+export { type Blur, type Borders, type Brand, type Breakpoints, type ColorPrimitives, type Colors, type Corners, type DarkTheme, type FontFamily, type FontWeight, type LightTheme, type Radius, type Shadow, type Sizing, type Spacing, type Theme, type Tints, type TypeRoles, type TypeScale, blur, borders, brand, breakpoints, colorPrimitives, colors, containers, corners, darkTheme, fontFamily, fontWeight, layout, letterSpacing, lightTheme, lineHeight, radius, shadow, sizing, spacing, tints, typeRoles, typeScale, zIndex };

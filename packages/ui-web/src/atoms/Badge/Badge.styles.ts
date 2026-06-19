@@ -41,6 +41,18 @@ export const variantStyles = {
     border:           1px solid transparent;
   `,
 
+  glass: css`
+    background-color:        var(--background-glass-surface);
+    backdrop-filter:         blur(var(--blur-soft));
+    -webkit-backdrop-filter: blur(var(--blur-soft));
+    border:                  1px solid var(--stroke-glass-subtle);
+    color:                   var(--foreground-primary-on-surface);
+
+    @supports not (backdrop-filter: blur(1px)) {
+      background: color-mix(in srgb, var(--background-glass-surface), var(--background-glass-warm) 50%);
+    }
+  `,
+
 } as const
 
 // ── Tamaños ───────────────────────────────────────────────────────────────

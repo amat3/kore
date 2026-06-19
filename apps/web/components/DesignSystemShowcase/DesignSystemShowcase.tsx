@@ -14,7 +14,7 @@ import { breakpoints } from '@kore/tokens'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import { Text, Button, Badge, Tag, Avatar, AvatarGroup, Input, Icon } from '@kore/ui-web'
+import { Text, Button, Badge, Tag, Avatar, AvatarGroup, Input, Icon, Card } from '@kore/ui-web'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -81,8 +81,8 @@ const DesignSystemShowcase = () => {
               Componentes que <em>escalan</em>
             </SectionTitle>
             <SectionSubtitle variant="body-light">
-              <code>@kore/ui-web</code> — 15+ componentes con Emotion, TypeScript y Storybook. Dark
-              mode nativo, tokens semánticos, accesibilidad WCAG.
+              <code>@kore/ui-web</code> — 15+ componentes con Emotion, TypeScript y Storybook.
+              Sistema de tokens dual: identidad base + <em>Glass Identity</em> warm glass.
             </SectionSubtitle>
           </div>
 
@@ -105,6 +105,15 @@ const DesignSystemShowcase = () => {
               <Icon name="ExternalLink" size="xs" color="inherit" />
               Storybook
             </StorybookLink>
+
+            <GlassLink
+              href="https://6a1f429ec79df80605844468-jlgixgzjns.chromatic.com/?path=/story/kore-atoms-card--glass-on-scene"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name="Sparkles" size="xs" color="inherit" />
+              Glass Identity
+            </GlassLink>
           </HeaderActions>
         </HeadingRow>
 
@@ -287,6 +296,27 @@ const DesignSystemShowcase = () => {
               <Text variant="caption">Caption · Última sesión hace 2 días</Text>
             </TypoList>
           </DSBlock>
+          {/* § Glass Identity */}
+          <DSBlock $wide className="ds-block">
+            <BlockLabel variant="overline" as="span">
+              Glass Identity — segunda identidad visual warm glass
+            </BlockLabel>
+            <GlassCanvas>
+              <Card variant="glass">
+                <GlassCardInner>
+                  <GlassOverline>Card · Glass</GlassOverline>
+                  <GlassTitle>Warm glass surface</GlassTitle>
+                  <GlassBody>backdrop-filter + tinte terracota · tokens invariantes</GlassBody>
+                  <Badge variant="glass">Glass Badge</Badge>
+                </GlassCardInner>
+              </Card>
+              <GlassButtonRow>
+                <Button variant="solid" size="md">Solid</Button>
+                <Button variant="glass" size="md">Glass</Button>
+                <Button variant="glass" size="sm">Small glass</Button>
+              </GlassButtonRow>
+            </GlassCanvas>
+          </DSBlock>
         </ShowcaseCanvas>
 
         {/* Footer stats */}
@@ -294,7 +324,7 @@ const DesignSystemShowcase = () => {
           {[
             { num: '15', label: 'Componentes' },
             { num: '2', label: 'Packages' },
-            { num: '167', label: 'CSS vars' },
+            { num: '190', label: 'CSS vars' },
             { num: '100%', label: 'TypeScript' },
           ].map((stat) => (
             <StatItem key={stat.label}>
@@ -412,6 +442,77 @@ const StorybookLink = styled.a`
       var(--background-accent-solid) 15%
     );
   }
+`
+
+const GlassLink = styled.a`
+  display:                  flex;
+  align-items:              center;
+  gap:                      var(--spacing-xs);
+  padding:                  var(--spacing-xs) var(--spacing-m);
+  border-radius:            var(--radius-full);
+  border:                   1px solid var(--stroke-glass);
+  background:               var(--background-glass-warm);
+  backdrop-filter:          blur(var(--blur-soft));
+  -webkit-backdrop-filter:  blur(var(--blur-soft));
+  color:                    var(--foreground-primary-on-surface);
+  font-family:              var(--font-family-ui);
+  font-size:                var(--scale-s);
+  font-weight:              var(--font-weight-semibold);
+  text-decoration:          none;
+  transition:               background 150ms, border-color 150ms, box-shadow 150ms;
+  &:hover {
+    border-color: var(--stroke-glass-glow);
+    box-shadow:   var(--shadow-glass-sm);
+    background:   var(--background-glass-surface);
+  }
+`
+
+const GlassCanvas = styled.div`
+  display:          flex;
+  flex-wrap:        wrap;
+  align-items:      flex-start;
+  gap:              var(--spacing-l);
+  padding:          var(--spacing-xl);
+  border-radius:    var(--radius-l);
+  background:       linear-gradient(135deg, var(--brand-terracota) 0%, var(--brand-obsidian) 60%, var(--brand-terracota-dark) 100%);
+`
+
+const GlassCardInner = styled.div`
+  padding: var(--spacing-l);
+`
+
+const GlassOverline = styled.span`
+  display:        block;
+  font-family:    var(--font-family-ui);
+  font-size:      var(--scale-2xs);
+  font-weight:    var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-spacious);
+  text-transform: uppercase;
+  color:          var(--brand-terracota);
+  margin-bottom:  var(--spacing-xs);
+`
+
+const GlassTitle = styled.h3`
+  font-family:    var(--font-family-display);
+  font-size:      var(--scale-xl);
+  font-weight:    var(--font-weight-semibold);
+  color:          var(--brand-ivory);
+  margin:         0 0 var(--spacing-xs);
+`
+
+const GlassBody = styled.p`
+  font-family:    var(--font-family-ui);
+  font-size:      var(--scale-s);
+  color:          color-mix(in srgb, var(--brand-ivory) 60%, transparent);
+  margin:         0 0 var(--spacing-m);
+`
+
+const GlassButtonRow = styled.div`
+  display:     flex;
+  flex-wrap:   wrap;
+  align-items: center;
+  gap:         var(--spacing-m);
+  align-self:  center;
 `
 
 const ShowcaseCanvas = styled.div<{ $isDark: boolean }>`

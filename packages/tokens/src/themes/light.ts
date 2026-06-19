@@ -7,6 +7,9 @@
 
 import { colorPrimitives as c, tints as t } from '../primitives'
 
+// Alias locales para legibilidad
+const ivory = t.ivory
+
 export const lightTheme = {
 
   // ── Backgrounds ─────────────────────────────────────────────
@@ -43,6 +46,10 @@ export const lightTheme = {
     actionHover:         t.black[10],
     actionPush:          t.black[20],
     actionSelected:      t.terracota[10],
+
+    // ── Glass identity ────────────────────────────────────────
+    glassSurface:        ivory[55],          // marfil translúcido — superficie principal
+    glassWarm:           t.terracota[5],     // tinte terracota sutil sobre glass
   },
 
   // ── Foregrounds ──────────────────────────────────────────────
@@ -74,6 +81,11 @@ export const lightTheme = {
 
     error:               c.error.main,
     success:             c.success.main,
+
+    // ── Glass identity ────────────────────────────────────────
+    glass:               t.terracota[15],   // borde glass principal
+    glassSubtle:         ivory[10],         // borde glass secundario
+    glassGlow:           t.terracota[18],   // glow terracota para focus/hover
   },
 
   // ── Gradients ────────────────────────────────────────────────

@@ -7,7 +7,7 @@ const meta: Meta<typeof Badge> = {
   tags:      ['autodocs'],
   parameters: { layout: 'centered' },
   argTypes: {
-    variant: { control: 'select', options: ['default', 'accent', 'success', 'error', 'warning', 'solid'] },
+    variant: { control: 'select', options: ['default', 'accent', 'success', 'error', 'warning', 'solid', 'glass'] },
     size:    { control: 'select', options: ['sm', 'md'] },
   },
   args: { children: 'Fuerza', variant: 'default', size: 'md' },
@@ -23,6 +23,22 @@ export const Solid:   Story = { args: { variant: 'solid'   } }
 export const Success: Story = { args: { variant: 'success', children: 'Completado' } }
 export const Error:   Story = { args: { variant: 'error',   children: 'Error'      } }
 export const Warning: Story = { args: { variant: 'warning', children: 'Pendiente'  } }
+export const Glass:   Story = { args: { variant: 'glass'   } }
+
+/** Badge glass sobre escena terracota — contexto real de uso */
+export const GlassOnScene: Story = {
+  args: { variant: 'glass' },
+  decorators: [
+    Story => (
+      <div style={{
+        background: 'linear-gradient(135deg, var(--brand-terracota) 0%, var(--brand-obsidian) 55%, var(--brand-terracota-dark) 100%)',
+        padding: 32, borderRadius: 12,
+      }}>
+        <Story />
+      </div>
+    ),
+  ],
+}
 
 // ── Tamaños ───────────────────────────────────────────────────────────────
 export const Small:  Story = { args: { size: 'sm' } }
@@ -44,6 +60,14 @@ export const AllVariants: Story = {
         {(['default', 'accent', 'solid', 'success', 'error', 'warning'] as const).map(v => (
           <Badge key={v} variant={v} size="sm">{v}</Badge>
         ))}
+      </div>
+
+      <div style={{
+        display: 'flex', gap: 8, alignItems: 'center', padding: 16, borderRadius: 8,
+        background: 'linear-gradient(135deg, var(--brand-terracota) 0%, var(--brand-obsidian) 100%)',
+      }}>
+        <Badge variant="glass" size="md">Glass md</Badge>
+        <Badge variant="glass" size="sm">Glass sm</Badge>
       </div>
 
     </div>

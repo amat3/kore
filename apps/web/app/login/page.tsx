@@ -1,4 +1,5 @@
-import LoginForm from '@/components/Auth/LoginForm'
+import LoginForm   from '@/components/Auth/LoginForm'
+import GlassScene  from '@/components/GlassScene/GlassScene'
 
 export const metadata = {
   title: 'Iniciar sesión — KORE',
@@ -7,14 +8,18 @@ export const metadata = {
 export default function LoginPage() {
   return (
     <main style={{
+      position:        'relative',
       minHeight:       '100svh',
       display:         'flex',
       alignItems:      'center',
       justifyContent:  'center',
-      backgroundColor: 'var(--background-surface-low)',
       padding:         '1rem',
+      zIndex:          1,
     }}>
-      <LoginForm />
+      <GlassScene position="fixed" />
+      <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+        <LoginForm />
+      </div>
     </main>
   )
 }

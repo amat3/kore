@@ -7,8 +7,9 @@ const preview: Preview = {
     backgrounds: {
       default: 'light',
       values: [
-        { name: 'light', value: '#F7F4F1' },
-        { name: 'dark',  value: '#1A1A1A' },
+        { name: 'light',       value: '#F7F4F1' },
+        { name: 'dark',        value: '#1A1A1A' },
+        { name: 'glass-scene', value: 'linear-gradient(135deg, #B05E3A 0%, #1A1A1A 55%, #7A3D22 100%)' },
       ],
     },
     viewport: {
@@ -36,11 +37,9 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const isDark = context.globals.backgrounds?.value === '#1A1A1A'
-      document.documentElement.setAttribute(
-        'data-theme',
-        isDark ? 'dark' : 'light'
-      )
+      const bg     = context.globals.backgrounds?.value ?? ''
+      const isDark = bg === '#1A1A1A' || bg.startsWith('linear-gradient')
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
       return <Story />
     },
   ],

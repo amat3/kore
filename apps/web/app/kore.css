@@ -35,6 +35,8 @@
   --background-action-hover: rgba(0, 0, 0, 0.1);
   --background-action-push: rgba(0, 0, 0, 0.2);
   --background-action-selected: rgba(176, 94, 58, 0.1);
+  --background-glass-surface: rgba(247, 244, 241, 0.55);
+  --background-glass-warm: rgba(176, 94, 58, 0.05);
 
   --foreground-primary-on-surface: #1A1A1A;
   --foreground-secondary-on-surface: #6B6560;
@@ -55,6 +57,9 @@
   --stroke-focus: #B05E3A;
   --stroke-error: #D95F5F;
   --stroke-success: #4CAF7D;
+  --stroke-glass: rgba(176, 94, 58, 0.15);
+  --stroke-glass-subtle: rgba(247, 244, 241, 0.10);
+  --stroke-glass-glow: rgba(176, 94, 58, 0.18);
 
   --gradient-surface-start: rgba(247, 244, 241, 0);
   --gradient-surface-end: rgba(247, 244, 241, 0.8);
@@ -89,6 +94,8 @@
   --background-action-hover: rgba(255, 255, 255, 0.1);
   --background-action-push: rgba(255, 255, 255, 0.2);
   --background-action-selected: rgba(176, 94, 58, 0.1);
+  --background-glass-surface: rgba(0, 0, 0, 0.5);
+  --background-glass-warm: rgba(176, 94, 58, 0.1);
 
   --foreground-primary-on-surface: #F7F4F1;
   --foreground-secondary-on-surface: #C4BDB9;
@@ -109,6 +116,9 @@
   --stroke-focus: #F0D9C8;
   --stroke-error: #D95F5F;
   --stroke-success: #4CAF7D;
+  --stroke-glass: rgba(176, 94, 58, 0.25);
+  --stroke-glass-subtle: rgba(247, 244, 241, 0.10);
+  --stroke-glass-glow: rgba(176, 94, 58, 0.2);
 
   --gradient-surface-start: rgba(26, 26, 26, 0);
   --gradient-surface-end: rgba(26, 26, 26, 0.8);
@@ -144,6 +154,8 @@
       --background-action-hover: rgba(255, 255, 255, 0.1);
       --background-action-push: rgba(255, 255, 255, 0.2);
       --background-action-selected: rgba(176, 94, 58, 0.1);
+      --background-glass-surface: rgba(0, 0, 0, 0.5);
+      --background-glass-warm: rgba(176, 94, 58, 0.1);
 
       --foreground-primary-on-surface: #F7F4F1;
       --foreground-secondary-on-surface: #C4BDB9;
@@ -164,12 +176,34 @@
       --stroke-focus: #F0D9C8;
       --stroke-error: #D95F5F;
       --stroke-success: #4CAF7D;
+      --stroke-glass: rgba(176, 94, 58, 0.25);
+      --stroke-glass-subtle: rgba(247, 244, 241, 0.10);
+      --stroke-glass-glow: rgba(176, 94, 58, 0.2);
 
       --gradient-surface-start: rgba(26, 26, 26, 0);
       --gradient-surface-end: rgba(26, 26, 26, 0.8);
       --gradient-accent-start: rgba(176, 94, 58, 0.1);
       --gradient-accent-end: rgba(176, 94, 58, 0.4);
   }
+}
+
+/* ── Effects — blur, glass shadows & brand invariants ────────── */
+:root {
+  --blur-soft: 4px;
+  --blur-medium: 12px;
+  --blur-heavy: 16px;
+  --blur-ultra: 24px;
+
+  --shadow-glass-sm: 0 2px 12px rgba(176, 94, 58, 0.08);
+  --shadow-glass-md: 0 4px 24px rgba(176, 94, 58, 0.12);
+  --shadow-glass-lg: 0 8px 48px rgba(176, 94, 58, 0.18);
+  --shadow-glass-inset: inset 0 1px 0 rgba(247, 244, 241, 0.10);
+
+  --brand-terracota: #B05E3A;
+  --brand-terracota-light: #D99A7E;
+  --brand-terracota-dark: #7A3D22;
+  --brand-obsidian: #1A1A1A;
+  --brand-ivory: #F7F4F1;
 }
 
 /* ── Dimension tokens ────────────────────────────────────────── */

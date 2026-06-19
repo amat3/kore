@@ -70,6 +70,21 @@ var(--spacing-2xs) … var(--spacing-3xl)
 var(--radius-xs) … var(--radius-full)
 var(--corners-default-card)
 var(--corners-default-field)
+
+/* Glass identity (feat/glass-identity) */
+var(--background-glass-surface)   /* marfil 55% light / obsidiana 50% dark */
+var(--background-glass-warm)      /* terracota tint 5% light / 10% dark */
+var(--stroke-glass)               /* borde terracota 15% light / 25% dark */
+var(--stroke-glass-subtle)        /* borde marfil 10% */
+var(--stroke-glass-glow)          /* glow terracota 18% light / 20% dark */
+var(--blur-soft)                  /* 4px */
+var(--blur-medium)                /* 12px */
+var(--blur-heavy)                 /* 16px */
+var(--blur-ultra)                 /* 24px */
+var(--shadow-glass-sm)            /* 0 2px 12px terracota 8% */
+var(--shadow-glass-md)            /* 0 4px 24px terracota 12% */
+var(--shadow-glass-lg)            /* 0 8px 48px terracota 18% */
+var(--shadow-glass-inset)         /* inset 0 1px 0 marfil 10% */
 ```
 
 ---

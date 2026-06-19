@@ -269,7 +269,7 @@ const CrossPlatform = () => (
         <StatsRow>
           {[
             { num: '1',    label: 'Package de tokens compartido' },
-            { num: '43',   label: 'CSS vars generadas'           },
+            { num: '48',   label: 'CSS vars generadas'           },
             { num: '2',    label: 'Plataformas'                  },
             { num: '0',    label: 'Duplicación de valores'       },
           ].map(s => (

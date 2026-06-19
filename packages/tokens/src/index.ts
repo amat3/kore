@@ -44,6 +44,10 @@ export {
   layout,
 } from './dimension'
 
+// Effects (blur scale + glass shadows) — invariantes, no dependen del tema
+export { blur, shadow, brand } from './effects'
+export type { Blur, Shadow, Brand } from './effects'
+
 // Typography
 export {
   fontFamily,

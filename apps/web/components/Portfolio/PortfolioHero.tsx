@@ -64,7 +64,7 @@ const PortfolioHero = () => {
               {[
                 { num: '2',    label: 'Packages npm'   },
                 { num: '15',   label: 'Componentes'    },
-                { num: '167',  label: 'Design tokens'  },
+                { num: '190',  label: 'Design tokens'  },
                 { num: '100%', label: 'TypeScript'     },
               ].map((s) => (
                 <StatItem key={s.label}>

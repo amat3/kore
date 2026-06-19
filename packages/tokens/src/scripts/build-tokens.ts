@@ -18,6 +18,7 @@ import { join } from 'path'
 import { lightTheme }   from '../themes/light'
 import { darkTheme }    from '../themes/dark'
 import { spacing, sizing, radius, borders, breakpoints, zIndex, containers, layout } from '../dimension'
+import { blur, shadow, brand } from '../effects'
 import { fontFamily, fontWeight, letterSpacing, lineHeight, typeScale } from '../typography'
 
 // ── Helpers ──────────────────────────────────────────────────────────────
@@ -122,7 +123,22 @@ ${indent(darkGr, 4)}
 }
 `)
 
-  // 5. Dimension tokens (invariantes)
+  // 5. Effects tokens (invariantes)
+  const blurVars   = flattenToVars(blur   as unknown as Record<string, unknown>, 'blur')
+  const shadowVars = flattenToVars(shadow as unknown as Record<string, unknown>, 'shadow')
+  const brandVars  = flattenToVars(brand  as unknown as Record<string, unknown>, 'brand')
+
+  sections.push(`/* ── Effects — blur, glass shadows & brand invariants ────────── */
+:root {
+${blurVars}
+
+${shadowVars}
+
+${brandVars}
+}
+`)
+
+  // 7. Dimension tokens (invariantes)
   const spacingVars    = flattenToVars(spacing as unknown as Record<string, unknown>, 'spacing', 'px')
   const sizingVars     = flattenToVars(sizing as unknown as Record<string, unknown>, 'sizing', 'px')
   const radiusVars     = flattenToVars(radius as unknown as Record<string, unknown>, 'radius', 'px')
