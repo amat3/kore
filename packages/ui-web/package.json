@@ -19,7 +19,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "jest --passWithNoTests",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "chromatic": "npx chromatic --project-token=chpt_4fff2f6726b5cd5"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
