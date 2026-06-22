@@ -132,12 +132,12 @@ const TokensShowcase = () => {
         <motion.div variants={fadeUp}>
           <SectionOverline variant="overline" as="span">Design Tokens</SectionOverline>
           <SectionTitle variant="h1" as="h2">
-            167 <em>decisiones de diseño</em>
+            190 <em>decisiones de diseño</em>
           </SectionTitle>
           <SectionSubtitle variant="body-light">
             <code>@kore/tokens</code> genera <strong>CSS custom properties</strong> para web
             y <strong>objetos JS</strong> para React Native desde la misma fuente de verdad.
-            167 tokens semánticos que garantizan consistencia visual en todos los contextos.
+            190 tokens semánticos que garantizan consistencia visual en todos los contextos.
           </SectionSubtitle>
         </motion.div>
 
