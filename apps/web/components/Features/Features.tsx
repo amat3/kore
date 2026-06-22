@@ -236,11 +236,13 @@ const CardOverline = styled(Text)<{ $color: string }>`
 
 const CardTitle = styled(Text)`
   letter-spacing: var(--letter-spacing-dense);
-  line-height: var(--line-height-dense);
+  line-height:    var(--line-height-dense);
+  min-height:     3.9em; /* reserva espacio para 3 líneas → alinea CardBody en todas las cards */
 `
 
 const CardBody = styled(Text)`
-  color: var(--foreground-secondary-on-surface);
+  color:   var(--foreground-secondary-on-surface);
+  flex:    1; /* ocupa el espacio restante → cards visualmente equilibradas */
 `
 
 const AccentLine = styled.div<{ $accent: string }>`
