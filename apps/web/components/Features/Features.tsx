@@ -160,6 +160,10 @@ const Container = styled.div`
   padding-inline: var(--layout-gutter);
   margin-inline: auto;
   gap: clamp(2rem, 4vw, 3rem);
+
+  @media (min-width: ${breakpoints.wide}px) {
+    max-width: var(--container-2xl);
+  }
 `
 
 const HeadingWrapper = styled.div`
@@ -195,6 +199,10 @@ const CardsGrid = styled.div`
 
   @media (min-width: ${breakpoints.desktop}px) {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: ${breakpoints.wide}px) {
+    gap: var(--spacing-l);
   }
 `
 
