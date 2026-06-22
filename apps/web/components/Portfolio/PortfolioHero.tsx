@@ -60,19 +60,6 @@ const PortfolioHero = () => {
               </SecondaryLink>
             </Links>
 
-            <StatsRow>
-              {[
-                { num: '2',    label: 'Packages npm'   },
-                { num: '15',   label: 'Componentes'    },
-                { num: '190',  label: 'Design tokens'  },
-                { num: '100%', label: 'TypeScript'     },
-              ].map((s) => (
-                <StatItem key={s.label}>
-                  <StatNum variant="display" as="span">{s.num}</StatNum>
-                  <StatLabel variant="overline" as="span">{s.label}</StatLabel>
-                </StatItem>
-              ))}
-            </StatsRow>
           </TextCol>
 
           {/* ── Columna visual ── */}
@@ -80,6 +67,20 @@ const PortfolioHero = () => {
             <SymbolHead />
           </VisualCol>
         </HeroGrid>
+
+        <StatsRow>
+          {[
+            { num: '2',    label: 'Packages npm'   },
+            { num: '15',   label: 'Componentes'    },
+            { num: '190',  label: 'Design tokens'  },
+            { num: '100%', label: 'TypeScript'     },
+          ].map((s) => (
+            <StatItem key={s.label}>
+              <StatNum variant="display" as="span">{s.num}</StatNum>
+              <StatLabel variant="overline" as="span">{s.label}</StatLabel>
+            </StatItem>
+          ))}
+        </StatsRow>
       </Container>
     </Section>
   )
@@ -131,13 +132,13 @@ const HeroGrid = styled.div`
 
   @media (min-width: ${breakpoints.desktop}px) {
     flex-direction: row;
-    align-items:    flex-start;
+    align-items:    stretch;
     gap:            var(--spacing-3xl);
   }
 `
 
 const TextCol = styled.div`
-  flex:      1.1;
+  flex:      1.5;
   min-width: 0;
   order:     1;
 `
@@ -146,13 +147,11 @@ const VisualCol = styled.div`
   flex:            1;
   display:         flex;
   justify-content: center;
-  align-items:     flex-start;
+  align-items:     center;
   order:           0;
 
   @media (min-width: ${breakpoints.desktop}px) {
-    position:  sticky;
-    top:       calc(56px + var(--spacing-xl));
-    order:     2;
+    order: 2;
   }
 `
 
@@ -165,6 +164,7 @@ const Title = styled(Text)`
   font-size:   clamp(2.5rem, 6vw, 5rem);
   line-height: 1.05;
   margin:      0 0 var(--spacing-s);
+  white-space: nowrap;
 `
 
 const Role = styled(Text)`
@@ -233,6 +233,7 @@ const StatsRow = styled.div`
   display:               grid;
   grid-template-columns: repeat(4, 1fr);
   gap:                   var(--spacing-m);
+  margin-top:            var(--spacing-2xl);
 
   @media (max-width: ${breakpoints.tablet - 1}px) {
     grid-template-columns: repeat(2, 1fr);

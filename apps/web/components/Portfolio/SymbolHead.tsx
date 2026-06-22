@@ -156,7 +156,9 @@ const SVGEl = styled.svg`
   overflow:  visible;
 
   @media (min-width: ${breakpoints.desktop}px) {
-    max-width: 100%;
+    max-width: none;
+    height:    clamp(200px, 22vw, 260px);
+    width:     auto;
   }
 `
 
