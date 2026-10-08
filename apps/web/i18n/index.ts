@@ -9,7 +9,7 @@ const resources = {
       // Portfolio hero
       'portfolio.overline':     'Portfolio técnico',
       'portfolio.back':         '← Ver la app KORE',
-      'portfolio.role':         'Mid Frontend Developer · React / React Native',
+      'portfolio.role':         'Frontend Developer · React / React Native',
       'portfolio.description':  'Especialista en UI, design systems y animaciones avanzadas. Tokens semánticos, monorrepo Turborepo, componentes con Storybook y animaciones GSAP — construido desde cero con React 19 y Next.js 16.',
 
       // Stack section
@@ -47,7 +47,7 @@ const resources = {
       // Portfolio hero
       'portfolio.overline':     'Technical Portfolio',
       'portfolio.back':         '← Back to KORE app',
-      'portfolio.role':         'Mid Frontend Developer · React / React Native',
+      'portfolio.role':         'Frontend Developer · React / React Native',
       'portfolio.description':  'UI specialist in design systems and advanced animations. Semantic tokens, Turborepo monorepo, Storybook components and GSAP animations — built from scratch with React 19 and Next.js 16.',
 
       // Stack section

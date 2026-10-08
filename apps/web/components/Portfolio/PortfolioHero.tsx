@@ -34,7 +34,7 @@ const PortfolioHero = () => {
             <Title variant="h1">Juan Antonio Amate</Title>
 
             <Role variant="overline" as="p">
-              Mid Frontend Developer · React / React Native
+              Frontend Developer · React / React Native
             </Role>
 
             <Description variant="body-light">
