@@ -491,7 +491,7 @@ const ShowcaseCanvas = styled.div<{ $isDark: boolean }>`
   border: 0.5px solid var(--stroke-secondary-on-surface);
   padding: var(--spacing-xl);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: var(--spacing-m);
   transition: background 300ms ease;
 `
@@ -537,7 +537,7 @@ const TypoList = styled.div`
 
 const InputGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
   gap: var(--spacing-m);
 `
 
