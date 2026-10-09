@@ -5,6 +5,7 @@ import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import { ThemeProvider }  from '@/providers/ThemeProvider'
 import { AuthProvider }   from '@/providers/AuthProvider'
 import ReduxProvider      from '@/providers/ReduxProvider'
+import { EmotionRegistry } from '@/providers/EmotionRegistry'
 
 // ── Fuentes KORE ──────────────────────────────────────────────────────────
 const cormorant = Cormorant_Garamond({
@@ -46,13 +47,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body>
-        <ReduxProvider>
-          <ThemeProvider>
-            <AuthProvider>
-              {children}
-            </AuthProvider>
-          </ThemeProvider>
-        </ReduxProvider>
+        <EmotionRegistry>
+          <ReduxProvider>
+            <ThemeProvider>
+              <AuthProvider>
+                {children}
+              </AuthProvider>
+            </ThemeProvider>
+          </ReduxProvider>
+        </EmotionRegistry>
       </body>
     </html>
   )

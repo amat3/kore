@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect }   from 'react'
+import { useState, useSyncExternalStore } from 'react'
 import styled                    from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
 import { Text, Icon }            from '@kore/ui-web'
@@ -20,30 +20,26 @@ const stagger: Variants = {
 // ── Hook: breakpoint activo ───────────────────────────────────────────────
 type BpKey = 'mobile' | 'tablet' | 'desktop' | 'wide'
 
-const useActiveBreakpoint = (): BpKey => {
-  const getBreakpoint = (): BpKey => {
-    if (typeof window === 'undefined') return 'desktop'
-    if (window.matchMedia(`(min-width: ${breakpoints.wide}px)`).matches)    return 'wide'
-    if (window.matchMedia(`(min-width: ${breakpoints.desktop}px)`).matches) return 'desktop'
-    if (window.matchMedia(`(min-width: ${breakpoints.tablet}px)`).matches)  return 'tablet'
-    return 'mobile'
-  }
+// The server has no window, so it renders the desktop table. useSyncExternalStore keeps
+// that value during hydration (no mismatch on phones) and switches to the real
+// breakpoint right after, then follows the media queries.
+const BP_QUERIES: { query: string; bp: BpKey }[] = [
+  { query: `(min-width: ${breakpoints.wide}px)`,    bp: 'wide' },
+  { query: `(min-width: ${breakpoints.desktop}px)`, bp: 'desktop' },
+  { query: `(min-width: ${breakpoints.tablet}px)`,  bp: 'tablet' },
+]
 
-  const [active, setActive] = useState<BpKey>(getBreakpoint)
+const getBreakpoint = (): BpKey =>
+  BP_QUERIES.find(({ query }) => window.matchMedia(query).matches)?.bp ?? 'mobile'
 
-  useEffect(() => {
-    const queries = [
-      { mq: window.matchMedia(`(min-width: ${breakpoints.wide}px)`),    bp: 'wide'    as BpKey },
-      { mq: window.matchMedia(`(min-width: ${breakpoints.desktop}px)`), bp: 'desktop' as BpKey },
-      { mq: window.matchMedia(`(min-width: ${breakpoints.tablet}px)`),  bp: 'tablet'  as BpKey },
-    ]
-    const handler = () => setActive(getBreakpoint())
-    queries.forEach(({ mq }) => mq.addEventListener('change', handler))
-    return ()  => queries.forEach(({ mq }) => mq.removeEventListener('change', handler))
-  }, [])
-
-  return active
+const subscribeToBreakpoints = (onChange: () => void) => {
+  const lists = BP_QUERIES.map(({ query }) => window.matchMedia(query))
+  lists.forEach(mq => mq.addEventListener('change', onChange))
+  return () => lists.forEach(mq => mq.removeEventListener('change', onChange))
 }
+
+const useActiveBreakpoint = (): BpKey =>
+  useSyncExternalStore(subscribeToBreakpoints, getBreakpoint, () => 'desktop')
 
 // ── Data ──────────────────────────────────────────────────────────────────
 const SCALE_KEYS = ['2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl', '4xl', '5xl'] as const
