@@ -3,6 +3,7 @@
 import { useCallback }  from 'react'
 import Link             from 'next/link'
 import styled           from '@emotion/styled'
+import { keyframes }    from '@emotion/react'
 import { breakpoints }  from '@kore/tokens'
 import { Text }         from '@kore/ui-web'
 import ThemeToggle      from '@/components/ThemeToggle/ThemeToggle'
@@ -33,9 +34,15 @@ const PortfolioHero = () => {
 
             <Title variant="h1">Juan Antonio Amate</Title>
 
-            <Role variant="overline" as="p">
-              Frontend Developer · React, Next.js & React Native
-            </Role>
+            <RoleRow>
+              <Role variant="overline" as="p">
+                Frontend Developer · React, Next.js & React Native
+              </Role>
+              <Availability variant="overline" as="span">
+                <AvailabilityDot aria-hidden="true" />
+                Disponible
+              </Availability>
+            </RoleRow>
 
             <Description variant="body-light">
               Desarrollador frontend con React, Next.js y TypeScript, especializado en design systems
@@ -156,21 +163,69 @@ const VisualCol = styled.div`
   }
 `
 
+// "Disponible": green dot with a soft pulse (still under reduced motion)
+const pulse = keyframes`
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(2.6); opacity: 0; }
+`
+
+const AvailabilityDot = styled.span`
+  position:      relative;
+  width:         8px;
+  height:        8px;
+  border-radius: 50%;
+  background:    var(--background-success-solid);
+
+  &::after {
+    content:       '';
+    position:      absolute;
+    inset:         0;
+    border-radius: 50%;
+    background:    var(--background-success-solid);
+    animation:     ${pulse} 1.8s ease-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after { animation: none; opacity: 0; }
+  }
+`
+
 const Overline = styled(Text)`
   display:       block;
   margin-bottom: var(--spacing-m);
 `
 
 const Title = styled(Text)`
-  font-size:   clamp(2.5rem, 6vw, 5rem);
+  /* nowrap keeps the name on one line: 2.25rem is what fits a 320px screen */
+  font-size:   clamp(2.25rem, 6vw, 5rem);
   line-height: 1.05;
   margin:      0 0 var(--spacing-s);
   white-space: nowrap;
 `
 
+// Role + availability on one line; when the width runs out, "Disponible" wraps below
+const RoleRow = styled.div`
+  display:     flex;
+  flex-wrap:   wrap;
+  align-items: center;
+  gap:         var(--spacing-xs) var(--spacing-m);
+  margin:      0 0 var(--spacing-xl);
+`
+
 const Role = styled(Text)`
-  font-size: var(--scale-m);
-  margin:    0 0 var(--spacing-xl);
+  margin:    0;
+  font-size: var(--scale-s);
+`
+
+const Availability = styled(Text)`
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--spacing-xs);
+  color:       var(--foreground-success-on-surface);
+  /* A step below the role (scale-s) and in sentence case, not uppercase like the role */
+  font-size:      var(--scale-xs);
+  text-transform: capitalize;
+  letter-spacing: var(--letter-spacing-moderate);
 `
 
 const Description = styled(Text)`
@@ -232,12 +287,14 @@ const SecondaryLink = styled.a`
 
 const StatsRow = styled.div`
   display:               grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* minmax(0, ...): a cell may shrink below its content instead of widening the page */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap:                   var(--spacing-m);
   margin-top:            var(--spacing-2xl);
 
-  @media (max-width: ${breakpoints.tablet - 1}px) {
-    grid-template-columns: repeat(2, 1fr);
+  /* Four cells need ~768px; below that, two per row */
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 `
 
@@ -245,10 +302,14 @@ const StatItem = styled.div`
   display:          flex;
   flex-direction:   column;
   gap:              var(--spacing-2xs);
-  padding:          var(--spacing-l);
+  padding:          var(--spacing-m);
   border-radius:    var(--corners-default-card);
   border:           0.5px solid var(--stroke-secondary-on-surface);
   background:       var(--background-surface-solid);
+
+  @media (min-width: 768px) {
+    padding: var(--spacing-l);
+  }
 `
 
 const StatNum = styled(Text)`

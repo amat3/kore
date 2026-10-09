@@ -22,9 +22,12 @@ const resources = {
       'stack.cat.frontend':     'Frontend',
       'stack.cat.mobile':       'Mobile',
       'stack.cat.animation':    'Animación',
+      'stack.cat.architecture': 'Arquitectura',
       'stack.cat.backend':      'Backend & datos',
+      'stack.cat.pwa':          'PWA',
       'stack.cat.cloud':        'Cloud & DevOps',
-      'stack.cat.tooling':      'Tooling y testing',
+      'stack.cat.testing':      'Testing y calidad',
+      'stack.cat.tools':        'Herramientas',
       'stack.cat.ai':           'IA',
 
       // Contact
@@ -64,9 +67,12 @@ const resources = {
       'stack.cat.frontend':     'Frontend',
       'stack.cat.mobile':       'Mobile',
       'stack.cat.animation':    'Animation',
+      'stack.cat.architecture': 'Architecture',
       'stack.cat.backend':      'Backend & data',
+      'stack.cat.pwa':          'PWA',
       'stack.cat.cloud':        'Cloud & DevOps',
-      'stack.cat.tooling':      'Tooling & testing',
+      'stack.cat.testing':      'Testing & quality',
+      'stack.cat.tools':        'Tools',
       'stack.cat.ai':           'AI',
 
       // Contact
@@ -99,6 +105,12 @@ if (!i18n.isInitialized) {
       fallbackLng:   'es',
       interpolation: { escapeValue: false },
     })
+} else {
+  // Already initialized (hot reload in dev): merge the current texts so new keys
+  // don't render as raw keys on the server while the client shows the real text
+  for (const [lng, bundle] of Object.entries(resources)) {
+    i18n.addResourceBundle(lng, 'translation', bundle.translation, true, true)
+  }
 }
 
 export default i18n
