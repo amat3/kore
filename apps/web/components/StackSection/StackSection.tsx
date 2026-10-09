@@ -4,10 +4,12 @@
  * KORE Portfolio — Stack Section §03
  *
  * Grid de tecnologías con Framer Motion stagger.
- * Selector ES/EN con i18next funcional.
+ * Selector ES/EN: demo de i18next acotada a esta sección (lo dice su etiqueta),
+ * con el idioma guardado en localStorage y el atributo lang de la sección al día.
  */
 
 import '@/i18n'
+import { useEffect }         from 'react'
 import styled                from '@emotion/styled'
 import { motion, type Variants } from 'framer-motion'
 import { Text }                  from '@kore/ui-web'
@@ -16,33 +18,52 @@ import { useTranslation }    from 'react-i18next'
 // ── Data ──────────────────────────────────────────────────────────────────
 const STACK = [
   // Frontend
-  { name: 'TypeScript',      category: 'frontend',  color: '#3178C6', level: 5 },
-  { name: 'React 19',        category: 'frontend',  color: '#61DAFB', level: 5 },
-  { name: 'Next.js 16',      category: 'frontend',  color: '#000000', level: 4 },
-  { name: 'Emotion',         category: 'frontend',  color: '#C43BAD', level: 5 },
-  { name: 'Redux Toolkit',   category: 'frontend',  color: '#764ABC', level: 4 },
-  { name: 'react-hook-form', category: 'frontend',  color: '#EC5990', level: 4 },
+  { name: 'TypeScript',            category: 'frontend',  color: '#3178C6' },
+  { name: 'React 19',              category: 'frontend',  color: '#61DAFB' },
+  { name: 'Next.js 16',            category: 'frontend',  color: '#000000' },
+  { name: 'HTML5 semántico · CSS3', category: 'frontend', color: '#E34F26' },
+  { name: 'Emotion',               category: 'frontend',  color: '#C43BAD' },
+  { name: 'Tailwind CSS',          category: 'frontend',  color: '#06B6D4' },
+  { name: 'Redux Toolkit',         category: 'frontend',  color: '#764ABC' },
+  { name: 'TanStack Query',        category: 'frontend',  color: '#FF4154' },
+  { name: 'react-hook-form + Zod', category: 'frontend',  color: '#EC5990' },
   // Mobile
-  { name: 'React Native',    category: 'mobile',    color: '#61DAFB', level: 5 },
-  { name: 'Expo SDK 56',     category: 'mobile',    color: '#000020', level: 4 },
-  { name: 'Expo Router v4',  category: 'mobile',    color: '#000020', level: 4 },
-  { name: 'Reanimated 4',    category: 'mobile',    color: '#6B4FBB', level: 4 },
+  { name: 'React Native',          category: 'mobile',    color: '#61DAFB' },
+  { name: 'Expo SDK 56',           category: 'mobile',    color: '#000020' },
+  { name: 'Expo Router v4',        category: 'mobile',    color: '#000020' },
+  { name: 'Reanimated 4',          category: 'mobile',    color: '#6B4FBB' },
   // Animación
-  { name: 'GSAP',            category: 'animation', color: '#88CE02', level: 4 },
-  { name: 'Framer Motion',   category: 'animation', color: '#FF0055', level: 4 },
-  { name: 'Lottie',          category: 'animation', color: '#00C0C7', level: 3 },
+  { name: 'GSAP',                  category: 'animation', color: '#88CE02' },
+  { name: 'Framer Motion',         category: 'animation', color: '#FF0055' },
+  { name: 'Lottie',                category: 'animation', color: '#00C0C7' },
   // Backend & datos
-  { name: 'Firebase',        category: 'backend',   color: '#FFCA28', level: 4 },
-  { name: 'Firestore',       category: 'backend',   color: '#FFCA28', level: 4 },
-  { name: 'Node.js',         category: 'backend',   color: '#339933', level: 3 },
+  { name: 'Node.js + Express',     category: 'backend',   color: '#339933' },
+  { name: 'Supabase',              category: 'backend',   color: '#3FCF8E' },
+  { name: 'PostgreSQL (RLS)',      category: 'backend',   color: '#4169E1' },
+  { name: 'Firebase · Firestore',  category: 'backend',   color: '#FFCA28' },
+  // Cloud & DevOps
+  { name: 'Google Cloud Run',      category: 'cloud',     color: '#4285F4' },
+  { name: 'Docker',                category: 'cloud',     color: '#2496ED' },
+  { name: 'Terraform',             category: 'cloud',     color: '#844FBA' },
+  { name: 'Vercel',                category: 'cloud',     color: '#000000' },
+  { name: 'GitHub Actions',        category: 'cloud',     color: '#2088FF' },
   // Tooling
-  { name: 'Storybook',       category: 'tooling',   color: '#FF4785', level: 5 },
-  { name: 'Jest + MSW',      category: 'tooling',   color: '#C21325', level: 3 },
-  { name: 'Turborepo',       category: 'tooling',   color: '#EF4444', level: 4 },
-  { name: 'i18next',         category: 'tooling',   color: '#26A69A', level: 4 },
+  { name: 'Storybook',             category: 'tooling',   color: '#FF4785' },
+  { name: 'Turborepo',             category: 'tooling',   color: '#EF4444' },
+  { name: 'Vitest',                category: 'tooling',   color: '#6E9F18' },
+  { name: 'Jest + MSW',            category: 'tooling',   color: '#C21325' },
+  { name: 'React Testing Library', category: 'tooling',   color: '#E33332' },
+  { name: 'i18next',               category: 'tooling',   color: '#26A69A' },
+  // IA
+  { name: 'Claude Code',           category: 'ai',        color: '#D97757' },
+  { name: 'GitHub Copilot',        category: 'ai',        color: '#000000' },
+  { name: 'Cursor',                category: 'ai',        color: '#000000' },
+  { name: 'MCP',                   category: 'ai',        color: '#D97757' },
 ]
 
-const CATEGORIES = ['frontend', 'mobile', 'animation', 'backend', 'tooling'] as const
+const CATEGORIES = ['frontend', 'mobile', 'animation', 'backend', 'cloud', 'tooling', 'ai'] as const
+
+const LANG_KEY = 'kore-portfolio-lang'
 
 // ── Framer Motion variants ────────────────────────────────────────────────
 const containerVariants = {
@@ -61,14 +82,27 @@ const itemVariants: Variants = {
 const StackSection = () => {
   const { t, i18n } = useTranslation()
 
-  const toggleLang = () =>
-    i18n.changeLanguage(i18n.language === 'es' ? 'en' : 'es')
+  // Restores the language chosen in a previous visit (the server always renders Spanish)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(LANG_KEY)
+      if ((saved === 'es' || saved === 'en') && saved !== i18n.language) i18n.changeLanguage(saved)
+    } catch {
+      // Storage blocked (private mode): the section simply starts in Spanish
+    }
+  }, [i18n])
+
+  const toggleLang = () => {
+    const next = i18n.language === 'es' ? 'en' : 'es'
+    i18n.changeLanguage(next)
+    try { localStorage.setItem(LANG_KEY, next) } catch { /* not persisted */ }
+  }
 
   const catKey = (cat: string) =>
     `stack.cat.${cat}` as Parameters<typeof t>[0]
 
   return (
-    <Section>
+    <Section lang={i18n.language}>
       <Container>
 
         {/* Heading + lang toggle */}
@@ -81,14 +115,17 @@ const StackSection = () => {
             <SectionSubtitle variant="body-light">{t('stack.subtitle')}</SectionSubtitle>
           </div>
 
-          <LangToggle
-            onClick={toggleLang}
-            aria-label="Cambiar idioma"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {t('lang.switch')}
-          </LangToggle>
+          <LangDemo>
+            <LangToggle
+              onClick={toggleLang}
+              aria-label={t('lang.label')}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {t('lang.switch')}
+            </LangToggle>
+            <LangNote variant="caption" as="span">{t('lang.demo')}</LangNote>
+          </LangDemo>
         </HeadingRow>
 
         {/* Grid por categoría */}
@@ -113,11 +150,6 @@ const StackSection = () => {
                   >
                     <TechDot $color={tech.color} />
                     {tech.name}
-                    <TechLevel>
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <LevelDot key={i} $active={i < tech.level} />
-                      ))}
-                    </TechLevel>
                   </TechChip>
                 ))}
               </motion.div>
@@ -171,6 +203,20 @@ const SectionSubtitle = styled(Text)`
   color: var(--foreground-secondary-on-surface);
 `
 
+// The toggle and its note: says out loud that only this section is translated (an i18next demo)
+const LangDemo = styled.div`
+  display:        flex;
+  flex-direction: column;
+  align-items:    flex-end;
+  gap:            var(--spacing-2xs);
+  max-width:      16rem;
+  text-align:     right;
+`
+
+const LangNote = styled(Text)`
+  color: var(--foreground-tertiary-on-surface);
+`
+
 const LangToggle = styled(motion.button)`
   padding:        var(--spacing-s) var(--spacing-l);
   border-radius:  var(--radius-full);
@@ -222,21 +268,6 @@ const TechDot = styled.span<{ $color: string }>`
   border-radius: 50%;
   background:    ${({ $color }) => $color};
   flex-shrink:   0;
-`
-
-const TechLevel = styled.span`
-  display:     flex;
-  align-items: center;
-  gap:         var(--spacing-3xs);
-  margin-left: var(--spacing-2xs);
-`
-
-const LevelDot = styled.span<{ $active: boolean }>`
-  width:         var(--spacing-2xs);
-  height:        var(--spacing-2xs);
-  border-radius: 50%;
-  background:    ${({ $active }) =>
-    $active ? 'var(--foreground-accent-on-surface)' : 'var(--stroke-secondary-on-surface)'};
 `
 
 export default StackSection

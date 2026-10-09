@@ -34,14 +34,15 @@ const PortfolioHero = () => {
             <Title variant="h1">Juan Antonio Amate</Title>
 
             <Role variant="overline" as="p">
-              Frontend Developer · React / React Native
+              Frontend Developer · React, Next.js & React Native
             </Role>
 
             <Description variant="body-light">
-              Especialista en UI, design systems y animaciones avanzadas. Lo que ves aquí — tokens
-              semánticos, monorepo Turborepo, componentes documentados con Storybook y animaciones
-              GSAP — está construido desde cero con React 19 y Next.js 16 como parte del
-              proyecto <strong>KORE</strong>.
+              Desarrollador frontend con React, Next.js y TypeScript, especializado en design systems
+              y productos mobile-first que llegan a producción. Lo que ves aquí — tokens semánticos
+              compartidos entre web y móvil, monorepo Turborepo, componentes documentados con
+              Storybook y animaciones GSAP — es parte del proyecto <strong>KORE</strong>. Disponible
+              de inmediato, en remoto.
             </Description>
 
             <Links>
@@ -70,7 +71,7 @@ const PortfolioHero = () => {
 
         <StatsRow>
           {[
-            { num: '2',    label: 'Packages npm'   },
+            { num: '2',    label: 'Paquetes compartidos' },
             { num: '15',   label: 'Componentes'    },
             { num: '190',  label: 'Design tokens'  },
             { num: '100%', label: 'TypeScript'     },

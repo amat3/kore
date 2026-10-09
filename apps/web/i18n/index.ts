@@ -9,21 +9,23 @@ const resources = {
       // Portfolio hero
       'portfolio.overline':     'Portfolio técnico',
       'portfolio.back':         '← Ver la app KORE',
-      'portfolio.role':         'Frontend Developer · React / React Native',
-      'portfolio.description':  'Especialista en UI, design systems y animaciones avanzadas. Tokens semánticos, monorrepo Turborepo, componentes con Storybook y animaciones GSAP — construido desde cero con React 19 y Next.js 16.',
+      'portfolio.role':         'Frontend Developer · React, Next.js & React Native',
+      'portfolio.description':  'Desarrollador frontend con React, Next.js y TypeScript, especializado en design systems y productos mobile-first que llegan a producción.',
 
       // Stack section
       'stack.overline':         'Stack técnico',
       'stack.title':            'Herramientas con las que',
       'stack.title.em':         'construyo',
-      'stack.subtitle':         'Tecnologías que uso en producción a diario — no en tutoriales.',
+      'stack.subtitle':         'Tecnologías con las que he construido productos en producción y en mis proyectos.',
 
       // Stack categories
       'stack.cat.frontend':     'Frontend',
       'stack.cat.mobile':       'Mobile',
       'stack.cat.animation':    'Animación',
       'stack.cat.backend':      'Backend & datos',
-      'stack.cat.tooling':      'Tooling',
+      'stack.cat.cloud':        'Cloud & DevOps',
+      'stack.cat.tooling':      'Tooling y testing',
+      'stack.cat.ai':           'IA',
 
       // Contact
       'contact.overline':       'Contacto',
@@ -40,6 +42,8 @@ const resources = {
 
       // Lang toggle
       'lang.switch':            'EN',
+      'lang.label':             'Ver esta sección en inglés',
+      'lang.demo':              'Demo de i18n con i18next: solo traduce esta sección.',
     },
   },
   en: {
@@ -47,21 +51,23 @@ const resources = {
       // Portfolio hero
       'portfolio.overline':     'Technical Portfolio',
       'portfolio.back':         '← Back to KORE app',
-      'portfolio.role':         'Frontend Developer · React / React Native',
-      'portfolio.description':  'UI specialist in design systems and advanced animations. Semantic tokens, Turborepo monorepo, Storybook components and GSAP animations — built from scratch with React 19 and Next.js 16.',
+      'portfolio.role':         'Frontend Developer · React, Next.js & React Native',
+      'portfolio.description':  'Frontend developer working with React, Next.js and TypeScript, focused on design systems and mobile-first products that reach production.',
 
       // Stack section
       'stack.overline':         'Tech Stack',
       'stack.title':            'Tools I',
       'stack.title.em':         'build with',
-      'stack.subtitle':         'Technologies I use in production daily — not just in tutorials.',
+      'stack.subtitle':         'Technologies I have shipped production products and personal projects with.',
 
       // Stack categories
       'stack.cat.frontend':     'Frontend',
       'stack.cat.mobile':       'Mobile',
       'stack.cat.animation':    'Animation',
       'stack.cat.backend':      'Backend & data',
-      'stack.cat.tooling':      'Tooling',
+      'stack.cat.cloud':        'Cloud & DevOps',
+      'stack.cat.tooling':      'Tooling & testing',
+      'stack.cat.ai':           'AI',
 
       // Contact
       'contact.overline':       'Contact',
@@ -78,6 +84,8 @@ const resources = {
 
       // Lang toggle
       'lang.switch':            'ES',
+      'lang.label':             'Ver esta sección en español',
+      'lang.demo':              'i18n demo with i18next: only this section is translated.',
     },
   },
 }

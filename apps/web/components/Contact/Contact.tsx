@@ -137,7 +137,7 @@ const Contact = () => {
 
             <LocationNote variant="body-sm" as="p">
               <Icon name="MapPin" size="xs" color="muted" />
-              Jaén, España
+              Jaén, España · Remoto
             </LocationNote>
           </motion.div>
 
